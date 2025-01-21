@@ -1,0 +1,29 @@
+{
+  "name": "puzzlepop2",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,md}\"",
+    "lint": "turbo run lint",
+    "format": "yarn prettier && yarn lint",
+    "test": "turbo run test",
+    "graph": "turbo run build --graph",
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "dev": "turbo run dev"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "turbo": "^2.3.3"
+  },
+  "packageManager": "yarn@1.22.19",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=8.0.0"
+  }
+}
