@@ -1,1 +1,5 @@
-- 현재 `packages/jest-presets` 패키지에 문제가 있음. `yarn test`가 잘 안됨.
+# PuzzlePop2 Monorepo
+
+### Environment
+
+- yarn + turbo
