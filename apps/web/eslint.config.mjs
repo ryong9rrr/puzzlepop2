@@ -9,6 +9,19 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
-const eslintConfig = [...compat.extends("next/core-web-vitals", "next/typescript")];
+const eslintConfig = [
+  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      "no-warning-comments": [
+        "warn",
+        {
+          terms: ["TODO", "FIXME", "XXX", "BUG"],
+          location: "anywhere",
+        },
+      ],
+    },
+  },
+];
 
 export default eslintConfig;

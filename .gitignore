@@ -3,7 +3,7 @@
 # dependencies
 node_modules
 .pnp
-.pnp.js
+.pnp.*
 
 # testing
 coverage
@@ -12,9 +12,6 @@ coverage
 .next/
 out/
 build
-
-# other
-dist/
 
 # misc
 .DS_Store
@@ -34,3 +31,9 @@ yarn-error.log*
 
 # turbo
 .turbo
+
+# build
+*.tsbuildinfo
+**/node_modules/
+**/dist/*
+dist

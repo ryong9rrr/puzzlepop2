@@ -1,0 +1,13 @@
+{
+  "name": "@puzzlepop2/core",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf dist & rm -rf node_modules",
+    "build": "yarn build:js",
+    "build:js": "node build.js"
+  },
+  "devDependencies": {
+    "esbuild": "0.16.17"
+  }
+}
