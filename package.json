@@ -14,7 +14,8 @@
     "graph": "turbo run build --graph",
     "build": "turbo run build",
     "clean": "turbo run clean",
-    "dev": "turbo run dev"
+    "dev": "turbo run dev",
+    "dev:web": "turbo run dev --filter=web"
   },
   "dependencies": {},
   "devDependencies": {
