@@ -1,4 +1,4 @@
-const baseConfig = require("./baseConfig");
+const baseConfig = require("./base");
 
 module.exports = {
   extends: [...baseConfig.extends, "eslint:recommended"],

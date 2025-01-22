@@ -1,5 +1,5 @@
 const { resolve } = require("node:path");
-const baseConfig = require("./baseConfig");
+const baseConfig = require("./base");
 
 const project = resolve(process.cwd(), "tsconfig.json");
 
