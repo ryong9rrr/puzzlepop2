@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "clean": "rm -rf .next && rm -rf node_modules && rm -rf .turbo",
+    "clean": "rm -rf .next & rm -rf node_modules & rm -rf .turbo",
     "dev": "next dev --port 3000",
     "build": "next build",
     "start": "next start",
@@ -12,7 +12,8 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.1.5"
+    "next": "15.1.5",
+    "@puzzlepop2/core": "*"
   },
   "devDependencies": {
     "typescript": "^5",

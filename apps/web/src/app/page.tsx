@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { sum } from "@puzzlepop2/core";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
             Get started by editing <code>src/app/page.tsx</code>.
           </li>
           <li>Save and see your changes instantly.</li>
+          <li>1더하기 1은 {sum(1, 1)}</li>
         </ol>
 
         <div className={styles.ctas}>

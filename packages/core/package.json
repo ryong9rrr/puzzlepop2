@@ -2,12 +2,32 @@
   "name": "@puzzlepop2/core",
   "version": "0.0.1",
   "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
   "scripts": {
-    "clean": "rm -rf dist & rm -rf node_modules",
-    "build": "yarn build:js",
-    "build:js": "node build.js"
+    "clean": "rm -rf dist & rm -rf node_modules & rm -rf .turbo",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "yarn clean && yarn build:js && yarn build:type",
+    "build:js": "node build.js",
+    "build:type": "tsc --emitDeclarationOnly"
   },
   "devDependencies": {
-    "esbuild": "0.16.17"
-  }
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.10.7",
+    "esbuild": "0.16.17",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5"
+  },
+  "license": "MIT"
 }

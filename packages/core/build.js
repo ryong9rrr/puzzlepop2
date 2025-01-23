@@ -12,7 +12,7 @@ const external = Object.keys({
 });
 
 const baseConfig = {
-  entryPoints: ["src/index.js"],
+  entryPoints: ["src/index.ts"],
   bundle: true,
   minify,
   sourcemap: true,
