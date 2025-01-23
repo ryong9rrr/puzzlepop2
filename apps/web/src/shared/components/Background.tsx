@@ -37,5 +37,5 @@ const imageStyle: CSSProperties = {
   right: 0,
   bottom: 0,
   objectFit: "cover",
-  zIndex: -1,
+  zIndex: "var(--background-zindex)",
 };
