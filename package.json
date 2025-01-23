@@ -13,7 +13,7 @@
     "test": "turbo run test",
     "graph": "turbo run build --graph",
     "build": "turbo run build",
-    "clean": "turbo run clean",
+    "clean": "rm -rf .turbo && rm -rf node_modules && turbo run clean",
     "dev": "turbo run dev",
     "dev:web": "turbo run dev --filter=web"
   },
