@@ -1,0 +1,13 @@
+@import url("./reset.css");
+@import url("./font.css");
+
+:root {
+  --background-zindex: -10;
+  --dimmed-zindex: 10;
+  --alert-zindex: 11;
+}
+
+.game {
+  font-family: "SDSamliphopangche_Outline";
+  font-weight: 800;
+}
