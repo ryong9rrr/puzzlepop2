@@ -12,6 +12,7 @@
   "dependencies": {
     "@puzzlepop2/core": "*",
     "@tailwindcss/postcss": "^4.0.0",
+    "lottie-web": "^5.12.2",
     "next": "15.1.5",
     "postcss": "^8.5.1",
     "react": "^19.0.0",

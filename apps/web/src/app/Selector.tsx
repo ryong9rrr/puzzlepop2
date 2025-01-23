@@ -69,24 +69,28 @@ export default function Selector() {
   }, [selected, router]);
 
   return (
-    <div className="w-44 sm:w-44 md:w-56 lg:w-64">
+    <div className="w-42 sm:w-42 md:w-56 lg:w-64">
       <div className="font-gameoutline responsive-text-lg">
-        {items.map((item, index) => (
-          <div key={item.url}>
-            <Link
-              href={item.url}
-              target={item.black ? "_blank" : ""}
-              style={{
-                ...createLinkStyles(selected === index),
-              }}
-              onMouseEnter={() => onHover(index)}
-              onMouseLeave={onBlur}
-            >
-              {item.name}
-            </Link>
-            {index < items.length - 1 && <Spacing size={16} />}
-          </div>
-        ))}
+        {items.map((item, index) => {
+          const isSelected = selected === index;
+
+          return (
+            <div key={item.url}>
+              <Link
+                href={item.url}
+                target={item.black ? "_blank" : ""}
+                style={{
+                  ...createLinkStyles(isSelected),
+                }}
+                onMouseEnter={() => onHover(index)}
+                onMouseLeave={onBlur}
+              >
+                <div className="p-4 sm:p-4 md:p-4 lg:p-6 xl:p-6">{item.name}</div>
+              </Link>
+              {index < items.length - 1 && <Spacing size={16} />}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
@@ -94,12 +98,13 @@ export default function Selector() {
 
 const createLinkStyles = (isSelected: boolean) => {
   return {
+    boxSizing: "border-box",
     width: "100%",
-    display: "block",
-    textAlign: "center",
-    padding: "6px 8px",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: "8px",
-    backgroundColor: "rgba(0, 0, 0, 0.4)",
-    color: isSelected ? "black" : "rgba(255, 255, 255, 0.6)",
+    backgroundColor: `rgba(0, 0, 0, ${isSelected ? 0.7 : 0.2})`,
+    color: isSelected ? "white" : "rgba(255, 255, 255, 0.6)",
   } as CSSProperties;
 };

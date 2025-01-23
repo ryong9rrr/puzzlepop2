@@ -6,3 +6,8 @@
   --dimmed-zindex: 10;
   --alert-zindex: 11;
 }
+
+/* lottie를 위한 임시코드 */
+#puzzle-lottie rect {
+  fill: transparent;
+}
