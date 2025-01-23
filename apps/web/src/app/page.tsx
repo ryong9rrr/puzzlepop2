@@ -1,15 +1,17 @@
-import { Background } from "@/components/Background";
-import { colors } from "@/theme/colors";
 import Image from "next/image";
-import Link from "next/link";
-import { Selector } from "./Selector";
+import { colors } from "@/theme/colors";
+import Background from "@/shared/components/Background";
+import Spacing from "@/shared/components/Spacing";
+import Selector from "./Selector";
 
 export default function Welcome() {
   return (
-    <Background src="/backgrounds/puzzle.gif">
-      <Image src="/symbol.png" alt="symbol" width={200} height={200} priority />
-      <Spacing size={16} />
-      <h1 className="text-5xl font-bold text-center flex justify-center gap-3">
+    <Background src="/backgrounds/dynamic-puzzle.gif">
+      <div className="w-36 sm:w-36 md:w-48 lg:w-56 xl:w-64">
+        <Image src="/symbol.png" alt="symbol" layout="responsive" width={1} height={1} priority />
+      </div>
+      <Spacing size={48} />
+      <h1 className="responsive-text-xlg font-bold text-center flex justify-center gap-3">
         <div
           className="font-gamebasic"
           style={{ textShadow: "3px 3px 3px #555", color: colors.primaryYellow["700"] }}
@@ -23,17 +25,8 @@ export default function Welcome() {
           Pop!
         </div>
       </h1>
-      <Spacing size={16} />
+      <Spacing size={48} />
       <Selector />
     </Background>
   );
 }
-
-interface SpacingProps {
-  size: number;
-}
-
-const Spacing = (props: SpacingProps) => {
-  const { size } = props;
-  return <div style={{ height: size }} />;
-};

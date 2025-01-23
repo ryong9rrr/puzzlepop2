@@ -14,6 +14,14 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "SDSamliphopangche_Basic";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Basic.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
 .font-gamebasic {
   font-family: "yg-jalnan", sans-serif;
   font-weight: 800;
@@ -22,4 +30,25 @@
 .font-gameoutline {
   font-family: "SDSamliphopangche_Outline", sans-serif;
   font-weight: 800;
+}
+
+.font-gameinline {
+  font-family: "SDSamliphopangche_Basic", sans-serif;
+  font-weight: 800;
+}
+
+@layer utilities {
+  .responsive-text-xlg {
+    @apply text-5xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl;
+  }
+
+  .responsive-text-lg {
+    @apply text-3xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  .responsive-text-md {
+  }
+
+  .responsive-text-sm {
+  }
 }

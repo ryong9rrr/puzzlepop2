@@ -6,7 +6,7 @@ interface BackgroundProps extends PropsWithChildren {
   opacity?: number;
 }
 
-export const Background = (props: BackgroundProps) => {
+export default function Background(props: BackgroundProps) {
   const { src, children, opacity = 0.4 } = props;
 
   return (
@@ -15,7 +15,7 @@ export const Background = (props: BackgroundProps) => {
       {children}
     </div>
   );
-};
+}
 
 const containerStyle: CSSProperties = {
   position: "relative",
