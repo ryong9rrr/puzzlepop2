@@ -5,7 +5,7 @@
   "scripts": {
     "clean": "rm -rf .next & rm -rf node_modules & rm -rf .turbo",
     "dev": "next dev --port 3000",
-    "build": "next build",
+    "build": "yarn clean && next build",
     "start": "next start",
     "lint": "next lint"
   },
