@@ -77,4 +77,5 @@ const setLottiePlayer = (props: {
   });
 };
 
+Lottie.displayName = "Lottie";
 export default Lottie;

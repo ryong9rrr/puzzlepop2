@@ -31,7 +31,7 @@ export default function Alert(props: PrivateAlertProps) {
     return () => {
       window.removeEventListener("keydown", keyboardHandler);
     };
-  }, []);
+  }, [handleClose]);
 
   return (
     <Dimmed>

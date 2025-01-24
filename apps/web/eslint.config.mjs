@@ -20,6 +20,7 @@ const eslintConfig = [
           location: "anywhere",
         },
       ],
+      "@typescript-eslint/no-unsafe-declaration-merging": "off",
     },
   },
 ];
