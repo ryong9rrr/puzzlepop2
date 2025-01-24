@@ -1,15 +1,6 @@
-import { CSSProperties, PropsWithChildren } from "react";
+import { PropsWithChildren } from "react";
+import styles from "./Dimmed.module.css";
 
 export default function Dimmed({ children }: PropsWithChildren) {
-  return <div style={{ ...containerStyles }}>{children}</div>;
+  return <div className={styles.container}>{children}</div>;
 }
-
-const containerStyles: CSSProperties = {
-  position: "fixed",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  backgroundColor: "rgba(0, 0, 0, 0.4)",
-  zIndex: "var(--dimmed-zindex)",
-};

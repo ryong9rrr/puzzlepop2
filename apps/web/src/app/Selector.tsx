@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CSSProperties, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Spacing from "@/shared/components/Spacing";
-import { AlertProvider, useAlert } from "@/shared/components/Alert";
+import { AlertProvider, useAlert } from "@/shared/Alert";
 
 const items = [
   {
