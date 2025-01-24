@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "install": "yarn install",
     "clean": "rm -rf .next & rm -rf node_modules & rm -rf .turbo",
     "dev": "next dev --port 3000",
     "build": "yarn clean && next build",
