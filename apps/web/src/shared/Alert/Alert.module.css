@@ -1,0 +1,10 @@
+.alertContainer {
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  overflow: hidden;
+  z-index: var(--alert-zindex);
+}

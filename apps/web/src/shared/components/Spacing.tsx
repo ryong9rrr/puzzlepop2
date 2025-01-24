@@ -1,15 +1,16 @@
-import { CSSProperties } from "react";
+import { CSSProperties, HTMLAttributes } from "react";
+import clsx from "clsx";
 
-interface SpacingProps {
+interface SpacingProps extends HTMLAttributes<HTMLDivElement> {
   size: number;
   direction?: "horizontal" | "vertical";
 }
 
 export default function Spacing(props: SpacingProps) {
-  const { size, direction = "vertical" } = props;
+  const { size, direction = "vertical", className, ...rest } = props;
 
   const containerStyles: CSSProperties =
     direction === "vertical" ? { height: size } : { width: size };
 
-  return <div style={{ ...containerStyles }} />;
+  return <div className={clsx(className)} style={{ ...containerStyles }} {...rest} />;
 }

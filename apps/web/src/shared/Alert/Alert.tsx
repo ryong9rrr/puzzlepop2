@@ -1,6 +1,8 @@
-import { CSSProperties, useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
+import clsx from "clsx";
 import { AlertProps } from "./AlertContext";
 import Dimmed from "../components/Dimmed";
+import styles from "./Alert.module.css";
 
 interface PrivateAlertProps extends AlertProps {
   onClose: () => void;
@@ -33,7 +35,7 @@ export default function Alert(props: PrivateAlertProps) {
 
   return (
     <Dimmed>
-      <div style={alertContainerStyles} className="w-1/2 bg-white shadow-lg">
+      <div className={clsx(styles.alertContainer, "w-1/2 bg-white shadow-lg")}>
         <div>{title}</div>
 
         <div>{description}</div>
@@ -43,14 +45,3 @@ export default function Alert(props: PrivateAlertProps) {
     </Dimmed>
   );
 }
-
-const alertContainerStyles: CSSProperties = {
-  position: "absolute",
-  left: "50%",
-  top: "50%",
-  transform: "translate(-50%, -50%)",
-  borderRadius: 4,
-  overflow: "hidden",
-  zIndex: "var(--alert-zindex)",
-  boxSizing: "border-box",
-};
