@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CSSProperties, useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Spacing from "@/shared/components/Spacing";
+import Text from "@/shared/components/Text";
 import { AlertProvider, useAlert } from "@/shared/Alert";
 
 const items = [
@@ -97,52 +98,54 @@ const SelectorComponent = () => {
 
   return (
     <div className="w-42 sm:w-42 md:w-56 lg:w-64">
-      <div className="font-gameoutline responsive-text-lg">
-        {items.map((item, index) => {
-          const isSelected = selected === index;
+      {items.map((item, index) => {
+        const isSelected = selected === index;
 
-          // TODO: 개발이 끝나면 삭제
-          if (item.isDeveloping) {
-            return (
-              <div key={item.url}>
-                <div
-                  style={{
-                    ...createLinkStyles(isSelected),
-                  }}
-                  onMouseEnter={() => onHover(index)}
-                  onMouseLeave={onBlur}
-                  onClick={() => {
-                    alert({
-                      title: "서비스 준비 중이에요",
-                      description: "곧 찾아뵐게요!",
-                    });
-                  }}
-                >
-                  <div className="p-4 sm:p-4 md:p-4 lg:p-6 xl:p-6">{item.name}</div>
-                </div>
-                {index < items.length - 1 && <Spacing size={16} />}
-              </div>
-            );
-          }
-
+        // TODO: 개발이 끝나면 삭제
+        if (item.isDeveloping) {
           return (
             <div key={item.url}>
-              <Link
-                href={item.url}
-                target={item.black ? "_blank" : ""}
+              <div
                 style={{
                   ...createLinkStyles(isSelected),
                 }}
                 onMouseEnter={() => onHover(index)}
                 onMouseLeave={onBlur}
+                onClick={() => {
+                  alert({
+                    title: "서비스 준비 중이에요",
+                    description: "곧 찾아뵐게요!",
+                  });
+                }}
               >
-                <div className="p-4 sm:p-4 md:p-4 lg:p-6 xl:p-6">{item.name}</div>
-              </Link>
+                <Text typography="lg" className="font-gameoutline p-4 sm:p-4 md:p-4 lg:p-6 xl:p-6">
+                  {item.name}
+                </Text>
+              </div>
               {index < items.length - 1 && <Spacing size={16} />}
             </div>
           );
-        })}
-      </div>
+        }
+
+        return (
+          <div key={item.url}>
+            <Link
+              href={item.url}
+              target={item.black ? "_blank" : ""}
+              style={{
+                ...createLinkStyles(isSelected),
+              }}
+              onMouseEnter={() => onHover(index)}
+              onMouseLeave={onBlur}
+            >
+              <Text typography="lg" className="font-gameoutline p-4 sm:p-4 md:p-4 lg:p-6 xl:p-6">
+                {item.name}
+              </Text>
+            </Link>
+            {index < items.length - 1 && <Spacing size={16} />}
+          </div>
+        );
+      })}
     </div>
   );
 };

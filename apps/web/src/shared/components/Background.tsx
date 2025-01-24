@@ -1,7 +1,5 @@
 import Image from "next/image";
 import React, { CSSProperties, HTMLAttributes } from "react";
-import clsx from "clsx";
-import styles from "./Background.module.css";
 
 interface BackgroundProps extends HTMLAttributes<HTMLDivElement> {
   src: string;
@@ -9,17 +7,27 @@ interface BackgroundProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 export default function Background(props: BackgroundProps) {
-  const { src, children, opacity = 0.4, className, ...rest } = props;
+  const { src, children, opacity = 0.4, style, ...rest } = props;
 
   return (
-    <div className={clsx(className, styles.container)} {...rest}>
-      <Image style={{ ...imageStyle, opacity }} src={src} alt="" width={0} height={0} />
+    <div style={{ ...style, ...containerStyle }} {...rest}>
+      <Image style={{ ...imageStyles, opacity }} src={src} alt="" width={0} height={0} />
       {children}
     </div>
   );
 }
 
-const imageStyle: CSSProperties = {
+const containerStyle: CSSProperties = {
+  position: "relative",
+  width: "100%",
+  height: "100vh",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+};
+
+const imageStyles: CSSProperties = {
   position: "absolute",
   width: "100%",
   height: "100%",
