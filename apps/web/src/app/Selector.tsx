@@ -43,10 +43,6 @@ const SelectorComponent = () => {
     setSelected(index);
   }, []);
 
-  const onBlur = useCallback(() => {
-    setSelected(-1);
-  }, []);
-
   useEffect(() => {
     const keyboardHandler = (e: KeyboardEvent) => {
       if (isShowAlert) {
@@ -104,13 +100,12 @@ const SelectorComponent = () => {
         // TODO: 개발이 끝나면 삭제
         if (item.isDeveloping) {
           return (
-            <div key={item.url}>
+            <div key={item.url} className="cursor-pointer">
               <div
                 style={{
                   ...createLinkStyles(isSelected),
                 }}
                 onMouseEnter={() => onHover(index)}
-                onMouseLeave={onBlur}
                 onClick={() => {
                   alert({
                     title: "서비스 준비 중이에요",
@@ -128,7 +123,7 @@ const SelectorComponent = () => {
         }
 
         return (
-          <div key={item.url}>
+          <div key={item.url} className="cursor-pointer">
             <Link
               href={item.url}
               target={item.black ? "_blank" : ""}
@@ -136,7 +131,6 @@ const SelectorComponent = () => {
                 ...createLinkStyles(isSelected),
               }}
               onMouseEnter={() => onHover(index)}
-              onMouseLeave={onBlur}
             >
               <Text typography="lg" className="font-gameoutline p-4 sm:p-4 md:p-4 lg:p-6 xl:p-6">
                 {item.name}
