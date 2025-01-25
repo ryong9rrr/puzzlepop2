@@ -1,5 +1,0 @@
-@layer utilities {
-  .responsive-button-padding {
-    @apply p-4 sm:p-4 md:p-4 lg:p-6 xl:p-6;
-  }
-}

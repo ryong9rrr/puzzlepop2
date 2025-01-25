@@ -1,12 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Spacing from "@/shared/components/Spacing";
-import Text from "@/shared/components/Text";
 import { AlertProvider, useAlert } from "@/shared/Alert";
-import { createShadowButtonStyle } from "@/shared/components/Button/Button";
+import { Button } from "@/shared/components/Button/Button";
+import { Flex } from "@/shared/components/Flex";
 
 const items = [
   {
@@ -44,6 +42,25 @@ const SelectorComponent = () => {
     setSelected(index);
   }, []);
 
+  const handleClick = useCallback(() => {
+    const item = items[selected];
+
+    // TODO: 개발이 끝나면 삭제
+    if (item.isDeveloping) {
+      alert({
+        title: `${item.name}은 개발 중...`,
+        description: "2월 중 오픈합니다",
+      });
+      return;
+    }
+    if (item.black) {
+      window.open(item.url, "_blank");
+      return;
+    }
+    router.push(item.url);
+    return;
+  }, [alert, router, selected]);
+
   useEffect(() => {
     const keyboardHandler = (e: KeyboardEvent) => {
       if (isShowAlert) {
@@ -67,23 +84,7 @@ const SelectorComponent = () => {
       }
 
       if (e.key === "Enter" || e.code === "Enter") {
-        const item = items[selected];
-
-        // TODO: 개발이 끝나면 삭제
-        if (item.isDeveloping) {
-          alert({
-            title: "서비스 준비 중이에요",
-            description: "곧 찾아뵐게요!",
-          });
-          return;
-        }
-
-        if (item.black) {
-          window.open(item.url, "_blank");
-          return;
-        }
-        router.push(item.url);
-        return;
+        handleClick();
       }
     };
 
@@ -91,56 +92,22 @@ const SelectorComponent = () => {
     return () => {
       window.removeEventListener("keydown", keyboardHandler);
     };
-  }, [selected, router, isShowAlert, alert]);
+  }, [selected, router, isShowAlert, alert, handleClick]);
 
   return (
-    <div className="w-42 sm:w-42 md:w-56 lg:w-64">
+    <Flex direction="column" gap={0.75}>
       {items.map((item, index) => {
-        const isSelected = selected === index;
-
-        // TODO: 개발이 끝나면 삭제
-        if (item.isDeveloping) {
-          return (
-            <div key={item.url} className="cursor-pointer">
-              <div
-                style={{
-                  ...createShadowButtonStyle({ isSelected }),
-                }}
-                onMouseEnter={() => onHover(index)}
-                onClick={() => {
-                  alert({
-                    title: "서비스 준비 중이에요",
-                    description: "곧 찾아뵐게요!",
-                  });
-                }}
-              >
-                <Text typography="lg" className="responsive-button-padding">
-                  {item.name}
-                </Text>
-              </div>
-              {index < items.length - 1 && <Spacing size={16} />}
-            </div>
-          );
-        }
-
         return (
-          <div key={item.url} className="cursor-pointer">
-            <Link
-              href={item.url}
-              target={item.black ? "_blank" : ""}
-              style={{
-                ...createShadowButtonStyle({ isSelected }),
-              }}
-              onMouseEnter={() => onHover(index)}
-            >
-              <Text typography="lg" className="responsive-button-padding">
-                {item.name}
-              </Text>
-            </Link>
-            {index < items.length - 1 && <Spacing size={16} />}
-          </div>
+          <Button
+            key={item.url}
+            size="md"
+            onMouseEnter={() => onHover(index)}
+            onClick={handleClick}
+          >
+            {item.name}
+          </Button>
         );
       })}
-    </div>
+    </Flex>
   );
 };

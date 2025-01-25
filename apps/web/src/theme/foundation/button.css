@@ -1,0 +1,159 @@
+@media screen and (max-width: 640px) {
+  .button-xs {
+    padding: 10px 30px;
+    border-radius: 5px;
+  }
+
+  .button-sm {
+    padding: 12px 32px;
+    border-radius: 6px;
+  }
+
+  .button-md {
+    padding: 14px 34px;
+    border-radius: 7px;
+  }
+
+  .button-lg {
+    padding: 16px 36px;
+    border-radius: 8px;
+  }
+
+  .button-xl {
+    padding: 18px 38px;
+    border-radius: 9px;
+  }
+
+  .button-2xl {
+    padding: 20px 40px;
+    border-radius: 10px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 768px) {
+  .button-xs {
+    padding: 12px 32px;
+    border-radius: 6px;
+  }
+
+  .button-sm {
+    padding: 14px 34px;
+    border-radius: 7px;
+  }
+
+  .button-md {
+    padding: 16px 36px;
+    border-radius: 8px;
+  }
+
+  .button-lg {
+    padding: 18px 38px;
+    border-radius: 9px;
+  }
+
+  .button-xl {
+    padding: 20px 40px;
+    border-radius: 10px;
+  }
+
+  .button-2xl {
+    padding: 22px 42px;
+    border-radius: 11px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .button-xs {
+    padding: 14px 34px;
+    border-radius: 7px;
+  }
+
+  .button-sm {
+    padding: 16px 36px;
+    border-radius: 8px;
+  }
+
+  .button-md {
+    padding: 18px 38px;
+    border-radius: 9px;
+  }
+
+  .button-lg {
+    padding: 20px 40px;
+    border-radius: 10px;
+  }
+
+  .button-xl {
+    padding: 22px 42px;
+    border-radius: 11px;
+  }
+
+  .button-2xl {
+    padding: 24px 44px;
+    border-radius: 12px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .button-xs {
+    padding: 16px 36px;
+    border-radius: 8px;
+  }
+
+  .button-sm {
+    padding: 18px 38px;
+    border-radius: 9px;
+  }
+
+  .button-md {
+    padding: 20px 40px;
+    border-radius: 10px;
+  }
+
+  .button-lg {
+    padding: 22px 42px;
+    border-radius: 11px;
+  }
+
+  .button-xl {
+    padding: 24px 44px;
+    border-radius: 12px;
+  }
+
+  .button-2xl {
+    padding: 26px 46px;
+    border-radius: 13px;
+  }
+}
+
+@media (min-width: 1441px) {
+  .button-xs {
+    padding: 18px 38px;
+    border-radius: 9px;
+  }
+
+  .button-sm {
+    padding: 20px 40px;
+    border-radius: 10px;
+  }
+
+  .button-md {
+    padding: 22px 42px;
+    border-radius: 11px;
+  }
+
+  .button-lg {
+    padding: 24px 44px;
+    border-radius: 12px;
+  }
+
+  .button-xl {
+    padding: 26px 46px;
+    border-radius: 13px;
+  }
+
+  .button-2xl {
+    padding: 28px 48px;
+    border-radius: 14px;
+  }
+}

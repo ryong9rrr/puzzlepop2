@@ -1,11 +1,9 @@
-.button {
+.baseButton {
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  background-color: #0070f3;
-  color: white;
-  font-size: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.2s;
+  outline: none;
 }

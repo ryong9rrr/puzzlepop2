@@ -10,7 +10,7 @@ interface LottieProps {
   zIndex?: number;
 }
 
-const Lottie = memo(
+export const Lottie = memo(
   (props: LottieProps) => {
     const { src: _src, loop = true, autoplay = true, size, zIndex = -10 } = props;
 
@@ -78,4 +78,3 @@ const setLottiePlayer = (props: {
 };
 
 Lottie.displayName = "Lottie";
-export default Lottie;

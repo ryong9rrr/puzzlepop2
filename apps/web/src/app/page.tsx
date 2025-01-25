@@ -1,35 +1,40 @@
 import Image from "next/image";
-import { colors } from "@/theme/colors";
-import Background from "@/shared/components/Background";
-import Spacing from "@/shared/components/Spacing";
-import Text from "@/shared/components/Text";
-import Selector from "./Selector";
+import clsx from "clsx";
 import styles from "./page.module.css";
+import { colors } from "@/theme/colors";
+import { Background } from "@/shared/components/Background";
+import { Spacing } from "@/shared/components/Spacing";
+import { Text } from "@/shared/components/Text";
+import { Flex } from "@/shared/components/Flex";
+import Selector from "./Selector";
 
-export default function Welcome() {
+export default function HomePage() {
   return (
-    <Background src="/backgrounds/dynamic-puzzle.gif">
-      <div className={styles.container}>
-        <div className="w-36 sm:w-36 md:w-48 lg:w-56 xl:w-64">
-          <Image src="/symbol.png" alt="symbol" layout="responsive" width={1} height={1} priority />
-        </div>
-        <Spacing size={48} />
-        <h1 className="font-gamebasic responsive-text-xlg font-bold text-center flex justify-center gap-3">
+    <Background className={styles.background} src="/backgrounds/dynamic-puzzle.gif">
+      <div className={clsx(styles.symbolContainer, styles["bounce-in-bck"])}>
+        <Image src="/symbol.png" alt="symbol" layout="responsive" width={1} height={1} priority />
+      </div>
+      <div className={styles["bounce-in-bck"]}>
+        <Flex as="h1" className="font-gamebasic">
           <Text
-            typography="xlg"
-            style={{ textShadow: "3px 3px 3px #555", color: colors.primaryYellow["700"] }}
+            typography="2xl"
+            color={colors.primaryYellow["700"]}
+            style={{
+              textShadow: "3px 3px 3px #555",
+            }}
           >
             Puzzle
           </Text>
+          <Spacing direction="horizontal" size={16} />
           <Text
-            typography="xlg"
-            style={{ textShadow: "3px 3px 3px #555", color: colors.primaryPurple["700"] }}
+            typography="2xl"
+            color={colors.primaryPurple["700"]}
+            style={{ textShadow: "3px 3px 3px #555" }}
           >
             Pop!
           </Text>
-        </h1>
+        </Flex>
       </div>
-      <Spacing size={48} />
       <div className="font-gameoutline">
         <Selector />
       </div>
