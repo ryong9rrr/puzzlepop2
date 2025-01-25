@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "./font.css";
+@import "./foundation.css";
 
 :root {
   --background-zindex: -10;

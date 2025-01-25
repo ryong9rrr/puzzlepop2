@@ -30,7 +30,9 @@ export default function Welcome() {
         </h1>
       </div>
       <Spacing size={48} />
-      <Selector />
+      <div className="font-gameoutline">
+        <Selector />
+      </div>
     </Background>
   );
 }

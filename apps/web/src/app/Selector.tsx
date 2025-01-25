@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { CSSProperties, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Spacing from "@/shared/components/Spacing";
 import Text from "@/shared/components/Text";
 import { AlertProvider, useAlert } from "@/shared/Alert";
+import { createShadowButtonStyle } from "@/shared/components/Button/Button";
 
 const items = [
   {
@@ -103,7 +104,7 @@ const SelectorComponent = () => {
             <div key={item.url} className="cursor-pointer">
               <div
                 style={{
-                  ...createLinkStyles(isSelected),
+                  ...createShadowButtonStyle({ isSelected }),
                 }}
                 onMouseEnter={() => onHover(index)}
                 onClick={() => {
@@ -113,7 +114,7 @@ const SelectorComponent = () => {
                   });
                 }}
               >
-                <Text typography="lg" className="font-gameoutline p-4 sm:p-4 md:p-4 lg:p-6 xl:p-6">
+                <Text typography="lg" className="responsive-button-padding">
                   {item.name}
                 </Text>
               </div>
@@ -128,11 +129,11 @@ const SelectorComponent = () => {
               href={item.url}
               target={item.black ? "_blank" : ""}
               style={{
-                ...createLinkStyles(isSelected),
+                ...createShadowButtonStyle({ isSelected }),
               }}
               onMouseEnter={() => onHover(index)}
             >
-              <Text typography="lg" className="font-gameoutline p-4 sm:p-4 md:p-4 lg:p-6 xl:p-6">
+              <Text typography="lg" className="responsive-button-padding">
                 {item.name}
               </Text>
             </Link>
@@ -142,17 +143,4 @@ const SelectorComponent = () => {
       })}
     </div>
   );
-};
-
-const createLinkStyles = (isSelected: boolean) => {
-  return {
-    boxSizing: "border-box",
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: "8px",
-    backgroundColor: `rgba(0, 0, 0, ${isSelected ? 0.7 : 0.2})`,
-    color: isSelected ? "white" : "rgba(255, 255, 255, 0.6)",
-  } as CSSProperties;
 };
