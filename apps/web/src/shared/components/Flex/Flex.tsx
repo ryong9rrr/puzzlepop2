@@ -14,12 +14,12 @@ export const Flex = (props: FlexProps) => {
   return (
     <Box
       style={{
+        ...style,
         display: "flex",
         flexDirection: direction,
         justifyContent: justify,
         alignItems: align,
         gap: gap ? `${gap}rem` : undefined,
-        ...style,
       }}
       {...rest}
     >

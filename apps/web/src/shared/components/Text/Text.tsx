@@ -11,7 +11,7 @@ export const Text = (props: TextProps) => {
   const { typography = "md", color, children, className, style, ...rest } = props;
 
   return (
-    <span className={clsx(`text-${typography}`, className)} style={{ color, ...style }} {...rest}>
+    <span className={clsx(className, `text-${typography}`)} style={{ ...style, color }} {...rest}>
       {children}
     </span>
   );

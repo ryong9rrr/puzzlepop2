@@ -15,6 +15,6 @@ export const Spacing = (props: SpacingProps) => {
     direction === "vertical" ? { height: size } : { width: size };
 
   return (
-    <div className={className} style={{ ...containerStyle, backgroundColor: color, ...style }} />
+    <div className={className} style={{ ...style, ...containerStyle, backgroundColor: color }} />
   );
 };

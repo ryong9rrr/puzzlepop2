@@ -13,7 +13,7 @@ export const Background = (props: BackgroundProps) => {
   const { src, children, opacity = 0.4, className, ...rest } = props;
 
   return (
-    <Box className={clsx(styles.container, className)} {...rest}>
+    <Box className={clsx(className, styles.container)} {...rest}>
       <Image style={{ ...imageStyle, opacity }} src={src} alt="" width={0} height={0} />
       {children}
     </Box>

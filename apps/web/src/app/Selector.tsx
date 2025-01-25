@@ -100,9 +100,11 @@ const SelectorComponent = () => {
         return (
           <Button
             key={item.url}
+            variant="shadow"
             size="md"
             onMouseEnter={() => onHover(index)}
             onClick={handleClick}
+            isSelected={selected === index}
           >
             {item.name}
           </Button>

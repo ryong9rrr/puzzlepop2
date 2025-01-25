@@ -7,3 +7,15 @@
   cursor: pointer;
   outline: none;
 }
+
+.shadow {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: white;
+}
+
+.isSelected,
+.shadow:hover,
+.shadow:focus,
+.shadow:active {
+  background-color: rgba(0, 0, 0, 0.7);
+}
