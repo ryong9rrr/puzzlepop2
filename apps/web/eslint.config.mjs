@@ -21,6 +21,7 @@ const eslintConfig = [
         },
       ],
       "@typescript-eslint/no-unsafe-declaration-merging": "off",
+      "@typescript-eslint/no-unused-vars": "warn",
     },
   },
 ];
