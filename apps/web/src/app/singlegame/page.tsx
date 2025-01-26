@@ -1,4 +1,3 @@
-// @ts-ignore
 import * as colors from "@/theme/colors";
 import { Box } from "@/shared/components/Box";
 import { Spacing } from "@/shared/components/Spacing";
@@ -17,7 +16,7 @@ export default function SingleGamePage() {
                 style={{
                   width: "100px",
                   height: "100px",
-                  backgroundColor: colors.orange[value],
+                  //backgroundColor: colors.orange[value],
                 }}
               >
                 {value}
@@ -35,7 +34,7 @@ export default function SingleGamePage() {
                 style={{
                   width: "100px",
                   height: "100px",
-                  backgroundColor: colors.lavender[value],
+                  //backgroundColor: colors.lavender[value],
                 }}
               >
                 {value}
@@ -53,7 +52,7 @@ export default function SingleGamePage() {
                 style={{
                   width: "100px",
                   height: "100px",
-                  backgroundColor: colors.lightYellow[value],
+                  //backgroundColor: colors.lightYellow[value],
                 }}
               >
                 {value}
