@@ -45,6 +45,11 @@ const SelectorComponent = () => {
   const handleClick = useCallback(() => {
     const item = items[selected];
 
+    if (item.name === "싱글게임") {
+      router.push("/singlegame");
+      return;
+    }
+
     // TODO: 개발이 끝나면 삭제
     if (item.isDeveloping) {
       alert({

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import clsx from "clsx";
 import styles from "./page.module.css";
-import { colors } from "@/theme/colors";
+import * as colors from "@/theme/colors";
 import { Background } from "@/shared/components/Background";
 import { Spacing } from "@/shared/components/Spacing";
 import { Text } from "@/shared/components/Text";
@@ -18,7 +18,7 @@ export default function HomePage() {
         <Flex as="h1" className="font-gamebasic">
           <Text
             typography="2xl"
-            color={colors.primaryYellow["700"]}
+            color={colors.primaryLightYellow}
             style={{
               textShadow: "3px 3px 3px #555",
             }}
@@ -28,7 +28,7 @@ export default function HomePage() {
           <Spacing direction="horizontal" size={16} />
           <Text
             typography="2xl"
-            color={colors.primaryPurple["700"]}
+            color={colors.primaryLavender}
             style={{ textShadow: "3px 3px 3px #555" }}
           >
             Pop!
