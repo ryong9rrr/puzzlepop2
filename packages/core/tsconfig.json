@@ -4,6 +4,6 @@
     "outDir": "./dist",
     "declaration": true
   },
-  "exclude": ["node_modules", "**/__tests__", "**/*.test.*", "**/*.spec.*"],
+  "exclude": ["node_modules", "dist"],
   "include": ["src"]
 }
