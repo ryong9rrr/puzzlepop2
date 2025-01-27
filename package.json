@@ -13,8 +13,8 @@
     "format": "yarn prettier && yarn lint",
     "test": "turbo run test",
     "graph": "turbo run build --graph",
-    "build": "turbo run build",
     "clean": "rm -rf .turbo && rm -rf node_modules && turbo run clean",
+    "build": "turbo run build",
     "dev": "turbo run dev",
     "dev:web": "turbo run dev --filter=web"
   },
