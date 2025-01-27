@@ -1,4 +1,3 @@
-import * as colors from "@/theme/colors";
 import { Box } from "@/shared/components/Box";
 import { Spacing } from "@/shared/components/Spacing";
 import { Flex } from "@/shared/components/Flex";
