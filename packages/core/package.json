@@ -12,7 +12,7 @@
     }
   },
   "scripts": {
-    "clean": "rm -rf dist & rm -rf node_modules & rm -rf .turbo",
+    "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo",
     "test": "jest",
     "test:watch": "jest --watch",
     "build": "yarn build:js && yarn build:type",

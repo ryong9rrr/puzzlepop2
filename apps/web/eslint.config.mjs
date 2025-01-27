@@ -1,6 +1,7 @@
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import { FlatCompat } from "@eslint/eslintrc";
+import baseConfig from "../../eslint.base.config.cjs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,13 +14,7 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
-      "no-warning-comments": [
-        "warn",
-        {
-          terms: ["TODO", "FIXME", "XXX", "BUG"],
-          location: "anywhere",
-        },
-      ],
+      ...baseConfig.rules,
       "@typescript-eslint/no-unsafe-declaration-merging": "off",
       "@typescript-eslint/no-unused-vars": "warn",
     },
