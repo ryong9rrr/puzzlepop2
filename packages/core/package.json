@@ -1,6 +1,7 @@
 {
   "name": "@puzzlepop2/core",
   "version": "0.0.1",
+  "private": true,
   "type": "module",
   "main": "dist/index.js",
   "exports": {
@@ -14,7 +15,7 @@
     "clean": "rm -rf dist & rm -rf node_modules & rm -rf .turbo",
     "test": "jest",
     "test:watch": "jest --watch",
-    "build": "yarn clean && yarn build:js && yarn build:type",
+    "build": "yarn build:js && yarn build:type",
     "build:js": "node build.js",
     "build:type": "tsc --emitDeclarationOnly"
   },
