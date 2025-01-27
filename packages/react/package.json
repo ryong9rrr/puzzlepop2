@@ -9,13 +9,11 @@
     }
   },
   "scripts": {
-    "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo",
-    "lint": "eslint \"**/*.ts*\""
+    "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo"
   },
   "devDependencies": {
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "eslint": "^8.57.0",
     "typescript": "^5"
   },
   "dependencies": {
