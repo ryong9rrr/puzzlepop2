@@ -3,20 +3,26 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "main": "dist/index.js",
   "exports": {
-    "./components": {
-      "import": "./components/index.ts"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
     }
   },
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build": "yarn build:js && yarn build:type",
+    "build:js": "node build.js",
+    "build:type": "tsc --emitDeclarationOnly"
   },
   "dependencies": {
     "react": "^19"
   },
   "devDependencies": {
     "@puzzlepop2/ts-config": "*",
+    "@puzzlepop2/esbuild-config": "*",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "typescript": "^5",

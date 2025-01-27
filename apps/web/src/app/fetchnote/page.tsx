@@ -1,4 +1,4 @@
-import { Button } from "@puzzlepop2/react/components";
+import { Button } from "@puzzlepop2/react";
 import { sum } from "@puzzlepop2/core";
 
 export default function FetchNotePage() {
