@@ -16,6 +16,7 @@
     "react": "^19"
   },
   "devDependencies": {
+    "@puzzlepop2/ts-config": "*",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "typescript": "^5",

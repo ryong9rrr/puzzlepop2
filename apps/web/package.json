@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@puzzlepop2/ts-config": "*",
     "@puzzlepop2/core": "*",
     "@puzzlepop2/react": "*",
     "clsx": "^2.1.1",
