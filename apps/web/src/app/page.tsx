@@ -10,7 +10,7 @@ import Selector from "./Selector";
 
 export default function HomePage() {
   return (
-    <Background className={styles.background} src="/backgrounds/dynamic-puzzle.gif">
+    <Background className={styles.background} src="/backgrounds/dynamic-puzzle.gif" unoptimized>
       <div className={clsx(styles.symbolContainer, styles["bounce-in-bck"])}>
         <Image src="/symbol.png" alt="symbol" layout="responsive" width={1} height={1} priority />
       </div>

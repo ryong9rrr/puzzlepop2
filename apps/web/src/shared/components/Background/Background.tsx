@@ -7,14 +7,22 @@ import styles from "./Background.module.css";
 interface BackgroundProps extends BoxProps {
   src: string;
   opacity?: number;
+  unoptimized?: boolean;
 }
 
 export const Background = (props: BackgroundProps) => {
-  const { src, children, opacity = 0.4, className, ...rest } = props;
+  const { src, children, opacity = 0.4, unoptimized = false, className, ...rest } = props;
 
   return (
     <Box className={clsx(className, styles.container)} {...rest}>
-      <Image style={{ ...imageStyle, opacity }} src={src} alt="" width={0} height={0} />
+      <Image
+        style={{ ...imageStyle, opacity }}
+        src={src}
+        alt=""
+        width={0}
+        height={0}
+        unoptimized={unoptimized}
+      />
       {children}
     </Box>
   );
