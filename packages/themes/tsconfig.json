@@ -1,0 +1,9 @@
+{
+  "extends": "@puzzlepop2/ts-config/base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "declaration": true
+  },
+  "exclude": ["node_modules", "dist"],
+  "include": ["src"]
+}
