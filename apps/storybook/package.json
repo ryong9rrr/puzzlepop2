@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@puzzlepop2/themes": "*",
+    "@puzzlepop2/react": "*",
     "@chromatic-com/storybook": "^3.2.4",
     "@eslint/js": "^9.17.0",
     "@storybook/addon-essentials": "^8.5.2",

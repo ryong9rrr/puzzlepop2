@@ -1,6 +1,6 @@
-import React from "react";
-
 import "./button.css";
+import "@puzzlepop2/themes/themes.css";
+import {} from "@puzzlepop2/react";
 
 export interface ButtonProps {
   /** Is this the principal call to action on the page? */

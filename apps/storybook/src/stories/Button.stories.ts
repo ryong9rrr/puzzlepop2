@@ -42,6 +42,7 @@ export const Large: Story = {
   args: {
     size: "large",
     label: "Button",
+    backgroundColor: "var(--orange-400)",
   },
 };
 
