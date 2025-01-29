@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@puzzlepop2/ts-config": "*",
-    "@puzzlepop2/esbuild-config": "*"
+    "@puzzlepop2/esbuild-config": "*",
+    "typescript": "^5"
   }
 }
