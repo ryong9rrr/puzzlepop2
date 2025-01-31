@@ -4,7 +4,7 @@
 
 - yarn(v1.22.19) + turbo(v2.3.3)
 - Typescript(v5.0.4)
-- React(v18)
+- React(v19)
 
 ### apps
 
@@ -17,4 +17,4 @@
 - ts-config: typescript base configuration Module.
 - core: PuzzlePop game-core Module.
 - themes: UI Foundation Module.
-- react: React(v18) Shared UI Component, Hooks, etc.
+- react: React(v19) Shared UI Component, Hooks, etc.

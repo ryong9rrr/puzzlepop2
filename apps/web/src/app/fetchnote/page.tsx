@@ -5,8 +5,8 @@ import { sum } from "@puzzlepop2/core";
 export default function FetchNotePage() {
   return (
     <>
-      <h1>FetchNotePage</h1>
-      <Box
+      <Box>FetchNotePage</Box>
+      {/* <Box
         style={{
           width: "100px",
           height: "100px",
@@ -14,7 +14,7 @@ export default function FetchNotePage() {
         }}
       >
         @puzzlepop2/react 의 Box
-      </Box>
+      </Box> */}
       <div>이건 core에서 가져온거에요.. sum(1, 2) = {sum(1, 2)}</div>
     </>
   );

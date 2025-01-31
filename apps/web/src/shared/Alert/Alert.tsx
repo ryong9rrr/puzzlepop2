@@ -1,6 +1,6 @@
 import { CSSProperties, useCallback, useEffect } from "react";
+import { Dimmed } from "@puzzlepop2/react";
 import { AlertProps } from "./AlertContext";
-import { Dimmed } from "../components/Dimmed";
 
 interface PrivateAlertProps extends AlertProps {
   onClose: () => void;

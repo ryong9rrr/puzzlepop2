@@ -13,7 +13,7 @@
     "format": "yarn prettier && yarn lint",
     "test": "turbo run test",
     "graph": "turbo run build --graph",
-    "clean": "turbo run clean && rm -rf .turbo && rm -rf node_modules && rm -rf yarn.lock",
+    "clean": "turbo run clean",
     "build": "turbo run build",
     "dev": "turbo run dev",
     "dev:web": "turbo run dev --filter=web"
@@ -28,5 +28,13 @@
   "engines": {
     "node": ">=20.0.0",
     "npm": ">=8.0.0"
+  },
+  "resolutions": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "typescript": "^5.0.4",
+    "@types/node": "^20"
   }
 }

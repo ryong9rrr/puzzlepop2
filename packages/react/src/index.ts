@@ -8,4 +8,7 @@ export type { FlexProps } from "./components/Flex";
 export { Spacing } from "./components/Spacing";
 export type { SpacingProps } from "./components/Spacing";
 
+export { Dimmed } from "./components/Dimmed";
+export type { DimmedProps } from "./components/Dimmed";
+
 export { Button } from "./components/Button";
