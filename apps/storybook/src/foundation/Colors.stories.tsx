@@ -1,8 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import "@puzzlepop2/themes/themes.css";
+import { vars, ColorLevel } from "@puzzlepop2/themes";
 import { Box, Flex } from "@puzzlepop2/react";
 
-const colorLevels = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+const colorLevels: ColorLevel[] = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
 const BoxStories = () => {
   return (
@@ -42,7 +43,7 @@ const BoxStories = () => {
             style={{
               width: "100px",
               height: "100px",
-              backgroundColor: `var(--yellow-${level})`,
+              backgroundColor: `${vars.colors.yellow[level]}`,
             }}
           >
             yellow{level}

@@ -1,5 +1,7 @@
+import { Color } from "../types";
+
 // 500이 Primary
-export const yellow = {
+export const yellow: Color = {
   50: "#fef7e6",
   100: "#fbe7c1",
   200: "#f7d395",
@@ -13,7 +15,7 @@ export const yellow = {
 };
 
 // 500이 Primary
-export const lavender = {
+export const lavender: Color = {
   50: "#f5effc",
   100: "#e5d8f7",
   200: "#d2bdf0",
@@ -27,7 +29,7 @@ export const lavender = {
 };
 
 // 500이 Primary
-export const orange = {
+export const orange: Color = {
   50: "#FFF3E0",
   100: "#FFE0B2",
   200: "#FFCC80",
