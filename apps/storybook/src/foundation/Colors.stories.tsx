@@ -54,7 +54,7 @@ const BoxStories = () => {
 };
 
 const meta = {
-  title: "Foundation/themes",
+  title: "Foundation/colors",
   component: BoxStories,
   parameters: {},
   tags: ["autodocs"],
@@ -65,4 +65,4 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Colors: Story = {};
+export const Default: Story = {};

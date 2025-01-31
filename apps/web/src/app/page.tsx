@@ -1,11 +1,10 @@
 import Image from "next/image";
 import clsx from "clsx";
 import styles from "./page.module.css";
+import { Flex, Spacing } from "@puzzlepop2/react";
 import * as colors from "@/theme/colors";
 import { Background } from "@/shared/components/Background";
-import { Spacing } from "@/shared/components/Spacing";
 import { Text } from "@/shared/components/Text";
-import { Flex } from "@/shared/components/Flex";
 import Selector from "./Selector";
 
 export default function HomePage() {
