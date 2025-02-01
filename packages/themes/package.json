@@ -1,0 +1,27 @@
+{
+  "name": "@puzzlepop2/themes",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./themes.css": "./dist/themes.css"
+  },
+  "scripts": {
+    "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo",
+    "build": "yarn build:js && yarn build:type && yarn build:css",
+    "build:js": "node build.js",
+    "build:type": "tsc --emitDeclarationOnly",
+    "build:css": "node scripts/build-css-module.js"
+  },
+  "dependencies": {
+    "@puzzlepop2/ts-config": "*",
+    "@puzzlepop2/esbuild-config": "*",
+    "typescript": "^5"
+  }
+}

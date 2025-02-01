@@ -8,7 +8,6 @@
       "env": ["NEXT_PUBLIC_API_HOST"]
     },
     "test": {
-      "outputs": ["coverage/**"],
       "dependsOn": []
     },
     "lint": {

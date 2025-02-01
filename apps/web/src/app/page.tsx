@@ -1,35 +1,33 @@
 import Image from "next/image";
 import clsx from "clsx";
 import styles from "./page.module.css";
-import * as colors from "@/theme/colors";
+import { Flex, Spacing, Text } from "@puzzlepop2/react";
+import { vars } from "@puzzlepop2/themes";
 import { Background } from "@/shared/components/Background";
-import { Spacing } from "@/shared/components/Spacing";
-import { Text } from "@/shared/components/Text";
-import { Flex } from "@/shared/components/Flex";
 import Selector from "./Selector";
 
 export default function HomePage() {
   return (
-    <Background className={styles.background} src="/backgrounds/dynamic-puzzle.gif">
+    <Background className={styles.background} src="/backgrounds/dynamic-puzzle.gif" unoptimized>
       <div className={clsx(styles.symbolContainer, styles["bounce-in-bck"])}>
         <Image src="/symbol.png" alt="symbol" layout="responsive" width={1} height={1} priority />
       </div>
       <div className={styles["bounce-in-bck"]}>
         <Flex as="h1" className="font-gamebasic">
           <Text
-            typography="2xl"
-            color={colors.primaryLightYellow}
+            typography="4xl"
+            color={vars.colors.orange["500"]}
             style={{
-              textShadow: "3px 3px 3px #555",
+              textShadow: "4px 4px 4px #555",
             }}
           >
             Puzzle
           </Text>
           <Spacing direction="horizontal" size={16} />
           <Text
-            typography="2xl"
-            color={colors.primaryLavender}
-            style={{ textShadow: "3px 3px 3px #555" }}
+            typography="4xl"
+            color={vars.colors.lavender["500"]}
+            style={{ textShadow: "4px 4px 4px #555" }}
           >
             Pop!
           </Text>

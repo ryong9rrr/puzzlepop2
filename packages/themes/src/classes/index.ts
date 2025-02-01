@@ -1,0 +1,1 @@
+export { dynamicTypographyCssString } from "./typography";

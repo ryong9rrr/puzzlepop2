@@ -3,14 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "clean": "rm -rf .next & rm -rf node_modules & rm -rf .turbo",
+    "clean": "rm -rf .next && rm -rf node_modules && rm -rf .turbo",
     "dev": "next dev --port 3000",
-    "build": "yarn clean && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
+    "@puzzlepop2/ts-config": "*",
     "@puzzlepop2/core": "*",
+    "@puzzlepop2/themes": "*",
+    "@puzzlepop2/react": "*",
     "clsx": "^2.1.1",
     "lottie-web": "^5.12.2",
     "next": "15.1.5",

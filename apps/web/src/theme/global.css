@@ -1,7 +1,8 @@
 @import "./reset.css";
 @import "./font.css";
-@import "./foundation/typography.css";
 @import "./foundation/button.css";
+@import "@puzzlepop2/themes/themes.css";
+@import "@puzzlepop2/react/style.css";
 
 :root {
   --background-zindex: -10;
