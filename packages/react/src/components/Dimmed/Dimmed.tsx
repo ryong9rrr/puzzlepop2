@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import clsx from "clsx";
-import { container } from "./Dimmed.css";
+import { container } from "./style.css";
 
 export type DimmedProps = {
   className?: string;

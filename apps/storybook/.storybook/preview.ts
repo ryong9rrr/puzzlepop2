@@ -1,3 +1,5 @@
+import "@puzzlepop2/themes/themes.css";
+
 import type { Preview } from "@storybook/react";
 
 const preview: Preview = {

@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import "@puzzlepop2/themes/themes.css";
 import { vars, ColorLevel } from "@puzzlepop2/themes";
 import { Box, Flex } from "@puzzlepop2/react";
 
 const colorLevels: ColorLevel[] = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
-const BoxStories = () => {
+const RenderStory = () => {
   return (
     <>
       <Flex>
@@ -56,7 +55,7 @@ const BoxStories = () => {
 
 const meta = {
   title: "Foundation/colors",
-  component: BoxStories,
+  component: RenderStory,
   parameters: {},
   tags: ["autodocs"],
   argTypes: {},

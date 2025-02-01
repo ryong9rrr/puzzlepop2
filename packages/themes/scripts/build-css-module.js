@@ -12,20 +12,29 @@ const generateColors = object => {
 };
 
 const buildCssModule = () => {
-  const cssStringResultList = [];
+  const vars = [];
+  const classes = [];
   for (const [themeKey, themeValues] of Object.entries(themes)) {
     if (themeKey === "vars") {
       for (const [varsKey, varsValues] of Object.entries(themeValues)) {
         if (varsKey === "colors") {
-          cssStringResultList.push(generateColors(varsValues));
+          vars.push(generateColors(varsValues));
           continue;
         }
       }
       continue;
     }
+
+    if (themeKey === "classes") {
+      for (const [classesKey, classesValues] of Object.entries(themeValues)) {
+        if (classesKey === "dynamicTypographyCssString") {
+          classes.push(classesValues);
+        }
+      }
+    }
   }
 
-  return cssStringResultList.join("\n");
+  return [...vars, ...classes].join("\n");
 };
 
 fs.writeFileSync("./dist/themes.css", buildCssModule());

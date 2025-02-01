@@ -1,8 +1,8 @@
 import { ButtonHTMLAttributes } from "react";
 import clsx from "clsx";
 import styles from "./Button.module.css";
-import { Text } from "../Text";
-import { FoundationSize } from "@/theme/foundation/types";
+import { FoundationSize } from "@puzzlepop2/themes";
+import { Text } from "@puzzlepop2/react";
 
 type ButtonVariant = "shadow" | "primary";
 

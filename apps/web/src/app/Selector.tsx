@@ -100,7 +100,7 @@ const SelectorComponent = () => {
   }, [selected, router, isShowAlert, alert, handleClick]);
 
   return (
-    <Flex direction="column" gap={0.75}>
+    <Flex direction="column" gap={8}>
       {items.map((item, index) => {
         return (
           <Button
