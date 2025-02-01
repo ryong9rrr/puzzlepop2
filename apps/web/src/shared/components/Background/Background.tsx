@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { CSSProperties } from "react";
 import clsx from "clsx";
-import { Box, BoxProps } from "@puzzlepop2/react";
+import { Box, BoxProps } from "@puzzlepop2/react-components-layout";
 import styles from "./Background.module.css";
 
 interface BackgroundProps extends BoxProps {

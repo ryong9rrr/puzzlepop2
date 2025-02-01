@@ -13,7 +13,7 @@
     "@puzzlepop2/ts-config": "*",
     "@puzzlepop2/core": "*",
     "@puzzlepop2/themes": "*",
-    "@puzzlepop2/react": "*",
+    "@puzzlepop2/react-components-layout": "*",
     "clsx": "^2.1.1",
     "lottie-web": "^5.12.2",
     "next": "15.1.5",

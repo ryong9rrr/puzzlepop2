@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Flex, FlexProps } from "@puzzlepop2/react";
+import { Flex, FlexProps } from "@puzzlepop2/react-components-layout";
 
 const RenderStory = (props: FlexProps) => {
   return (

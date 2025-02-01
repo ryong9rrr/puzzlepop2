@@ -4,7 +4,7 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/**/*"
   ],
   "scripts": {
     "postinstall": "husky install",

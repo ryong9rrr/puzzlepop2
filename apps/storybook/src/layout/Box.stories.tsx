@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Box } from "@puzzlepop2/react";
+import { Box } from "@puzzlepop2/react-components-layout";
 
 const RenderStory = () => {
   return (

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { FoundationSize } from "@puzzlepop2/themes";
-import { Flex, Text } from "@puzzlepop2/react";
+import { Flex, Text } from "@puzzlepop2/react-components-layout";
 
 const textSizes: FoundationSize[] = [
   "xs",
@@ -28,7 +28,7 @@ const RenderStory = () => {
 };
 
 const meta = {
-  title: "Foundation/typography",
+  title: "Layout/typography",
   component: RenderStory,
   parameters: {},
   tags: ["autodocs"],

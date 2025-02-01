@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Flex } from "@puzzlepop2/react";
+import { Flex } from "@puzzlepop2/react-components-layout";
 import { AlertProvider, useAlert } from "@/shared/Alert";
 import { Button } from "@/shared/components/Button/Button";
 
