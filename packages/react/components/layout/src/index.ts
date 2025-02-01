@@ -13,5 +13,3 @@ export type { DimmedProps } from "./components/Dimmed";
 
 export { Text } from "./components/Text";
 export type { TextProps } from "./components/Text";
-
-export { Button } from "./components/Button";

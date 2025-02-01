@@ -27,7 +27,7 @@ const buildCssModule = () => {
 
     if (themeKey === "classes") {
       for (const [classesKey, classesValues] of Object.entries(themeValues)) {
-        if (classesKey === "dynamicTypographyCssString") {
+        if (classesKey === "responsiveCssString") {
           classes.push(classesValues);
         }
       }

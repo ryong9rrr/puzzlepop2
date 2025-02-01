@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "@puzzlepop2/react-components-layout";
+import { Button } from "@puzzlepop2/react-components-button";
 import { AlertProvider, useAlert } from "@/shared/Alert";
-import { Button } from "@/shared/components/Button/Button";
 
 const items = [
   {
@@ -106,10 +106,13 @@ const SelectorComponent = () => {
           <Button
             key={item.url}
             variant="shadow"
-            size="md"
+            size="xl"
             onMouseEnter={() => onHover(index)}
             onClick={handleClick}
-            isSelected={selected === index}
+            //isSelected={selected === index}
+            style={{
+              border: "1px solid black",
+            }}
           >
             {item.name}
           </Button>

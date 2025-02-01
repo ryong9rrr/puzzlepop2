@@ -1,1 +1,1 @@
-export { dynamicTypographyCssString } from "./typography";
+export { responsiveCssString } from "./responsive";
