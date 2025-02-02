@@ -1,17 +1,15 @@
 /* components */
-export { Box } from "./components/Box";
-export type { BoxProps } from "./components/Box";
+export { Box } from "./Box";
+export type { BoxProps } from "./Box";
 
-export { Flex } from "./components/Flex";
-export type { FlexProps } from "./components/Flex";
+export { Flex } from "./Flex";
+export type { FlexProps } from "./Flex";
 
-export { Spacing } from "./components/Spacing";
-export type { SpacingProps } from "./components/Spacing";
+export { Spacing } from "./Spacing";
+export type { SpacingProps } from "./Spacing";
 
-export { Dimmed } from "./components/Dimmed";
-export type { DimmedProps } from "./components/Dimmed";
+export { Dimmed } from "./Dimmed";
+export type { DimmedProps } from "./Dimmed";
 
-export { Text } from "./components/Text";
-export type { TextProps } from "./components/Text";
-
-export { Button } from "./components/Button";
+export { Text } from "./Text";
+export type { TextProps } from "./Text";

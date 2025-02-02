@@ -1,5 +1,5 @@
 import React, { Ref } from "react";
-import { AsElementProps } from "../types";
+import { AsElementProps } from "@puzzlepop2/react-core";
 
 export type BoxProps = AsElementProps;
 

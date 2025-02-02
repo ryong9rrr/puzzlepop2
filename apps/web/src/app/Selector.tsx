@@ -3,8 +3,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "@puzzlepop2/react-components-layout";
+import { Button } from "@puzzlepop2/react-components-button";
 import { AlertProvider, useAlert } from "@/shared/Alert";
-import { Button } from "@/shared/components/Button/Button";
 
 const items = [
   {
@@ -100,16 +100,16 @@ const SelectorComponent = () => {
   }, [selected, router, isShowAlert, alert, handleClick]);
 
   return (
-    <Flex direction="column" gap={8}>
+    <Flex direction="column" gap={16}>
       {items.map((item, index) => {
         return (
           <Button
             key={item.url}
             variant="shadow"
-            size="md"
+            size="xl"
             onMouseEnter={() => onHover(index)}
             onClick={handleClick}
-            isSelected={selected === index}
+            data-is-selected={selected === index}
           >
             {item.name}
           </Button>

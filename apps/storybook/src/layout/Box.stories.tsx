@@ -18,7 +18,9 @@ const RenderStory = () => {
 const meta = {
   title: "Layout/Box",
   component: RenderStory,
-  parameters: {},
+  parameters: {
+    layout: "centered",
+  },
   tags: ["autodocs"],
   argTypes: {},
 } satisfies Meta<typeof Box>;

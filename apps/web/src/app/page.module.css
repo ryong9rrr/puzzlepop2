@@ -13,7 +13,7 @@
 /* sm (small screen, max-width: 640px) */
 @media (max-width: 640px) {
   .symbolContainer {
-    width: 8rem;
+    width: 10rem;
   }
 
   .background {
@@ -35,18 +35,18 @@
 /* lg (large screen, 769px ~ 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .symbolContainer {
-    width: 10rem;
+    width: 12rem;
   }
 
   .background {
-    gap: 1rem;
+    gap: 3rem;
   }
 }
 
 /* xl (extra-large screen, 1025px 이상) */
 @media (min-width: 1025px) {
   .symbolContainer {
-    width: 14rem;
+    width: 20rem;
   }
 
   .background {

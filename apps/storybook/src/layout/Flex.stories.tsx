@@ -13,7 +13,9 @@ const RenderStory = (props: FlexProps) => {
 const meta = {
   title: "Layout/Flex",
   component: RenderStory,
-  parameters: {},
+  parameters: {
+    layout: "centered",
+  },
   tags: ["autodocs"],
   argTypes: {
     direction: {

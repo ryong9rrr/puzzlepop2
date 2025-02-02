@@ -1,5 +1,5 @@
 import { style } from "@vanilla-extract/css";
-import { DIMMED_Z_INDEX } from "../constants";
+import { Z_INDEX } from "@puzzlepop2/themes";
 
 export const container = style({
   position: "fixed",
@@ -8,5 +8,5 @@ export const container = style({
   right: 0,
   bottom: 0,
   backgroundColor: "rgba(0, 0, 0, 0.4)",
-  zIndex: DIMMED_Z_INDEX,
+  zIndex: Z_INDEX.DIMMED_Z_INDEX,
 });
