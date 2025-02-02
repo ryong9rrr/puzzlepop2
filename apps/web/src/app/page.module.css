@@ -13,7 +13,7 @@
 /* sm (small screen, max-width: 640px) */
 @media (max-width: 640px) {
   .symbolContainer {
-    width: 12rem;
+    width: 10rem;
   }
 
   .background {
@@ -24,7 +24,7 @@
 /* md (medium screen, 641px ~ 768px) */
 @media (min-width: 641px) and (max-width: 768px) {
   .symbolContainer {
-    width: 14rem;
+    width: 10rem;
   }
 
   .background {
@@ -35,7 +35,7 @@
 /* lg (large screen, 769px ~ 1024px) */
 @media (min-width: 769px) and (max-width: 1024px) {
   .symbolContainer {
-    width: 16rem;
+    width: 12rem;
   }
 
   .background {

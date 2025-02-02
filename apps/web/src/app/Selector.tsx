@@ -100,7 +100,7 @@ const SelectorComponent = () => {
   }, [selected, router, isShowAlert, alert, handleClick]);
 
   return (
-    <Flex direction="column" gap={8}>
+    <Flex direction="column" gap={16}>
       {items.map((item, index) => {
         return (
           <Button
@@ -110,7 +110,6 @@ const SelectorComponent = () => {
             onMouseEnter={() => onHover(index)}
             onClick={handleClick}
             data-is-selected={selected === index}
-            //isSelected={selected === index}
           >
             {item.name}
           </Button>

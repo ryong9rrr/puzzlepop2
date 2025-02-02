@@ -12,11 +12,18 @@ const meta = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["shadow"],
+      options: ["shadow", "solid", "outline"],
     },
     size: {
       control: "select",
       options: ["xs", "sm", "md", "lg", "xl", "2xl"],
+    },
+    color: {
+      control: "select",
+      options: ["orange", "lavender", "yellow"],
+    },
+    isDisabled: {
+      control: "boolean",
     },
   },
 } satisfies Meta<typeof Button>;
@@ -29,5 +36,6 @@ export const Default: Story = {
     children: "싱글게임",
     size: "md",
     variant: "shadow",
+    isDisabled: false,
   },
 };

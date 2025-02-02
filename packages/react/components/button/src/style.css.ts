@@ -28,11 +28,50 @@ export const buttonStyle = recipe({
 
   variants: {
     variant: {
+      solid: {
+        border: "none",
+        backgroundColor: enableColorVariant,
+        color: "white",
+
+        "&:hover:not([disabled])": {
+          backgroundColor: hoverColorVariant,
+        },
+
+        "&:active:not([disabled])": {
+          backgroundColor: activeColorVariant,
+        },
+
+        "&[data-is-selected='true']": {
+          backgroundColor: activeColorVariant,
+        },
+      },
+
+      outline: {
+        border: "1px solid",
+        backgroundColor: "transparent",
+        color: enableColorVariant,
+
+        "&:hover:not([disabled])": {
+          backgroundColor: hoverColorVariant,
+          color: "white",
+        },
+
+        "&:active:not([disabled])": {
+          backgroundColor: activeColorVariant,
+          color: "white",
+        },
+
+        "&[data-is-selected='true']": {
+          backgroundColor: activeColorVariant,
+          color: "white",
+        },
+      },
+
       shadow: {
         border: "none",
         backgroundColor: "rgba(0, 0, 0, 0.3)",
         color: "white",
-        boxShadow: "0 0 6px rgba(0, 0, 0, 0.6)", // boxshadow도 반응형으로... (md기준 6px)
+        boxShadow: "0 0 2px rgba(0, 0, 0, 0.4)", // boxshadow도 반응형으로... (md기준 6px)
 
         "&:hover:not([disabled])": {
           backgroundColor: "rgba(0, 0, 0, 0.7)",
@@ -44,6 +83,18 @@ export const buttonStyle = recipe({
 
         "&[data-is-selected='true']": {
           backgroundColor: "rgba(0, 0, 0, 0.7)",
+        },
+
+        "@media": {
+          "screen and (min-width: 768px)": {
+            boxShadow: "0 0 4px rgba(0, 0, 0, 0.4)",
+          },
+          "screen and (min-width: 1024px)": {
+            boxShadow: "0 0 6px rgba(0, 0, 0, 0.4)",
+          },
+          "screen and (min-width: 1440px)": {
+            boxShadow: "0 0 8px rgba(0, 0, 0, 0.4)",
+          },
         },
       },
     },
