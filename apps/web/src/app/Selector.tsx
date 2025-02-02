@@ -109,10 +109,8 @@ const SelectorComponent = () => {
             size="xl"
             onMouseEnter={() => onHover(index)}
             onClick={handleClick}
+            data-is-selected={selected === index}
             //isSelected={selected === index}
-            style={{
-              border: "1px solid black",
-            }}
           >
             {item.name}
           </Button>

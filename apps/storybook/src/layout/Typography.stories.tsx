@@ -1,42 +1,28 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { FoundationSize } from "@puzzlepop2/themes";
-import { Flex, Text } from "@puzzlepop2/react-components-layout";
-
-const foundationSizes: FoundationSize[] = [
-  "xs",
-  "sm",
-  "md",
-  "lg",
-  "xl",
-  "2xl",
-  "3xl",
-  "4xl",
-  "5xl",
-  "6xl",
-];
-
-const RenderStory = () => {
-  return (
-    <Flex direction="column" gap={2}>
-      {foundationSizes.map(size => (
-        <Text key={size} typography={size}>
-          Puzzle Pop!
-        </Text>
-      ))}
-    </Flex>
-  );
-};
+import { Text } from "@puzzlepop2/react-components-layout";
 
 const meta = {
   title: "Layout/typography",
-  component: RenderStory,
-  parameters: {},
+  component: Text,
+  parameters: {
+    layout: "centered",
+  },
   tags: ["autodocs"],
-  argTypes: {},
-} satisfies Meta;
+  argTypes: {
+    typography: {
+      control: "select",
+      options: ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"],
+    },
+  },
+} satisfies Meta<typeof Text>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  args: {
+    children: "Puzzle Pop!",
+    typography: "md",
+  },
+};

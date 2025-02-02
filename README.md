@@ -8,8 +8,8 @@
 
 ### apps
 
-- storybook: React(v18), Storybook(v8)
-- Web: Next(v15), React(v18)
+- storybook: React(v19), Storybook(v8)
+- Web: Next(v15), React(v19)
 
 ### packages
 
