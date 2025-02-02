@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@puzzlepop2/ts-config": "*",
-    "@puzzlepop2/core": "*",
+    "@puzzlepop2/game": "*",
     "@puzzlepop2/themes": "*",
     "@puzzlepop2/react-components-layout": "*",
     "@puzzlepop2/react-components-button": "*",

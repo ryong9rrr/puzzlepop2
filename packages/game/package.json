@@ -1,5 +1,5 @@
 {
-  "name": "@puzzlepop2/core",
+  "name": "@puzzlepop2/game",
   "version": "0.0.1",
   "private": true,
   "type": "module",
