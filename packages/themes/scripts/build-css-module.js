@@ -34,7 +34,15 @@ const buildCssModule = () => {
     }
   }
 
-  return [...vars, ...classes].join("\n");
+  return [...vars, ...classes].join("\n") + "\n";
 };
 
-fs.writeFileSync("./dist/themes.css", buildCssModule());
+try {
+  fs.writeFileSync("./dist/themes.css", buildCssModule());
+
+  // responsive.css 덧붙이기
+  const responsiveCss = fs.readFileSync("./src/responsive-text-and-button.css", "utf-8");
+  fs.appendFileSync("./dist/themes.css", responsiveCss);
+} catch (error) {
+  console.error("css module build failed", error);
+}
