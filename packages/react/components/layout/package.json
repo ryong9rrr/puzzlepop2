@@ -25,6 +25,7 @@
   "devDependencies": {
     "@puzzlepop2/esbuild-config": "*",
     "@puzzlepop2/ts-config": "*",
+    "@puzzlepop2/react-core": "*",
     "@puzzlepop2/themes": "*",
     "@types/react": "^19",
     "@types/react-dom": "^19",
