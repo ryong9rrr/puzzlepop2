@@ -15,7 +15,12 @@ module.exports = {
       jsx: true, // JSX 사용 설정
     },
   },
-  extends: ["eslint:recommended", "plugin:react/recommended", "prettier"],
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "prettier",
+  ],
   plugins: ["react", "@typescript-eslint", "react-hooks", "jsx-a11y"],
   rules: {
     ...baseConfig.rules,

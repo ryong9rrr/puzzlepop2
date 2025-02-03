@@ -1,7 +1,8 @@
-import { Z_INDEX } from "@puzzlepop2/themes";
-import { Dimmed } from "@puzzlepop2/react-components-layout";
+import { useCallback, useEffect } from "react";
+import { Dimmed, Flex, Text } from "@puzzlepop2/react-components-layout";
+import { Button } from "@puzzlepop2/react-components-button";
 import { AlertProps } from "./types";
-import { CSSProperties, useCallback, useEffect } from "react";
+import { alertContainerStyle } from "./style.css";
 
 export const Alert = (props: AlertProps) => {
   const { title, description, onClose, onAfterClose } = props;
@@ -27,30 +28,39 @@ export const Alert = (props: AlertProps) => {
     };
   }, [handleClose]);
 
+  const renderTitle = useCallback(() => {
+    if (typeof title === "string") {
+      return (
+        <Text size="lg" style={{ fontWeight: 800 }}>
+          {title}
+        </Text>
+      );
+    }
+    return title;
+  }, [title]);
+
+  const renderDescription = useCallback(() => {
+    if (typeof description === "string") {
+      return <Text size="sm">{description}</Text>;
+    }
+    return description;
+  }, [description]);
+
   return (
     <Dimmed>
-      <div style={alertContainerStyle}>
-        <div>{title}</div>
+      <div className={alertContainerStyle}>
+        <Flex direction="column" gap={8}>
+          {renderTitle()}
 
-        <div>{description}</div>
+          {description && renderDescription()}
 
-        <button onClick={handleClose}>확인</button>
+          <Flex direction="column" justify="flex-end">
+            <Button variant="solid" size="xs" onClick={handleClose}>
+              확인
+            </Button>
+          </Flex>
+        </Flex>
       </div>
     </Dimmed>
   );
-};
-
-const alertContainerStyle: CSSProperties = {
-  boxSizing: "border-box",
-  position: "absolute",
-  left: "50%",
-  top: "50%",
-  transform: "translate(-50%, -50%)",
-  borderRadius: "4px",
-  overflow: "hidden",
-  zIndex: Z_INDEX.ALERT_Z_INDEX,
-
-  width: "50%",
-  backgroundColor: "white",
-  boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
 };

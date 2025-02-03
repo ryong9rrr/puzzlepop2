@@ -3,7 +3,7 @@ import "@puzzlepop2/react-components-button/style.css";
 import { Button } from "@puzzlepop2/react-components-button";
 
 const meta = {
-  title: "Story/Button",
+  title: "Components/Button",
   component: Button,
   parameters: {
     layout: "centered",

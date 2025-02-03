@@ -49,7 +49,7 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
       }}
       {...rest}
     >
-      <Text typography={size}>{children}</Text>
+      <Text size={size}>{children}</Text>
     </button>
   );
 };

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Text } from "@puzzlepop2/react-components-layout";
 
 const meta = {
-  title: "Layout/typography",
+  title: "Components/Layout/typography",
   component: Text,
   parameters: {
     layout: "centered",

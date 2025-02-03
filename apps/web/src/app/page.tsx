@@ -15,7 +15,7 @@ export default function HomePage() {
       <div className={styles["bounce-in-bck"]}>
         <Flex as="h1" className="font-gamebasic">
           <Text
-            typography="6xl"
+            size="6xl"
             color={vars.colors.orange["500"]}
             style={{
               textShadow: "4px 4px 4px #555",
@@ -25,7 +25,7 @@ export default function HomePage() {
           </Text>
           <Spacing direction="horizontal" size={24} />
           <Text
-            typography="6xl"
+            size="6xl"
             color={vars.colors.lavender["500"]}
             style={{ textShadow: "4px 4px 4px #555" }}
           >

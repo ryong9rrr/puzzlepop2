@@ -2,19 +2,15 @@ import clsx from "clsx";
 import { FoundationSize } from "@puzzlepop2/themes";
 
 export type TextProps = {
-  typography?: FoundationSize;
+  size?: FoundationSize;
   color?: string;
 } & React.HTMLAttributes<HTMLSpanElement>;
 
 export const Text = (props: TextProps) => {
-  const { typography = "md", className, children, color = "inherit", style, ...rest } = props;
+  const { size = "md", className, children, color = "inherit", style, ...rest } = props;
 
   return (
-    <span
-      className={clsx(`text-${typography}`, className)}
-      style={{ color: color, ...style }}
-      {...rest}
-    >
+    <span className={clsx(`text-${size}`, className)} style={{ color: color, ...style }} {...rest}>
       {children}
     </span>
   );
