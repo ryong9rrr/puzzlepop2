@@ -4,11 +4,11 @@ import { Z_INDEX } from "@puzzlepop2/themes";
 export const alertContainerStyle = style({
   boxSizing: "border-box",
   position: "absolute",
-  padding: "4px",
+  padding: "16px",
   left: "50%",
   top: "50%",
   transform: "translate(-50%, -50%)",
-  borderRadius: "4px",
+  borderRadius: "8px",
   overflow: "hidden",
 
   zIndex: Z_INDEX.ALERT_Z_INDEX,

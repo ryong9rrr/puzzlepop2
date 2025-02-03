@@ -10,6 +10,10 @@
   width: 12rem;
 }
 
+.alertImageContainer {
+  width: 8rem;
+}
+
 /* sm (small screen, max-width: 640px) */
 @media (max-width: 640px) {
   .symbolContainer {
@@ -18,6 +22,10 @@
 
   .background {
     gap: 2rem;
+  }
+
+  .alertImageContainer {
+    width: 12rem;
   }
 }
 
@@ -30,6 +38,10 @@
   .background {
     gap: 2rem;
   }
+
+  .alertImageContainer {
+    width: 14rem;
+  }
 }
 
 /* lg (large screen, 769px ~ 1024px) */
@@ -41,6 +53,10 @@
   .background {
     gap: 3rem;
   }
+
+  .alertImageContainer {
+    width: 16rem;
+  }
 }
 
 /* xl (extra-large screen, 1025px 이상) */
@@ -51,6 +67,10 @@
 
   .background {
     gap: 3rem;
+  }
+
+  .alertImageContainer {
+    width: 20rem;
   }
 }
 

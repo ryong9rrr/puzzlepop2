@@ -1,23 +1,16 @@
 import { useCallback, useEffect } from "react";
-import { Dimmed, Flex, Text } from "@puzzlepop2/react-components-layout";
+import { Dimmed, Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
 import { AlertProps } from "./types";
 import { alertContainerStyle } from "./style.css";
 
 export const Alert = (props: AlertProps) => {
-  const { title, description, onClose, onAfterClose } = props;
-
-  const handleClose = useCallback(() => {
-    onClose();
-    if (onAfterClose) {
-      onAfterClose();
-    }
-  }, [onAfterClose, onClose]);
+  const { title, description, onClose } = props;
 
   useEffect(() => {
     const keyboardHandler = (e: KeyboardEvent) => {
-      if (e.key === "Escape" || e.code === "Escape") {
-        handleClose();
+      if (e.key === "Escape" || e.code === "Escape" || e.key === "Enter" || e.code === "Enter") {
+        onClose();
         return;
       }
     };
@@ -26,14 +19,16 @@ export const Alert = (props: AlertProps) => {
     return () => {
       window.removeEventListener("keydown", keyboardHandler);
     };
-  }, [handleClose]);
+  }, [onClose]);
 
   const renderTitle = useCallback(() => {
     if (typeof title === "string") {
       return (
-        <Text size="lg" style={{ fontWeight: 800 }}>
-          {title}
-        </Text>
+        <Flex justify="center">
+          <Text size="lg" style={{ fontWeight: 600 }}>
+            {title}
+          </Text>
+        </Flex>
       );
     }
     return title;
@@ -49,13 +44,22 @@ export const Alert = (props: AlertProps) => {
   return (
     <Dimmed>
       <div className={alertContainerStyle}>
-        <Flex direction="column" gap={8}>
+        <Flex direction="column">
+          <Spacing size={8} />
+
           {renderTitle()}
 
-          {description && renderDescription()}
+          <Spacing size={16} />
 
-          <Flex direction="column" justify="flex-end">
-            <Button variant="solid" size="xs" onClick={handleClose}>
+          {description && (
+            <Flex direction="column" align="center" justify="center">
+              {renderDescription()}
+              <Spacing size={24} />
+            </Flex>
+          )}
+
+          <Flex direction="column">
+            <Button variant="solid" size="sm" onClick={onClose}>
               확인
             </Button>
           </Flex>

@@ -1,10 +1,11 @@
 import Image from "next/image";
 import clsx from "clsx";
-import styles from "./page.module.css";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
-import { Background } from "@/components/Background";
-import Selector from "./Selector";
+import { Background } from "@/shared/components/Background";
+import { AlertClient } from "./components/alert-client";
+import { Selector } from "./components/selector";
+import styles from "./page.module.css";
 
 export default function HomePage() {
   return (
@@ -33,9 +34,9 @@ export default function HomePage() {
           </Text>
         </Flex>
       </div>
-      <div className="font-gameoutline">
+      <AlertClient>
         <Selector />
-      </div>
+      </AlertClient>
     </Background>
   );
 }

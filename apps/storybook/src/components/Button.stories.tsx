@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import "@puzzlepop2/react-components-button/style.css";
 import { Button } from "@puzzlepop2/react-components-button";
 
 const meta = {

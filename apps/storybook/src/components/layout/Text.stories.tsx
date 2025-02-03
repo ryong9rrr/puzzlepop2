@@ -2,14 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Text } from "@puzzlepop2/react-components-layout";
 
 const meta = {
-  title: "Components/Layout/typography",
+  title: "Components/Layout/Text",
   component: Text,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
   argTypes: {
-    typography: {
+    size: {
       control: "select",
       options: ["xs", "sm", "md", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"],
     },
@@ -23,6 +23,6 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     children: "Puzzle Pop!",
-    typography: "md",
+    size: "md",
   },
 };
