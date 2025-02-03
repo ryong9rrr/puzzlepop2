@@ -15,6 +15,7 @@
     "@puzzlepop2/themes": "*",
     "@puzzlepop2/react-components-layout": "*",
     "@puzzlepop2/react-components-button": "*",
+    "@puzzlepop2/react-hooks-alert": "*",
     "clsx": "^2.1.1",
     "lottie-web": "^5.12.2",
     "next": "15.1.5",

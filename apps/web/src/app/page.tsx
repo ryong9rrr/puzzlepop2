@@ -3,7 +3,7 @@ import clsx from "clsx";
 import styles from "./page.module.css";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
-import { Background } from "@/shared/components/Background";
+import { Background } from "@/components/Background";
 import Selector from "./Selector";
 
 export default function HomePage() {

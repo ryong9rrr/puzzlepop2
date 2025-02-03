@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
-import { AlertProvider, useAlert } from "@/shared/Alert";
+import { AlertProvider, useAlert } from "@puzzlepop2/react-hooks-alert";
 
 const items = [
   {
@@ -97,7 +97,7 @@ const SelectorComponent = () => {
     return () => {
       window.removeEventListener("keydown", keyboardHandler);
     };
-  }, [selected, router, isShowAlert, alert, handleClick]);
+  }, [selected, router, alert, isShowAlert, handleClick]);
 
   return (
     <Flex direction="column" gap={16}>

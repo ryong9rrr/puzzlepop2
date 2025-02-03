@@ -1,21 +1,17 @@
-import { CSSProperties, useCallback, useEffect } from "react";
+import { Z_INDEX } from "@puzzlepop2/themes";
 import { Dimmed } from "@puzzlepop2/react-components-layout";
-import { AlertProps } from "./AlertContext";
+import { AlertProps } from "./types";
+import { CSSProperties, useCallback, useEffect } from "react";
 
-interface PrivateAlertProps extends AlertProps {
-  onClose: () => void;
-}
+export const Alert = (props: AlertProps) => {
+  const { title, description, onClose, onAfterClose } = props;
 
-// TODO: 알림창 CSS
-export default function Alert(props: PrivateAlertProps) {
-  const { title, description, onClose, onCloseAfter } = props;
-
-  const handleClose = useCallback(async () => {
+  const handleClose = useCallback(() => {
     onClose();
-    if (onCloseAfter) {
-      await onCloseAfter();
+    if (onAfterClose) {
+      onAfterClose();
     }
-  }, [onClose, onCloseAfter]);
+  }, [onAfterClose, onClose]);
 
   useEffect(() => {
     const keyboardHandler = (e: KeyboardEvent) => {
@@ -42,7 +38,7 @@ export default function Alert(props: PrivateAlertProps) {
       </div>
     </Dimmed>
   );
-}
+};
 
 const alertContainerStyle: CSSProperties = {
   boxSizing: "border-box",
@@ -52,7 +48,7 @@ const alertContainerStyle: CSSProperties = {
   transform: "translate(-50%, -50%)",
   borderRadius: "4px",
   overflow: "hidden",
-  zIndex: "var(--alert-zindex)",
+  zIndex: Z_INDEX.ALERT_Z_INDEX,
 
   width: "50%",
   backgroundColor: "white",
