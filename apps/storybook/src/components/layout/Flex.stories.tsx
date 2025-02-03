@@ -1,11 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Flex, FlexProps } from "@puzzlepop2/react-components-layout";
+import { Box, Flex, FlexProps } from "@puzzlepop2/react-components-layout";
 
 const RenderStory = (props: FlexProps) => {
   return (
     <Flex {...props}>
-      <div style={{ backgroundColor: "lightblue" }}>첫째줄</div>
-      <div style={{ backgroundColor: "lightyellow" }}>둘째줄</div>
+      <Box style={{ backgroundColor: "lightblue", width: "100px", height: "100px" }}>1</Box>
+      <Box style={{ backgroundColor: "lightyellow", width: "100px", height: "100px" }}>2</Box>
+      <Box style={{ backgroundColor: "lightgreen", width: "100px", height: "100px" }}>3</Box>
+      <Box style={{ backgroundColor: "tomato", width: "100px", height: "100px" }}>4</Box>
+      <Box style={{ backgroundColor: "gray", width: "100px", height: "100px" }}>5</Box>
+      <Box style={{ backgroundColor: "purple", width: "100px", height: "100px" }}>6</Box>
     </Flex>
   );
 };
@@ -35,6 +39,23 @@ const meta = {
       control: "number",
       min: 0,
       step: 1,
+    },
+    basis: {
+      control: "text",
+    },
+    grow: {
+      control: "number",
+      min: 0,
+      step: 1,
+    },
+    shrink: {
+      control: "number",
+      min: 0,
+      step: 1,
+    },
+    wrap: {
+      control: "select",
+      options: ["nowrap", "wrap", "wrap-reverse"],
     },
   },
 } satisfies Meta<typeof Flex>;
