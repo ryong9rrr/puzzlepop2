@@ -11,7 +11,7 @@ const RenderStory = (props: FlexProps) => {
 };
 
 const meta = {
-  title: "Layout/Flex",
+  title: "Components/Layout/Flex",
   component: RenderStory,
   parameters: {
     layout: "centered",

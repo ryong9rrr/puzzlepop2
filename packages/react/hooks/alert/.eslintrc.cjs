@@ -26,6 +26,7 @@ module.exports = {
     ...baseConfig.rules,
     "no-undef": "off",
     "react/react-in-jsx-scope": "off",
+    "no-unused-vars": "warn",
   },
   overrides: [
     {

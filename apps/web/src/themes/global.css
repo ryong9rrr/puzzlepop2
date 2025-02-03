@@ -3,12 +3,7 @@
 @import "@puzzlepop2/themes/themes.css";
 @import "@puzzlepop2/react-components-layout/style.css";
 @import "@puzzlepop2/react-components-button/style.css";
-
-:root {
-  --background-zindex: -10;
-  --dimmed-zindex: 10;
-  --alert-zindex: 11;
-}
+@import "@puzzlepop2/react-hooks-alert/style.css";
 
 html {
   font-size: 10px;

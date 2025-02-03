@@ -2,7 +2,8 @@ import Image from "next/image";
 import React, { CSSProperties } from "react";
 import clsx from "clsx";
 import { Box, BoxProps } from "@puzzlepop2/react-components-layout";
-import styles from "./Background.module.css";
+import { Z_INDEX } from "@puzzlepop2/themes";
+import styles from "./style.module.css";
 
 interface BackgroundProps extends BoxProps {
   src: string;
@@ -37,5 +38,5 @@ const imageStyle: CSSProperties = {
   right: 0,
   bottom: 0,
   objectFit: "cover",
-  zIndex: "var(--background-zindex)",
+  zIndex: Z_INDEX.BACKGROUND_Z_INDEX,
 };

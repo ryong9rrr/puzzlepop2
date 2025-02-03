@@ -1,4 +1,4 @@
-import "@puzzlepop2/themes/themes.css";
+import "../src/global.css";
 
 import type { Preview } from "@storybook/react";
 

@@ -16,7 +16,7 @@ const RenderStory = () => {
 };
 
 const meta = {
-  title: "Layout/Box",
+  title: "Components/Layout/Box",
   component: RenderStory,
   parameters: {
     layout: "centered",

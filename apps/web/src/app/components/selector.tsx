@@ -4,7 +4,8 @@ import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
-import { AlertProvider, useAlert } from "@/shared/Alert";
+import { useAlert } from "@puzzlepop2/react-hooks-alert";
+import { Title } from "./alert";
 
 const items = [
   {
@@ -25,15 +26,7 @@ const items = [
   },
 ];
 
-export default function Selector() {
-  return (
-    <AlertProvider>
-      <SelectorComponent />
-    </AlertProvider>
-  );
-}
-
-const SelectorComponent = () => {
+export const Selector = () => {
   const router = useRouter();
   const { isShowAlert, alert } = useAlert();
   const [selected, setSelected] = useState(0);
@@ -53,8 +46,8 @@ const SelectorComponent = () => {
     // TODO: 개발이 끝나면 삭제
     if (item.isDeveloping) {
       alert({
-        title: `${item.name}은 개발 중...`,
-        description: "2월 중 오픈합니다",
+        title: <Title />,
+        description: "3월 중 오픈합니다",
       });
       return;
     }
@@ -97,10 +90,10 @@ const SelectorComponent = () => {
     return () => {
       window.removeEventListener("keydown", keyboardHandler);
     };
-  }, [selected, router, isShowAlert, alert, handleClick]);
+  }, [selected, router, alert, isShowAlert, handleClick]);
 
   return (
-    <Flex direction="column" gap={16}>
+    <Flex direction="column" gap={10} className="font-gameoutline">
       {items.map((item, index) => {
         return (
           <Button
