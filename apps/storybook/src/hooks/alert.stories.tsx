@@ -15,6 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 const WhenString = () => {
   const { alert } = useAlert();
+
   return (
     <button
       onClick={() => {

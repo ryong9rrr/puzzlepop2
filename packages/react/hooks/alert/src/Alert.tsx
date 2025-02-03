@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react";
 import { Dimmed, Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
 import { AlertProps } from "./types";
-import { alertContainerStyle } from "./style.css";
+import { AlertContainer } from "./AlertContainer";
 
 export const Alert = (props: AlertProps) => {
   const { title, description, onClose } = props;
@@ -43,7 +43,7 @@ export const Alert = (props: AlertProps) => {
 
   return (
     <Dimmed>
-      <div className={alertContainerStyle}>
+      <AlertContainer>
         <Flex direction="column">
           <Spacing size={8} />
 
@@ -64,7 +64,7 @@ export const Alert = (props: AlertProps) => {
             </Button>
           </Flex>
         </Flex>
-      </div>
+      </AlertContainer>
     </Dimmed>
   );
 };

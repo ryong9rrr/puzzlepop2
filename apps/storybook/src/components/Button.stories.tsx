@@ -34,7 +34,7 @@ export const Default: Story = {
   args: {
     children: "싱글게임",
     size: "md",
-    variant: "shadow",
+    variant: "solid",
     isDisabled: false,
   },
 };

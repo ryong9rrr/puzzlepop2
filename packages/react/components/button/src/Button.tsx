@@ -13,8 +13,8 @@ import {
 
 const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
   const {
-    variant = "shadow",
-    color = "orange",
+    variant = "solid",
+    color = "yellow",
     size = "md",
     isDisabled = false,
     isPending = false,
@@ -25,8 +25,8 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
   } = props;
 
   const enableColor = vars.colors[color]["500"];
-  const hoverColor = variant === "solid" ? vars.colors[color]["700"] : vars.colors[color]["50"];
-  const activeColor = variant === "solid" ? vars.colors[color]["800"] : vars.colors[color]["100"];
+  const hoverColor = variant === "solid" ? vars.colors[color]["700"] : vars.colors[color]["200"];
+  const activeColor = variant === "solid" ? vars.colors[color]["700"] : vars.colors[color]["200"];
 
   return (
     <button
