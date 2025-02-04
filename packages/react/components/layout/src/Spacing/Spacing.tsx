@@ -1,12 +1,5 @@
 import { CSSProperties } from "react";
-
-export type SpacingProps = {
-  size: number;
-  direction?: "horizontal" | "vertical";
-  className?: string;
-  color?: string;
-  style?: CSSProperties;
-};
+import { SpacingProps } from "./types";
 
 export const Spacing = (props: SpacingProps) => {
   const { size, direction = "vertical", className, color, style } = props;

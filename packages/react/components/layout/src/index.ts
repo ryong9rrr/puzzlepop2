@@ -13,3 +13,6 @@ export type { DimmedProps } from "./Dimmed";
 
 export { Text } from "./Text";
 export type { TextProps } from "./Text";
+
+export { Grid, GridItem } from "./Grid";
+export type { GridProps, GridItemProps } from "./Grid";

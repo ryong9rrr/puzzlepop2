@@ -1,22 +1,25 @@
-import { BoxProps, Box } from "../Box";
-
-export type FlexProps = {
-  direction?: React.CSSProperties["flexDirection"];
-  justify?: React.CSSProperties["justifyContent"];
-  align?: React.CSSProperties["alignItems"];
-  basis?: React.CSSProperties["flexBasis"];
-  grow?: React.CSSProperties["flexGrow"];
-  shrink?: React.CSSProperties["flexShrink"];
-  wrap?: React.CSSProperties["flexWrap"];
-  gap?: number;
-} & BoxProps;
+import { Box } from "../Box";
+import { FlexProps } from "./types";
 
 export const Flex = (props: FlexProps) => {
-  const { direction, justify, align, gap, basis, grow, shrink, wrap, style, children, ...rest } =
-    props;
+  const {
+    as = "div",
+    direction,
+    justify,
+    align,
+    gap,
+    basis,
+    grow,
+    shrink,
+    wrap,
+    style,
+    children,
+    ...rest
+  } = props;
 
   return (
     <Box
+      as={as}
       style={{
         display: "flex",
         flexDirection: direction,

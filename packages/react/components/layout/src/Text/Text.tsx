@@ -1,10 +1,5 @@
 import clsx from "clsx";
-import { FoundationSize } from "@puzzlepop2/themes";
-
-export type TextProps = {
-  size?: FoundationSize;
-  color?: string;
-} & React.HTMLAttributes<HTMLSpanElement>;
+import { TextProps } from "./types";
 
 export const Text = (props: TextProps) => {
   const { size = "md", className, children, color = "inherit", style, ...rest } = props;
