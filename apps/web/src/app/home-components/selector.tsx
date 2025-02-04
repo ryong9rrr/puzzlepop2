@@ -93,13 +93,13 @@ export const Selector = () => {
   }, [selected, router, alert, isShowAlert, handleClick]);
 
   return (
-    <Flex direction="column" gap={10} className="font-gameoutline">
+    <Flex direction="column" className="font-gameOutline" gapScale={0.4}>
       {items.map((item, index) => {
         return (
           <Button
             key={item.url}
             variant="shadow"
-            size="xl"
+            size="lg"
             onMouseEnter={() => onHover(index)}
             onClick={handleClick}
             data-is-selected={selected === index}

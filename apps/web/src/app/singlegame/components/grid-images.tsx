@@ -20,7 +20,7 @@ export const GridImages = async () => {
   const { images = [] } = await fetchImages();
 
   return (
-    <Grid as="section" templateColumns="repeat(2, 1fr)" gap={16}>
+    <Grid as="section" templateColumns="repeat(2, 1fr)">
       {images.map((image, index) => {
         return (
           <GridItem
@@ -65,7 +65,7 @@ export const GridImages = async () => {
 
 export function SkeletonGridImages() {
   return (
-    <Grid as="section" templateColumns="repeat(2, 1fr)" gap={16}>
+    <Grid as="section" templateColumns="repeat(2, 1fr)" style={{ gap: "var(--responsive-16px)" }}>
       {[...Array(6)].map((_, index) => (
         <GridItem
           key={index}

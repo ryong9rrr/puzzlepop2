@@ -17,6 +17,11 @@ export const Grid = (props: GridProps) => {
     templateRows,
     style,
     children,
+
+    gapScale,
+    rowGapScale,
+    columnGapScale,
+
     ...rest
   } = props;
 
@@ -29,10 +34,10 @@ export const Grid = (props: GridProps) => {
         gridAutoFlow: autoFlow,
         gridAutoRows: autoRows,
         gridColumn: columns,
-        columnGap,
-        gap,
+        columnGap: columnGapScale ? `${columnGapScale}rem` : columnGap,
+        gap: gapScale ? `${gapScale}rem` : gap,
         gridRow: row,
-        rowGap,
+        rowGap: rowGapScale ? `${rowGapScale}rem` : rowGap,
         gridTemplateAreas: templateAreas,
         gridTemplateColumns: templateColumns,
         gridTemplateRows: templateRows,

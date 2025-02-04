@@ -4,6 +4,10 @@ import * as themes from "../dist/index.js";
 const generateColors = object => {
   let cssString = ``;
   for (const [colorKey, colorValues] of Object.entries(object)) {
+    if (typeof colorValues === "string") {
+      cssString += `  --${colorKey}: ${colorValues};\n`;
+      continue;
+    }
     Object.entries(colorValues).forEach(([colorLevel, colorValue]) => {
       cssString += `  --${colorKey}-${colorLevel}: ${colorValue};\n`;
     });
@@ -40,8 +44,7 @@ const buildCssModule = () => {
 try {
   fs.writeFileSync("./dist/themes.css", buildCssModule());
 
-  // responsive.css 덧붙이기
-  const responsiveCss = fs.readFileSync("./src/responsive-text-and-button.css", "utf-8");
+  const responsiveCss = fs.readFileSync("./src/responsive.css", "utf-8");
   fs.appendFileSync("./dist/themes.css", responsiveCss);
 } catch (error) {
   console.error("css module build failed", error);

@@ -25,7 +25,7 @@ export const Alert = (props: AlertProps) => {
     if (typeof title === "string") {
       return (
         <Flex justify="center">
-          <Text size="lg" style={{ fontWeight: 600 }}>
+          <Text size="lg" bold>
             {title}
           </Text>
         </Flex>
@@ -45,16 +45,16 @@ export const Alert = (props: AlertProps) => {
     <Dimmed>
       <AlertContainer>
         <Flex direction="column">
-          <Spacing size={8} />
+          <Spacing scale={0.2} />
 
           {renderTitle()}
 
-          <Spacing size={16} />
+          <Spacing scale={0.4} />
 
           {description && (
             <Flex direction="column" align="center" justify="center">
               {renderDescription()}
-              <Spacing size={24} />
+              <Spacing scale={0.5} />
             </Flex>
           )}
 

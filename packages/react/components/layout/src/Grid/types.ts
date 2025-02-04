@@ -13,6 +13,10 @@ export type GridProps = {
   templateAreas?: CSSProperties["gridTemplateAreas"];
   templateColumns?: CSSProperties["gridTemplateColumns"];
   templateRows?: CSSProperties["gridTemplateRows"];
+
+  gapScale?: number;
+  rowGapScale?: number;
+  columnGapScale?: number;
 } & BoxProps;
 
 export type GridItemProps = {

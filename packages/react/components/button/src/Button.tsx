@@ -2,7 +2,6 @@ import * as React from "react";
 import clsx from "clsx";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
 import { vars } from "@puzzlepop2/themes";
-import { Text } from "@puzzlepop2/react-components-layout";
 import { ButtonProps } from "./types";
 import {
   buttonStyle,
@@ -35,7 +34,7 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
         buttonStyle({
           variant,
         }),
-        `button-${size}`,
+        `btn-${size}`,
         className,
       )}
       disabled={isDisabled || isPending}
@@ -49,7 +48,7 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
       }}
       {...rest}
     >
-      <Text size={size}>{children}</Text>
+      {children}
     </button>
   );
 };

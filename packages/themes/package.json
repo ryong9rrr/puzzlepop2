@@ -15,6 +15,7 @@
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo",
     "build": "yarn build:js && yarn build:type && yarn build:css",
+    "build:watch": "node build.js --watch",
     "build:js": "node build.js",
     "build:type": "tsc --emitDeclarationOnly",
     "build:css": "node scripts/build-css-module.js"

@@ -9,6 +9,15 @@ export const Skeleton = (props: SkeletonProps) => {
   const _height = typeof height === "number" ? `${height}px` : height;
 
   return (
-    <Box className={skeleton} style={{ width: _width, height: _height, ...style }} {...props} />
+    <Box
+      className={skeleton}
+      style={{
+        width: _width,
+        height: _height,
+        borderRadius: "4px",
+        ...style,
+      }}
+      {...props}
+    />
   );
 };

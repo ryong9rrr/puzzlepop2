@@ -1,5 +1,8 @@
 import { Color } from "../types";
 
+export const white = "#FAFAFA";
+export const black = "#212121";
+
 export const yellow: Color = {
   50: "#fef7e6",
   100: "#fbe7c1",

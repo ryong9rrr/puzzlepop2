@@ -1,9 +1,12 @@
 import { CSSProperties } from "react";
 
-export type SpacingProps = {
-  size: number;
+type BaseProps = {
   direction?: "horizontal" | "vertical";
   className?: string;
   color?: string;
   style?: CSSProperties;
 };
+type SizeOnly = BaseProps & { size: number; scale?: never };
+type ScaleOnly = BaseProps & { scale: number; size?: never };
+
+export type SpacingProps = SizeOnly | ScaleOnly;

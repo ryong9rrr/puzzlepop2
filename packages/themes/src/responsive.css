@@ -1,0 +1,141 @@
+:root {
+  /* Font Sizes */
+  --xs: 0.6rem;
+  --sm: 0.8rem;
+  --md: 1rem;
+  --lg: 1.4rem;
+  --xl: 1.8rem;
+  --2xl: 2.3rem;
+  --3xl: 3rem;
+  --4xl: 3.5rem;
+  --5xl: 4rem;
+  --6xl: 4.5rem;
+  --7xl: 5rem;
+  --8xl: 5.5rem;
+  --9xl: 6rem;
+  --10xl: 6.5rem;
+
+  /* Button Padding */
+  --btn-xs: 0.3rem 0.6rem;
+  --btn-sm: 0.4rem 0.8rem;
+  --btn-md: 0.6rem 1.2rem;
+  --btn-lg: 0.8rem 1.6rem;
+  --btn-xl: 1.1rem 2rem;
+  --btn-2xl: 1.3rem 2.6rem;
+
+  /* Border Radius */
+  --radius-xs: 0.2rem;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.3rem;
+  --radius-lg: 0.35rem;
+  --radius-xl: 0.4rem;
+  --radius-2xl: 0.5rem;
+}
+
+html {
+  font-size: 16px;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* ipad mini */
+@media (min-width: 769px) and (max-width: 1024px) {
+  html {
+    font-size: 28px;
+  }
+}
+
+/* ipad air,pro */
+@media (min-width: 1025px) and (max-width: 1440px) {
+  html {
+    font-size: 32px;
+  }
+}
+
+/* desktop */
+@media (min-width: 1441px) {
+  html {
+    font-size: 36px;
+  }
+}
+
+/* 🎯 반응형 텍스트 */
+.text-xs {
+  font-size: var(--xs);
+}
+.text-sm {
+  font-size: var(--sm);
+}
+.text-md {
+  font-size: var(--md);
+}
+.text-lg {
+  font-size: var(--lg);
+}
+.text-xl {
+  font-size: var(--xl);
+}
+.text-2xl {
+  font-size: var(--2xl);
+}
+.text-3xl {
+  font-size: var(--3xl);
+}
+.text-4xl {
+  font-size: var(--4xl);
+}
+.text-5xl {
+  font-size: var(--5xl);
+}
+.text-6xl {
+  font-size: var(--6xl);
+}
+.text-7xl {
+  font-size: var(--7xl);
+}
+.text-8xl {
+  font-size: var(--8xl);
+}
+.text-9xl {
+  font-size: var(--9xl);
+}
+.text-10xl {
+  font-size: var(--10xl);
+}
+
+/* 🎯 반응형 버튼 */
+.btn-xs {
+  padding: var(--btn-xs);
+  font-size: var(--xs);
+  border-radius: var(--radius-xs);
+}
+.btn-sm {
+  padding: var(--btn-sm);
+  font-size: var(--sm);
+  border-radius: var(--radius-sm);
+}
+.btn-md {
+  padding: var(--btn-md);
+  font-size: var(--md);
+  border-radius: var(--radius-md);
+}
+.btn-lg {
+  padding: var(--btn-lg);
+  font-size: var(--lg);
+  border-radius: var(--radius-lg);
+}
+.btn-xl {
+  padding: var(--btn-xl);
+  font-size: var(--xl);
+  border-radius: var(--radius-xl);
+}
+.btn-2xl {
+  padding: var(--btn-2xl);
+  font-size: var(--2xl);
+  border-radius: var(--radius-2xl);
+}

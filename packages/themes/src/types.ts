@@ -22,7 +22,7 @@ export type ColorLevel =
 
 export type Color = Record<ColorLevel, string>;
 
-export type FoundationSize =
+export type Typography =
   | "xs"
   | "sm"
   | "md"
@@ -32,4 +32,10 @@ export type FoundationSize =
   | "3xl"
   | "4xl"
   | "5xl"
-  | "6xl";
+  | "6xl"
+  | "7xl"
+  | "8xl"
+  | "9xl"
+  | "10xl";
+
+export type ButtonSize = "xs" | "sm" | "md" | "lg" | "xl" | "2xl";

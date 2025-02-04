@@ -14,6 +14,9 @@ export const Flex = (props: FlexProps) => {
     wrap,
     style,
     children,
+
+    gapScale,
+
     ...rest
   } = props;
 
@@ -25,7 +28,7 @@ export const Flex = (props: FlexProps) => {
         flexDirection: direction,
         justifyContent: justify,
         alignItems: align,
-        gap: gap ? `${gap}px` : undefined,
+        gap: gapScale ? `${gapScale}rem` : gap,
         flexBasis: basis,
         flexGrow: grow,
         flexShrink: shrink,

@@ -16,5 +16,4 @@ export const skeleton = style({
   background: "#ddd",
   backgroundSize: "400% 100%",
   animation: `${skeletonKeyframes} 1.5s ease-in-out infinite`,
-  borderRadius: "4px",
 });

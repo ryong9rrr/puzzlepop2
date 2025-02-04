@@ -22,17 +22,17 @@
   font-style: normal;
 }
 
-.font-gamebasic {
+.font-gameBasic {
   font-family: "yg-jalnan", sans-serif;
   font-weight: 800;
 }
 
-.font-gameoutline {
+.font-gameOutline {
   font-family: "SDSamliphopangche_Outline", sans-serif;
   font-weight: 800;
 }
 
-.font-gameinline {
+.font-gameInline {
   font-family: "SDSamliphopangche_Basic", sans-serif;
   font-weight: 800;
 }

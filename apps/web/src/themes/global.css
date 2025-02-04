@@ -5,10 +5,6 @@
 @import "@puzzlepop2/react-components-button/style.css";
 @import "@puzzlepop2/react-hooks-alert/style.css";
 
-html {
-  font-size: 10px;
-}
-
 /* lottie를 위한 임시코드 */
 #puzzle-lottie rect {
   fill: transparent;

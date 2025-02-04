@@ -1,77 +1,10 @@
-.background {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 /* 기본 스타일 */
 .symbolContainer {
-  width: 12rem;
+  width: 6rem;
 }
 
 .alertImageContainer {
-  width: 8rem;
-}
-
-/* sm (small screen, max-width: 640px) */
-@media (max-width: 640px) {
-  .symbolContainer {
-    width: 10rem;
-  }
-
-  .background {
-    gap: 2rem;
-  }
-
-  .alertImageContainer {
-    width: 12rem;
-  }
-}
-
-/* md (medium screen, 641px ~ 768px) */
-@media (min-width: 641px) and (max-width: 768px) {
-  .symbolContainer {
-    width: 10rem;
-  }
-
-  .background {
-    gap: 2rem;
-  }
-
-  .alertImageContainer {
-    width: 14rem;
-  }
-}
-
-/* lg (large screen, 769px ~ 1024px) */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .symbolContainer {
-    width: 12rem;
-  }
-
-  .background {
-    gap: 3rem;
-  }
-
-  .alertImageContainer {
-    width: 16rem;
-  }
-}
-
-/* xl (extra-large screen, 1025px 이상) */
-@media (min-width: 1025px) {
-  .symbolContainer {
-    width: 20rem;
-  }
-
-  .background {
-    gap: 3rem;
-  }
-
-  .alertImageContainer {
-    width: 20rem;
-  }
+  width: 6rem;
 }
 
 .bounce-in-bck {

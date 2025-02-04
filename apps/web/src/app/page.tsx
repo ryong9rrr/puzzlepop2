@@ -9,34 +9,40 @@ import { Selector } from "./home-components/selector";
 
 export default function HomePage() {
   return (
-    <Background className={styles.background} src="/backgrounds/dynamic-puzzle.gif" unoptimized>
-      <div className={clsx(styles.symbolContainer, styles["bounce-in-bck"])}>
-        <Image src="/symbol.png" alt="symbol" layout="responsive" width={1} height={1} priority />
-      </div>
-      <div className={styles["bounce-in-bck"]}>
-        <Flex as="h1" className="font-gamebasic">
-          <Text
-            size="6xl"
-            color={vars.colors.orange["500"]}
-            style={{
-              textShadow: "4px 4px 4px #555",
-            }}
-          >
-            Puzzle
-          </Text>
-          <Spacing direction="horizontal" size={24} />
-          <Text
-            size="6xl"
-            color={vars.colors.lavender["500"]}
-            style={{ textShadow: "4px 4px 4px #555" }}
-          >
-            Pop!
-          </Text>
-        </Flex>
-      </div>
-      <AlertClient>
-        <Selector />
-      </AlertClient>
+    <Background
+      src="/backgrounds/dynamic-puzzle.gif"
+      unoptimized
+      style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+    >
+      <Flex justify="center" align="center" direction="column" gapScale={1}>
+        <div className={clsx(styles.symbolContainer, styles["bounce-in-bck"])}>
+          <Image src="/symbol.png" alt="symbol" layout="responsive" width={1} height={1} priority />
+        </div>
+        <div className={styles["bounce-in-bck"]}>
+          <Flex as="h1" className="font-gameBasic">
+            <Text
+              size="5xl"
+              color={vars.colors.orange["500"]}
+              style={{
+                textShadow: "0.15rem 0.15rem 0.15rem #555",
+              }}
+            >
+              Puzzle
+            </Text>
+            <Spacing direction="horizontal" scale={0.8} />
+            <Text
+              size="5xl"
+              color={vars.colors.lavender["500"]}
+              style={{ textShadow: "0.15rem 0.15rem 0.15rem #555" }}
+            >
+              Pop!
+            </Text>
+          </Flex>
+        </div>
+        <AlertClient>
+          <Selector />
+        </AlertClient>
+      </Flex>
     </Background>
   );
 }
