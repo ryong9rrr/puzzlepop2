@@ -16,3 +16,6 @@ export type { TextProps } from "./Text";
 
 export { Grid, GridItem } from "./Grid";
 export type { GridProps, GridItemProps } from "./Grid";
+
+export { Skeleton, SkeletonCircle } from "./Skeleton";
+export type { SkeletonProps, SkeletonCircleProps } from "./Skeleton";

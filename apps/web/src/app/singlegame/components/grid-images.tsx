@@ -1,4 +1,4 @@
-import { Box, Flex, Grid, GridItem, Text } from "@puzzlepop2/react-components-layout";
+import { Box, Flex, Grid, GridItem, Text, Skeleton } from "@puzzlepop2/react-components-layout";
 import Image from "next/image";
 import * as PostType from "@/app/api/singlegame/post-types";
 
@@ -58,10 +58,10 @@ export function SkeletonGridImages() {
                 position: "relative",
               }}
             >
-              <Box style={{ width: "100%", height: "100%", backgroundColor: "gray" }} />
+              <Skeleton width="100%" height="100%" />
             </div>
-            <Box style={{ width: "100%", height: "20px", backgroundColor: "gray" }} />
-            <Box style={{ width: "100%", height: "20px", backgroundColor: "gray" }} />
+            <Skeleton width="10%" height={20} />
+            <Skeleton width="100%" height={20} />
           </Flex>
         </GridItem>
       ))}
