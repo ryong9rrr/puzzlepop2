@@ -49,6 +49,6 @@ const MOCK_getSingleGamePuzzleList = async () => {
       resolve({
         images: _images,
       });
-    }, 3000);
+    }, 2000);
   });
 };

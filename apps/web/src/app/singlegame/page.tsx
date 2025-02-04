@@ -11,7 +11,6 @@ export default async function SingleGamePage() {
           style={{
             position: "relative",
             width: "40%",
-            border: "1px solid tomato",
           }}
         >
           <div
@@ -28,7 +27,7 @@ export default async function SingleGamePage() {
             <Text>여기에서 portal로 클라이언트의 children을 넣는다</Text>
           </div>
         </section>
-        <section style={{ width: "60%", border: "1px solid blue" }}>
+        <section style={{ width: "60%", padding: "16px" }}>
           <Suspense fallback={<SkeletonGridImages />}>
             <GridImages />
           </Suspense>

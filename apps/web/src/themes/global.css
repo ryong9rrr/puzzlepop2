@@ -13,3 +13,10 @@ html {
 #puzzle-lottie rect {
   fill: transparent;
 }
+
+.hover-grow {
+  transition: transform 0.2s ease-in-out;
+}
+.hover-grow:hover {
+  transform: scale(1.05);
+}
