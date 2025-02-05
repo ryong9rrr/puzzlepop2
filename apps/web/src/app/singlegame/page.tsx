@@ -1,5 +1,4 @@
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
-
 import { Suspense } from "react";
 import { GridImages, GridImagesSkeleton } from "./components/grid-images";
 

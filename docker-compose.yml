@@ -1,6 +1,17 @@
 version: "3"
 
 services:
+  rest-server:
+    container_name: rest-server
+    build:
+      context: .
+      dockerfile: ./apps/rest-server/Dockerfile
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - puzzlepop
+
   web:
     container_name: web
     build:
@@ -9,11 +20,11 @@ services:
     restart: always
     ports:
       - 3000:3000
+    depends_on:
+      - rest-server
     networks:
-      - app_network
+      - puzzlepop
 
-# Define a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
 networks:
-  app_network:
+  puzzlepop:
     driver: bridge

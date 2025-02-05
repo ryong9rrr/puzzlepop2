@@ -1,3 +1,4 @@
+import axios from "axios";
 import Image from "next/image";
 import { Flex, Grid, GridItem, Text, Skeleton, Spacing } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
@@ -5,15 +6,16 @@ import { vars } from "@puzzlepop2/themes";
 export const GridImages = async () => {
   const fetchImages = async () => {
     try {
-      const data = await MOCK_getSingleGamePuzzleList();
+      const { data } = await axios.get("http://localhost:8080/puzzles");
       return data;
     } catch (error) {
-      return { images: [] };
+      console.error(error);
+      return [{ id: 1, src: "error" }];
     }
   };
 
   // @ts-ignore
-  const { images = [] } = await fetchImages();
+  const images = await fetchImages();
 
   return (
     <Grid as="section" templateColumns="repeat(2, 1fr)">
@@ -31,7 +33,7 @@ export const GridImages = async () => {
             }}
           >
             <Flex direction="column">
-              <div
+              {/* <div
                 style={{
                   padding: "4px",
                   aspectRatio: "16/9",
@@ -45,12 +47,12 @@ export const GridImages = async () => {
                   objectFit="cover"
                   style={{ borderRadius: "8px" }}
                 />
-              </div>
+              </div> */}
               <div style={{ padding: "4px" }}>
                 <Spacing size={16} />
                 <Text size="sm">제목</Text>
                 <Spacing size={10} />
-                <Text size="xs">설명</Text>
+                <Text size="xs">{image.src}</Text>
               </div>
             </Flex>
           </GridItem>
@@ -68,7 +70,7 @@ export const GridImagesSkeleton = () => {
           key={index}
           style={{
             padding: "8px",
-            border: `3px solid ${vars.colors.grey[300]}`,
+            border: `3px solid ${vars.colors.grey[50]}`,
             borderRadius: "8px",
           }}
         >
