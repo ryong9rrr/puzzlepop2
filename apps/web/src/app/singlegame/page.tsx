@@ -1,7 +1,7 @@
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 
 import { Suspense } from "react";
-import { GridImages, SkeletonGridImages } from "./components/grid-images";
+import { GridImages, GridImagesSkeleton } from "./components/grid-images";
 
 export default async function SingleGamePage() {
   return (
@@ -28,7 +28,7 @@ export default async function SingleGamePage() {
           </div>
         </section>
         <section style={{ width: "60%", padding: "16px" }}>
-          <Suspense fallback={<SkeletonGridImages />}>
+          <Suspense fallback={<GridImagesSkeleton />}>
             <GridImages />
           </Suspense>
         </section>

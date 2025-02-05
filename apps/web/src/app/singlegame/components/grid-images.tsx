@@ -1,26 +1,23 @@
-import { Flex, Grid, GridItem, Text, Skeleton, Spacing } from "@puzzlepop2/react-components-layout";
 import Image from "next/image";
-import * as PostType from "@/app/api/singlegame/post-types";
+import { Flex, Grid, GridItem, Text, Skeleton, Spacing } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
 export const GridImages = async () => {
   const fetchImages = async () => {
-    const response = await fetch("http://localhost:3000/api/singlegame", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ type: PostType.GET_SINGLE_GAME_PUZZLE_LIST }),
-    });
-
-    const data = await response.json();
-    return data;
+    try {
+      const data = await MOCK_getSingleGamePuzzleList();
+      return data;
+    } catch (error) {
+      return { images: [] };
+    }
   };
 
+  // @ts-ignore
   const { images = [] } = await fetchImages();
 
   return (
     <Grid as="section" templateColumns="repeat(2, 1fr)">
+      {/* @ts-ignore */}
       {images.map((image, index) => {
         return (
           <GridItem
@@ -63,7 +60,7 @@ export const GridImages = async () => {
   );
 };
 
-export function SkeletonGridImages() {
+export const GridImagesSkeleton = () => {
   return (
     <Grid as="section" templateColumns="repeat(2, 1fr)" style={{ gap: "var(--responsive-16px)" }}>
       {[...Array(6)].map((_, index) => (
@@ -96,4 +93,31 @@ export function SkeletonGridImages() {
       ))}
     </Grid>
   );
-}
+};
+
+const MOCK_getSingleGamePuzzleList = async () => {
+  const images = [
+    { src: "/map-samples/map-sample1.jpg" },
+    { src: "/map-samples/map-sample2.jpg" },
+    { src: "/map-samples/map-sample3.jpeg" },
+    { src: "/map-samples/map-sample4.jpg" },
+    { src: "/map-samples/map-sample5.avif" },
+    { src: "/map-samples/map-sample6.jpg" },
+  ];
+
+  // 의도적 지연
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve({
+        images: images.map((image, index) => {
+          return {
+            id: index,
+            src: image.src,
+            title: `제목${index}`,
+            description: `설명${index}`,
+          };
+        }),
+      });
+    }, 2000);
+  });
+};
