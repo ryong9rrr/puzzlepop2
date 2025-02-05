@@ -1,12 +1,11 @@
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
-
 import { Suspense } from "react";
 import { GridImages, SkeletonGridImages } from "./components/grid-images";
 
 export default async function SingleGamePage() {
   return (
     <main>
-      <Flex justify="center" gap={1}>
+      <Flex justify="center" gapScale={1}>
         <section
           style={{
             position: "relative",
@@ -24,13 +23,16 @@ export default async function SingleGamePage() {
             }}
           >
             {/* 클라이언트 측에서 domId: single-page-sticky-left-area로 접근해 Portal을 생성합니다 */}
-            <Text>여기에서 portal로 클라이언트의 children을 넣는다</Text>
+            <Flex direction="column" gapScale={2}>
+              <Text>여기에서 portal로 클라이언트의 children을 넣는다</Text>
+            </Flex>
           </div>
         </section>
-        <section style={{ width: "60%", padding: "16px" }}>
-          <Suspense fallback={<SkeletonGridImages />}>
+        <section style={{ width: "60%", padding: "0.4rem" }}>
+          <GridImages />
+          {/* <Suspense fallback={<SkeletonGridImages />}>
             <GridImages />
-          </Suspense>
+          </Suspense> */}
         </section>
       </Flex>
     </main>

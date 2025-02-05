@@ -1,26 +1,39 @@
+"use client";
+
 import { Flex, Grid, GridItem, Text, Skeleton, Spacing } from "@puzzlepop2/react-components-layout";
+import useSWR from "swr";
 import Image from "next/image";
 import * as PostType from "@/app/api/singlegame/post-types";
 import { vars } from "@puzzlepop2/themes";
 
-export const GridImages = async () => {
-  const fetchImages = async () => {
-    const response = await fetch("http://localhost:3000/api/singlegame", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ type: PostType.GET_SINGLE_GAME_PUZZLE_LIST }),
-    });
+export const GridImages = () => {
+  const { data, isLoading, error } = useSWR(
+    "/api/singlegame",
+    async url => {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ type: PostType.GET_SINGLE_GAME_PUZZLE_LIST }),
+      });
 
-    const data = await response.json();
-    return data;
-  };
+      return response.json();
+    },
+    {
+      refreshInterval: 3600,
+    },
+  );
 
-  const { images = [] } = await fetchImages();
+  if (isLoading || error) {
+    return <SkeletonGridImages />;
+  }
+
+  const { images = [] } = data;
 
   return (
     <Grid as="section" templateColumns="repeat(2, 1fr)">
+      {/* @ts-ignore */}
       {images.map((image, index) => {
         return (
           <GridItem
@@ -45,8 +58,7 @@ export const GridImages = async () => {
                   src={image.src}
                   alt=""
                   fill
-                  objectFit="cover"
-                  style={{ borderRadius: "8px" }}
+                  style={{ borderRadius: "8px", objectFit: "cover" }}
                 />
               </div>
               <div style={{ padding: "4px" }}>

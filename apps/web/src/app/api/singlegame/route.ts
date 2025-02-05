@@ -1,28 +1,24 @@
-import { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import * as PostType from "./post-types";
 
-export const GET = async () => {
-  return new Response("404 Not Found", {
-    status: 404,
+export async function GET() {
+  return NextResponse.json({
+    message: "Hello, World!",
   });
-};
+}
 
-export const POST = async (request: NextRequest) => {
+export async function POST(request: NextRequest) {
   const { type } = await request.json();
 
   switch (type) {
     case PostType.GET_SINGLE_GAME_PUZZLE_LIST: {
       const data = await MOCK_getSingleGamePuzzleList();
-      return new Response(JSON.stringify(data), {
-        status: 400,
-      });
+      return NextResponse.json(data);
     }
   }
 
-  return new Response(JSON.stringify({}), {
-    status: 400,
-  });
-};
+  return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+}
 
 const images = [
   { src: "/map-samples/map-sample1.jpg" },

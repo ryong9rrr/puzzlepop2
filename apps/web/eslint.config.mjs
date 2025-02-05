@@ -17,6 +17,7 @@ const eslintConfig = [
       ...baseConfig.rules,
       "@typescript-eslint/no-unsafe-declaration-merging": "off",
       "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/ban-ts-comment": "off",
     },
   },
 ];

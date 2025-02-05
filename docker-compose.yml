@@ -1,6 +1,15 @@
 version: "3"
 
 services:
+  # nginx:
+  #   image: nginx:latest
+  #   container_name: nginx
+  #   restart: always
+  #   ports:
+  #     - 80:80
+  #   networks:
+  #     - app_network
+
   web:
     container_name: web
     build:
@@ -9,6 +18,8 @@ services:
     restart: always
     ports:
       - 3000:3000
+    # depends_on:
+    #   - nginx
     networks:
       - app_network
 
@@ -16,4 +27,4 @@ services:
 # with each other, by using their container name as a hostname
 networks:
   app_network:
-    external: true
+    driver: bridge
