@@ -1,0 +1,55 @@
+# ARM64 기반의 Node.js 환경을 설정
+FROM --platform=linux/arm64 node:20-alpine AS base
+
+# base를 기반으로 하는 빌드 스테이지 (builder)
+FROM base AS builder
+RUN apk update && apk add --no-cache libc6-compat
+
+# 작업 디렉토리 설정
+WORKDIR /app
+
+# Turborepo (모노레포 관리 도구) 설치
+RUN yarn global add turbo
+
+# 로컬 파일을 컨테이너의 /app으로 복사
+COPY . .
+
+# Turborepo를 사용하여 web에 필요한 패키지만 남기고 정리
+RUN turbo prune web --docker
+
+# 설치 전용 단계 (installer)
+FROM base AS installer
+RUN apk update && apk add --no-cache libc6-compat
+
+WORKDIR /app
+
+# builder 단계에서 생성된 package.json, yarn.lock 등을 복사
+COPY --from=builder /app/out/json/ .
+
+# 불필요한 패키지를 제외한 의존성만 설치
+RUN yarn install --frozen-lockfile
+
+# builder에서 생성된 전체 파일 복사
+COPY --from=builder /app/out/full/ .
+
+# Next.js 앱 빌드
+RUN yarn turbo build
+
+# 실행 전용 이미지 (runner)
+FROM base AS runner
+WORKDIR /app
+
+# 보안 강화를 위해 루트 사용자가 아닌 일반 사용자(nextjs) 생성 및 실행
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+USER nextjs
+
+# Next.js 실행을 위한 필요한 파일들 복사
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/.next/static
+COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
+
+EXPOSE 3000
+
+# 실행 명령
+CMD node apps/web/server.js

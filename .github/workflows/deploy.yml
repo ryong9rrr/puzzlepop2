@@ -21,10 +21,10 @@ jobs:
 
       - name: rest-server Docker 이미지 빌드 & 푸시
         run: |
-          docker build --platform linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:rest-server -f apps/rest-server/Dockerfile .
+          docker build --platform linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:rest-server -f apps/rest-server/Dockerfile.prod .
           docker push ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:rest-server
 
       - name: web Docker 이미지 빌드 & 푸시
         run: |
-          docker build --platform linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web -f apps/web/Dockerfile .
+          docker build --platform linux/arm64 -t ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web -f apps/web/Dockerfile.prod .
           docker push ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web

@@ -7,7 +7,7 @@ services:
     container_name: rest-server
     build:
       context: .
-      dockerfile: ./apps/rest-server/Dockerfile
+      dockerfile: ./apps/rest-server/Dockerfile.dev
     restart: always
     ports:
       - 8080:8080
@@ -16,7 +16,7 @@ services:
     container_name: web
     build:
       context: .
-      dockerfile: ./apps/web/Dockerfile
+      dockerfile: ./apps/web/Dockerfile.dev
     restart: always
     ports:
       - 3000:3000
