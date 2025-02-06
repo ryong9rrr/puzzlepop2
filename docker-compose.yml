@@ -1,7 +1,18 @@
 version: "3"
 
 services:
+  rest-server:
+    # network_mode: "host"
+    container_name: rest-server
+    build:
+      context: .
+      dockerfile: ./apps/rest-server/Dockerfile
+    restart: always
+    ports:
+      - 8080:8080
+
   web:
+    # network_mode: "host"
     container_name: web
     build:
       context: .
@@ -9,11 +20,5 @@ services:
     restart: always
     ports:
       - 3000:3000
-    networks:
-      - app_network
-
-# Define a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
-networks:
-  app_network:
-    driver: bridge
+    depends_on:
+      - rest-server

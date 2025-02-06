@@ -15,10 +15,10 @@ export default function HomePage() {
       style={{ display: "flex", justifyContent: "center", alignItems: "center" }}
     >
       <Flex justify="center" align="center" direction="column" gapScale={1}>
-        <div className={clsx(styles.symbolContainer, styles["bounce-in-bck"])}>
+        <div className={clsx(styles.symbolContainer, "bounce-in-bck")}>
           <Image src="/symbol.png" alt="symbol" layout="responsive" width={1} height={1} priority />
         </div>
-        <div className={styles["bounce-in-bck"]}>
+        <div className="bounce-in-bck">
           <Flex as="h1" className="font-gameBasic">
             <Text
               size="5xl"
