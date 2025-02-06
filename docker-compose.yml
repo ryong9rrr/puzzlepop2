@@ -2,6 +2,7 @@ version: "3"
 
 services:
   rest-server:
+    # network_mode: "host"
     container_name: rest-server
     build:
       context: .
@@ -9,10 +10,9 @@ services:
     restart: always
     ports:
       - 8080:8080
-    networks:
-      - puzzlepop
 
   web:
+    # network_mode: "host"
     container_name: web
     build:
       context: .
@@ -22,9 +22,3 @@ services:
       - 3000:3000
     depends_on:
       - rest-server
-    networks:
-      - puzzlepop
-
-networks:
-  puzzlepop:
-    driver: bridge

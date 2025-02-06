@@ -22,7 +22,11 @@ async function bootstrap() {
     prefix: '/media',
   });
 
-  await app.listen(process.env.PORT ?? 8000, '0.0.0.0');
+  app.enableCors({
+    credentials: true,
+  });
+
+  await app.listen(8080, '0.0.0.0');
 }
 
 bootstrap();

@@ -66,6 +66,5 @@ COPY --from=installer --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/we
 COPY --from=installer --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 
 EXPOSE 3000
-ENV NODE_ENV production
 
 CMD node apps/web/server.js

@@ -1,26 +1,31 @@
-import axios from "axios";
 import Image from "next/image";
 import { Flex, Grid, GridItem, Text, Skeleton, Spacing } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
+import { SingleGamePuzzle } from "@puzzlepop2/game";
+import { http } from "@/utils/http";
+import { getRestServerUrl } from "@/utils/end-point";
 
 export const GridImages = async () => {
-  const fetchImages = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:8080/puzzles");
-      return data;
-    } catch (error) {
-      console.error(error);
-      return [{ id: 1, src: "error" }];
-    }
-  };
+  let puzzles: SingleGamePuzzle[] = [];
+  let error = null;
 
-  // @ts-ignore
-  const images = await fetchImages();
+  try {
+    const { data } = await http.get<{ data: SingleGamePuzzle[] }>(`${getRestServerUrl()}/puzzles`);
+    puzzles = data.data;
+  } catch (_error) {
+    // @ts-ignore
+    error = JSON.stringify(_error);
+  }
 
   return (
     <Grid as="section" templateColumns="repeat(2, 1fr)">
+      {error && (
+        <Flex direction="column" gapScale={2}>
+          <Text>error : {error}</Text>
+        </Flex>
+      )}
       {/* @ts-ignore */}
-      {images.map((image, index) => {
+      {puzzles?.map((image, index) => {
         return (
           <GridItem
             key={index}
@@ -33,7 +38,7 @@ export const GridImages = async () => {
             }}
           >
             <Flex direction="column">
-              {/* <div
+              <div
                 style={{
                   padding: "4px",
                   aspectRatio: "16/9",
@@ -47,7 +52,7 @@ export const GridImages = async () => {
                   objectFit="cover"
                   style={{ borderRadius: "8px" }}
                 />
-              </div> */}
+              </div>
               <div style={{ padding: "4px" }}>
                 <Spacing size={16} />
                 <Text size="sm">제목</Text>
@@ -95,31 +100,4 @@ export const GridImagesSkeleton = () => {
       ))}
     </Grid>
   );
-};
-
-const MOCK_getSingleGamePuzzleList = async () => {
-  const images = [
-    { src: "/map-samples/map-sample1.jpg" },
-    { src: "/map-samples/map-sample2.jpg" },
-    { src: "/map-samples/map-sample3.jpeg" },
-    { src: "/map-samples/map-sample4.jpg" },
-    { src: "/map-samples/map-sample5.avif" },
-    { src: "/map-samples/map-sample6.jpg" },
-  ];
-
-  // 의도적 지연
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve({
-        images: images.map((image, index) => {
-          return {
-            id: index,
-            src: image.src,
-            title: `제목${index}`,
-            description: `설명${index}`,
-          };
-        }),
-      });
-    }, 2000);
-  });
 };

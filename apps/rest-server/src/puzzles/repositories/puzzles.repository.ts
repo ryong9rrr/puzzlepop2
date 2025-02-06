@@ -1,4 +1,4 @@
-import { SingleGamePuzzle } from '../puzzles.schema';
+import { SingleGamePuzzle } from '@puzzlepop2/game';
 
 export class PuzzlesRepository {
   constructor() {}
