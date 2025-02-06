@@ -41,7 +41,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd ~/puzzlepop2
+            cd /root/puzzlepop2
 
             echo "Stopping running containers..."
             docker-compose down
