@@ -28,3 +28,30 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web -f apps/web/Dockerfile .
           docker push ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web
+
+  deploy:
+    runs-on: ubuntu-22.04-arm
+    needs: build_and_push
+
+    steps:
+      - name: Deploy to Oracle Cloud VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/puzzlepop2
+
+            echo "Stopping running containers..."
+            docker-compose down
+
+            echo "Removing old images..."
+            docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:rest-server
+            docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web
+
+            echo "Starting containers..."
+            docker-compose up -d --remove-orphans
+
+            echo "Cleaning up unused images..."
+            docker image prune -f
