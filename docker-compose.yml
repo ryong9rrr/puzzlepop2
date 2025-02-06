@@ -1,8 +1,9 @@
+# 개발용 도커컴포즈
+
 version: "3"
 
 services:
   rest-server:
-    # network_mode: "host"
     container_name: rest-server
     build:
       context: .
@@ -12,7 +13,6 @@ services:
       - 8080:8080
 
   web:
-    # network_mode: "host"
     container_name: web
     build:
       context: .
