@@ -1,7 +1,5 @@
 export const getRestServerUrl = () => {
-  return process.env.NODE_ENV === "development"
-    ? "http://localhost:8080"
-    : "http://localhost:8080/api";
+  return "http://localhost:8080/rest-server";
 };
 
 export const getWebUrl = () => {

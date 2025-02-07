@@ -1,7 +1,8 @@
 import { Controller, Get } from '@nestjs/common';
 import { PuzzlesService } from '../services/puzzles.service';
 
-@Controller('puzzles')
+// TODO: prefix 미들웨어 처리
+@Controller('rest-server/puzzles')
 export class PuzzlesController {
   constructor(private readonly puzzlesService: PuzzlesService) {}
 
