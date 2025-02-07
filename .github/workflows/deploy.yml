@@ -41,18 +41,12 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            sudo su -
-            cd /root/puzzlepop2
-
-            echo "Stopping running containers..."
+            sudo su - <<EOF
+            cd /home/${{ secrets.SSH_USER }}/puzzlepop2
             docker-compose down
-
-            echo "Removing old images..."
-            docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:rest-server
-            docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web
-
-            echo "Starting containers..."
+            docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:rest-server || true
+            docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web || true
+            docker-compose pull
             docker-compose up -d --remove-orphans
-
-            echo "Cleaning up unused images..."
             docker image prune -f
+            EOF
