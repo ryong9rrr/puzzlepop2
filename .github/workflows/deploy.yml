@@ -41,6 +41,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            sudo su -
             cd /root/puzzlepop2
 
             echo "Stopping running containers..."
