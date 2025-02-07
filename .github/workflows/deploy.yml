@@ -34,7 +34,7 @@ jobs:
     needs: build_and_push
 
     steps:
-      - name: Deploy to Oracle Cloud VM
+      - name: 가상머신 배포
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
