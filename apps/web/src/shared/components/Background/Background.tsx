@@ -9,13 +9,27 @@ interface BackgroundProps extends BoxProps {
   src: string;
   opacity?: number;
   unoptimized?: boolean;
+  overHeight?: boolean;
 }
 
 export const Background = (props: BackgroundProps) => {
-  const { src, children, opacity = 0.4, unoptimized = false, className, ...rest } = props;
+  const {
+    src,
+    children,
+    opacity = 0.4,
+    unoptimized = false,
+    overHeight = false,
+    className,
+    style,
+    ...rest
+  } = props;
 
   return (
-    <Box className={clsx(className, styles.container)} {...rest}>
+    <Box
+      className={clsx(className, styles.container)}
+      style={{ height: overHeight ? "100%" : "100vh", ...style }}
+      {...rest}
+    >
       <Image
         style={{ ...imageStyle, opacity }}
         src={src}
