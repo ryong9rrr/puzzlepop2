@@ -2,8 +2,8 @@ import Image from "next/image";
 import { Flex, Grid, GridItem, Text, Skeleton, Spacing } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 import { SingleGamePuzzle } from "@puzzlepop2/game";
-import { http } from "@/utils/http";
-import { getRestServerUrl } from "@/utils/end-point";
+import { http } from "@/remotes/http";
+import { getRestServerUrl } from "@/remotes/end-point";
 import { ErrorClient } from "@/shared/components/Error/ErrorClient";
 
 export const GridImages = async () => {
@@ -53,6 +53,7 @@ export const GridImages = async () => {
         })}
       </Grid>
     );
+    // eslint-disable-next-line
   } catch (error) {
     return (
       <ErrorClient>

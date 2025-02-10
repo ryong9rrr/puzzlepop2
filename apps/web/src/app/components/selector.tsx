@@ -16,7 +16,7 @@ export const Selector = () => {
       title: <Title />,
       description: "3월 중 오픈합니다",
     });
-  }, []);
+  }, [alert]);
 
   return (
     <Flex direction="column" className="font-gameOutline" gapScale={0.4}>

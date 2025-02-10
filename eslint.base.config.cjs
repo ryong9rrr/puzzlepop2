@@ -2,15 +2,15 @@
 // 따라서 외부에서 사용할 때는 import baseConfig ... 로 사용하세요.
 module.exports = {
   rules: {
-    'no-warning-comments': [
-      'warn',
+    "no-warning-comments": [
+      "warn",
       {
-        terms: ['TODO', 'FIXME', 'XXX', 'BUG'],
-        location: 'anywhere',
+        terms: ["TODO", "FIXME", "XXX", "BUG"],
+        location: "anywhere",
       },
     ],
-    'no-var': 'error',
-    curly: ['error', 'all'],
-    eqeqeq: ['error', 'always', { null: 'ignore' }],
+    "no-var": "error",
+    curly: ["error", "all"],
+    eqeqeq: ["error", "always", { null: "ignore" }],
   },
 };
