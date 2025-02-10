@@ -4,8 +4,8 @@ import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 import styles from "./page.module.css";
 import { Background } from "@/shared/components/Background";
-import { AlertClient } from "./home-components/alert-client";
-import { Selector } from "./home-components/selector";
+import { AlertClient } from "./components/alert-client";
+import { Selector } from "./components/selector";
 
 export default function HomePage() {
   return (
