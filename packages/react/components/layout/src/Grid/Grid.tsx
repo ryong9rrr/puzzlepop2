@@ -34,13 +34,13 @@ export const Grid = (props: GridProps) => {
         gridAutoFlow: autoFlow,
         gridAutoRows: autoRows,
         gridColumn: columns,
-        columnGap: columnGapScale ? `${columnGapScale}rem` : columnGap,
-        gap: gapScale ? `${gapScale}rem` : gap,
         gridRow: row,
-        rowGap: rowGapScale ? `${rowGapScale}rem` : rowGap,
         gridTemplateAreas: templateAreas,
         gridTemplateColumns: templateColumns,
         gridTemplateRows: templateRows,
+        rowGap: rowGapScale ? `${rowGapScale}rem` : rowGap,
+        columnGap: columnGapScale ? `${columnGapScale}rem` : columnGap,
+        gap: gapScale ? `${gapScale}rem` : gap,
         ...style,
       }}
       {...rest}

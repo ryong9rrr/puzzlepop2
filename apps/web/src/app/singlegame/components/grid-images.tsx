@@ -1,64 +1,54 @@
+"use client";
+
 import Image from "next/image";
-import { Flex, Grid, GridItem, Text, Skeleton, Spacing } from "@puzzlepop2/react-components-layout";
-import { vars } from "@puzzlepop2/themes";
-import { SingleGamePuzzle } from "@puzzlepop2/game";
-import { http } from "@/utils/http";
-import { getRestServerUrl } from "@/utils/end-point";
+import { useQuery } from "@tanstack/react-query";
+import clsx from "clsx";
+import { Flex, Grid, GridItem, Skeleton, Spacing, Text } from "@puzzlepop2/react-components-layout";
+import { fetchGetSingleGamePuzzleList } from "@/remotes/puzzles/singlegame";
+import { sleep } from "@/app/utils/sleep";
+import styles from "./grid-images.module.css";
+import { usePuzzleStore } from "../stores/puzzleStore";
 
-export const GridImages = async () => {
-  let puzzles: SingleGamePuzzle[] = [];
-  let error = null;
+export const GridImages = () => {
+  // TODO: 무한스크롤로 바꾸기
+  const {
+    data: puzzleList,
+    isError,
+    isPending,
+  } = useQuery({
+    queryKey: ["fetchGetSingleGamePuzzleList"],
+    queryFn: async () => {
+      const data = await fetchGetSingleGamePuzzleList();
+      return await sleep(() => data, 3000);
+      //return data as SingleGamePuzzle[];
+    },
+  });
 
-  try {
-    const { data } = await http.get<{ data: SingleGamePuzzle[] }>(`${getRestServerUrl()}/puzzles`);
-    puzzles = data.data;
-  } catch (_error) {
-    // @ts-ignore
-    error = JSON.stringify(_error);
+  const { setSelectedPuzzle } = usePuzzleStore();
+
+  if (isError || isPending) {
+    return <GridImagesSkeleton />;
   }
 
   return (
-    <Grid as="section" templateColumns="repeat(2, 1fr)">
-      {error && (
-        <Flex direction="column" gapScale={2}>
-          <Text>error : {error}</Text>
-        </Flex>
-      )}
-      {/* @ts-ignore */}
-      {puzzles?.map((image, index) => {
+    <Grid as="section" templateColumns="repeat(2, 1fr)" gapScale={0.8}>
+      {puzzleList.map((puzzle, index) => {
         return (
           <GridItem
             key={index}
-            className="hover-grow"
-            style={{
-              padding: "8px",
-              border: `3px solid ${vars.colors.grey[300]}`,
-              borderRadius: "8px",
-              cursor: "pointer",
-            }}
+            className={clsx("hover-grow", styles.gridItem)}
+            onClick={() => setSelectedPuzzle(puzzle)}
           >
             <Flex direction="column">
-              <div
-                style={{
-                  padding: "4px",
-                  aspectRatio: "16/9",
-                  position: "relative",
-                }}
-              >
-                <Image
-                  src={image.src}
-                  alt=""
-                  fill
-                  objectFit="cover"
-                  style={{ borderRadius: "8px" }}
-                />
+              <div className={styles.gridImageContainer}>
+                <Image src={puzzle.src} alt="" fill className={styles.gridImage} />
               </div>
-              <div style={{ padding: "4px" }}>
-                <Spacing size={16} />
+              <>
+                <Spacing scale={0.6} />
                 <Text size="sm">제목</Text>
-                <Spacing size={10} />
-                <Text size="xs">{image.src}</Text>
-              </div>
+                <Spacing scale={0.5} />
+                <Text size="xs">{puzzle.src}</Text>
+              </>
             </Flex>
           </GridItem>
         );
@@ -67,34 +57,21 @@ export const GridImages = async () => {
   );
 };
 
-export const GridImagesSkeleton = () => {
+const GridImagesSkeleton = () => {
   return (
-    <Grid as="section" templateColumns="repeat(2, 1fr)" style={{ gap: "var(--responsive-16px)" }}>
+    <Grid as="section" templateColumns="repeat(2, 1fr)" gapScale={0.8}>
       {[...Array(6)].map((_, index) => (
-        <GridItem
-          key={index}
-          style={{
-            padding: "8px",
-            border: `3px solid ${vars.colors.grey[50]}`,
-            borderRadius: "8px",
-          }}
-        >
+        <GridItem key={index} className={styles.gridItem}>
           <Flex direction="column">
-            <div
-              style={{
-                padding: "4px",
-                aspectRatio: "16/9",
-                position: "relative",
-              }}
-            >
+            <div className={styles.gridImageContainer}>
               <Skeleton width="100%" height="100%" />
             </div>
-            <div style={{ padding: "4px" }}>
-              <Spacing size={16} />
+            <>
+              <Spacing scale={0.6} />
               <Skeleton width="10%" height={20} />
-              <Spacing size={10} />
+              <Spacing scale={0.5} />
               <Skeleton width="100%" height={20} />
-            </div>
+            </>
           </Flex>
         </GridItem>
       ))}

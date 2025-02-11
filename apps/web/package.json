@@ -16,13 +16,14 @@
     "@puzzlepop2/react-hooks-alert": "*",
     "@puzzlepop2/themes": "*",
     "@puzzlepop2/ts-config": "*",
+    "@tanstack/react-query": "^5.66.0",
     "animate.css": "^4.1.1",
-    "axios": "^1.7.9",
     "clsx": "^2.1.1",
     "lottie-web": "^5.12.2",
     "next": "15.1.5",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

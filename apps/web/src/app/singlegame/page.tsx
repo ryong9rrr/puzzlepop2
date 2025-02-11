@@ -1,11 +1,15 @@
-import { Flex, Text } from "@puzzlepop2/react-components-layout";
-import { Suspense } from "react";
-import { GridImages, GridImagesSkeleton } from "./components/grid-images";
+import { Flex } from "@puzzlepop2/react-components-layout";
+import { GridImagesClient } from "./components/grid-images-client";
+import { LeftStickyArea } from "./components/left-sticky-area";
+import { SINGLE_PAGE_LEFT_STICKY_AREA_PORTAL_ID } from "./portal-id";
+import { BackgroundPuzzle } from "./components/background-puzzle";
 
-export default async function SingleGamePage() {
+export default function SingleGamePage() {
   return (
-    <main>
-      <Flex justify="center" gap={1}>
+    <main style={{ position: "relative" }}>
+      <BackgroundPuzzle />
+
+      <Flex justify="center" gapScale={1}>
         <section
           style={{
             position: "relative",
@@ -13,23 +17,26 @@ export default async function SingleGamePage() {
           }}
         >
           <div
-            id="single-page-sticky-left-area"
+            id={SINGLE_PAGE_LEFT_STICKY_AREA_PORTAL_ID}
             style={{
               width: "100%",
               height: "100vh",
               position: "sticky",
               top: 0,
               left: 0,
+              right: 0,
+              bottom: 0,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            {/* 클라이언트 측에서 domId: single-page-sticky-left-area로 접근해 Portal을 생성합니다 */}
-            <Text>여기에서 portal로 클라이언트의 children을 넣는다</Text>
+            <LeftStickyArea />
           </div>
         </section>
-        <section style={{ width: "60%", padding: "16px" }}>
-          <Suspense fallback={<GridImagesSkeleton />}>
-            <GridImages />
-          </Suspense>
+
+        <section style={{ width: "60%", padding: "0.5rem" }}>
+          <GridImagesClient />
         </section>
       </Flex>
     </main>
