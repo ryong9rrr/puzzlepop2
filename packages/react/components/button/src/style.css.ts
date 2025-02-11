@@ -30,7 +30,6 @@ export const buttonStyle = recipe({
   variants: {
     variant: {
       solid: {
-        border: "none",
         backgroundColor: enableColorVariant,
         color: vars.colors.white,
 
