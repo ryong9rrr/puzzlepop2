@@ -7,6 +7,7 @@ import { Flex, Grid, GridItem, Skeleton, Spacing, Text } from "@puzzlepop2/react
 import { fetchGetSingleGamePuzzleList } from "@/remotes/puzzles/singlegame";
 import { sleep } from "@/app/utils/sleep";
 import styles from "./grid-images.module.css";
+import { usePuzzleStore } from "../stores/puzzleStore";
 
 export const GridImages = () => {
   // TODO: 무한스크롤로 바꾸기
@@ -23,24 +24,30 @@ export const GridImages = () => {
     },
   });
 
+  const { setSelectedPuzzle } = usePuzzleStore();
+
   if (isError || isPending) {
     return <GridImagesSkeleton />;
   }
 
   return (
     <Grid as="section" templateColumns="repeat(2, 1fr)" gapScale={0.8}>
-      {puzzleList.map((image, index) => {
+      {puzzleList.map((puzzle, index) => {
         return (
-          <GridItem key={index} className={clsx("hover-grow", styles.gridItem)}>
+          <GridItem
+            key={index}
+            className={clsx("hover-grow", styles.gridItem)}
+            onClick={() => setSelectedPuzzle(puzzle)}
+          >
             <Flex direction="column">
               <div className={styles.gridImageContainer}>
-                <Image src={image.src} alt="" fill className={styles.gridImage} />
+                <Image src={puzzle.src} alt="" fill className={styles.gridImage} />
               </div>
               <>
                 <Spacing scale={0.6} />
                 <Text size="sm">제목</Text>
                 <Spacing scale={0.5} />
-                <Text size="xs">{image.src}</Text>
+                <Text size="xs">{puzzle.src}</Text>
               </>
             </Flex>
           </GridItem>

@@ -1,33 +1,13 @@
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { GridImagesClient } from "./components/grid-images-client";
 import { LeftStickyArea } from "./components/left-sticky-area";
-import {
-  SINGLE_PAGE_BACKGROUND_PORTAL_ID,
-  SINGLE_PAGE_LEFT_STICKY_AREA_PORTAL_ID,
-} from "./portal-id";
-import Image from "next/image";
-import { Z_INDEX } from "@puzzlepop2/themes";
+import { SINGLE_PAGE_LEFT_STICKY_AREA_PORTAL_ID } from "./portal-id";
+import { BackgroundPuzzle } from "./components/background-puzzle";
 
 export default function SingleGamePage() {
   return (
     <main style={{ position: "relative" }}>
-      {/* TODO: 더 나이스한 디폴트 배경화면 생각해보기... */}
-      <Image
-        src="/backgrounds/temp.jpg"
-        alt=""
-        fill
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          objectFit: "cover",
-          zIndex: Z_INDEX.BACKGROUND_Z_INDEX,
-          opacity: 0.4,
-        }}
-      />
-      <div id={SINGLE_PAGE_BACKGROUND_PORTAL_ID} style={{ width: "100%" }}></div>
+      <BackgroundPuzzle />
 
       <Flex justify="center" gapScale={1}>
         <section
