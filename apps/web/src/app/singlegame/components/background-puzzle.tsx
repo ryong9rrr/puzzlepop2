@@ -11,7 +11,7 @@ export const BackgroundPuzzle = () => {
   if (!selectedPuzzle) {
     return (
       <Image
-        src="/backgrounds/temp.jpg"
+        src="/backgrounds/default-puzzle-list.jpg"
         alt=""
         fill
         style={{

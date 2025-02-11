@@ -1,29 +1,40 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { createPortal } from "react-dom";
-import { Flex, Text } from "@puzzlepop2/react-components-layout";
-import { SINGLE_PAGE_LEFT_STICKY_AREA_PORTAL_ID } from "../portal-id";
+import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
+import { Lottie } from "@/components/lottie";
 import { usePuzzleStore } from "../stores/puzzleStore";
 
-const _LeftStickyArea = () => {
-  const containerRoot = document.getElementById(SINGLE_PAGE_LEFT_STICKY_AREA_PORTAL_ID);
+export const LeftStickyArea = () => {
   const { selectedPuzzle } = usePuzzleStore();
 
-  if (!containerRoot) {
-    return null;
+  if (!selectedPuzzle) {
+    return (
+      <Flex direction="column" align="center" gapScale={0.5}>
+        <Spacing scale={7} />
+        <Text size="lg" className="font-gameBasic">
+          퍼즐을 선택하세요 !
+        </Text>
+        <Spacing scale={2} />
+        <div style={{ position: "relative" }}>
+          <div style={{ position: "absolute", top: "-5rem", left: "-6rem" }}>
+            <Lottie
+              src="/lotties/yellow-arrow-lottie.json"
+              speed={0.8}
+              style={{
+                transform: "rotate(-90deg)",
+                width: "14rem",
+                height: "14rem",
+              }}
+            />
+          </div>
+        </div>
+      </Flex>
+    );
   }
 
-  return createPortal(
+  return (
     <Flex direction="column" justify="center" align="center" gapScale={0.5}>
-      <Text>퍼즐을 선택하세요!</Text>
-      <Text>선택된 퍼즐: {selectedPuzzle?.src || "없음"}</Text>
-    </Flex>,
-    containerRoot,
+      <Text>선택한 퍼즐 : {selectedPuzzle.id}</Text>
+    </Flex>
   );
 };
-
-export const LeftStickyArea = dynamic(() => Promise.resolve(_LeftStickyArea), {
-  ssr: false,
-  loading: () => <Text>Loading...</Text>,
-});

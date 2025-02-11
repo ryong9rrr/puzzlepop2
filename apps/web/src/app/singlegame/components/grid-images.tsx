@@ -61,7 +61,7 @@ const GridImagesSkeleton = () => {
   return (
     <Grid as="section" templateColumns="repeat(2, 1fr)" gapScale={0.8}>
       {[...Array(6)].map((_, index) => (
-        <GridItem key={index} className={styles.gridItem}>
+        <GridItem key={index} className={styles.gridItem} style={{ cursor: "not-allowed" }}>
           <Flex direction="column">
             <div className={styles.gridImageContainer}>
               <Skeleton width="100%" height="100%" />
