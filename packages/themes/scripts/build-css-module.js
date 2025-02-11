@@ -18,6 +18,7 @@ const generateColors = object => {
 const buildCssModule = () => {
   const vars = [];
   const classes = [];
+
   for (const [themeKey, themeValues] of Object.entries(themes)) {
     if (themeKey === "vars") {
       for (const [varsKey, varsValues] of Object.entries(themeValues)) {
@@ -27,14 +28,6 @@ const buildCssModule = () => {
         }
       }
       continue;
-    }
-
-    if (themeKey === "classes") {
-      for (const [classesKey, classesValues] of Object.entries(themeValues)) {
-        if (classesKey === "responsiveCssString") {
-          classes.push(classesValues);
-        }
-      }
     }
   }
 

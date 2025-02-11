@@ -3,10 +3,10 @@
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import clsx from "clsx";
-import styles from "../page.module.css";
-import { Flex, GridItem, Skeleton, Spacing, Text } from "@puzzlepop2/react-components-layout";
+import { Flex, Grid, GridItem, Skeleton, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { fetchGetSingleGamePuzzleList } from "@/remotes/puzzles/singlegame";
 import { sleep } from "@/app/utils/sleep";
+import styles from "./grid-images.module.css";
 
 export const GridImages = () => {
   // TODO: 무한스크롤로 바꾸기
@@ -28,7 +28,7 @@ export const GridImages = () => {
   }
 
   return (
-    <>
+    <Grid as="section" templateColumns="repeat(2, 1fr)" gapScale={0.8}>
       {puzzleList.map((image, index) => {
         return (
           <GridItem key={index} className={clsx("hover-grow", styles.gridItem)}>
@@ -46,13 +46,13 @@ export const GridImages = () => {
           </GridItem>
         );
       })}
-    </>
+    </Grid>
   );
 };
 
 const GridImagesSkeleton = () => {
   return (
-    <>
+    <Grid as="section" templateColumns="repeat(2, 1fr)" gapScale={0.8}>
       {[...Array(6)].map((_, index) => (
         <GridItem key={index} className={styles.gridItem}>
           <Flex direction="column">
@@ -68,6 +68,6 @@ const GridImagesSkeleton = () => {
           </Flex>
         </GridItem>
       ))}
-    </>
+    </Grid>
   );
 };
