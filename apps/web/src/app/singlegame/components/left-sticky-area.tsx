@@ -3,6 +3,7 @@
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Lottie } from "@/components/lottie";
 import { usePuzzleStore } from "../stores/puzzleStore";
+import { Button } from "@puzzlepop2/react-components-button";
 
 export const LeftStickyArea = () => {
   const { selectedPuzzle } = usePuzzleStore();
@@ -35,6 +36,9 @@ export const LeftStickyArea = () => {
   return (
     <Flex direction="column" justify="center" align="center" gapScale={0.5}>
       <Text>선택한 퍼즐 : {selectedPuzzle.id}</Text>
+      <Button size="lg" className="font-gameBasic" color="orange">
+        게임 시작
+      </Button>
     </Flex>
   );
 };

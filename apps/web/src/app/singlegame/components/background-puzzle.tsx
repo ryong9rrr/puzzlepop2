@@ -29,20 +29,34 @@ export const BackgroundPuzzle = () => {
   }
 
   return (
-    <Image
-      src={selectedPuzzle.src}
-      alt=""
-      fill
+    <div
       style={{
         position: "absolute",
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        objectFit: "cover",
-        zIndex: Z_INDEX.BACKGROUND_Z_INDEX,
-        opacity: 0.4,
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
+        width: "100%",
+        height: "100%",
+        zIndex: Z_INDEX.BACKGROUND_Z_INDEX + 1,
       }}
-    />
+    >
+      <Image
+        src={selectedPuzzle.src}
+        alt=""
+        fill
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          objectFit: "cover",
+          zIndex: Z_INDEX.BACKGROUND_Z_INDEX,
+          opacity: 0.4,
+        }}
+      />
+    </div>
   );
 };

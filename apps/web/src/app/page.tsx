@@ -7,22 +7,6 @@ import { Selector } from "./components/selector";
 export default function HomePage() {
   return (
     <main style={{ position: "relative", width: "100%", height: "100vh" }}>
-      <Image
-        src="/backgrounds/dynamic-puzzle.gif"
-        alt=""
-        fill
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          objectFit: "cover",
-          zIndex: Z_INDEX.BACKGROUND_Z_INDEX,
-          opacity: 0.4,
-        }}
-      />
-
       <Flex justify="center" align="center" style={{ width: "100%", height: "100vh" }}>
         <Flex justify="center" align="center" direction="column" gapScale={1}>
           <div className="bounce-in-bck" style={{ width: "6rem" }}>
@@ -61,6 +45,22 @@ export default function HomePage() {
           </AlertClient>
         </Flex>
       </Flex>
+
+      <Image
+        src="/backgrounds/dynamic-puzzle.gif"
+        alt=""
+        fill
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          objectFit: "cover",
+          zIndex: Z_INDEX.BACKGROUND_Z_INDEX,
+          opacity: 0.4,
+        }}
+      />
     </main>
   );
 }

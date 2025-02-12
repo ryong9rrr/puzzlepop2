@@ -11,9 +11,6 @@
   fill: transparent;
 }
 
-.hover-grow {
-  transition: transform 0.2s ease-in-out;
-}
-.hover-grow:hover {
-  transform: scale(1.05);
+body {
+  font-family: "Pretendard-Regular", sans-serif;
 }

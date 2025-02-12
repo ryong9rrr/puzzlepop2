@@ -7,8 +7,6 @@ import styles from "./page.module.css";
 export default function SingleGamePage() {
   return (
     <main style={{ position: "relative" }}>
-      <BackgroundPuzzle />
-
       <Flex justify="center">
         <section className={styles.left}>
           <div className={styles.sticky}>
@@ -19,6 +17,8 @@ export default function SingleGamePage() {
           <GridImagesClient />
         </section>
       </Flex>
+
+      <BackgroundPuzzle />
     </main>
   );
 }
