@@ -1,7 +1,11 @@
+"use client";
+
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/remotes/query-client";
 import { Flex } from "@puzzlepop2/react-components-layout";
-import { GridImagesClient } from "./components/grid-images-client";
 import { LeftStickyArea } from "./components/left-sticky-area";
 import { BackgroundPuzzle } from "./components/background-puzzle";
+import { GridImages } from "./components/grid-images";
 import styles from "./page.module.css";
 
 export default function SingleGamePage() {
@@ -14,7 +18,9 @@ export default function SingleGamePage() {
           </div>
         </section>
         <section className={styles.right}>
-          <GridImagesClient />
+          <QueryClientProvider client={queryClient}>
+            <GridImages />
+          </QueryClientProvider>
         </section>
       </Flex>
 

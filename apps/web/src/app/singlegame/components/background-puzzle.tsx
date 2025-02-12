@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import { Z_INDEX } from "@puzzlepop2/themes";
 import { usePuzzleStore } from "../stores/puzzleStore";
