@@ -44,6 +44,7 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
           [hoverColorVariant]: hoverColor,
           [activeColorVariant]: activeColor,
         }),
+        border: variant === "solid" ? `0.1rem solid ${vars.colors[color]["600"]}` : undefined,
         ...style,
       }}
       {...rest}

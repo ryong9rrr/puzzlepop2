@@ -1,6 +1,6 @@
 @import "./reset.css";
 @import "./font.css";
-@import "./animation-classes/index.css";
+@import "animate.css";
 @import "@puzzlepop2/themes/themes.css";
 @import "@puzzlepop2/react-components-layout/style.css";
 @import "@puzzlepop2/react-components-button/style.css";
@@ -11,9 +11,6 @@
   fill: transparent;
 }
 
-.hover-grow {
-  transition: transform 0.2s ease-in-out;
-}
-.hover-grow:hover {
-  transform: scale(1.05);
+body {
+  font-family: "Pretendard-Regular", sans-serif;
 }

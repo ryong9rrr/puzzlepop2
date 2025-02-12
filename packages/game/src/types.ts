@@ -3,4 +3,6 @@ export type SingleGamePuzzle = {
   src: string;
   title: string;
   description: string;
+  uploader: string;
+  tags: string[];
 };
