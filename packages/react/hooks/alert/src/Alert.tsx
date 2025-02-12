@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { Dimmed, Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
 import { AlertProps } from "./types";
@@ -6,20 +6,6 @@ import { AlertContainer } from "./AlertContainer";
 
 export const Alert = (props: AlertProps) => {
   const { title, description, onClose } = props;
-
-  useEffect(() => {
-    const keyboardHandler = (e: KeyboardEvent) => {
-      if (e.key === "Escape" || e.code === "Escape" || e.key === "Enter" || e.code === "Enter") {
-        onClose();
-        return;
-      }
-    };
-
-    window.addEventListener("keydown", keyboardHandler);
-    return () => {
-      window.removeEventListener("keydown", keyboardHandler);
-    };
-  }, [onClose]);
 
   const renderTitle = useCallback(() => {
     if (typeof title === "string") {
