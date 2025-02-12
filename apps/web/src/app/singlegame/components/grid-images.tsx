@@ -8,7 +8,8 @@ import { sleep } from "@/app/utils/sleep";
 import { TagGroup } from "@/components/tag";
 import { fetchGetSingleGamePuzzleList } from "@/remotes/puzzles/singlegame";
 import { usePuzzleStore } from "../stores/puzzleStore";
-import styles from "./grid-images.module.css";
+import gridImagesStyles from "./grid-images.module.css";
+import styles from "../page.module.css";
 
 export const GridImages = () => {
   // TODO: 무한스크롤로 바꾸기
@@ -37,15 +38,15 @@ export const GridImages = () => {
         return (
           <GridItem
             key={puzzle.id}
-            className={clsx(styles.hoverGrow, styles.gridItem)}
+            className={clsx(styles.hoverGrow, styles.box, styles.boxLavender)}
             onClick={() => setSelectedPuzzle(puzzle)}
           >
             <Flex direction="column" gapScale={0.4}>
-              <div className={styles.gridImageContainer}>
-                <Image src={puzzle.src} alt="" fill className={styles.gridImage} />
+              <div className={styles.imageContainer}>
+                <Image src={puzzle.src} alt="" fill className={styles.image} />
               </div>
               <TagGroup tags={puzzle.tags} />
-              <Text className={styles.textEllipsis} size="sm" bold>
+              <Text className={gridImagesStyles.ellipsis} size="sm" bold>
                 {puzzle.title}
               </Text>
               <Spacing scale={0.1} />
@@ -61,9 +62,9 @@ const GridImagesSkeleton = () => {
   return (
     <Grid as="section" templateColumns="repeat(2, 1fr)" gapScale={0.8}>
       {[...Array(6)].map((_, index) => (
-        <GridItem key={index} className={styles.gridItem} style={{ cursor: "not-allowed" }}>
+        <GridItem key={index} className={styles.box} style={{ cursor: "not-allowed" }}>
           <Flex direction="column" gapScale={0.4}>
-            <div className={styles.gridImageContainer}>
+            <div className={styles.imageContainer}>
               <Skeleton width="100%" height="100%" />
             </div>
             <Flex gapScale={0.3}>

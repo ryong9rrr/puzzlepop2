@@ -3,13 +3,14 @@ import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars, Z_INDEX } from "@puzzlepop2/themes";
 import { AlertClient } from "./components/alert-client";
 import { Selector } from "./components/selector";
+import styles from "./page.module.css";
 
 export default function HomePage() {
   return (
     <main style={{ position: "relative", width: "100%", height: "100vh" }}>
       <Flex justify="center" align="center" style={{ width: "100%", height: "100vh" }}>
         <Flex justify="center" align="center" direction="column" gapScale={1}>
-          <div className="bounce-in-bck" style={{ width: "6rem" }}>
+          <div className={styles.bounceInBack} style={{ width: "6rem" }}>
             <Image
               src="/symbol.png"
               alt="symbol"
@@ -19,7 +20,7 @@ export default function HomePage() {
               priority
             />
           </div>
-          <div className="bounce-in-bck">
+          <div className={styles.bounceInBack}>
             <Flex as="h1" className="font-gameBasic">
               <Text
                 size="5xl"

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import "animate.css";
 import { Flex } from "@puzzlepop2/react-components-layout";
 
 export const Title = () => {
