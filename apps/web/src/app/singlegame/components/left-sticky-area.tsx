@@ -8,12 +8,12 @@ import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
 import { Lottie } from "@/components/lottie";
 import { TagGroup } from "@/components/tag";
-import { usePuzzleStore } from "../stores/puzzleStore";
+import { useSingleGamePage } from "../store";
 import styles from "../page.module.css";
 
 export const LeftStickyArea = () => {
   const router = useRouter();
-  const { selectedPuzzle } = usePuzzleStore();
+  const { selectedPuzzle } = useSingleGamePage();
 
   const handleClick게임시작 = () => {
     if (selectedPuzzle) {
@@ -26,9 +26,10 @@ export const LeftStickyArea = () => {
       <div className="animate__animated animate__bounceInLeft">
         <Flex direction="column" align="center" gapScale={0.5}>
           <Spacing scale={7} />
-          <Text size="lg" className="font-gameBasic">
-            퍼즐을 선택하세요 !
-          </Text>
+          <Flex direction="column" className="font-gameBasic" gapScale={1}>
+            <Text size="xl">퍼즐을</Text>
+            <Text size="xl">고르세요 !</Text>
+          </Flex>
           <Spacing scale={2} />
           <div style={{ position: "relative" }}>
             <div style={{ position: "absolute", top: "-5rem", left: "-6rem" }}>
@@ -68,7 +69,7 @@ export const LeftStickyArea = () => {
           }}
         >
           <div className={styles.imageContainer} style={{ width: "100%" }}>
-            <Image src={selectedPuzzle.src} alt="" fill className={styles.image} />
+            <Image src={selectedPuzzle.src} alt="" fill sizes="40vw" className={styles.image} />
           </div>
           <Spacing scale={0.4} />
           <Flex direction="column" gapScale={0.4} style={{ width: "100%" }}>

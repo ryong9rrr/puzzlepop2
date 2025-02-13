@@ -7,8 +7,7 @@ import { Flex, Grid, GridItem, Skeleton, Spacing, Text } from "@puzzlepop2/react
 import { sleep } from "@/app/utils/sleep";
 import { TagGroup } from "@/components/tag";
 import { fetchGetSingleGamePuzzleList } from "@/remotes/puzzles/singlegame";
-import { usePuzzleStore } from "../stores/puzzleStore";
-import gridImagesStyles from "./grid-images.module.css";
+import { useSingleGamePage } from "../store";
 import styles from "../page.module.css";
 
 export const GridImages = () => {
@@ -21,12 +20,12 @@ export const GridImages = () => {
     queryKey: ["fetchGetSingleGamePuzzleList"],
     queryFn: async () => {
       const data = await fetchGetSingleGamePuzzleList();
-      return await sleep(() => data, 3000);
+      return await sleep(() => data, 1000);
       //return data as SingleGamePuzzle[];
     },
   });
 
-  const { setSelectedPuzzle } = usePuzzleStore();
+  const { setSelectedPuzzle } = useSingleGamePage();
 
   if (isError || isPending) {
     return <GridImagesSkeleton />;
@@ -43,10 +42,17 @@ export const GridImages = () => {
           >
             <Flex direction="column" gapScale={0.4}>
               <div className={styles.imageContainer}>
-                <Image src={puzzle.src} alt="" fill className={styles.image} />
+                <Image src={puzzle.src} alt="썸네일" fill sizes="25vw" className={styles.image} />
               </div>
               <TagGroup tags={puzzle.tags} />
-              <Text className={gridImagesStyles.ellipsis} size="sm" bold>
+              <Text
+                style={{
+                  width: "25vw",
+                }}
+                className="ellipsis"
+                size="sm"
+                bold
+              >
                 {puzzle.title}
               </Text>
               <Spacing scale={0.1} />

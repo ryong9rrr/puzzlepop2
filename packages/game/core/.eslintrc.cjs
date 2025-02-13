@@ -1,4 +1,4 @@
-const baseConfig = require("../../eslint.base.config.cjs");
+const baseConfig = require("../../../eslint.base.config.cjs");
 
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
@@ -16,6 +16,7 @@ module.exports = {
   plugins: ["@typescript-eslint", "jest"],
   rules: {
     ...baseConfig.rules,
+    "no-unused-vars": "warn",
   },
   ignorePatterns: [".*.js", "dist/", "node_modules/"],
   overrides: [{ files: ["*.js?(x)", "*.ts?(x)"] }],
