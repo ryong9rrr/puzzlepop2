@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@puzzlepop2/game": "*",
+    "@puzzlepop2/game-core": "*",
     "@puzzlepop2/react-components-button": "*",
     "@puzzlepop2/react-components-layout": "*",
     "@puzzlepop2/react-hooks-alert": "*",
@@ -22,6 +22,7 @@
     "lottie-web": "^5.12.2",
     "motion": "^12.4.2",
     "next": "15.1.5",
+    "paper": "^0.12.18",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "zustand": "^5.0.3"
@@ -33,6 +34,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.5",
+    "eslint-plugin-react-hooks": "^5.1.0",
     "typescript": "^5"
   }
 }

@@ -14,3 +14,9 @@
 body {
   font-family: "Pretendard-Regular", sans-serif;
 }
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
