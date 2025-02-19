@@ -15,6 +15,7 @@ async function bootstrap() {
   );
   app.useGlobalInterceptors(new TransformInterceptor());
   app.useGlobalFilters(new HttpExceptionFilter());
+  app.setGlobalPrefix('rest-server');
 
   // file-upload
   // http://localhost:8000/media/users/xxx.png 로 접근 가능
@@ -23,7 +24,7 @@ async function bootstrap() {
   });
 
   app.enableCors({
-    origin: ['http://localhost:3000'],
+    origin: ['http://localhost:3000', 'http://localhost:5173'],
     credentials: true,
   });
 

@@ -11,6 +11,7 @@
 - storybook: React(v19), Storybook(v8)
 - web: Next.js(v15), React(v19)
 - rest-server: Nest.js(v11)
+- admin: React(v19), Vite
 
 ### packages
 

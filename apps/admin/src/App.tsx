@@ -1,9 +1,15 @@
-import { Flex, Text } from "@puzzlepop2/react-components-layout";
+import { BrowserRouter, Route } from "react-router";
+import { Routes } from "react-router";
+import { HomePage } from "./pages/HomePage";
+import { PuzzlesPage } from "./pages/PuzzlesPage";
 
-export default function App() {
+export const App = () => {
   return (
-    <Flex>
-      <Text>API Test</Text>
-    </Flex>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/puzzles" element={<PuzzlesPage />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
