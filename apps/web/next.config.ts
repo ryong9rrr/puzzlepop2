@@ -6,6 +6,12 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: true,
     dirs: ["src"],
   },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.resolve.alias["paper"] = false;
+    }
+    return config;
+  },
 };
 
 export default nextConfig;

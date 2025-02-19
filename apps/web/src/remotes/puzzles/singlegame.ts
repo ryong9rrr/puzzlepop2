@@ -1,4 +1,4 @@
-import { SingleGamePuzzle } from "@puzzlepop2/game";
+import { SingleGamePuzzle } from "@puzzlepop2/game-core";
 import { getRestServerUrl } from "../end-point";
 
 type FetchGetSingleGamePuzzleList = {
@@ -9,4 +9,10 @@ export const fetchGetSingleGamePuzzleList = async (props?: FetchGetSingleGamePuz
   const response = await fetch(`${getRestServerUrl()}/puzzles?page=${props?.page || 1}`);
   const { data } = await response.json();
   return data as SingleGamePuzzle[];
+};
+
+export const fetchGetSingleGamePuzzleById = async ({ id }: { id: string }) => {
+  const response = await fetch(`${getRestServerUrl()}/puzzles/${id}`);
+  const { data } = await response.json();
+  return data as SingleGamePuzzle;
 };
