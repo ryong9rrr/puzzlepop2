@@ -3,6 +3,7 @@ import eslint from '@eslint/js';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
+import baseConfig from '../../eslint.base.config.cjs';
 
 export default tseslint.config(
   {
@@ -27,6 +28,7 @@ export default tseslint.config(
   },
   {
     rules: {
+      'no-console': 'warn',
       'no-warning-comments': [
         'warn',
         {

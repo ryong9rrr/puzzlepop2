@@ -9,13 +9,13 @@ export const PuzzlesPage = () => {
     }
     const file = event.target.files[0];
     const form = new FormData();
-    form.append("file", file);
+    form.append("puzzle-image", file);
     window
       .fetch("http://localhost:8080/rest-server/puzzles/upload", {
         method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        // headers: {
+        //   "Content-Type": "multipart/form-data",
+        // }, // fetch에서는 Content-Type을 설정하지 않아도 된다.
         body: form,
       })
       .then(response => {

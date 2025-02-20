@@ -13,8 +13,12 @@ export class PuzzlesService {
   async getPuzzle(id: string) {
     const puzzle = await this.puzzlesRepository.findPuzzleById(id);
     if (!puzzle) {
-      throw new HttpException('Not Found', 400);
+      throw new HttpException('Puzzle not found', 404);
     }
     return puzzle;
+  }
+
+  uploadPuzzleImage(file: Express.Multer.File) {
+    console.log(file);
   }
 }

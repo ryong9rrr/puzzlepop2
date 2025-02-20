@@ -11,7 +11,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
   try {
     const puzzle = await fetchGetSingleGamePuzzleById({ id });
 
-    return <PuzzleClient src={puzzle.src} />;
+    return <PuzzleClient src={puzzle.imgUrl} />;
 
     // return (
     //   <>

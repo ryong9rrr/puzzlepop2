@@ -36,13 +36,19 @@ export const GridImages = () => {
       {puzzleList.map(puzzle => {
         return (
           <GridItem
-            key={puzzle.id}
+            key={puzzle._id}
             className={clsx(styles.hoverGrow, styles.box, styles.boxLavender)}
             onClick={() => setSelectedPuzzle(puzzle)}
           >
             <Flex direction="column" gapScale={0.4}>
               <div className={styles.imageContainer}>
-                <Image src={puzzle.src} alt="썸네일" fill sizes="25vw" className={styles.image} />
+                <Image
+                  src={puzzle.imgUrl}
+                  alt="썸네일"
+                  fill
+                  sizes="25vw"
+                  className={styles.image}
+                />
               </div>
               <TagGroup tags={puzzle.tags} />
               <Text

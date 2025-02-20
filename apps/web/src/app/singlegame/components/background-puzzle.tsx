@@ -23,7 +23,7 @@ export const BackgroundPuzzle = () => {
       }}
     >
       <Image
-        src={selectedPuzzle ? selectedPuzzle.src : DEFAULT_BACKGROUND}
+        src={selectedPuzzle ? selectedPuzzle.imgUrl : DEFAULT_BACKGROUND}
         alt=""
         fill
         style={{

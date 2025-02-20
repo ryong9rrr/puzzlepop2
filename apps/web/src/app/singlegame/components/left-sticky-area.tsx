@@ -17,7 +17,7 @@ export const LeftStickyArea = () => {
 
   const handleClick게임시작 = () => {
     if (selectedPuzzle) {
-      router.push(`singlegame/${selectedPuzzle.id}`);
+      router.push(`singlegame/${selectedPuzzle._id}`);
     }
   };
 
@@ -52,7 +52,7 @@ export const LeftStickyArea = () => {
   return (
     <Flex justify="center" align="center" style={{ padding: "0.5rem", width: "100%" }}>
       <motion.div
-        key={selectedPuzzle.id}
+        key={selectedPuzzle._id}
         initial={{ opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut", delay: 0.1 }}
         animate={{ opacity: 1 }}
@@ -69,7 +69,7 @@ export const LeftStickyArea = () => {
           }}
         >
           <div className={styles.imageContainer} style={{ width: "100%" }}>
-            <Image src={selectedPuzzle.src} alt="" fill sizes="40vw" className={styles.image} />
+            <Image src={selectedPuzzle.imgUrl} alt="" fill sizes="40vw" className={styles.image} />
           </div>
           <Spacing scale={0.4} />
           <Flex direction="column" gapScale={0.4} style={{ width: "100%" }}>

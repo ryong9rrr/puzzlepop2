@@ -22,11 +22,14 @@ export type SingleGamePuzzleMap = {
   pieceWidth: number;
 } & Omit<PuzzleMap, "naturalWidth" | "naturalHeight" | "possiblePieceWidth">;
 
-export type SingleGamePuzzle = {
-  id: string;
-  src: string;
+export type Puzzle = {
+  _id: string;
   title: string;
   description: string;
-  uploader: string;
+  uploader: {
+    id: string;
+    name: string;
+  };
   tags: string[];
+  imgUrl: string;
 };

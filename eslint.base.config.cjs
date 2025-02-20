@@ -12,5 +12,6 @@ module.exports = {
     "no-var": "error",
     curly: ["error", "all"],
     eqeqeq: ["error", "always", { null: "ignore" }],
+    "no-console": "warn",
   },
 };
