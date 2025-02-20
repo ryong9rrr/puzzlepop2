@@ -46,4 +46,6 @@ COPY --from=installer /app .
 
 EXPOSE 8080
 
+ENV NODE_ENV=production
+
 CMD node apps/rest-server/dist/main.js
