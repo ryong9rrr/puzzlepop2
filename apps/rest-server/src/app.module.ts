@@ -10,7 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      'mongodb://10.0.0.18:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.9',
+      'mongodb://host.docker.internal:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.9',
     ),
     //MongooseModule.forRoot('mongodb://root:1234@localhost:27017/'),
     PuzzlesModule,
