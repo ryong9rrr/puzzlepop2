@@ -1,6 +1,6 @@
 import { RefObject, useEffect, useState } from "react";
 
-interface UseIntersectionObserverProps {
+export interface UseIntersectionObserverProps {
   ref: RefObject<HTMLElement | null>;
   threshold?: number;
   rootMargin?: string;
@@ -16,14 +16,15 @@ export const useIntersectionObserver = (
   const [entry, setEntry] = useState<IntersectionObserverEntry | null>(null);
 
   const updateEntry = ([nextEntry]: IntersectionObserverEntry[]) => {
-    setEntry(nextEntry);
+    if (nextEntry) {
+      setEntry(nextEntry);
+    }
   };
 
   useEffect(() => {
     const element = ref.current;
 
     if (!element) {
-      console.log("element or IntersectionObserver is not supported");
       return;
     }
 
@@ -38,7 +39,6 @@ export const useIntersectionObserver = (
     return () => {
       observer.disconnect();
     };
-    // eslint-disable-next-line
   }, [ref, threshold, rootMargin, root, ...dep]);
 
   return entry;

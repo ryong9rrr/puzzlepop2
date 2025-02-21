@@ -4,13 +4,7 @@ import { BackgroundPuzzleImage } from "./components/background-puzzle";
 import { GridImagesClient } from "./components/grid-images";
 import styles from "./page.module.css";
 
-interface PageProps {
-  searchParams: SearchParams;
-}
-
-export default async function SingleGamePage({ searchParams }: PageProps) {
-  const { cursor } = await searchParams;
-
+export default async function SingleGamePage() {
   return (
     <main style={{ position: "relative" }}>
       <Flex justify="center" gapScale={1} style={{ paddingLeft: "1rem" }}>
@@ -20,7 +14,7 @@ export default async function SingleGamePage({ searchParams }: PageProps) {
           </div>
         </section>
         <section className={styles.right}>
-          <GridImagesClient cursor={cursor} />
+          <GridImagesClient />
         </section>
       </Flex>
 

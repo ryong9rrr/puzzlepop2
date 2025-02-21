@@ -5,61 +5,27 @@ import Image from "next/image";
 import { QueryClientProvider, useInfiniteQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { Flex, Grid, GridItem, Skeleton, Spacing, Text } from "@puzzlepop2/react-components-layout";
+import { useIntersectionObserver } from "@puzzlepop2/react-hooks-base";
 import { TagGroup } from "@/components/tag";
 import { queryClient } from "@/remotes/query-client";
 import { fetchGetSingleGamePuzzleList } from "@/remotes/puzzles/singlegame";
-import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { useSingleGamePage } from "../store";
 import styles from "../page.module.css";
 
-interface GridImagesProps {
-  cursor?: string;
-}
-
-export const GridImagesClient = (props: GridImagesProps) => {
+export const GridImagesClient = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <GridImages {...props} />
+      <GridImages />
     </QueryClientProvider>
   );
 };
 
-const GridImages = (props: GridImagesProps) => {
+const GridImages = () => {
   const { setSelectedPuzzle } = useSingleGamePage();
+  const { data, isError, isPending, hasNextPage, isFetchingNextPage, observerRef } =
+    useInfiniteScroll();
 
-  const observerRef = useRef<HTMLDivElement | null>(null);
-
-  const { data, isError, isPending, hasNextPage, isFetchingNextPage, fetchNextPage } =
-    useInfiniteQuery({
-      queryKey: ["fetchGetSingleGamePuzzleList"],
-      initialPageParam: props.cursor,
-      queryFn: ({ pageParam: nextCursor = "" }) => {
-        return fetchGetSingleGamePuzzleList({ nextCursor });
-      },
-      getNextPageParam: lastPage => {
-        return lastPage.nextCursor;
-      },
-    });
-
-  const intersectionObserver = useIntersectionObserver(
-    {
-      ref: observerRef,
-    },
-    [data],
-  );
-
-  useEffect(() => {
-    if (
-      intersectionObserver &&
-      intersectionObserver.isIntersecting &&
-      hasNextPage &&
-      !isFetchingNextPage
-    ) {
-      fetchNextPage();
-    }
-  }, [fetchNextPage, hasNextPage, intersectionObserver, isFetchingNextPage]);
-
-  if (isError || isPending) {
+  if (isError || isPending || !data) {
     return <GridImagesSkeleton />;
   }
 
@@ -151,4 +117,47 @@ const InfinityLoadingSkeleton = () => {
       </Flex>
     </Flex>
   );
+};
+
+const useInfiniteScroll = () => {
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  const { data, isError, isPending, hasNextPage, isFetchingNextPage, fetchNextPage } =
+    useInfiniteQuery({
+      queryKey: ["fetchGetSingleGamePuzzleList"],
+      initialPageParam: "",
+      queryFn: ({ pageParam: nextCursor = "" }) => {
+        return fetchGetSingleGamePuzzleList({ nextCursor });
+      },
+      getNextPageParam: lastPage => {
+        return lastPage.nextCursor;
+      },
+    });
+
+  const intersectionObserver = useIntersectionObserver(
+    {
+      ref: observerRef,
+    },
+    [data],
+  );
+
+  useEffect(() => {
+    if (
+      intersectionObserver &&
+      intersectionObserver.isIntersecting &&
+      hasNextPage &&
+      !isFetchingNextPage
+    ) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, hasNextPage, intersectionObserver, isFetchingNextPage]);
+
+  return {
+    observerRef,
+    data,
+    isError,
+    isPending,
+    hasNextPage,
+    isFetchingNextPage,
+  };
 };
