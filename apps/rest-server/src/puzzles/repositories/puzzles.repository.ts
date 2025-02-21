@@ -1,17 +1,42 @@
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { Puzzle } from '../puzzles.schema';
-import { HttpException } from '@nestjs/common';
 
 export class PuzzlesRepository {
   constructor(
     @InjectModel(Puzzle.name) private readonly puzzleModel: Model<Puzzle>,
   ) {}
 
-  // TODO: pagination
-  async findPuzzleList() {
-    const puzzles = await this.puzzleModel.find();
-    return puzzles;
+  async findPuzzleList(props: { limit: number; cursor?: string }) {
+    const { limit, cursor } = props;
+    const query: {
+      createdAt?: { $gt: Date };
+    } = {};
+    if (cursor) {
+      const lastPuzzle = await this.findPuzzleById(cursor);
+      if (lastPuzzle) {
+        query.createdAt = { $gt: lastPuzzle.createdAt };
+      }
+    }
+
+    const puzzleList = await this.puzzleModel
+      .find(query)
+      .sort({ createdAt: 1 })
+      .limit(limit)
+      .exec();
+
+    const getNextCursor = () => {
+      if (puzzleList.length < limit) {
+        return null;
+      }
+      const lastPuzzle = puzzleList[puzzleList.length - 1];
+      return lastPuzzle._id === cursor ? null : lastPuzzle._id;
+    };
+
+    return {
+      puzzleList,
+      nextCursor: getNextCursor(),
+    };
   }
 
   async findPuzzleById(id: string) {
@@ -20,7 +45,7 @@ export class PuzzlesRepository {
       return puzzle ?? null;
       // eslint-disable-next-line
     } catch (error) {
-      throw new HttpException('Puzzle not found', 404);
+      return null;
     }
   }
 

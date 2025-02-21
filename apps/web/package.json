@@ -13,6 +13,7 @@
     "@puzzlepop2/game-core": "*",
     "@puzzlepop2/react-components-button": "*",
     "@puzzlepop2/react-components-layout": "*",
+    "@puzzlepop2/react-hooks-base": "*",
     "@puzzlepop2/react-hooks-alert": "*",
     "@puzzlepop2/themes": "*",
     "@puzzlepop2/ts-config": "*",

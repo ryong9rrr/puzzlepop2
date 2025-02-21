@@ -1,8 +1,8 @@
 "use client";
 
 import { Dimmed, Flex, Text } from "@puzzlepop2/react-components-layout";
+import { usePromise } from "@puzzlepop2/react-hooks-base";
 import { PuzzleGame } from "../puzzle-game";
-import { usePromise } from "@/hooks/usePromise";
 
 export const PuzzleCanvas = () => {
   const { isPending, isError, data } = usePromise<PuzzleGame>(async () => {
