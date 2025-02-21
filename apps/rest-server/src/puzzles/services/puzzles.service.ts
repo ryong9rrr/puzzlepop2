@@ -17,8 +17,4 @@ export class PuzzlesService {
     }
     return puzzle;
   }
-
-  uploadPuzzleImage(file: Express.Multer.File) {
-    console.log(file);
-  }
 }

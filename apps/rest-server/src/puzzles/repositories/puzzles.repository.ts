@@ -23,4 +23,25 @@ export class PuzzlesRepository {
       throw new HttpException('Puzzle not found', 404);
     }
   }
+
+  async createPuzzle(props: {
+    title: string;
+    description: string;
+    tags: string[] | null;
+    filename: string;
+    uploader: {
+      id: string;
+      name: string;
+    };
+  }) {
+    const { title, description, tags, filename, uploader } = props;
+    const puzzle = await this.puzzleModel.create({
+      title,
+      description,
+      tags,
+      filename,
+      uploader,
+    });
+    return puzzle;
+  }
 }

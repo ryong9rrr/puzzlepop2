@@ -27,14 +27,11 @@ export class Puzzle extends Document {
   @IsNotEmpty()
   description: string;
 
-  @Prop({
-    required: true,
-  })
   imgUrl: string;
 
-  tags: string[];
+  tags: string[] | null;
 
-  uploader: null;
+  uploaderId: string;
 }
 
 const PuzzleSchema = SchemaFactory.createForClass(Puzzle);

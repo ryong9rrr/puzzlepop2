@@ -10,21 +10,24 @@ async function bootstrap() {
 
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
+      whitelist: true, // DTO에서 정의하지 않은 프로퍼티는 자동으로 제거
+      transform: true, // 요청 데이터를 DTO 클래스 타입으로 자동 변환
     }),
   );
   app.useGlobalInterceptors(new TransformInterceptor());
   app.useGlobalFilters(new HttpExceptionFilter());
   app.setGlobalPrefix('rest-server');
 
-  // file-upload
-  // http://localhost:8000/media/users/xxx.png 로 접근 가능
-  app.useStaticAssets(`${__dirname}/uploads`, {
-    prefix: '/media',
-  });
+  // production에서는 Nginx가 해줄거임
+  if (process.env.NODE_ENV !== 'production') {
+    // http://localhost:8080/cdn/puzzles/... 로 접근 가능
+    app.useStaticAssets(`${__dirname}/uploads`, {
+      prefix: '/cdn',
+    });
+  }
 
   app.enableCors({
-    origin: ['http://localhost:3000', 'http://localhost:5173'],
+    origin: ['http://localhost:3000'],
     credentials: true,
   });
 
