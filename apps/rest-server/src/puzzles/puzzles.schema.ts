@@ -32,6 +32,9 @@ export class Puzzle extends Document {
   tags: string[] | null;
 
   uploaderId: string;
+
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const PuzzleSchema = SchemaFactory.createForClass(Puzzle);

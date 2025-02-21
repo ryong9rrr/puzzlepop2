@@ -1,9 +1,9 @@
-import { Puzzle } from "@puzzlepop2/game-core";
 import { create } from "zustand";
+import { SingleGamePuzzle } from "@/remotes/puzzles/types";
 
 interface SingleGamePageStore {
-  selectedPuzzle: Puzzle | null;
-  setSelectedPuzzle: (puzzle: Puzzle) => void;
+  selectedPuzzle: SingleGamePuzzle | null;
+  setSelectedPuzzle: (puzzle: SingleGamePuzzle) => void;
 }
 
 export const useSingleGamePage = create<SingleGamePageStore>(set => ({

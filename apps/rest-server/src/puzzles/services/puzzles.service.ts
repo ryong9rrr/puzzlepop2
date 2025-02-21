@@ -5,9 +5,13 @@ import { PuzzlesRepository } from '../repositories/puzzles.repository';
 export class PuzzlesService {
   constructor(private readonly puzzlesRepository: PuzzlesRepository) {}
 
-  async getPuzzleList() {
-    const puzzleList = await this.puzzlesRepository.findPuzzleList();
-    return puzzleList;
+  async getPuzzleList(props: { limit: number; cursor?: string }) {
+    const { limit, cursor } = props;
+    const result = await this.puzzlesRepository.findPuzzleList({
+      limit,
+      cursor,
+    });
+    return result;
   }
 
   async getPuzzle(id: string) {

@@ -1,18 +1,23 @@
-import { Puzzle } from "@puzzlepop2/game-core";
 import { getRestServerUrl } from "../end-point";
+import { SingleGamePuzzle } from "./types";
 
-type FetchGetSingleGamePuzzleList = {
-  page?: number;
-};
-
-export const fetchGetSingleGamePuzzleList = async (props?: FetchGetSingleGamePuzzleList) => {
-  const response = await fetch(`${getRestServerUrl()}/puzzles?page=${props?.page || 1}`);
+export const fetchGetSingleGamePuzzleList = async ({ nextCursor }: { nextCursor: string }) => {
+  const LIMIT = 8;
+  const response = await fetch(
+    `${getRestServerUrl()}/puzzles?limit=${LIMIT}${nextCursor ? `&cursor=${nextCursor}` : ""}`,
+  );
   const { data } = await response.json();
-  return data as Puzzle[];
+  return {
+    data: data.puzzleList,
+    nextCursor: data.nextCursor,
+  } as {
+    data: SingleGamePuzzle[];
+    nextCursor: string | null;
+  };
 };
 
 export const fetchGetSingleGamePuzzleById = async ({ id }: { id: string }) => {
   const response = await fetch(`${getRestServerUrl()}/puzzles/${id}`);
   const { data } = await response.json();
-  return data as Puzzle;
+  return data as SingleGamePuzzle;
 };
