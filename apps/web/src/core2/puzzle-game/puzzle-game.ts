@@ -13,6 +13,7 @@ import { getMask } from "./create/mask";
 import { createRandomPosition } from "./create/position";
 import { save } from "./validation/parsePieceList";
 import { queryCanvasElement, queryImageElement } from "../dom";
+import { resizeImage } from "./helpers/image-raster";
 
 export class PuzzleGame {
   private _imgElement: HTMLImageElement | null = null;
@@ -108,6 +109,29 @@ export class PuzzleGame {
 
   run() {
     Paper.setup(this.canvasElement);
+
+    console.log(`원본 이미지의 크기 : ${this.imgElement.width} x ${this.imgElement.height}`);
+
+    const resizedImageSize = resizeImage({
+      imgElement: this.imgElement,
+      canvasElement: this.canvasElement,
+    });
+
+    console.log(
+      `캔버스 안에 들어갈만한 크기 : ${resizedImageSize.width} x ${resizedImageSize.height}`,
+    );
+
+    console.log("--------------------");
+    for (const pieceSize of [50, 80, 100]) {
+      console.log(`퍼즐 조각의 크기가 ${pieceSize}일 때`);
+      const perRow = Math.floor(resizedImageSize.width / pieceSize);
+      const perColumn = Math.floor(resizedImageSize.height / pieceSize);
+      console.log(
+        `딱 나눠 떨어지려면 너비가 ${perRow * pieceSize}, 높이가 ${perColumn * pieceSize}`,
+      );
+      console.log(`가로 ${perRow}개, 세로 ${perColumn}개로 나누어집니다.`);
+      console.log("--------------------");
+    }
 
     if (!this.pieceList) {
       this.pieceList = this.createPieceList();
