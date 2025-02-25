@@ -14,7 +14,7 @@
   "scripts": {
     "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo",
     "lint": "eslint .",
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "sharp": "node ./src/sharp/sharp.js",
     "build": "yarn build:js && yarn build:type",
