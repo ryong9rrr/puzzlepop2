@@ -12,6 +12,15 @@ const nextConfig: NextConfig = {
     }
     return config;
   },
+  images: {
+    // TODO: https, 도메인네임으로 바꾸기
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "140.245.39.129",
+      },
+    ],
+  },
 };
 
 export default nextConfig;
