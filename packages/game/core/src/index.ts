@@ -1,3 +1,3 @@
-export type { GameMode, GameLevel } from "./types";
-
 export * from "./constants";
+
+export type { GameMode, GameLevel, Piece, Shape } from "./types";

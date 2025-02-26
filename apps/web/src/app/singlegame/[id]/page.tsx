@@ -1,10 +1,6 @@
-import { redirect } from "next/navigation";
-import { vars } from "@puzzlepop2/themes";
-import { fetchGetSingleGamePuzzleById } from "@/remotes/puzzles/singlegame";
-import { IMG_ID, CANVAS_ID } from "@/core/dom";
-import { PuzzleClient } from "@/core2";
 import { GameLevel } from "@puzzlepop2/game-core";
-//import { PuzzleClient } from "./components/puzzle-client";
+import { fetchGetSingleGamePuzzleById } from "@/remotes/puzzles/singlegame";
+import { PuzzleClient } from "@/core3";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -20,32 +16,27 @@ export default async function Page({ params, searchParams }: PageProps) {
   }
 
   const puzzle = await fetchGetSingleGamePuzzleById({ id, level });
-  return <PuzzleClient src={puzzle.src} />;
 
-  // return (
-  //   <>
-  //     {/* eslint-disable-next-line */}
-  //     <img id={IMG_ID} src={puzzle.src} alt="" style={{ display: "none" }} />
-  //     <div
-  //       style={{
-  //         display: "flex",
-  //         justifyContent: "center",
-  //         alignItems: "center",
-  //         padding: "1rem",
-  //       }}
-  //     >
-  //       <canvas
-  //         id={CANVAS_ID}
-  //         style={{
-  //           width: "100%",
-  //           height: "calc(100vh - 2rem)",
-  //           backgroundColor: vars.colors.white,
-  //         }}
-  //       />
-  //     </div>
-  //     <PuzzleClient />
-  //   </>
-  // );
+  return (
+    <main
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <PuzzleClient
+        gameLevel={puzzle.level}
+        perColumn={puzzle.perColumn}
+        perRow={puzzle.perRow}
+        pieces={puzzle.pieces}
+        src={puzzle.src}
+      />
+    </main>
+  );
 }
 
 export type SearchParams = {
