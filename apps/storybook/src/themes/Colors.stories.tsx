@@ -6,25 +6,31 @@ const colorLevels: ColorLevel[] = [50, 100, 200, 300, 400, 500, 600, 700, 800, 9
 
 const RenderStory = () => {
   return (
-    <>
+    <div
+      style={{
+        fontSize: "12px",
+      }}
+    >
       {Object.keys(vars.colors).map(color => (
         <Flex>
-          {colorLevels.map(level => (
-            <Box
-              key={level}
-              style={{
-                width: "100px",
-                height: "100px",
-                backgroundColor: vars.colors[color][level],
-              }}
-            >
-              {color}
-              {level}
-            </Box>
-          ))}
+          {color !== "black" &&
+            color !== "white" &&
+            colorLevels.map(level => (
+              <Box
+                key={level}
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  backgroundColor: vars.colors[color][level],
+                }}
+              >
+                {color}
+                {level}
+              </Box>
+            ))}
         </Flex>
       ))}
-    </>
+    </div>
   );
 };
 

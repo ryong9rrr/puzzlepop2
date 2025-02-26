@@ -1,10 +1,10 @@
 import { create } from "zustand";
 import { GameLevel } from "@puzzlepop2/game-core";
-import { SingleGamePuzzle } from "@/remotes/puzzles/types";
+import { Puzzle } from "@/remotes/puzzles/types";
 
 interface SingleGamePageStore {
-  selectedPuzzle: SingleGamePuzzle | null;
-  setSelectedPuzzle: (puzzle: SingleGamePuzzle) => void;
+  selectedPuzzle: Puzzle | null;
+  setSelectedPuzzle: (puzzle: Puzzle) => void;
   selectedLevel: GameLevel | null;
   setSelectedLevel: (level: GameLevel) => void;
 }

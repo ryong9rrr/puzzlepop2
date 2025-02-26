@@ -27,13 +27,25 @@
     rxjs "7.8.1"
     source-map "0.7.4"
 
-"@angular-devkit/schematics-cli@19.1.7":
-  version "19.1.7"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics-cli/-/schematics-cli-19.1.7.tgz#882f3cb7d5ec529854724c0b871c1b9c0c43feb6"
-  integrity sha512-4v84frwtJ0LUwuFTkaghMuaFbf9e1db3GuYSTN7fMRlT1pnfl/0lc4DRWVGP5VBxsJUYP42ltRnhrp6M+XjHSg==
+"@angular-devkit/core@19.1.8":
+  version "19.1.8"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-19.1.8.tgz#ea9f20c7a285bd4d463a122732619a71eb8a147c"
+  integrity sha512-j1zHKvOsGwu5YwAZGuzi835R9vcW7PkfxmSRIJeVl+vawgk31K3zFb4UPH8AY/NPWYqXIAnwpka3HC1+JrWLWA==
   dependencies:
-    "@angular-devkit/core" "19.1.7"
-    "@angular-devkit/schematics" "19.1.7"
+    ajv "8.17.1"
+    ajv-formats "3.0.1"
+    jsonc-parser "3.3.1"
+    picomatch "4.0.2"
+    rxjs "7.8.1"
+    source-map "0.7.4"
+
+"@angular-devkit/schematics-cli@19.1.8":
+  version "19.1.8"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics-cli/-/schematics-cli-19.1.8.tgz#a56a56bd435dabbc77f07129bf1d546f5a3eae81"
+  integrity sha512-sHblN9EuiJgKwJVYc+nhpU+GlVkAJHJc7lBR8YSoaugNGcCMkWn4f7rJnJDywL/CEOHBICnyWZKfTCMsMyg1Cw==
+  dependencies:
+    "@angular-devkit/core" "19.1.8"
+    "@angular-devkit/schematics" "19.1.8"
     "@inquirer/prompts" "7.2.1"
     ansi-colors "4.1.3"
     symbol-observable "4.0.0"
@@ -45,6 +57,17 @@
   integrity sha512-AP6FvhMybCYs3gs+vzEAzSU1K//AFT3SVTRFv+C3WMO5dLeAHeGzM8I2dxD5EHQQtqIE/8apP6CxGrnpA5YlFg==
   dependencies:
     "@angular-devkit/core" "19.1.7"
+    jsonc-parser "3.3.1"
+    magic-string "0.30.17"
+    ora "5.4.1"
+    rxjs "7.8.1"
+
+"@angular-devkit/schematics@19.1.8":
+  version "19.1.8"
+  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-19.1.8.tgz#e9927bd656e53965018ee30505c86649275ff1e3"
+  integrity sha512-2JGUMD3zjfY8G4RYpypm2/1YEO+O4DtFycUvptIpsBYyULgnEbJ3tlp2oRiXI2vp9tC8IyWqa/swlA8DTI6ZYQ==
+  dependencies:
+    "@angular-devkit/core" "19.1.8"
     jsonc-parser "3.3.1"
     magic-string "0.30.17"
     ora "5.4.1"
@@ -2007,16 +2030,16 @@
     "@napi-rs/nice-win32-x64-msvc" "1.0.1"
 
 "@nestjs/cli@^11.0.0":
-  version "11.0.4"
-  resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-11.0.4.tgz#e37d16beabd3a9904954b05be7dbd25d28e835e3"
-  integrity sha512-EITofIvoxqHt/A5M2VcihyDqmZ0b8s8k8xLI/gzSNqmgkZ4caYOq87LKCENG862jGb0aC7ROXpYnDjxMqnFjOQ==
+  version "11.0.5"
+  resolved "https://registry.yarnpkg.com/@nestjs/cli/-/cli-11.0.5.tgz#be144d1379d51a0f3be95ece9d02c5955c22b1c8"
+  integrity sha512-ab/d8Ple+dMSQ4pC7RSNjhntpT8gFQQE8y/F/ilaplp7zPGpuxbayRtYbsA/wc1UkJHORDckrqFc8Jh8mrTq2A==
   dependencies:
-    "@angular-devkit/core" "19.1.7"
-    "@angular-devkit/schematics" "19.1.7"
-    "@angular-devkit/schematics-cli" "19.1.7"
+    "@angular-devkit/core" "19.1.8"
+    "@angular-devkit/schematics" "19.1.8"
+    "@angular-devkit/schematics-cli" "19.1.8"
     "@inquirer/prompts" "7.3.2"
     "@nestjs/schematics" "^11.0.1"
-    ansis "3.15.0"
+    ansis "3.16.0"
     chokidar "4.0.3"
     cli-table3 "0.6.5"
     commander "4.1.1"
@@ -3700,10 +3723,10 @@ ansi-styles@^6.1.0:
   resolved "https://registry.yarnpkg.com/ansi-styles/-/ansi-styles-6.2.1.tgz#0e62320cf99c21afff3b3012192546aacbfb05c5"
   integrity sha512-bN798gFfQX+viw3R7yrGWRqnrN2oRkEkUjjl4JNn4E8GxxbjtG3FbrEIIY3l8/hrwUwIeCZvi4QuOTP4MErVug==
 
-ansis@3.15.0:
-  version "3.15.0"
-  resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.15.0.tgz#8c2c5546685ceba0944dad9485903851b6e704f6"
-  integrity sha512-zIcWDJ+Kwqxfdnogx66Gxzr0kVmCcRAdat9nlY2IHsshqTN4fBH6tMeRMPA/2w0rpBayIJvjQAaa2/4RDrNqwg==
+ansis@3.16.0:
+  version "3.16.0"
+  resolved "https://registry.yarnpkg.com/ansis/-/ansis-3.16.0.tgz#5e365fd173133756a01199c77fc9146bb22fb5eb"
+  integrity sha512-sU7d/tfZiYrsIAXbdL/CNZld5bCkruzwT5KmqmadCJYxuLxHAOBjidxD5+iLmN/6xEfjcQq1l7OpsiCBlc4LzA==
 
 anymatch@^3.0.3, anymatch@~3.1.2:
   version "3.1.3"
@@ -4210,9 +4233,9 @@ camelcase@^6.2.0:
   integrity sha512-Gmy6FhYlCY7uOElZUSbxo2UCDH8owEk996gkbrpsgGtrJLM3J7jGxl9Ic7Qwwj4ivOE5AWZWRMecDdF7hqGjFA==
 
 caniuse-lite@^1.0.30001579, caniuse-lite@^1.0.30001688:
-  version "1.0.30001700"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001700.tgz#26cd429cf09b4fd4e745daf4916039c794d720f6"
-  integrity sha512-2S6XIXwaE7K7erT8dY+kLQcpa5ms63XlRkMkReXjle+kf6c5g38vyMl+Z5y8dSxOFDhcFe+nxnn261PLxBSQsQ==
+  version "1.0.30001701"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001701.tgz#ad9c90301f7153cf6b3314d16cc30757285bf9e7"
+  integrity sha512-faRs/AW3jA9nTwmJBSO1PQ6L/EOgsB5HMQQq4iCu5zhPgVVgO/pZRHlmatwijZKetFw8/Pr4q6dEN8sJuq8qTw==
 
 chai@^5.1.1:
   version "5.2.0"
@@ -4279,9 +4302,9 @@ chokidar@^3.5.3:
     fsevents "~2.3.2"
 
 chromatic@^11.15.0:
-  version "11.25.2"
-  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.25.2.tgz#cb93dc1332d8f6b70d97a3ef126bc6d03429d396"
-  integrity sha512-/9eQWn6BU1iFsop86t8Au21IksTRxwXAl7if8YHD05L2AbuMjClLWZo5cZojqrJHGKDhTqfrC2X2xE4uSm0iKw==
+  version "11.26.0"
+  resolved "https://registry.yarnpkg.com/chromatic/-/chromatic-11.26.0.tgz#330976ace8bc9a7e4b1512ebbb1d518b0def62d1"
+  integrity sha512-3rRiPmdnt5sbYZTlr6Uqd11S/teafQA1Dr6mCddIz/FFKYPv/Yt26nJllixyFd9VUwrILMPTyuracUIgJ77VZA==
 
 chrome-trace-event@^1.0.2:
   version "1.0.4"
@@ -4849,9 +4872,9 @@ ejs@^3.1.10:
     jake "^10.8.5"
 
 electron-to-chromium@^1.5.73:
-  version "1.5.104"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.104.tgz#e92a1ec54f279d8fc60eb7e8cf6add9631631f38"
-  integrity sha512-Us9M2L4cO/zMBqVkJtnj353nQhMju9slHm62NprKTmdF3HH8wYOtNvDFq/JB2+ZRoGLzdvYDiATlMHs98XBM1g==
+  version "1.5.105"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.105.tgz#0b2396e7e1a467434cd3132950bbe53c04f74a5e"
+  integrity sha512-ccp7LocdXx3yBhwiG0qTQ7XFrK48Ua2pxIxBdJO8cbddp/MvbBtPFzvnTchtyHQTsgqqczO8cdmAIbpMa0u2+g==
 
 emittery@^0.13.1:
   version "0.13.1"
@@ -5123,9 +5146,9 @@ eslint-config-next@15.1.5:
     eslint-plugin-react-hooks "^5.0.0"
 
 eslint-config-prettier@^10.0.1:
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-10.0.1.tgz#fbb03bfc8db0651df9ce4e8b7150d11c5fe3addf"
-  integrity sha512-lZBts941cyJyeaooiKxAtzoPHTN+GbQTJFAIdQbRhA4/8whaAraEh47Whw/ZFfrjNSnlAxqfm9i0XVAEkULjCw==
+  version "10.0.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-10.0.2.tgz#47444de8aa104ce82c2f91ad2a5e96b62c01e20d"
+  integrity sha512-1105/17ZIMjmCOJOPNfVdbXafLCLj3hPmkmB7dLgt7XsQ/zkxSuDerE/xgO3RxoHysR1N1whmquY0lSn2O0VLg==
 
 eslint-config-prettier@^9.0.0:
   version "9.1.0"
@@ -5640,9 +5663,9 @@ fast-uri@^3.0.1:
   integrity sha512-Atfo14OibSv5wAp4VWNsFYE1AchQRTv9cBGWET4pZWHzYshFSS9NQI6I57rdKn9croWVMbYFbLhJ+yJvmZIIHw==
 
 fastq@^1.6.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.19.0.tgz#a82c6b7c2bb4e44766d865f07997785fecfdcb89"
-  integrity sha512-7SFSRCNjBQIZH/xZR3iy5iQYR8aGBE0h3VG6/cwlbrpdciNYBMotQav8c1XI3HjHH+NikUpP53nPdlZSdWmFzA==
+  version "1.19.1"
+  resolved "https://registry.yarnpkg.com/fastq/-/fastq-1.19.1.tgz#d50eaba803c8846a883c16492821ebcd2cda55f5"
+  integrity sha512-GwLTyxkCXjXbxqIhTsMI2Nui8huMPtnxg7krajPJAjnEG/iiOS7i+zCtWGZR9G0NBKbXKh6X9m9UIsYX/N6vvQ==
   dependencies:
     reusify "^1.0.4"
 
@@ -9396,47 +9419,47 @@ tslib@2.8.1, tslib@^2.0.1, tslib@^2.1.0, tslib@^2.4.0, tslib@^2.6.2, tslib@^2.8.
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
 
-turbo-darwin-64@2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/turbo-darwin-64/-/turbo-darwin-64-2.4.3.tgz#177d084c33e8fe8d5bfcbb4087574a5a7af71c1c"
-  integrity sha512-TFKiCSJAAN8E7g8isVzocm5OaUGjXn5DVBCeIFmJ2dKe/wY64Gvw37Y5HnyKZLM2JWdEI2SkXrDLNfGMGwfXyg==
+turbo-darwin-64@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/turbo-darwin-64/-/turbo-darwin-64-2.4.4.tgz#2508d9b3b358bb91e8745be3e62284621a2b8721"
+  integrity sha512-5kPvRkLAfmWI0MH96D+/THnDMGXlFNmjeqNRj5grLKiry+M9pKj3pRuScddAXPdlxjO5Ptz06UNaOQrrYGTx1g==
 
-turbo-darwin-arm64@2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/turbo-darwin-arm64/-/turbo-darwin-arm64-2.4.3.tgz#10396e36adf964ee481433a2e07bf82728c2983e"
-  integrity sha512-pRCRHe5LPyF9L0qxCMGycl2NM9OV5obrG+J4/foO/e7a0yfwMRnQ7lJdHrrT5zfEYrj0/WN0ZxsaRAqyM3qZZw==
+turbo-darwin-arm64@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/turbo-darwin-arm64/-/turbo-darwin-arm64-2.4.4.tgz#6fccca032d68bc6383d118da2fb7bc0c31ba3a7d"
+  integrity sha512-/gtHPqbGQXDFhrmy+Q/MFW2HUTUlThJ97WLLSe4bxkDrKHecDYhAjbZ4rN3MM93RV9STQb3Tqy4pZBtsd4DfCw==
 
-turbo-linux-64@2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/turbo-linux-64/-/turbo-linux-64-2.4.3.tgz#48538bda89903654e91f2308723579142aea102e"
-  integrity sha512-4SZj0K1OKXFBwGe7bNVYKcNJct6mdESWfq0zEYUp2yiWPxcihMWc60aGTccI5OC54UxhS52PcrBoiKQzIB6vkA==
+turbo-linux-64@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/turbo-linux-64/-/turbo-linux-64-2.4.4.tgz#6957b278c6fc52991bafa037dff6569d3f3b4f82"
+  integrity sha512-SR0gri4k0bda56hw5u9VgDXLKb1Q+jrw4lM7WAhnNdXvVoep4d6LmnzgMHQQR12Wxl3KyWPbkz9d1whL6NTm2Q==
 
-turbo-linux-arm64@2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/turbo-linux-arm64/-/turbo-linux-arm64-2.4.3.tgz#71e963d1bf94eff7e93dcd9cdc626895dd0fe84d"
-  integrity sha512-/wp0csB7GW6VUYsKAuMjVtvGy+Bo2g8RyE+5yx3/rD9+e8wHy0TZUiAiRtj0aeVJXiVPd/MA6u6IdxjV95/qxA==
+turbo-linux-arm64@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/turbo-linux-arm64/-/turbo-linux-arm64-2.4.4.tgz#bb596c4a3572f40bf65c0f23db16dc585f71ec80"
+  integrity sha512-COXXwzRd3vslQIfJhXUklgEqlwq35uFUZ7hnN+AUyXx7hUOLIiD5NblL+ETrHnhY4TzWszrbwUMfe2BYWtaPQg==
 
-turbo-windows-64@2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/turbo-windows-64/-/turbo-windows-64-2.4.3.tgz#9c87bf7210393aa7cb98d6ce2aa46888472708da"
-  integrity sha512-GpZl4YiIqf1eNFHys+tT9LgCfTi67TykOdI6xD7PB+oFsZisjQzhAVu/BW3oTe6lHRe0zndEQMuodP+fGAXHbA==
+turbo-windows-64@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/turbo-windows-64/-/turbo-windows-64-2.4.4.tgz#f73dccceb970bdc75b3a13da81e1671c2bc64325"
+  integrity sha512-PV9rYNouGz4Ff3fd6sIfQy5L7HT9a4fcZoEv8PKRavU9O75G7PoDtm8scpHU10QnK0QQNLbE9qNxOAeRvF0fJg==
 
-turbo-windows-arm64@2.4.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/turbo-windows-arm64/-/turbo-windows-arm64-2.4.3.tgz#f6be5038c61d5ee7fd0c5f66c475734e4655146d"
-  integrity sha512-AjyuOdQc2wRn2C+RksQ8rhpzvvpD3FOG3hUz9S9uhE5FpgUFUynGnYgFlKVnHkL/k7aslBL4dzNE7S4UaJeywA==
+turbo-windows-arm64@2.4.4:
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/turbo-windows-arm64/-/turbo-windows-arm64-2.4.4.tgz#e00c26e3d7fd9a82af90018ad3137f14e5221630"
+  integrity sha512-403sqp9t5sx6YGEC32IfZTVWkRAixOQomGYB8kEc6ZD+//LirSxzeCHCnM8EmSXw7l57U1G+Fb0kxgTcKPU/Lg==
 
 turbo@^2.3.3:
-  version "2.4.3"
-  resolved "https://registry.yarnpkg.com/turbo/-/turbo-2.4.3.tgz#ef3c204ebba54b006ecefa47c9b26d41f3d428ea"
-  integrity sha512-CpUHqrLTnV9R41RiWMSj9ZNHl++I7eTUIU+pH5O5a/2fRMhiKI6JdgBszuQ2YyaZYXkZZh/oHwbgzS1pug0zMg==
+  version "2.4.4"
+  resolved "https://registry.yarnpkg.com/turbo/-/turbo-2.4.4.tgz#cec5dbac5850adebdba71fbdf90e6e9a7723c3d6"
+  integrity sha512-N9FDOVaY3yz0YCOhYIgOGYad7+m2ptvinXygw27WPLQvcZDl3+0Sa77KGVlLSiuPDChOUEnTKE9VJwLSi9BPGQ==
   optionalDependencies:
-    turbo-darwin-64 "2.4.3"
-    turbo-darwin-arm64 "2.4.3"
-    turbo-linux-64 "2.4.3"
-    turbo-linux-arm64 "2.4.3"
-    turbo-windows-64 "2.4.3"
-    turbo-windows-arm64 "2.4.3"
+    turbo-darwin-64 "2.4.4"
+    turbo-darwin-arm64 "2.4.4"
+    turbo-linux-64 "2.4.4"
+    turbo-linux-arm64 "2.4.4"
+    turbo-windows-64 "2.4.4"
+    turbo-windows-arm64 "2.4.4"
 
 tween-functions@^1.2.0:
   version "1.2.0"

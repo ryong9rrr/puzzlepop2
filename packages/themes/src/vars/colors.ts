@@ -3,17 +3,18 @@ import { Color } from "../types";
 export const white = "#FAFAFA";
 export const black = "#212121";
 
+// 약간 어두운 노란색
 export const yellow: Color = {
-  50: "#fef7e6",
-  100: "#fbe7c1",
-  200: "#f7d395",
-  300: "#f3bf6a",
-  400: "#efa947",
-  500: "#e9a11b",
-  600: "#d08918",
-  700: "#aa6d13",
-  800: "#85530f",
-  900: "#663f0c",
+  50: "#fffff0",
+  100: "#fefcbf",
+  200: "#faf089",
+  300: "#f6e05e",
+  400: "#ecc94b",
+  500: "#d69e2e",
+  600: "#b7791f",
+  700: "#975a16",
+  800: "#744210",
+  900: "#5f370e",
 };
 
 export const lavender: Color = {

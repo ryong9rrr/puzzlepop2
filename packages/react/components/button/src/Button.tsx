@@ -8,6 +8,7 @@ import {
   enableColorVariant,
   hoverColorVariant,
   activeColorVariant,
+  borderVariant,
 } from "./style.css";
 
 const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
@@ -24,8 +25,9 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
   } = props;
 
   const enableColor = vars.colors[color]["500"];
-  const hoverColor = variant === "solid" ? vars.colors[color]["700"] : vars.colors[color]["200"];
-  const activeColor = variant === "solid" ? vars.colors[color]["700"] : vars.colors[color]["200"];
+  const hoverColor = defineHoverColorVariant({ variant, color });
+  const activeColor = defineActiveColorVariant({ variant, color });
+  const border = defineBorderVariant({ variant, color });
 
   return (
     <button
@@ -43,8 +45,8 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
           [enableColorVariant]: enableColor,
           [hoverColorVariant]: hoverColor,
           [activeColorVariant]: activeColor,
+          [borderVariant]: border,
         }),
-        border: variant === "solid" ? `0.1rem solid ${vars.colors[color]["600"]}` : undefined,
         ...style,
       }}
       {...rest}
@@ -56,3 +58,43 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
 
 const _Button = React.forwardRef(Button);
 export { _Button as Button };
+
+const defineBorderVariant = (props: Required<Pick<ButtonProps, "variant" | "color">>) => {
+  const { variant, color } = props;
+
+  if (variant === "solid") {
+    return `0.1rem solid ${vars.colors[color]["600"]}`;
+  }
+  if (variant === "outline") {
+    return "0.1rem solid";
+  }
+  return "none";
+};
+
+const defineHoverColorVariant = (props: Required<Pick<ButtonProps, "variant" | "color">>) => {
+  const { variant, color } = props;
+
+  if (variant === "solid") {
+    return vars.colors[color]["700"];
+  }
+
+  if (color === "yellow") {
+    return vars.colors[color]["500"];
+  }
+
+  return vars.colors[color]["200"];
+};
+
+const defineActiveColorVariant = (props: Required<Pick<ButtonProps, "variant" | "color">>) => {
+  const { variant, color } = props;
+
+  if (variant === "solid") {
+    return vars.colors[color]["700"];
+  }
+
+  if (color === "yellow") {
+    return vars.colors[color]["500"];
+  }
+
+  return vars.colors[color]["200"];
+};

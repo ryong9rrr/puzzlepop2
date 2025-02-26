@@ -5,12 +5,12 @@ import { vars } from "@puzzlepop2/themes";
 export const enableColorVariant = createVar();
 export const hoverColorVariant = createVar();
 export const activeColorVariant = createVar();
+export const borderVariant = createVar();
 
 export const buttonStyle = recipe({
   base: {
     margin: 0,
-    //padding: 0,
-    //borderRadius: 0,
+    border: borderVariant,
 
     display: "flex",
     alignItems: "center",
@@ -47,7 +47,6 @@ export const buttonStyle = recipe({
       },
 
       outline: {
-        border: "1px solid",
         backgroundColor: "transparent",
         color: enableColorVariant,
 
@@ -68,7 +67,6 @@ export const buttonStyle = recipe({
       },
 
       shadow: {
-        border: "none",
         backgroundColor: "rgba(0, 0, 0, 0.3)",
         color: vars.colors.white,
         boxShadow:
