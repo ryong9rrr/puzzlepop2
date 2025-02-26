@@ -1,4 +1,4 @@
-import { HTMLAttributes } from "react";
+import { CSSProperties, HTMLAttributes } from "react";
 import clsx from "clsx";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import styles from "./style.module.css";
@@ -13,12 +13,20 @@ export const Tag = (props: HTMLAttributes<HTMLSpanElement>) => {
   );
 };
 
-export const TagGroup = ({ tags }: { tags: string[] }) => {
+export const TagGroup = ({
+  tags,
+  width = "100%",
+}: {
+  tags: string[];
+  width?: CSSProperties["width"];
+}) => {
   return (
-    <Flex gapScale={0.15}>
-      {tags.map(tag => (
-        <Tag key={tag}>{tag}</Tag>
-      ))}
-    </Flex>
+    <div style={{ width }}>
+      <Flex gapScale={0.15} style={{ whiteSpace: "nowrap", overflowX: "auto" }}>
+        {tags.map(tag => (
+          <Tag key={tag}>{tag}</Tag>
+        ))}
+      </Flex>
+    </div>
   );
 };

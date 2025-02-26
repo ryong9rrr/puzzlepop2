@@ -59,7 +59,7 @@ const GridImages = () => {
                     className={styles.image}
                   />
                 </div>
-                <TagGroup tags={puzzle.tags} />
+                <TagGroup tags={puzzle.tags} width="25vw" />
                 <Text
                   style={{
                     width: "25vw",

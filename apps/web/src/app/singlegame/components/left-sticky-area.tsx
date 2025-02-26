@@ -74,7 +74,7 @@ export const LeftStickyArea = () => {
           </div>
           <Spacing scale={0.4} />
           <Flex direction="column" gapScale={0.4} style={{ width: "100%" }}>
-            <TagGroup tags={selectedPuzzle.tags} />
+            <TagGroup tags={selectedPuzzle.tags} width="30vw" />
             {/* TODO: uploader 속성으로 유저 페이지로 연결시키는 기능 */}
             <Text className={styles.ellipsis} size="sm" bold>
               {selectedPuzzle.title}
