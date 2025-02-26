@@ -1,5 +1,6 @@
+import { GameLevel } from "@puzzlepop2/game-core";
 import { getRestServerUrl } from "../end-point";
-import { SingleGamePuzzle } from "./types";
+import { SingleGamePuzzle, Puzzle } from "./types";
 
 export const fetchGetSingleGamePuzzleList = async ({ nextCursor }: { nextCursor: string }) => {
   const LIMIT = 8;
@@ -11,13 +12,19 @@ export const fetchGetSingleGamePuzzleList = async ({ nextCursor }: { nextCursor:
     data: data.puzzleList,
     nextCursor: data.nextCursor,
   } as {
-    data: SingleGamePuzzle[];
+    data: Puzzle[];
     nextCursor: string | null;
   };
 };
 
-export const fetchGetSingleGamePuzzleById = async ({ id }: { id: string }) => {
-  const response = await fetch(`${getRestServerUrl()}/puzzles/${id}`);
+export const fetchGetSingleGamePuzzleById = async ({
+  id,
+  level,
+}: {
+  id: string;
+  level: GameLevel;
+}) => {
+  const response = await fetch(`${getRestServerUrl()}/puzzles/${id}?level=${level}`);
   const { data } = await response.json();
   return data as SingleGamePuzzle;
 };

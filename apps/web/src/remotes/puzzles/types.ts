@@ -1,4 +1,4 @@
-export type SingleGamePuzzle = {
+export type Puzzle = {
   _id: string;
   title: string;
   description: string;
@@ -6,3 +6,7 @@ export type SingleGamePuzzle = {
   tags: string[];
   uploaderId: string;
 };
+
+export type SingleGamePuzzle = {
+  src: string;
+} & Puzzle;

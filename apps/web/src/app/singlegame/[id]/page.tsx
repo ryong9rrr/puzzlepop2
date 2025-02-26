@@ -3,15 +3,26 @@ import { vars } from "@puzzlepop2/themes";
 import { fetchGetSingleGamePuzzleById } from "@/remotes/puzzles/singlegame";
 import { IMG_ID, CANVAS_ID } from "@/core/dom";
 import { PuzzleClient } from "@/core2";
+import { GameLevel } from "@puzzlepop2/game-core";
 //import { PuzzleClient } from "./components/puzzle-client";
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
-  const id = (await params).id;
+interface PageProps {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<SearchParams>;
+}
 
+export default async function Page({ params, searchParams }: PageProps) {
   try {
-    const puzzle = await fetchGetSingleGamePuzzleById({ id });
+    const id = (await params).id;
+    const level = (await searchParams).level;
 
-    return <PuzzleClient src={puzzle.imgUrl} />;
+    if (level !== "easy" && level !== "normal" && level !== "hard") {
+      redirect("/singlegame");
+      return;
+    }
+
+    const puzzle = await fetchGetSingleGamePuzzleById({ id, level });
+    return <PuzzleClient src={puzzle.src} />;
 
     // return (
     //   <>
@@ -42,3 +53,7 @@ export default async function Page({ params }: { params: Promise<{ id: string }>
     redirect("/singlegame");
   }
 }
+
+export type SearchParams = {
+  level?: GameLevel;
+};

@@ -13,12 +13,13 @@ import styles from "../page.module.css";
 
 export const LeftStickyArea = () => {
   const router = useRouter();
-  const { selectedPuzzle } = useSingleGamePage();
+  const { selectedPuzzle, selectedLevel, setSelectedLevel } = useSingleGamePage();
 
-  const handleClick게임시작 = () => {
-    if (selectedPuzzle) {
-      router.push(`singlegame/${selectedPuzzle._id}`);
+  const handleClickGameStart = () => {
+    if (!selectedLevel || !selectedPuzzle) {
+      return;
     }
+    router.push(`singlegame/${selectedPuzzle._id}?level=${selectedLevel}`);
   };
 
   if (!selectedPuzzle) {
@@ -81,11 +82,41 @@ export const LeftStickyArea = () => {
             <Text size="xs">{selectedPuzzle.description}</Text>
             <Spacing scale={0.5} />
 
+            <Flex justify="space-between" gapScale={0.5}>
+              <Button
+                variant={selectedLevel === "easy" ? "solid" : "outline"}
+                size="xs"
+                style={{
+                  width: "100%",
+                }}
+                onClick={() => setSelectedLevel("easy")}
+              >
+                쉬움
+              </Button>
+              <Button
+                variant={selectedLevel === "normal" ? "solid" : "outline"}
+                size="xs"
+                style={{ width: "100%" }}
+                onClick={() => setSelectedLevel("normal")}
+              >
+                보통
+              </Button>
+              <Button
+                variant={selectedLevel === "hard" ? "solid" : "outline"}
+                size="xs"
+                style={{ width: "100%" }}
+                onClick={() => setSelectedLevel("hard")}
+              >
+                어려움
+              </Button>
+            </Flex>
+
             <motion.div whileTap={{ scale: 0.95 }} style={{ width: "100%" }}>
               <Button
                 size="sm"
                 className="font-gameBasic"
-                onClick={handleClick게임시작}
+                onClick={handleClickGameStart}
+                isDisabled={selectedLevel === null}
                 style={{ width: "100%" }}
               >
                 게임 시작
