@@ -1,8 +1,8 @@
 import Image from "next/image";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars, Z_INDEX } from "@puzzlepop2/themes";
-import { AlertClient } from "./components/alert-client";
-import { Selector } from "./components/selector";
+import { AlertClient } from "../components/alert-client";
+import { Selector } from "./selector";
 import styles from "./page.module.css";
 
 export default function HomePage() {

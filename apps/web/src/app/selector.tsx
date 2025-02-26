@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
 import { useAlert } from "@puzzlepop2/react-hooks-alert";
-import { Title } from "./alert";
+import { AlertTitle } from "./alert-title";
 
 export const Selector = () => {
   const router = useRouter();
@@ -14,7 +14,7 @@ export const Selector = () => {
 
   const showAlert = useCallback(() => {
     alert({
-      title: <Title />,
+      title: <AlertTitle />,
       description: "3월 중 오픈합니다",
     });
   }, [alert]);

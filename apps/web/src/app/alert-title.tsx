@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Flex } from "@puzzlepop2/react-components-layout";
 
-export const Title = () => {
+export const AlertTitle = () => {
   return (
     <Flex justify="center">
       <div className="animate__animated animate__bounceIn" style={{ width: "6rem" }}>
