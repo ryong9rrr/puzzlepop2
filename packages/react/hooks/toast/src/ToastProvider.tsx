@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useRef, useState } from "react";
+import { createContext, PropsWithChildren, useCallback, useMemo, useRef, useState } from "react";
 import { ToastConfig, ToastContextProps } from "./types";
 import { toastContainerStyle, toastStyle } from "./style.css";
 import clsx from "clsx";
@@ -12,23 +12,30 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
 
   const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
-  const handleToast = (config: ToastConfig) => {
-    if (toastConfig) {
-      setToastConfig(null);
-      clearTimeout(timeoutRef.current);
-      timeoutRef.current = undefined;
-    }
+  const handleToast = useCallback(
+    (config: ToastConfig) => {
+      if (toastConfig) {
+        setToastConfig(null);
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = undefined;
+      }
 
-    setToastConfig(config);
+      setToastConfig(config);
 
-    timeoutRef.current = setTimeout(() => {
-      setToastConfig(null);
-      timeoutRef.current = undefined;
-    }, config.duration || 3000);
-  };
+      timeoutRef.current = setTimeout(() => {
+        setToastConfig(null);
+        timeoutRef.current = undefined;
+      }, config.duration || 3000);
+    },
+    [toastConfig],
+  );
+
+  const value = useMemo(() => {
+    return { toast: handleToast };
+  }, [handleToast]);
 
   return (
-    <ToastContext.Provider value={{ toast: handleToast }}>
+    <ToastContext.Provider value={value}>
       {children}
       <div tabIndex={-1} className={toastContainerStyle}>
         {toastConfig && (

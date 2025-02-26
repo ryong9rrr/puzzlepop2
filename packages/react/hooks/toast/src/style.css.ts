@@ -26,7 +26,7 @@ export const toastStyle = style({
   border: `0.1rem solid ${vars.colors.orange["200"]}`,
   borderRadius: "0.25rem",
 
-  backgroundColor: vars.colors.grey["50"],
+  backgroundColor: vars.colors.orange["50"],
   padding: "0.5rem 0.75rem",
   color: vars.colors.grey["900"],
   textAlign: "center",

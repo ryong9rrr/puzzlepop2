@@ -12,46 +12,40 @@ interface PageProps {
 }
 
 export default async function Page({ params, searchParams }: PageProps) {
-  try {
-    const id = (await params).id;
-    const level = (await searchParams).level;
+  const id = (await params).id;
+  const level = (await searchParams).level;
 
-    if (level !== "easy" && level !== "normal" && level !== "hard") {
-      redirect("/singlegame");
-      return;
-    }
-
-    const puzzle = await fetchGetSingleGamePuzzleById({ id, level });
-    return <PuzzleClient src={puzzle.src} />;
-
-    // return (
-    //   <>
-    //     {/* eslint-disable-next-line */}
-    //     <img id={IMG_ID} src={puzzle.src} alt="" style={{ display: "none" }} />
-    //     <div
-    //       style={{
-    //         display: "flex",
-    //         justifyContent: "center",
-    //         alignItems: "center",
-    //         padding: "1rem",
-    //       }}
-    //     >
-    //       <canvas
-    //         id={CANVAS_ID}
-    //         style={{
-    //           width: "100%",
-    //           height: "calc(100vh - 2rem)",
-    //           backgroundColor: vars.colors.white,
-    //         }}
-    //       />
-    //     </div>
-    //     <PuzzleClient />
-    //   </>
-    // );
-    // eslint-disable-next-line
-  } catch (error) {
-    redirect("/singlegame");
+  if (level !== "easy" && level !== "normal" && level !== "hard") {
+    throw new Error("Invalid level");
   }
+
+  const puzzle = await fetchGetSingleGamePuzzleById({ id, level });
+  return <PuzzleClient src={puzzle.src} />;
+
+  // return (
+  //   <>
+  //     {/* eslint-disable-next-line */}
+  //     <img id={IMG_ID} src={puzzle.src} alt="" style={{ display: "none" }} />
+  //     <div
+  //       style={{
+  //         display: "flex",
+  //         justifyContent: "center",
+  //         alignItems: "center",
+  //         padding: "1rem",
+  //       }}
+  //     >
+  //       <canvas
+  //         id={CANVAS_ID}
+  //         style={{
+  //           width: "100%",
+  //           height: "calc(100vh - 2rem)",
+  //           backgroundColor: vars.colors.white,
+  //         }}
+  //       />
+  //     </div>
+  //     <PuzzleClient />
+  //   </>
+  // );
 }
 
 export type SearchParams = {

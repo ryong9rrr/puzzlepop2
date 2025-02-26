@@ -5,6 +5,7 @@
 @import "@puzzlepop2/react-components-layout/style.css";
 @import "@puzzlepop2/react-components-button/style.css";
 @import "@puzzlepop2/react-hooks-alert/style.css";
+@import "@puzzlepop2/react-hooks-toast/style.css";
 
 /* lottie를 위한 임시코드 */
 #puzzle-lottie rect {

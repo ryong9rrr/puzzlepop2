@@ -11,12 +11,16 @@ import { queryClient } from "@/remotes/query-client";
 import { fetchGetSingleGamePuzzleList } from "@/remotes/puzzles/singlegame";
 import { useSingleGamePage } from "../store";
 import styles from "../page.module.css";
+import { ToastClient } from "@/components/toast-client";
+import { useToast } from "@puzzlepop2/react-hooks-toast";
 
 export const GridImagesClient = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <GridImages />
-    </QueryClientProvider>
+    <ToastClient>
+      <QueryClientProvider client={queryClient}>
+        <GridImages />
+      </QueryClientProvider>
+    </ToastClient>
   );
 };
 
@@ -25,8 +29,12 @@ const GridImages = () => {
   const { data, isError, isPending, hasNextPage, isFetchingNextPage, observerRef } =
     useInfiniteScroll();
 
-  if (isError || isPending || !data) {
+  if (isPending) {
     return <GridImagesSkeleton />;
+  }
+
+  if (isError || !data) {
+    return <ErrorSkeleton />;
   }
 
   const puzzleList = data.pages.flatMap(page => page.data);
@@ -160,4 +168,20 @@ const useInfiniteScroll = () => {
     hasNextPage,
     isFetchingNextPage,
   };
+};
+
+const ErrorSkeleton = () => {
+  const { toast } = useToast();
+
+  useEffect(() => {
+    toast({
+      payload: {
+        message: "연결이 원활하지 않습니다. 잠시 후 다시 시도해주세요.",
+      },
+      duration: 20000,
+    });
+    // eslint-disable-next-line
+  }, []);
+
+  return <GridImagesSkeleton />;
 };
