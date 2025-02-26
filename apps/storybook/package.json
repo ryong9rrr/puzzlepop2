@@ -23,6 +23,7 @@
     "@puzzlepop2/react-components-layout": "*",
     "@puzzlepop2/react-components-button": "*",
     "@puzzlepop2/react-hooks-alert": "*",
+    "@puzzlepop2/react-hooks-toast": "*",
     "@chromatic-com/storybook": "^3.2.4",
     "@eslint/js": "^9.17.0",
     "@storybook/addon-essentials": "^8.5.2",
