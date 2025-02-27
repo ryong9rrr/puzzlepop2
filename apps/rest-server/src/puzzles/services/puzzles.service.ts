@@ -1,7 +1,5 @@
-import * as probe from 'probe-image-size';
 import { HttpException, Injectable } from '@nestjs/common';
 import { GameLevel } from '@puzzlepop2/game-core';
-import { Engine } from '@puzzlepop2/game-engine-server';
 import { PuzzlesRepository } from '../repositories/puzzles.repository';
 
 @Injectable()
@@ -23,26 +21,15 @@ export class PuzzlesService {
       throw new HttpException('Puzzle not found', 404);
     }
 
-    const result = { ...puzzle.readOnlyData };
-    const srcStringArray = result.imgUrl.split('/');
-    srcStringArray.pop();
-    const src = [...srcStringArray, `${level}.webp`].join('/');
-
-    const { width, height } = await probe(src);
-
-    const { pieces, perColumn, perRow } = Engine.createPieces({
-      gameLevel: level,
-      imgWidth: width,
-      imgHeight: height,
-    });
+    const src = [
+      ...puzzle.readOnlyData.imgUrl.split('/').slice(0, -1),
+      `${level}.webp`,
+    ].join('/');
 
     return {
-      ...result,
-      src,
-      pieces,
-      perColumn,
-      perRow,
+      ...puzzle.readOnlyData,
       level,
+      src,
     };
   }
 }
