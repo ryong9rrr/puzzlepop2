@@ -1,5 +1,3 @@
-import { GameLevel, Piece } from "@puzzlepop2/game-core";
-
 export type Puzzle = {
   _id: string;
   title: string;
@@ -8,11 +6,3 @@ export type Puzzle = {
   tags: string[];
   uploaderId: string;
 };
-
-export type SingleGamePuzzle = {
-  src: string;
-  pieces: Piece[];
-  perColumn: number;
-  perRow: number;
-  level: GameLevel;
-} & Puzzle;

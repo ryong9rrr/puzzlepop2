@@ -1,6 +1,6 @@
 import { GameLevel } from "@puzzlepop2/game-core";
 import { fetchGetSingleGamePuzzleById } from "@/remotes/puzzles/singlegame";
-import { PuzzleClient } from "@/core3";
+import { GameClient } from "@puzzlepop2/game-engine-client";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -28,13 +28,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         alignItems: "center",
       }}
     >
-      <PuzzleClient
-        gameLevel={puzzle.level}
-        perColumn={puzzle.perColumn}
-        perRow={puzzle.perRow}
-        pieces={puzzle.pieces}
-        src={puzzle.src}
-      />
+      <GameClient gameLevel={level} src={puzzle.src} mode="single" />
     </main>
   );
 }

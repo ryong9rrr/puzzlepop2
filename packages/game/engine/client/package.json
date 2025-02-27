@@ -18,11 +18,16 @@
     "build:type": "tsc --emitDeclarationOnly"
   },
   "dependencies": {
+    "paper": "^0.12.18",
     "react": "^19",
     "react-dom": "^19"
   },
   "devDependencies": {
     "@puzzlepop2/esbuild-config": "*",
+    "@puzzlepop2/game-core": "*",
+    "@puzzlepop2/react-components-layout": "*",
+    "@puzzlepop2/react-hooks-base": "*",
+    "@puzzlepop2/themes": "*",
     "@puzzlepop2/ts-config": "*",
     "@types/react": "^19",
     "@types/react-dom": "^19",

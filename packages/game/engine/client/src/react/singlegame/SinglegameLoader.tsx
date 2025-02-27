@@ -2,14 +2,14 @@
 
 import { usePromise } from "@puzzlepop2/react-hooks-base";
 import { Dimmed, Flex, Text } from "@puzzlepop2/react-components-layout";
-import { PuzzleEngine } from "./engine/PuzzleEngine";
-import { PuzzleEngineProps } from "./engine/types";
+import { SinglegameEngine, SinglegameEngineProps } from "../../engines/singlegame";
 
-export const PuzzleLoader = (props: PuzzleEngineProps) => {
-  const { isPending, isError, data } = usePromise<PuzzleEngine>(async () => {
-    const puzzleGame = new PuzzleEngine(props);
-
+export const SinglegameLoader = (props: SinglegameEngineProps) => {
+  const { isPending, isError, data } = usePromise<SinglegameEngine>(async () => {
+    const puzzleGame = new SinglegameEngine(props);
+    console.log("load 시작...");
     await puzzleGame.load();
+    console.log("load 완료");
     return puzzleGame;
   });
 

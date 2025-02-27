@@ -1,30 +1,47 @@
 import { GameLevel } from "@puzzlepop2/game-core";
 import { getRestServerUrl } from "../end-point";
-import { SingleGamePuzzle, Puzzle } from "./types";
+import { Puzzle } from "./types";
 
-export const fetchGetSingleGamePuzzleList = async ({ nextCursor }: { nextCursor: string }) => {
+type FetchGetSingleGamePuzzleListRequest = {
+  nextCursor: string;
+};
+
+type FetchGetSingleGamePuzzleListResponse = {
+  data: Puzzle[];
+  nextCursor: string | null;
+};
+
+export const fetchGetSingleGamePuzzleList = async ({
+  nextCursor,
+}: FetchGetSingleGamePuzzleListRequest) => {
   const LIMIT = 8;
   const response = await fetch(
     `${getRestServerUrl()}/puzzles?limit=${LIMIT}${nextCursor ? `&cursor=${nextCursor}` : ""}`,
   );
   const { data } = await response.json();
-  return {
+
+  const result: FetchGetSingleGamePuzzleListResponse = {
     data: data.puzzleList,
     nextCursor: data.nextCursor,
-  } as {
-    data: Puzzle[];
-    nextCursor: string | null;
   };
+  return result;
 };
+
+type FetchGetSingleGamePuzzleByIdRequest = {
+  id: string;
+  level: GameLevel;
+};
+
+type FetchGetSingleGamePuzzleByIdResponse = {
+  level: GameLevel;
+  src: string;
+} & Puzzle;
 
 export const fetchGetSingleGamePuzzleById = async ({
   id,
   level,
-}: {
-  id: string;
-  level: GameLevel;
-}) => {
+}: FetchGetSingleGamePuzzleByIdRequest) => {
   const response = await fetch(`${getRestServerUrl()}/puzzles/${id}?level=${level}`);
   const { data } = await response.json();
-  return data as SingleGamePuzzle;
+  return data as FetchGetSingleGamePuzzleByIdResponse;
 };
