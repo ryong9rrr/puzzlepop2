@@ -12,6 +12,17 @@ services:
     ports:
       - 8080:8080
 
+  game-server:
+    container_name: game-server
+    build:
+      context: .
+      dockerfile: ./apps/game-server/Dockerfile
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - rest-server
+
   web:
     container_name: web
     build:
@@ -22,3 +33,4 @@ services:
       - 3000:3000
     depends_on:
       - rest-server
+      - game-server
