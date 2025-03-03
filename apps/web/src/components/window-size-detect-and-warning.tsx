@@ -3,8 +3,17 @@
 import { useEffect } from "react";
 import { useToast } from "@puzzlepop2/react-hooks-toast";
 import { useDetectWindowSize } from "@/hooks/useDetectWindowSize";
+import { ToastClient } from "./toast-client";
 
-export const WindowSizeDetectAndWarning = () => {
+export const WindowSizeDetectAndWarningClient = () => {
+  return (
+    <ToastClient>
+      <WindowSizeDetectAndWarning />
+    </ToastClient>
+  );
+};
+
+const WindowSizeDetectAndWarning = () => {
   const { toast } = useToast();
   const windowSize = useDetectWindowSize();
 
