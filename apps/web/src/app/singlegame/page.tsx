@@ -1,5 +1,5 @@
 import { Flex } from "@puzzlepop2/react-components-layout";
-import { WindowSizeDetectAndWarningClient } from "@/components/window-size-detect-and-warning";
+import { WindowSizeDetectAndWarningClient } from "@/components/window-size-detect-and-warning-client";
 import { LeftStickyArea } from "./components/left-sticky-area";
 import { BackgroundPuzzleImage } from "./components/background-puzzle";
 import { GridImagesClient } from "./components/grid-images";

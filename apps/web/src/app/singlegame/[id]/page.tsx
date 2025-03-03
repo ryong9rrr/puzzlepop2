@@ -1,7 +1,7 @@
 import { GameLevel } from "@puzzlepop2/game-core";
 import { fetchGetSingleGamePuzzleById } from "@/remotes/puzzles/singlegame";
 import { GameClient } from "@puzzlepop2/game-engine-client";
-import { WindowSizeDetectAndWarningClient } from "@/components/window-size-detect-and-warning";
+import { WindowSizeDetectAndWarningClient } from "@/components/window-size-detect-and-warning-client";
 
 interface PageProps {
   params: Promise<{ id: string }>;
