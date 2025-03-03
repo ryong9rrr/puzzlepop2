@@ -74,6 +74,7 @@ export abstract class BaseEngine {
   }
 
   protected async setup() {
+    Paper.setup(this.canvasElement);
     this.fetchedData = await this.fetchData();
     this.render();
   }
@@ -111,6 +112,8 @@ export abstract class BaseEngine {
       }
     }
   }
+
+  // TODO: 마우스 이벤트 붙이기..
 
   abstract fetchData(): Promise<FetchedData>;
 }

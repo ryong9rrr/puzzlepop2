@@ -6,13 +6,13 @@ import { QueryClientProvider, useInfiniteQuery } from "@tanstack/react-query";
 import clsx from "clsx";
 import { Flex, Grid, GridItem, Skeleton, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { useIntersectionObserver } from "@puzzlepop2/react-hooks-base";
+import { useToast } from "@puzzlepop2/react-hooks-toast";
+import { ToastClient } from "@/components/toast-client";
 import { TagGroup } from "@/components/tag";
 import { queryClient } from "@/remotes/query-client";
 import { fetchGetSingleGamePuzzleList } from "@/remotes/puzzles/singlegame";
 import { useSingleGamePage } from "../store";
 import styles from "../page.module.css";
-import { ToastClient } from "@/components/toast-client";
-import { useToast } from "@puzzlepop2/react-hooks-toast";
 
 export const GridImagesClient = () => {
   return (

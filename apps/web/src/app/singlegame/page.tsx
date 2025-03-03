@@ -1,4 +1,6 @@
 import { Flex } from "@puzzlepop2/react-components-layout";
+import { WindowSizeDetectAndWarning } from "@/components/window-size-detect-and-warning";
+import { ToastClient } from "@/components/toast-client";
 import { LeftStickyArea } from "./components/left-sticky-area";
 import { BackgroundPuzzleImage } from "./components/background-puzzle";
 import { GridImagesClient } from "./components/grid-images";
@@ -19,6 +21,9 @@ export default async function SingleGamePage() {
       </Flex>
 
       <BackgroundPuzzleImage />
+      <ToastClient>
+        <WindowSizeDetectAndWarning />
+      </ToastClient>
     </main>
   );
 }

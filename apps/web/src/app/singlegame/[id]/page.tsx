@@ -1,6 +1,8 @@
 import { GameLevel } from "@puzzlepop2/game-core";
 import { fetchGetSingleGamePuzzleById } from "@/remotes/puzzles/singlegame";
 import { GameClient } from "@puzzlepop2/game-engine-client";
+import { ToastClient } from "@/components/toast-client";
+import { WindowSizeDetectAndWarning } from "@/components/window-size-detect-and-warning";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -29,6 +31,9 @@ export default async function Page({ params, searchParams }: PageProps) {
       }}
     >
       <GameClient gameLevel={level} src={puzzle.src} mode="single" />
+      <ToastClient>
+        <WindowSizeDetectAndWarning />
+      </ToastClient>
     </main>
   );
 }
