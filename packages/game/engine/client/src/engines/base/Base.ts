@@ -3,6 +3,7 @@ import { CANVAS_ID, GameLevel, IMG_ID, PUZZLE_PIECE_SIZE_MAP } from "@puzzlepop2
 import { getMask, createPiece } from "./render";
 import { PaperPiece, BaseEngineProps, FetchedData } from "./types";
 import * as Styles from "./styles";
+import { onMoveMouseDown, onMoveMouseDrag } from "./mouse-events/move";
 
 export abstract class BaseEngine {
   protected imgElement: HTMLImageElement;
@@ -73,10 +74,14 @@ export abstract class BaseEngine {
     });
   }
 
-  protected async setup() {
+  private async setup() {
     Paper.setup(this.canvasElement);
+
     this.fetchedData = await this.fetchData();
+
     this.render();
+
+    this.attachMouseEvents();
   }
 
   private render() {
@@ -113,7 +118,32 @@ export abstract class BaseEngine {
     }
   }
 
-  // TODO: 마우스 이벤트 붙이기..
+  private attachMouseEvents() {
+    this.paperPieceList.forEach(paperPiece => {
+      paperPiece.piece.onMouseDown = (event: paper.MouseEvent) => {
+        onMoveMouseDown({
+          event,
+          paperPieceList: this.paperPieceList,
+          paperPiece,
+        });
+      };
+
+      paperPiece.piece.onMouseDrag = (event: paper.MouseEvent) => {
+        onMoveMouseDrag({
+          event,
+          paperPieceList: this.paperPieceList,
+          paperPiece,
+          pieceSize: this.pieceSize,
+        });
+      };
+
+      // paperPiece.piece.onMouseUp = (event: paper.MouseEvent) => {};
+
+      // paperPiece.piece.onMouseEnter = (event: paper.MouseEvent) => {};
+
+      // paperPiece.piece.onMouseLeave = (event: paper.MouseEvent) => {};
+    });
+  }
 
   abstract fetchData(): Promise<FetchedData>;
 }

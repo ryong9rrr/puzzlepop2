@@ -15,6 +15,7 @@
     "lint": "eslint .",
     "build": "yarn build:js && yarn build:type",
     "build:js": "node build.js",
+    "build:watch": "node build.js --watch",
     "build:type": "tsc --emitDeclarationOnly"
   },
   "dependencies": {
@@ -42,5 +43,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "typescript": "^5"
+  },
+  "peerDependencies": {
+    "paper": "^0.12.18"
   }
 }
