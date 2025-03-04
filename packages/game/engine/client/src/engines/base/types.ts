@@ -16,3 +16,8 @@ export type FetchedData = {
   perColumn: number;
   perRow: number;
 };
+
+export type OnMouseEventProps = {
+  event: paper.MouseEvent;
+  paperPiece: PaperPiece;
+};

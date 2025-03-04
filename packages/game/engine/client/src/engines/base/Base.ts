@@ -1,16 +1,24 @@
 import Paper from "paper";
-import { CANVAS_ID, GameLevel, IMG_ID, PUZZLE_PIECE_SIZE_MAP } from "@puzzlepop2/game-core";
+import {
+  CANVAS_ID,
+  Direction,
+  GameLevel,
+  IMG_ID,
+  Piece,
+  PUZZLE_PIECE_SIZE_MAP,
+} from "@puzzlepop2/game-core";
 import { getMask, createPiece } from "./render";
-import { PaperPiece, BaseEngineProps, FetchedData } from "./types";
+import { PaperPiece, BaseEngineProps, FetchedData, OnMouseEventProps } from "./types";
 import * as Styles from "./styles";
-import { onMoveMouseDown, onMoveMouseDrag } from "./mouse-events/move";
 
 export abstract class BaseEngine {
   protected imgElement: HTMLImageElement;
   protected canvasElement: HTMLCanvasElement;
   protected paperPieceList: PaperPiece[] = [];
 
-  protected fetchedData: FetchedData | null = null;
+  private _perColumn: number | null = null;
+  private _perRow: number | null = null;
+  private _bundles: Piece[] | null = null;
 
   src: string;
   gameLevel: GameLevel;
@@ -29,25 +37,25 @@ export abstract class BaseEngine {
     return PUZZLE_PIECE_SIZE_MAP[this.gameLevel];
   }
 
-  protected get perColumn() {
-    if (!this.fetchedData) {
-      throw new Error("fetchedData is null");
+  get perColumn() {
+    if (this._perColumn === null) {
+      throw new Error("데이터가 초기화되지 않았어요");
     }
-    return this.fetchedData.perColumn;
+    return this._perColumn;
   }
 
-  protected get perRow() {
-    if (!this.fetchedData) {
-      throw new Error("fetchedData is null");
+  get perRow() {
+    if (this._perRow === null) {
+      throw new Error("데이터가 초기화되지 않았어요");
     }
-    return this.fetchedData.perRow;
+    return this._perRow;
   }
 
-  protected get pieces() {
-    if (!this.fetchedData) {
-      throw new Error("fetchedData is null");
+  get bundles() {
+    if (this._bundles === null) {
+      throw new Error("데이터가 초기화되지 않았어요");
     }
-    return this.fetchedData.pieces;
+    return this._bundles;
   }
 
   async load(): Promise<void> {
@@ -77,7 +85,11 @@ export abstract class BaseEngine {
   private async setup() {
     Paper.setup(this.canvasElement);
 
-    this.fetchedData = await this.fetchData();
+    const { perColumn, perRow, pieces } = await this.fetchData();
+
+    this._perColumn = perColumn;
+    this._perRow = perRow;
+    this._bundles = pieces;
 
     this.render();
 
@@ -88,7 +100,7 @@ export abstract class BaseEngine {
     for (let y = 0; y < this.perColumn; y += 1) {
       for (let x = 0; x < this.perRow; x += 1) {
         const index = y * this.perRow + x;
-        const fetchedPiece = this.pieces[index];
+        const fetchedPiece = this.bundles[index];
         if (!fetchedPiece) {
           throw new Error(`${index}에 해당하는 조각이 없어 에러가 발생했어요`);
         }
@@ -121,29 +133,82 @@ export abstract class BaseEngine {
   private attachMouseEvents() {
     this.paperPieceList.forEach(paperPiece => {
       paperPiece.piece.onMouseDown = (event: paper.MouseEvent) => {
-        onMoveMouseDown({
+        this.onMouseDown({
           event,
-          paperPieceList: this.paperPieceList,
           paperPiece,
         });
       };
 
       paperPiece.piece.onMouseDrag = (event: paper.MouseEvent) => {
-        onMoveMouseDrag({
+        this.onMouseDrag({
           event,
-          paperPieceList: this.paperPieceList,
           paperPiece,
-          pieceSize: this.pieceSize,
         });
       };
 
-      // paperPiece.piece.onMouseUp = (event: paper.MouseEvent) => {};
+      paperPiece.piece.onMouseUp = (event: paper.MouseEvent) => {
+        this.onMouseUp({
+          event,
+          paperPiece,
+        });
+      };
 
-      // paperPiece.piece.onMouseEnter = (event: paper.MouseEvent) => {};
+      paperPiece.piece.onMouseEnter = (event: paper.MouseEvent) => {
+        this.onMouseEnter({
+          event,
+          paperPiece,
+        });
+      };
 
-      // paperPiece.piece.onMouseLeave = (event: paper.MouseEvent) => {};
+      paperPiece.piece.onMouseLeave = (event: paper.MouseEvent) => {
+        this.onMouseLeave({
+          event,
+          paperPiece,
+        });
+      };
     });
   }
 
+  protected getNeighborPieceIdMap(pieceId: number): Record<Direction, number | null> {
+    return {
+      left: pieceId % this.perRow === 0 ? null : pieceId - 1,
+      right: (pieceId + 1) % this.perRow === 0 ? null : pieceId + 1,
+      top: pieceId - this.perRow < 0 ? null : pieceId - this.perRow,
+      bottom: pieceId + this.perRow >= this.perRow * this.perColumn ? null : pieceId + this.perRow,
+    };
+  }
+
+  protected isFittable = (props: {
+    pieceId: number;
+    neighborPieceId: number;
+    direction: Direction;
+  }) => {
+    const { pieceId, neighborPieceId, direction } = props;
+    if (
+      !!this.paperPieceList[pieceId] &&
+      !!this.paperPieceList[neighborPieceId] &&
+      !!this.paperPieceList[pieceId].groupId &&
+      this.paperPieceList[pieceId].groupId === this.paperPieceList[neighborPieceId].groupId
+    ) {
+      return true;
+    }
+    if (pieceId % this.perRow === 0 && direction === "left") {
+      return true;
+    } else if (pieceId % this.perRow === this.perRow - 1 && direction === "right") {
+      return true;
+    } else if (pieceId < this.perRow && direction === "top") {
+      return true;
+    } else if (pieceId >= this.perRow * (this.perColumn - 1) && direction === "bottom") {
+      return true;
+    }
+    return false;
+  };
+
   abstract fetchData(): Promise<FetchedData>;
+
+  abstract onMouseDown(props: OnMouseEventProps): void;
+  abstract onMouseDrag(props: OnMouseEventProps): void;
+  abstract onMouseUp(props: OnMouseEventProps): void;
+  abstract onMouseEnter(props: OnMouseEventProps): void;
+  abstract onMouseLeave(props: OnMouseEventProps): void;
 }

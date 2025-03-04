@@ -1,12 +1,8 @@
 export type GameMode = "single" | "multi";
 export type GameLevel = "easy" | "normal" | "hard";
+export type Direction = "top" | "right" | "bottom" | "left";
 
-export type Shape = {
-  top: number;
-  right: number;
-  bottom: number;
-  left: number;
-};
+export type Shape = Record<Direction, number>;
 
 export type Piece = {
   index: number;
