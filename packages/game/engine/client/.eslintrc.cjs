@@ -19,8 +19,9 @@ module.exports = {
   plugins: ["react", "@typescript-eslint", "react-hooks", "jsx-a11y"],
   rules: {
     ...baseConfig.rules,
-    "no-undef": "off",
-    "react/react-in-jsx-scope": "off",
+    "no-undef": "warn",
+    "no-unused-vars": "warn",
+    "react/react-in-jsx-scope": "warn",
   },
   overrides: [
     {
