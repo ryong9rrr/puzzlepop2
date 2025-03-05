@@ -41,17 +41,16 @@ export class SinglegameEngine extends BaseEngine {
   onMouseDown(props: OnMouseEventProps): void {
     const { event, paperPiece } = props;
 
-    const groupId = paperPiece.groupId;
-    const isGrouped = groupId !== null;
-    if (isGrouped) {
-      this.paperPieceList.forEach(anotherPaperPiece => {
-        if (anotherPaperPiece.groupId === groupId) {
-          anotherPaperPiece.piece.bringToFront();
-        }
-      });
-    } else {
+    if (paperPiece.groupId === null) {
       event.target.bringToFront();
+      return;
     }
+
+    this.paperPieceList
+      .filter(anotherPaperPiece => anotherPaperPiece.groupId === paperPiece.groupId)
+      .forEach(anotherPaperPiece => {
+        anotherPaperPiece.piece.bringToFront();
+      });
   }
 
   onMouseDrag(props: OnMouseEventProps): void {
@@ -69,40 +68,39 @@ export class SinglegameEngine extends BaseEngine {
       Paper.view.viewSize.height - Math.floor(this.pieceSize / 2),
     );
 
-    const isGrouped = paperPiece.groupId !== null;
-    if (isGrouped) {
-      this.paperPieceList.forEach(anotherPaperPiece => {
-        if (paperPiece.groupId === anotherPaperPiece.groupId) {
-          anotherPaperPiece.piece.position = new Paper.Point(
-            anotherPaperPiece.piece.position.x + nx - px,
-            anotherPaperPiece.piece.position.y + ny - py,
-          );
-        }
-      });
-    } else {
+    if (paperPiece.groupId === null) {
       paperPiece.piece.position = new Paper.Point(nx, ny);
+      return;
     }
+
+    this.paperPieceList
+      .filter(anotherPaperPiece => anotherPaperPiece.groupId === paperPiece.groupId)
+      .forEach(anotherPaperPiece => {
+        anotherPaperPiece.piece.position = new Paper.Point(
+          anotherPaperPiece.piece.position.x + nx - px,
+          anotherPaperPiece.piece.position.y + ny - py,
+        );
+      });
   }
 
   onMouseUp(props: OnMouseEventProps): void {
     const { paperPiece } = props;
 
-    const groupId = paperPiece.groupId;
-    const isGrouped = groupId !== null;
-    if (isGrouped) {
-      this.paperPieceList.forEach(anotherPaperPiece => {
-        if (
-          anotherPaperPiece.groupId === groupId &&
-          paperPiece.pieceId !== anotherPaperPiece.pieceId
-        ) {
-          this.fitNeighborPiece(anotherPaperPiece);
-        }
-      });
+    if (paperPiece.groupId !== null) {
+      this.paperPieceList
+        .filter(
+          anotherPaperPiece =>
+            anotherPaperPiece.groupId === paperPiece.groupId &&
+            anotherPaperPiece.pieceId !== paperPiece.pieceId,
+        )
+        .forEach(anotherPaperPiece => {
+          this.fitNeighborPieces(anotherPaperPiece);
+        });
     }
-    this.fitNeighborPiece(paperPiece);
+    this.fitNeighborPieces(paperPiece);
   }
 
-  private fitNeighborPiece(paperPiece: PaperPiece) {
+  private fitNeighborPieces(paperPiece: PaperPiece) {
     for (const [_direction, neighborPieceId] of Object.entries(
       this.getNeighborPieceIdMap(paperPiece.pieceId),
     )) {
@@ -120,7 +118,7 @@ export class SinglegameEngine extends BaseEngine {
         continue;
       }
 
-      this.fitTiles({
+      this.fit({
         pieceId: paperPiece.pieceId,
         neighborPieceId,
         direction,
@@ -129,7 +127,7 @@ export class SinglegameEngine extends BaseEngine {
     }
   }
 
-  fitTiles = (props: {
+  private fit = (props: {
     pieceId: number;
     neighborPieceId: number;
     direction: Direction;
@@ -150,7 +148,7 @@ export class SinglegameEngine extends BaseEngine {
     const yUp = findYUp(nowShape, preShape);
 
     const ERROR_RANGE = this.pieceSize * 0.2;
-    let uniteFlag = false;
+    let canMerge = false;
 
     switch (direction) {
       case "left":
@@ -163,7 +161,7 @@ export class SinglegameEngine extends BaseEngine {
             preTile.position.x + this.pieceSize + xChange,
             preTile.position.y + yChange,
           );
-          uniteFlag = true;
+          canMerge = true;
 
           //sendFitTilePosition(nowTile, nowIndex);
         }
@@ -178,7 +176,7 @@ export class SinglegameEngine extends BaseEngine {
             preTile.position.x - (this.pieceSize + xChange),
             preTile.position.y + yChange,
           );
-          uniteFlag = true;
+          canMerge = true;
 
           //sendFitTilePosition(nowTile, nowIndex);
         }
@@ -193,7 +191,7 @@ export class SinglegameEngine extends BaseEngine {
             preTile.position.x + xUp,
             preTile.position.y + this.pieceSize + yUp,
           );
-          uniteFlag = true;
+          canMerge = true;
 
           //sendFitTilePosition(nowTile, nowIndex);
         }
@@ -208,7 +206,7 @@ export class SinglegameEngine extends BaseEngine {
             preTile.position.x + xUp,
             preTile.position.y - (this.pieceSize + yUp),
           );
-          uniteFlag = true;
+          canMerge = true;
 
           //sendFitTilePosition(nowTile, nowIndex);
         }
@@ -238,12 +236,12 @@ export class SinglegameEngine extends BaseEngine {
       // }
     }
 
-    if (recursive && uniteFlag) {
-      this.uniteTiles({ pieceId, neighborPieceId, isSender: true });
+    if (recursive && canMerge) {
+      this.mergeGroup({ pieceId, neighborPieceId, isSender: true });
     }
   };
 
-  uniteTiles = (props: {
+  private mergeGroup = (props: {
     pieceId: number;
     neighborPieceId: number;
     isSender?: boolean;
@@ -302,22 +300,25 @@ export class SinglegameEngine extends BaseEngine {
     if (isCombo) {
       //comboFit({ config, nowIndex, preIndex, direction });
     } else {
-      this.groupFit({ groupId: this.paperPieceList[pieceId]!.groupId, pieceId });
+      this.fitGroup({ groupId: this.paperPieceList[pieceId]!.groupId, pieceId });
     }
   };
 
-  groupFit = (props: { groupId: number | null; pieceId: number }) => {
+  private fitGroup = (props: { groupId: number | null; pieceId: number }) => {
     const { groupId, pieceId } = props;
 
-    const sameGroupPaperPieceMap = this.paperPieceList.reduce(
-      (acc, paperPiece) => {
-        if (!!paperPiece.groupId && paperPiece.groupId === groupId) {
+    if (groupId === null) {
+      return;
+    }
+
+    const sameGroupPaperPieceMap = this.paperPieceList
+      .filter(paperPiece => paperPiece.groupId === groupId)
+      .reduce(
+        (acc, paperPiece) => {
           return { ...acc, [paperPiece.pieceId]: paperPiece };
-        }
-        return acc;
-      },
-      {} as Record<number, PaperPiece>,
-    );
+        },
+        {} as Record<number, PaperPiece>,
+      );
 
     for (const paperPiece of Object.values(sameGroupPaperPieceMap)) {
       for (const [_direction, neighborPieceId] of Object.entries(
@@ -333,7 +334,7 @@ export class SinglegameEngine extends BaseEngine {
           continue;
         }
 
-        this.fitTiles({
+        this.fit({
           pieceId: paperPiece.pieceId,
           neighborPieceId,
           direction,

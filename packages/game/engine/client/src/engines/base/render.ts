@@ -1,5 +1,4 @@
 import Paper from "paper";
-import { Point } from "paper/dist/paper-core";
 import { Shape } from "@puzzlepop2/game-core";
 import * as Styles from "./styles";
 
@@ -28,22 +27,22 @@ export const getMask = (props: {
   const pieceRatio = pieceSize / TOTAL_PERCENTAGE;
   const mask = new Paper.Path();
 
-  const topLeftEdge = new Point(-imgWidth / 2, -imgHeight / 2);
+  const topLeftEdge = new Paper.Point(-imgWidth / 2, -imgHeight / 2);
   mask.moveTo(topLeftEdge);
 
   // top
   for (let i = 0; i < CURVY_COORDINATES.length / 6; i++) {
-    const p1 = new Point(
+    const p1 = new Paper.Point(
       topLeftEdge.x + getCurvy(i * 6 + 0) * pieceRatio,
       topLeftEdge.y + shape.top * getCurvy(i * 6 + 1) * pieceRatio,
     );
 
-    const p2 = new Point(
+    const p2 = new Paper.Point(
       topLeftEdge.x + getCurvy(i * 6 + 2) * pieceRatio,
       topLeftEdge.y + shape.top * getCurvy(i * 6 + 3) * pieceRatio,
     );
 
-    const p3 = new Point(
+    const p3 = new Paper.Point(
       topLeftEdge.x + getCurvy(i * 6 + 4) * pieceRatio,
       topLeftEdge.y + shape.top * getCurvy(i * 6 + 5) * pieceRatio,
     );
@@ -52,17 +51,17 @@ export const getMask = (props: {
   }
 
   // right
-  const topRightEdge = new Point(topLeftEdge.x + pieceSize, topLeftEdge.y);
+  const topRightEdge = new Paper.Point(topLeftEdge.x + pieceSize, topLeftEdge.y);
   for (let i = 0; i < CURVY_COORDINATES.length / 6; i++) {
-    const p1 = new Point(
+    const p1 = new Paper.Point(
       topRightEdge.x - shape.right * getCurvy(i * 6 + 1) * pieceRatio,
       topRightEdge.y + getCurvy(i * 6 + 0) * pieceRatio,
     );
-    const p2 = new Point(
+    const p2 = new Paper.Point(
       topRightEdge.x - shape.right * getCurvy(i * 6 + 3) * pieceRatio,
       topRightEdge.y + getCurvy(i * 6 + 2) * pieceRatio,
     );
-    const p3 = new Point(
+    const p3 = new Paper.Point(
       topRightEdge.x - shape.right * getCurvy(i * 6 + 5) * pieceRatio,
       topRightEdge.y + getCurvy(i * 6 + 4) * pieceRatio,
     );
@@ -71,17 +70,17 @@ export const getMask = (props: {
   }
 
   // bottom
-  const bottomRightEdge = new Point(topRightEdge.x, topRightEdge.y + pieceSize);
+  const bottomRightEdge = new Paper.Point(topRightEdge.x, topRightEdge.y + pieceSize);
   for (let i = 0; i < CURVY_COORDINATES.length / 6; i++) {
-    const p1 = new Point(
+    const p1 = new Paper.Point(
       bottomRightEdge.x - getCurvy(i * 6 + 0) * pieceRatio,
       bottomRightEdge.y - shape.bottom * getCurvy(i * 6 + 1) * pieceRatio,
     );
-    const p2 = new Point(
+    const p2 = new Paper.Point(
       bottomRightEdge.x - getCurvy(i * 6 + 2) * pieceRatio,
       bottomRightEdge.y - shape.bottom * getCurvy(i * 6 + 3) * pieceRatio,
     );
-    const p3 = new Point(
+    const p3 = new Paper.Point(
       bottomRightEdge.x - getCurvy(i * 6 + 4) * pieceRatio,
       bottomRightEdge.y - shape.bottom * getCurvy(i * 6 + 5) * pieceRatio,
     );
@@ -90,17 +89,17 @@ export const getMask = (props: {
   }
 
   // left
-  const bottomLeftEdge = new Point(bottomRightEdge.x - pieceSize, bottomRightEdge.y);
+  const bottomLeftEdge = new Paper.Point(bottomRightEdge.x - pieceSize, bottomRightEdge.y);
   for (let i = 0; i < CURVY_COORDINATES.length / 6; i++) {
-    const p1 = new Point(
+    const p1 = new Paper.Point(
       bottomLeftEdge.x + shape.left * getCurvy(i * 6 + 1) * pieceRatio,
       bottomLeftEdge.y - getCurvy(i * 6 + 0) * pieceRatio,
     );
-    const p2 = new Point(
+    const p2 = new Paper.Point(
       bottomLeftEdge.x + shape.left * getCurvy(i * 6 + 3) * pieceRatio,
       bottomLeftEdge.y - getCurvy(i * 6 + 2) * pieceRatio,
     );
-    const p3 = new Point(
+    const p3 = new Paper.Point(
       bottomLeftEdge.x + shape.left * getCurvy(i * 6 + 5) * pieceRatio,
       bottomLeftEdge.y - getCurvy(i * 6 + 4) * pieceRatio,
     );
@@ -120,11 +119,11 @@ export const createPiece = (props: {
 }) => {
   const { mask, x, y, imgElement, pieceSize } = props;
 
-  const offset = new Point(pieceSize * x, pieceSize * y);
+  const offset = new Paper.Point(pieceSize * x, pieceSize * y);
 
   const pieceRaster = new Paper.Raster(imgElement);
   // 여기서 x, y에 의해 조각이 렌더링할 "부분"이 결정됨
-  pieceRaster.position = new Point(-offset.x, -offset.y);
+  pieceRaster.position = new Paper.Point(-offset.x, -offset.y);
 
   const border = mask.clone();
   border.strokeColor = new Paper.Color(Styles.BORDER_STROKE_COLOR);

@@ -125,7 +125,7 @@ export abstract class BaseEngine {
 
         piece.position.x = fetchedPiece.position.x;
         piece.position.y = fetchedPiece.position.y;
-        this.paperPieceList.push({ groupId: null, pieceId: y * this.perRow + x, piece });
+        this.paperPieceList.push({ groupId: null, pieceId: this.getPieceId(x, y), piece });
       }
     }
   }
@@ -167,6 +167,13 @@ export abstract class BaseEngine {
         });
       };
     });
+  }
+
+  protected getPieceId(x: number, y: number) {
+    if (0 <= x && x < this.perRow && 0 <= y && y < this.perColumn) {
+      return y * this.perRow + x;
+    }
+    throw new Error("x는 perRow, y는 perColumn 기준이에요");
   }
 
   protected getNeighborPieceIdMap(pieceId: number): Record<Direction, number | null> {
