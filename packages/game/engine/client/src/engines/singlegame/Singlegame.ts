@@ -4,7 +4,7 @@ import { BaseEngine } from "../base/Base";
 import { FetchedData, OnMouseEventProps, PaperPiece } from "../base/types";
 import { SinglegameEngineProps } from "./types";
 import { fetchData } from "./fetchData";
-import { findXChange, findXUp, findYChange, findYUp } from "./fittable-values";
+import { getFittableValues } from "./fittable-values";
 
 export class SinglegameEngine extends BaseEngine {
   private currentMaxGroupId = 0;
@@ -87,28 +87,27 @@ export class SinglegameEngine extends BaseEngine {
     const { paperPiece } = props;
 
     if (paperPiece.groupId !== null) {
-      this.paperPieceList
-        .filter(
-          anotherPaperPiece =>
-            anotherPaperPiece.groupId === paperPiece.groupId &&
-            anotherPaperPiece.pieceId !== paperPiece.pieceId,
-        )
-        .forEach(anotherPaperPiece => {
+      for (const anotherPaperPiece of this.paperPieceList) {
+        if (
+          anotherPaperPiece.groupId === paperPiece.groupId &&
+          anotherPaperPiece.pieceId !== paperPiece.pieceId
+        ) {
           this.fitNeighborPieces(anotherPaperPiece);
-        });
+        }
+      }
     }
     this.fitNeighborPieces(paperPiece);
   }
 
   private fitNeighborPieces(paperPiece: PaperPiece) {
     for (const [_direction, neighborPieceId] of Object.entries(
-      this.getNeighborPieceIdMap(paperPiece.pieceId),
+      this.utils.getNeighborPieceIdMap(paperPiece.pieceId),
     )) {
       const direction = _direction as Direction;
 
       const 피스가_들어갈_자리가_없다면 =
         neighborPieceId === null ||
-        this.isFittable({
+        this.isFullPiece({
           pieceId: paperPiece.pieceId,
           neighborPieceId,
           direction,
@@ -136,81 +135,57 @@ export class SinglegameEngine extends BaseEngine {
   }) => {
     const { pieceId, neighborPieceId, direction, recursive, isCombo = false } = props;
 
+    const ERROR_RANGE = this.pieceSize * 0.2;
+
     const nowTile = this.paperPieceList[pieceId]!.piece;
     const preTile = this.paperPieceList[neighborPieceId]!.piece;
 
     const nowShape = this.bundles[pieceId]!.shape;
     const preShape = this.bundles[neighborPieceId]!.shape;
 
-    const xChange = findXChange(nowShape, preShape);
-    const yChange = findYChange(nowShape, preShape);
-    const xUp = findXUp(nowShape, preShape);
-    const yUp = findYUp(nowShape, preShape);
+    const { xChange, yChange, xUp, yUp } = getFittableValues({
+      nowShape,
+      preShape,
+      gameLevel: this.gameLevel,
+    });
 
-    const ERROR_RANGE = this.pieceSize * 0.2;
-    let canMerge = false;
+    const FitMap = {
+      left: {
+        validation:
+          Math.abs(nowTile.position.x - this.pieceSize - preTile.position.x) < ERROR_RANGE &&
+          Math.abs(nowTile.position.y - preTile.position.y) < ERROR_RANGE,
+        nextPosition: [preTile.position.x + this.pieceSize + xChange, preTile.position.y + yChange],
+      },
+      right: {
+        validation:
+          Math.abs(preTile.position.x - this.pieceSize - nowTile.position.x) < ERROR_RANGE &&
+          Math.abs(nowTile.position.y - preTile.position.y) < ERROR_RANGE,
+        nextPosition: [
+          preTile.position.x - (this.pieceSize + xChange),
+          preTile.position.y + yChange,
+        ],
+      },
+      top: {
+        validation:
+          Math.abs(preTile.position.y + this.pieceSize - nowTile.position.y) < ERROR_RANGE &&
+          Math.abs(nowTile.position.x - preTile.position.x) < ERROR_RANGE,
+        nextPosition: [preTile.position.x + xUp, preTile.position.y + this.pieceSize + yUp],
+      },
+      bottom: {
+        validation:
+          Math.abs(nowTile.position.y + this.pieceSize - preTile.position.y) < ERROR_RANGE &&
+          Math.abs(nowTile.position.x - preTile.position.x) < ERROR_RANGE,
+        nextPosition: [preTile.position.x + xUp, preTile.position.y - (this.pieceSize + yUp)],
+      },
+    } as Record<Direction, { validation: boolean; nextPosition: [number, number] }>;
 
-    switch (direction) {
-      case "left":
-        if (
-          (Math.abs(nowTile.position.x - this.pieceSize - preTile.position.x) < ERROR_RANGE &&
-            Math.abs(nowTile.position.y - preTile.position.y) < ERROR_RANGE) ||
-          !recursive
-        ) {
-          nowTile.position = new Paper.Point(
-            preTile.position.x + this.pieceSize + xChange,
-            preTile.position.y + yChange,
-          );
-          canMerge = true;
+    if (FitMap[direction].validation) {
+      nowTile.position = new Paper.Point(...FitMap[direction].nextPosition);
 
-          //sendFitTilePosition(nowTile, nowIndex);
-        }
-        break;
-      case "right":
-        if (
-          (Math.abs(preTile.position.x - this.pieceSize - nowTile.position.x) < ERROR_RANGE &&
-            Math.abs(nowTile.position.y - preTile.position.y) < ERROR_RANGE) ||
-          !recursive
-        ) {
-          nowTile.position = new Paper.Point(
-            preTile.position.x - (this.pieceSize + xChange),
-            preTile.position.y + yChange,
-          );
-          canMerge = true;
-
-          //sendFitTilePosition(nowTile, nowIndex);
-        }
-        break;
-      case "top":
-        if (
-          (Math.abs(preTile.position.y + this.pieceSize - nowTile.position.y) < ERROR_RANGE &&
-            Math.abs(nowTile.position.x - preTile.position.x) < ERROR_RANGE) ||
-          !recursive
-        ) {
-          nowTile.position = new Paper.Point(
-            preTile.position.x + xUp,
-            preTile.position.y + this.pieceSize + yUp,
-          );
-          canMerge = true;
-
-          //sendFitTilePosition(nowTile, nowIndex);
-        }
-        break;
-      case "bottom":
-        if (
-          (Math.abs(nowTile.position.y + this.pieceSize - preTile.position.y) < ERROR_RANGE &&
-            Math.abs(nowTile.position.x - preTile.position.x) < ERROR_RANGE) ||
-          !recursive
-        ) {
-          nowTile.position = new Paper.Point(
-            preTile.position.x + xUp,
-            preTile.position.y - (this.pieceSize + yUp),
-          );
-          canMerge = true;
-
-          //sendFitTilePosition(nowTile, nowIndex);
-        }
-        break;
+      if (recursive) {
+        this.mergeGroup({ pieceId, neighborPieceId, isSender: true });
+      }
+      //sendFitTilePosition(nowTile, nowIndex);
     }
 
     if (isCombo) {
@@ -234,10 +209,6 @@ export class SinglegameEngine extends BaseEngine {
       //     comboEffect.parentNode.removeChild(comboEffect);
       //   }, 500);
       // }
-    }
-
-    if (recursive && canMerge) {
-      this.mergeGroup({ pieceId, neighborPieceId, isSender: true });
     }
   };
 
@@ -322,7 +293,7 @@ export class SinglegameEngine extends BaseEngine {
 
     for (const paperPiece of Object.values(sameGroupPaperPieceMap)) {
       for (const [_direction, neighborPieceId] of Object.entries(
-        this.getNeighborPieceIdMap(paperPiece.pieceId),
+        this.utils.getNeighborPieceIdMap(paperPiece.pieceId),
       )) {
         const direction = _direction as Direction;
         const isValid =

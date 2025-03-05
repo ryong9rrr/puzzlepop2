@@ -9,6 +9,7 @@ import {
 } from "@puzzlepop2/game-core";
 import { getMask, createPiece } from "./render";
 import { PaperPiece, BaseEngineProps, FetchedData, OnMouseEventProps } from "./types";
+import utils from "./Utils";
 import * as Styles from "./styles";
 
 export abstract class BaseEngine {
@@ -51,11 +52,15 @@ export abstract class BaseEngine {
     return this._perRow;
   }
 
-  get bundles() {
+  protected get bundles() {
     if (this._bundles === null) {
       throw new Error("데이터가 초기화되지 않았어요");
     }
     return this._bundles;
+  }
+
+  protected get utils() {
+    return utils(this);
   }
 
   async load(): Promise<void> {
@@ -125,7 +130,7 @@ export abstract class BaseEngine {
 
         piece.position.x = fetchedPiece.position.x;
         piece.position.y = fetchedPiece.position.y;
-        this.paperPieceList.push({ groupId: null, pieceId: this.getPieceId(x, y), piece });
+        this.paperPieceList.push({ groupId: null, pieceId: this.utils.getPieceId(x, y), piece });
       }
     }
   }
@@ -169,27 +174,7 @@ export abstract class BaseEngine {
     });
   }
 
-  protected getPieceId(x: number, y: number) {
-    if (0 <= x && x < this.perRow && 0 <= y && y < this.perColumn) {
-      return y * this.perRow + x;
-    }
-    throw new Error("x는 perRow, y는 perColumn 기준이에요");
-  }
-
-  protected getNeighborPieceIdMap(pieceId: number): Record<Direction, number | null> {
-    return {
-      left: pieceId % this.perRow === 0 ? null : pieceId - 1,
-      right: (pieceId + 1) % this.perRow === 0 ? null : pieceId + 1,
-      top: pieceId - this.perRow < 0 ? null : pieceId - this.perRow,
-      bottom: pieceId + this.perRow >= this.perRow * this.perColumn ? null : pieceId + this.perRow,
-    };
-  }
-
-  protected isFittable = (props: {
-    pieceId: number;
-    neighborPieceId: number;
-    direction: Direction;
-  }) => {
+  protected isFullPiece(props: { pieceId: number; neighborPieceId: number; direction: Direction }) {
     const { pieceId, neighborPieceId, direction } = props;
     if (
       !!this.paperPieceList[pieceId] &&
@@ -209,7 +194,7 @@ export abstract class BaseEngine {
       return true;
     }
     return false;
-  };
+  }
 
   abstract fetchData(): Promise<FetchedData>;
 
