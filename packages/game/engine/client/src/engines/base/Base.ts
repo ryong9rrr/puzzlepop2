@@ -102,6 +102,8 @@ export abstract class BaseEngine {
   }
 
   private render() {
+    this.paperPieceList = [];
+
     for (let y = 0; y < this.perColumn; y += 1) {
       for (let x = 0; x < this.perRow; x += 1) {
         const index = y * this.perRow + x;

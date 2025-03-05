@@ -6,6 +6,8 @@ import { SinglegameEngineProps } from "./types";
 import { fetchData } from "./fetchData";
 import { getFittableValues } from "./fittable-values";
 
+const SAVE_KEY = "PUZZLE_POP_SINGLE_GAME_SAVE";
+
 export class SinglegameEngine extends BaseEngine {
   private currentMaxGroupId = 0;
 
@@ -13,21 +15,59 @@ export class SinglegameEngine extends BaseEngine {
     super(props);
   }
 
-  async fetchData(): Promise<FetchedData> {
-    try {
-      const data = await fetchData({ src: this.src, level: this.gameLevel });
+  private saveData() {
+    const saveData: FetchedData = {
+      perColumn: this.perColumn,
+      perRow: this.perRow,
+      pieces: this.paperPieceList.map(paperPiece => {
+        return {
+          index: paperPiece.pieceId,
+          shape: this.bundles[paperPiece.pieceId]!.shape,
+          groupId: paperPiece.groupId,
+          position: {
+            x: paperPiece.piece.position.x,
+            y: paperPiece.piece.position.y,
+          },
+        };
+      }),
+    };
+    window.sessionStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
+  }
 
+  private loadSavedData() {
+    const savedData = window.sessionStorage.getItem(SAVE_KEY);
+    if (savedData) {
+      return JSON.parse(savedData) as FetchedData;
+    }
+    throw new Error("세션스토리지에 저장된 데이터를 불러오는 도중, 오류가 발생했어요");
+  }
+
+  async fetchData(): Promise<FetchedData> {
+    // 일단 저장된게 있으면 갖고오고... 오류가 나면 데이터 패칭..
+    let data: FetchedData | null = null;
+
+    try {
+      data = this.loadSavedData();
+    } catch (error1) {
+      try {
+        data = await fetchData({ src: this.src, level: this.gameLevel });
+      } catch (error2) {
+        throw new Error(`게임 데이터를 받아오는 중 오류가 발생했습니다. ${error2}`);
+      }
+    }
+
+    if (data) {
       data.pieces.forEach(piece => {
         this.currentMaxGroupId = Math.max(
           this.currentMaxGroupId,
           piece.groupId ? piece.groupId + 1 : 0,
         );
       });
-
-      return data;
-    } catch (error) {
-      throw new Error(`게임 데이터를 받아오는 중 오류가 발생했습니다. ${error}`);
     }
+
+    // TODO: 근데 저장된걸 불러왔을 때, 그룹화되어있지 않음..
+
+    return data;
   }
 
   onMouseEnter(props: OnMouseEventProps): void {
@@ -97,6 +137,8 @@ export class SinglegameEngine extends BaseEngine {
       }
     }
     this.fitNeighborPieces(paperPiece);
+
+    this.saveData();
   }
 
   private fitNeighborPieces(paperPiece: PaperPiece) {
