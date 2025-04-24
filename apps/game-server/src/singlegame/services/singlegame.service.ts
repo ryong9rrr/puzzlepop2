@@ -16,6 +16,9 @@ export class SinglegameService {
         gameLevel: level,
         imgWidth: width,
         imgHeight: height,
+        options: {
+          position: 'random',
+        },
       });
     } catch (error) {
       console.error(error);

@@ -1,8 +1,14 @@
-import { Piece, Shape, PUZZLE_PIECE_SIZE_MAP } from "@puzzlepop2/game-core";
-import { CreatePiecesProps, CreateShapesProps } from "./types";
+import {
+  Piece,
+  Shape,
+  PUZZLE_PIECE_SIZE_MAP,
+  CANVAS_WIDTH,
+  CANVAS_HEIGHT,
+} from "@puzzlepop2/game-core";
+import { CreatePiecesProps, CreateShapesProps, InitPiecePosition } from "./types";
 
 export const createPieces = (props: CreatePiecesProps) => {
-  const { gameLevel, imgWidth, imgHeight } = props;
+  const { gameLevel, imgWidth, imgHeight, options } = props;
   const pieceSize = PUZZLE_PIECE_SIZE_MAP[gameLevel];
   const perColumn = Math.floor(imgHeight / pieceSize);
   const perRow = Math.floor(imgWidth / pieceSize);
@@ -13,10 +19,13 @@ export const createPieces = (props: CreatePiecesProps) => {
   for (let y = 0; y < perColumn; y += 1) {
     for (let x = 0; x < perRow; x += 1) {
       const shape = shapes[y * perRow + x];
-      const position = {
-        x: pieceSize * x + 100,
-        y: pieceSize * y + 100,
-      };
+
+      const position = calculatePiecePosition({
+        row: y,
+        column: x,
+        pieceSize,
+        initPiecePosition: options?.position || "arranged",
+      });
 
       pieces.push({
         index: y * perRow + x,
@@ -71,4 +80,32 @@ const createShapes = (props: CreateShapesProps) => {
   }
 
   return shapes;
+};
+
+const calculatePiecePosition = (props: {
+  row: number;
+  column: number;
+  pieceSize: number;
+  initPiecePosition: InitPiecePosition;
+}): {
+  x: number;
+  y: number;
+} => {
+  const { row, column, pieceSize, initPiecePosition } = props;
+
+  if (initPiecePosition === "random") {
+    const marginX = CANVAS_WIDTH * 0.1;
+    const marginY = CANVAS_HEIGHT * 0.1;
+    const innerWidth = CANVAS_WIDTH * 0.8;
+    const innerHeight = CANVAS_HEIGHT * 0.8;
+
+    const x = Math.random() * (innerWidth - pieceSize) + marginX;
+    const y = Math.random() * (innerHeight - pieceSize) + marginY;
+    return { x, y };
+  }
+
+  return {
+    x: pieceSize * column + 100,
+    y: pieceSize * row + 100,
+  };
 };

@@ -15,7 +15,7 @@ export const Selector = () => {
   const showAlert = useCallback(() => {
     alert({
       title: <AlertTitle />,
-      description: "3월 중 오픈합니다",
+      description: "개발 중인 기능이에요",
     });
   }, [alert]);
 

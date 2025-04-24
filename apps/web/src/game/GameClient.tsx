@@ -1,16 +1,21 @@
 "use client";
 
-import { usePromise } from "@puzzlepop2/react-hooks-base";
+import { GameLevel, GameMode } from "@puzzlepop2/game-core";
 import { Dimmed, Flex, Text } from "@puzzlepop2/react-components-layout";
-import { SinglegameEngine, SinglegameEngineProps } from "../../engines/singlegame";
+import { usePromise } from "@puzzlepop2/react-hooks-base";
+import { load } from "./canvas";
 
-export const SinglegameLoader = (props: SinglegameEngineProps) => {
-  const { isPending, isError, data } = usePromise<SinglegameEngine>(async () => {
-    const puzzleGame = new SinglegameEngine(props);
-    console.log("load 시작...");
-    await puzzleGame.load();
-    console.log("load 완료");
-    return puzzleGame;
+export type GameClientProps = {
+  mode: GameMode;
+  src: string;
+  level: GameLevel;
+};
+
+export const GameClient = (props: GameClientProps) => {
+  const { mode, src, level } = props;
+
+  const { isPending, isError } = usePromise(async () => {
+    return load({ src, level });
   });
 
   if (isPending) {
@@ -23,7 +28,7 @@ export const SinglegameLoader = (props: SinglegameEngineProps) => {
     );
   }
 
-  if (isError || !data) {
+  if (isError) {
     return (
       <Dimmed>
         <Flex justify="center" align="center" style={{ width: "100%", height: "100vh" }}>

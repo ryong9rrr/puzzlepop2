@@ -1,7 +1,15 @@
-import { GameLevel } from "@puzzlepop2/game-core";
-import { GameClient } from "@puzzlepop2/game-engine-client";
+import {
+  GameLevel,
+  CANVAS_HEIGHT,
+  CANVAS_ID,
+  CANVAS_WIDTH,
+  GameMode,
+  IMG_ID,
+} from "@puzzlepop2/game-core";
 import { fetchGetSingleGamePuzzleById } from "@/remotes/puzzles/singlegame";
 import { WindowSizeDetectAndWarningClient } from "@/components/window-size-detect-and-warning-client";
+import { GameClient } from "@/game/GameClient";
+import { vars } from "@puzzlepop2/themes";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -29,7 +37,16 @@ export default async function Page({ params, searchParams }: PageProps) {
         alignItems: "center",
       }}
     >
-      <GameClient gameLevel={level} src={puzzle.src} mode="single" />
+      <img id={IMG_ID} src={puzzle.src} style={{ display: "none" }} />
+      <canvas
+        id={CANVAS_ID}
+        style={{
+          width: `${CANVAS_WIDTH}px`,
+          height: `${CANVAS_HEIGHT}px`,
+          backgroundColor: vars.colors.grey["200"],
+        }}
+      ></canvas>
+      <GameClient level={level} src={puzzle.src} mode="single" />
       <WindowSizeDetectAndWarningClient />
     </main>
   );
