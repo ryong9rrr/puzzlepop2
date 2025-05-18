@@ -1,6 +1,12 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { GameLevel } from '@puzzlepop2/game-core';
 import { PuzzlesRepository } from '../repositories/puzzles.repository';
+import {
+  createCDNImage,
+  createNewFile,
+  removeTempFile,
+  validateNSFW,
+} from './upload-image';
 
 @Injectable()
 export class PuzzlesService {
@@ -30,6 +36,28 @@ export class PuzzlesService {
       ...puzzle.readOnlyData,
       level,
       src,
+    };
+  }
+
+  async uploadImage(file: Express.Multer.File) {
+    let nsfwResult = {};
+
+    // NSFW 체크
+    try {
+      nsfwResult = await validateNSFW(file);
+    } catch (error) {
+      removeTempFile(file.path);
+      throw error;
+    }
+
+    // 이미지 변환
+    const { newFilePath } = await createNewFile(file);
+    await createCDNImage(file);
+
+    // removeTempFile(newFilePath);
+    return {
+      newFilePath,
+      nsfw: nsfwResult,
     };
   }
 }

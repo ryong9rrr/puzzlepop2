@@ -69,4 +69,14 @@ export class PuzzlesRepository {
     });
     return puzzle;
   }
+
+  // async uploadImage(props: { file: Express.Multer.File; newFilePath: string }) {
+  //   const { file, newFilePath } = props;
+
+  //   console.log(file, newFilePath);
+
+  //   return {
+  //     path: 'http://140...',
+  //   };
+  // }
 }
