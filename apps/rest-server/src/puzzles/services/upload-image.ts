@@ -74,6 +74,7 @@ export const validateNSFW = async (file: Express.Multer.File) => {
   );
 
   if (response.status >= 500) {
+    console.error('AI Server 호출 오류');
     throw new HttpException('AI Server 오류', 500);
   }
 
@@ -126,6 +127,7 @@ export const createNewFile = async (file: Express.Multer.File) => {
     };
     // eslint-disable-next-line
   } catch (error) {
+    console.error('이미지 변환 오류');
     removeTempDir(file);
     throw new HttpException('이미지를 변환하는데 오류가 발생했어요', 500);
   }

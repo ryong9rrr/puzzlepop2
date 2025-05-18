@@ -47,17 +47,23 @@ export class PuzzlesService {
       nsfwResult = await validateNSFW(file);
     } catch (error) {
       removeTempFile(file.path);
+      console.error(error);
       throw error;
     }
 
-    // 이미지 변환
-    const { newFilePath } = await createNewFile(file);
-    await createCDNImage(file);
-
-    // removeTempFile(newFilePath);
-    return {
-      newFilePath,
-      nsfw: nsfwResult,
-    };
+    try {
+      // 이미지 변환
+      const { newFilePath } = await createNewFile(file);
+      await createCDNImage(file);
+      // removeTempFile(newFilePath);
+      return {
+        newFilePath,
+        nsfw: nsfwResult,
+      };
+    } catch (error) {
+      // removeTempFile(newFilePath);
+      console.error(error);
+      throw new HttpException(error, 500);
+    }
   }
 }
