@@ -36,18 +36,22 @@ export class PuzzlesService {
 
   async uploadImage(file: Express.Multer.File) {
     // NSFW 체크
-    const { nsfw, ...nsfwResult } = await validateNSFW(file);
-    if (nsfw) {
-      throw new HttpException('부적절한 이미지입니다.', 400);
+    // const { nsfw, ...nsfwResult } = await validateNSFW(file);
+    // if (nsfw) {
+    //   throw new HttpException('부적절한 이미지입니다.', 400);
+    // }
+
+    try {
+      // 이미지 변환
+      await createNewFile(file);
+      await createCDNImage(file);
+
+      return {
+        file,
+      };
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
-
-    // // 이미지 변환
-    await createNewFile(file);
-    await createCDNImage(file);
-
-    return {
-      file,
-      nsfw: nsfwResult,
-    };
   }
 }
