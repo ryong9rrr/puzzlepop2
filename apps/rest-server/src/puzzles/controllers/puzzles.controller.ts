@@ -10,9 +10,7 @@ import {
 } from '@nestjs/common';
 import { PuzzlesService } from '../services/puzzles.service';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-import { createUnique } from 'src/static/createUnique';
+import { multerOptions } from 'src/static/multer';
 
 @Controller('puzzles')
 export class PuzzlesController {
@@ -40,16 +38,7 @@ export class PuzzlesController {
 
   // 이미지를 업로드하는 메서드
   @Post('upload-image')
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: 'uploads',
-        filename: (req, file, cb) => {
-          cb(null, `${createUnique()}${extname(file.originalname)}`);
-        },
-      }),
-    }),
-  )
+  @UseInterceptors(FileInterceptor('file', multerOptions('images')))
   async uploadImage(@UploadedFile() file: Express.Multer.File) {
     return this.puzzlesService.uploadImage(file);
   }

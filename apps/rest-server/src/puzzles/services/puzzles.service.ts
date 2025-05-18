@@ -1,12 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { GameLevel } from '@puzzlepop2/game-core';
 import { PuzzlesRepository } from '../repositories/puzzles.repository';
-import {
-  createCDNImage,
-  createNewFile,
-  removeTempFile,
-  validateNSFW,
-} from './upload-image';
+import { validateNSFW, createNewFile, createCDNImage } from './upload-image';
 
 @Injectable()
 export class PuzzlesService {
@@ -40,30 +35,19 @@ export class PuzzlesService {
   }
 
   async uploadImage(file: Express.Multer.File) {
-    let nsfwResult = {};
-
     // NSFW 체크
-    try {
-      nsfwResult = await validateNSFW(file);
-    } catch (error) {
-      removeTempFile(file.path);
-      console.error(error);
-      throw error;
+    const { nsfw, ...nsfwResult } = await validateNSFW(file);
+    if (nsfw) {
+      throw new HttpException('부적절한 이미지입니다.', 400);
     }
 
-    try {
-      // 이미지 변환
-      const { newFilePath } = await createNewFile(file);
-      await createCDNImage(file);
-      // removeTempFile(newFilePath);
-      return {
-        newFilePath,
-        nsfw: nsfwResult,
-      };
-    } catch (error) {
-      // removeTempFile(newFilePath);
-      console.error(error);
-      throw new HttpException(error, 500);
-    }
+    // // 이미지 변환
+    await createNewFile(file);
+    await createCDNImage(file);
+
+    return {
+      file,
+      nsfw: nsfwResult,
+    };
   }
 }

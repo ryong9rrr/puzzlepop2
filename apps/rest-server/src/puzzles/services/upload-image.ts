@@ -13,51 +13,6 @@ const CDN_SIZES = {
   lg: 0.75,
 };
 
-const getDestination = (file: Express.Multer.File) => {
-  return process.env.NODE_ENV === 'production'
-    ? `/app/${file.destination}`
-    : file.destination;
-};
-
-const getFileName = (file: Express.Multer.File) => {
-  return file.filename.split('.').slice(0, -1).join('.');
-};
-
-const makeTempDir = (file: Express.Multer.File) => {
-  fs.mkdirSync(`${getDestination(file)}/${getFileName(file)}`, {
-    recursive: true,
-  });
-};
-
-const removeTempDir = async (file: Express.Multer.File) => {
-  try {
-    console.log('임시 폴더 삭제 성공');
-    await fs.promises.rm(`${getDestination(file)}/${getFileName(file)}`, {
-      recursive: true,
-      force: true,
-    });
-  } catch (error) {
-    console.error(`임시 폴더 삭제 실패`, error);
-  }
-};
-
-const getNewFileDir = (file: Express.Multer.File) => {
-  return `${getDestination(file)}/${getFileName(file)}`;
-};
-
-const getNewFilePath = (file: Express.Multer.File) => {
-  return `${getNewFileDir(file)}/origin.webp`;
-};
-
-export const removeTempFile = (path: string) => {
-  try {
-    fs.unlinkSync(path);
-    console.log(`${path} 파일 삭제 성공`);
-  } catch (error) {
-    console.error(`파일 삭제 실패`, error);
-  }
-};
-
 export const validateNSFW = async (file: Express.Multer.File) => {
   const formData = new FormData();
   formData.append('file', fs.createReadStream(file.path), {
@@ -65,28 +20,13 @@ export const validateNSFW = async (file: Express.Multer.File) => {
     contentType: file.mimetype,
   });
 
-  const response = await requestWithFormData.post<PostNSFWResponse>(
+  const { data } = await requestWithFormData.post<PostNSFWResponse>(
     `${getAiServerUrl()}/nsfw-check`,
     formData,
     {
       headers: formData.getHeaders(),
     },
   );
-
-  if (response.status >= 500) {
-    console.error('AI Server 호출 오류');
-    throw new HttpException('AI Server 오류', 500);
-  }
-
-  const { data } = response;
-
-  if (data.nsfw) {
-    throw new HttpException(
-      `${data.top_class} / 유해한 이미지는 업로드가 불가해요`,
-      400,
-    );
-  }
-
   return data;
 };
 
@@ -97,7 +37,6 @@ export const createNewFile = async (file: Express.Multer.File) => {
   const metadata = await image.metadata();
   const width = metadata.width;
   const height = metadata.height;
-  const newFilePath = getNewFilePath(file);
 
   if (!width || !height) {
     throw new HttpException('유효한 이미지가 아니에요', 500);
@@ -115,26 +54,17 @@ export const createNewFile = async (file: Express.Multer.File) => {
 
       // TODO: 업스케일링
     }
-
-    // uploads 폴더 아래에 fileName 폴더를 만든다.
-    makeTempDir(file);
-    await newFile.toFile(newFilePath);
-
-    // 업로드된 파일은 제거
-    removeTempFile(file.path);
-    return {
-      newFilePath,
-    };
+    await newFile.toFile(`${file.destination}/origin.webp`);
     // eslint-disable-next-line
   } catch (error) {
     console.error('이미지 변환 오류');
-    removeTempDir(file);
     throw new HttpException('이미지를 변환하는데 오류가 발생했어요', 500);
   }
 };
 
 export const createCDNImage = async (file: Express.Multer.File) => {
-  const originImage = sharp(getNewFilePath(file));
+  const origin = `${file.destination}/origin.webp`;
+  const originImage = sharp(origin);
   const metadata = await originImage.metadata();
   const width = metadata.width;
   const height = metadata.height;
@@ -146,24 +76,24 @@ export const createCDNImage = async (file: Express.Multer.File) => {
   const makeToGameMode = () => {
     return Object.entries(PUZZLE_IMAGE_SIZE_MAP).map(([gameMode, size]) => {
       const { width, height } = size;
-      sharp(getNewFilePath(file))
+      sharp(origin)
         .flatten({ background: { r: 255, g: 255, b: 255 } })
         .resize(width, height, { fit: 'cover', position: 'center' })
         .toFormat('webp')
-        .toFile(`${getNewFileDir(file)}/${gameMode}.webp`);
+        .toFile(`${file.destination}/${gameMode}.webp`);
     });
   };
 
   const makeToCDN = () => {
     return Object.entries(CDN_SIZES).map(([size, ratio]) => {
-      sharp(getNewFilePath(file))
+      sharp(origin)
         .flatten({ background: { r: 255, g: 255, b: 255 } })
         .resize(Math.floor(width * ratio), Math.floor(height * ratio), {
           fit: 'cover',
           position: 'center',
         })
         .toFormat('webp')
-        .toFile(`${getNewFileDir(file)}/${size}.webp`);
+        .toFile(`${file.destination}/${size}.webp`);
     });
   };
 
@@ -171,9 +101,4 @@ export const createCDNImage = async (file: Express.Multer.File) => {
   Promise.all([...makeToGameMode(), ...makeToCDN()]).catch(() => {
     throw new HttpException('이미지를 변환하는데 오류가 발생했어요', 500);
   });
-
-  // Nginx로 복사
-
-  // 삭제
-  //await removeTempDir(file);
 };
