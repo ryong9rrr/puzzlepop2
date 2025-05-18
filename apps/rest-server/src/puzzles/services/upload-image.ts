@@ -13,18 +13,26 @@ const CDN_SIZES = {
   lg: 0.75,
 };
 
+const getDestination = (file: Express.Multer.File) => {
+  return process.env.NODE_ENV === 'production'
+    ? `/app/${file.destination}`
+    : file.destination;
+};
+
 const getFileName = (file: Express.Multer.File) => {
   return file.filename.split('.').slice(0, -1).join('.');
 };
 
 const makeTempDir = (file: Express.Multer.File) => {
-  fs.mkdirSync(`${file.destination}/${getFileName(file)}`, { recursive: true });
+  fs.mkdirSync(`${getDestination(file)}/${getFileName(file)}`, {
+    recursive: true,
+  });
 };
 
 const removeTempDir = async (file: Express.Multer.File) => {
   try {
     console.log('임시 폴더 삭제 성공');
-    await fs.promises.rm(`${file.destination}/${getFileName(file)}`, {
+    await fs.promises.rm(`${getDestination(file)}/${getFileName(file)}`, {
       recursive: true,
       force: true,
     });
@@ -34,7 +42,7 @@ const removeTempDir = async (file: Express.Multer.File) => {
 };
 
 const getNewFileDir = (file: Express.Multer.File) => {
-  return `${file.destination}/${getFileName(file)}`;
+  return `${getDestination(file)}/${getFileName(file)}`;
 };
 
 const getNewFilePath = (file: Express.Multer.File) => {
@@ -165,5 +173,5 @@ export const createCDNImage = async (file: Express.Multer.File) => {
   // Nginx로 복사
 
   // 삭제
-  await removeTempDir(file);
+  //await removeTempDir(file);
 };
