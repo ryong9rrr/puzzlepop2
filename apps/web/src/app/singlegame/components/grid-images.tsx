@@ -52,7 +52,7 @@ const GridImages = () => {
               <Flex direction="column" gapScale={0.4}>
                 <div className={styles.imageContainer}>
                   <Image
-                    src={puzzle.imgUrl}
+                    src={`${puzzle.baseUrl}/md.webp`}
                     alt="썸네일"
                     fill
                     sizes="25vw"

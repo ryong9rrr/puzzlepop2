@@ -3,6 +3,7 @@ export type Puzzle = {
   title: string;
   description: string;
   imgUrl: string;
+  baseUrl: string;
   tags: string[];
   uploaderId: string;
 };
