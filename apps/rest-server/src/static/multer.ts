@@ -29,9 +29,9 @@ const createFolder = (folder: string, uniqueFileName: string) => {
 };
 
 const storage = (folder: string): multer.StorageEngine => {
-  const uniqueFileName = `${uuid()}${Date.now()}`;
   return multer.diskStorage({
     destination(req, file, cb) {
+      const uniqueFileName = `${uuid()}${Date.now()}`;
       const folderName = path.join(
         __dirname,
         '..',
