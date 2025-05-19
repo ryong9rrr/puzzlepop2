@@ -56,5 +56,5 @@ jobs:
             docker-compose up -d --remove-orphans
             docker image prune -f
 
-            chmod 755 /var/www/cdn
+            sudo chmod 777 /var/www/cdn
             EOF
