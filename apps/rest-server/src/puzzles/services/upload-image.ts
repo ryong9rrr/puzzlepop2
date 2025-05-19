@@ -55,7 +55,6 @@ export const createNewFile = async (file: Express.Multer.File) => {
       // TODO: 업스케일링
     }
     await newFile.toFile(`${file.destination}/origin.webp`);
-    // eslint-disable-next-line
   } catch (error) {
     console.error('이미지 변환 오류');
     throw new HttpException('이미지를 변환하는데 오류가 발생했어요', 500);

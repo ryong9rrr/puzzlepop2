@@ -43,7 +43,6 @@ export class PuzzlesRepository {
     try {
       const puzzle = await this.puzzleModel.findById(id);
       return puzzle ?? null;
-      // eslint-disable-next-line
     } catch (error) {
       return null;
     }

@@ -9,14 +9,12 @@ const createFolder = (folder: string, uniqueFileName: string) => {
   try {
     console.log('💾 Create a root uploads folder...');
     fs.mkdirSync(path.join(__dirname, '..', `uploads`));
-    // eslint-disable-next-line
   } catch (error) {
     console.log('The folder already exists...');
   }
   try {
     console.log(`💾 Create a ${folder} uploads folder...`);
     fs.mkdirSync(path.join(__dirname, '..', `uploads/${folder}`));
-    // eslint-disable-next-line
   } catch (error) {
     console.log(`The ${folder} folder already exists...`);
   }
@@ -25,7 +23,6 @@ const createFolder = (folder: string, uniqueFileName: string) => {
     fs.mkdirSync(
       path.join(__dirname, '..', `uploads/${folder}/${uniqueFileName}`),
     );
-    // eslint-disable-next-line
   } catch (error) {
     console.log(`The ${folder}/${uniqueFileName} folder already exists...`);
   }
