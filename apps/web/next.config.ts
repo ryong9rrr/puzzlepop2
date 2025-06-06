@@ -17,7 +17,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "http",
-        hostname: "140.245.39.129",
+        hostname: "www.puzzlepop.site",
       },
     ],
   },
