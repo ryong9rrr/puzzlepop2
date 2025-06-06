@@ -13,10 +13,9 @@ const nextConfig: NextConfig = {
     return config;
   },
   images: {
-    // TODO: https, 도메인네임으로 바꾸기
     remotePatterns: [
       {
-        protocol: "http",
+        protocol: "https",
         hostname: "www.puzzlepop.site",
       },
     ],
