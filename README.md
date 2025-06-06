@@ -17,7 +17,7 @@
 
 - esbuild-config: build config module.
 - ts-config: typescript base configuration module.
-- game: PuzzlePop game core, Client/Server module,
+- <s>game: PuzzlePop game core, Client/Server module.</s>
 - themes: UI foundation module.
 - react: React(v19) Shared UI Component, Hooks, etc.
 
