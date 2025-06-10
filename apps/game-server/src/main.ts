@@ -18,10 +18,12 @@ async function bootstrap() {
   app.useGlobalFilters(new HttpExceptionFilter());
   app.setGlobalPrefix('game-server');
 
-  app.enableCors({
-    origin: ['http://localhost:3000'],
-    credentials: true,
-  });
+  if (process.env.NODE_ENV !== 'production') {
+    app.enableCors({
+      origin: ['http://localhost:3000'],
+      credentials: true,
+    });
+  }
 
   await app.listen(8081, '0.0.0.0');
 }
