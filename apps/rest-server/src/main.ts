@@ -24,12 +24,12 @@ async function bootstrap() {
     app.useStaticAssets(`${__dirname}/uploads`, {
       prefix: '/cdn',
     });
-  }
 
-  app.enableCors({
-    origin: ['http://localhost:3000'],
-    credentials: true,
-  });
+    app.enableCors({
+      origin: ['http://localhost:3000'],
+      credentials: true,
+    });
+  }
 
   await app.listen(8080, '0.0.0.0');
 }
