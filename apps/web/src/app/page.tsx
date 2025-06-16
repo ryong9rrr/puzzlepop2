@@ -1,13 +1,20 @@
 import Image from "next/image";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars, Z_INDEX } from "@puzzlepop2/themes";
+import backgroundGifImage from "../../public/backgrounds/dynamic-puzzle.webp";
 import { AlertClient } from "../components/alert-client";
 import { Selector } from "./selector";
 import styles from "./page.module.css";
 
 export default function HomePage() {
   return (
-    <main style={{ position: "relative", width: "100%", height: "100vh" }}>
+    <main
+      style={{
+        position: "relative",
+        width: "100%",
+        height: "100vh",
+      }}
+    >
       <Flex justify="center" align="center" style={{ width: "100%", height: "100vh" }}>
         <Flex justify="center" align="center" direction="column" gapScale={1}>
           <div className={styles.bounceInBack} style={{ width: "6rem" }}>
@@ -48,9 +55,10 @@ export default function HomePage() {
       </Flex>
 
       <Image
-        src="/backgrounds/dynamic-puzzle.gif"
-        alt=""
+        src={backgroundGifImage}
+        alt="puzzlepop background"
         fill
+        priority
         style={{
           position: "absolute",
           top: 0,
