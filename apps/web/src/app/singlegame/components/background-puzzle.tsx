@@ -3,8 +3,7 @@
 import Image from "next/image";
 import { Z_INDEX } from "@puzzlepop2/themes";
 import { useSingleGamePage } from "../store";
-
-const DEFAULT_BACKGROUND = "/backgrounds/default-puzzle-list.jpg";
+import DEFAULT_BACKGROUND from "../../../../public/backgrounds/default-puzzle-list.webp";
 
 export const BackgroundPuzzleImage = () => {
   const { selectedPuzzle } = useSingleGamePage();
