@@ -21,7 +21,7 @@ const WhenString = () => {
       onClick={() => {
         alert({
           title: "알림짜잔",
-          description: "키보드의 ESC를 누르거나 확인 버튼을 누르면 알림이 사라져요",
+          description: "확인 버튼을 누르면 알림이 사라져요",
         });
       }}
     >

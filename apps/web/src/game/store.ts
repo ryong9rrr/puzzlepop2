@@ -1,6 +1,6 @@
 import { createStore } from "zustand/vanilla";
 import { Piece, PUZZLE_PIECE_SIZE_MAP, GameLevel } from "@puzzlepop2/game-core";
-import { getGameServerUrl } from "@/remotes/end-point";
+import { getGameServerUrl } from "@/remotes/end-points";
 
 export type PaperPiece = {
   groupId: number | null;

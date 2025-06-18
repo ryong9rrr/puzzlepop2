@@ -1,0 +1,30 @@
+.loading-spinner {
+  width: 0.9rem;
+  height: 0.9rem;
+  border: 3px solid var(--grey-600);
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+
+  margin-left: 5px;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.refresh-icon {
+  font-size: 1.2rem;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.5;
+  }
+}

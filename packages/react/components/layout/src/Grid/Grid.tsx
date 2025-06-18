@@ -1,7 +1,8 @@
+import * as React from "react";
 import { GridProps } from "./types";
 import { Box } from "../Box";
 
-export const Grid = (props: GridProps) => {
+const _Grid = (props: GridProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     as = "div",
     autoColumns,
@@ -27,6 +28,7 @@ export const Grid = (props: GridProps) => {
 
   return (
     <Box
+      ref={ref}
       as={as}
       style={{
         display: "grid",
@@ -49,3 +51,6 @@ export const Grid = (props: GridProps) => {
     </Box>
   );
 };
+
+const Grid = React.forwardRef(_Grid);
+export { Grid };

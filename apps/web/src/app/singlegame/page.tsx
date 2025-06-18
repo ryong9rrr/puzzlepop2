@@ -1,13 +1,16 @@
 import { Flex } from "@puzzlepop2/react-components-layout";
-import { WindowSizeDetectAndWarningClient } from "@/components/window-size-detect-and-warning-client";
+import { WindowSizeDetectAndWarningClient } from "@/components/clients";
+import { BackgroundSticky as BgSticky } from "@/components/backgrounds";
 import { LeftStickyArea } from "./components/left-sticky-area";
-import { BackgroundPuzzleImage } from "./components/background-puzzle";
+import { BackgroundSticky } from "./components/background-sticky";
 import { GridImagesClient } from "./components/grid-images";
 import styles from "./page.module.css";
 
-export default async function SingleGamePage() {
+export default async function Page() {
   return (
-    <main style={{ position: "relative" }}>
+    <BgSticky.Main>
+      <BackgroundSticky />
+
       <Flex justify="center" gapScale={1} style={{ paddingLeft: "1rem" }}>
         <section className={styles.left}>
           <div className={styles.sticky}>
@@ -19,9 +22,8 @@ export default async function SingleGamePage() {
         </section>
       </Flex>
 
-      <BackgroundPuzzleImage />
       <WindowSizeDetectAndWarningClient />
-    </main>
+    </BgSticky.Main>
   );
 }
 

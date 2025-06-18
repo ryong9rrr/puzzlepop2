@@ -1,7 +1,8 @@
+import * as React from "react";
 import { Box } from "../Box";
 import { FlexProps } from "./types";
 
-export const Flex = (props: FlexProps) => {
+const _Flex = (props: FlexProps, ref: React.Ref<HTMLDivElement>) => {
   const {
     as = "div",
     direction,
@@ -23,6 +24,7 @@ export const Flex = (props: FlexProps) => {
   return (
     <Box
       as={as}
+      ref={ref}
       style={{
         display: "flex",
         flexDirection: direction,
@@ -41,3 +43,6 @@ export const Flex = (props: FlexProps) => {
     </Box>
   );
 };
+
+const Flex = React.forwardRef(_Flex);
+export { Flex };

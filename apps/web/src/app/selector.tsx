@@ -25,7 +25,17 @@ export const Selector = () => {
       </motion.div>
 
       <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-        <Button key="멀티게임" variant="shadow" size="lg" onClick={() => router.push("/multigame")}>
+        <Button
+          key="멀티게임"
+          variant="shadow"
+          size="lg"
+          onClick={() => {
+            alert({
+              title: <AlertTitle />,
+              description: "개발 중인 기능이에요",
+            });
+          }}
+        >
           멀티게임
         </Button>
       </motion.div>

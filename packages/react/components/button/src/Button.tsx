@@ -1,7 +1,7 @@
 import * as React from "react";
 import clsx from "clsx";
 import { assignInlineVars } from "@vanilla-extract/dynamic";
-import { vars } from "@puzzlepop2/themes";
+import { ColorLevel, vars } from "@puzzlepop2/themes";
 import { ButtonProps } from "./types";
 import {
   buttonStyle,
@@ -24,7 +24,7 @@ const Button = (props: ButtonProps, ref: React.Ref<HTMLButtonElement>) => {
     ...rest
   } = props;
 
-  const enableColor = vars.colors[color]["500"];
+  const enableColor = getColor(color, 500);
   const hoverColor = defineHoverColorVariant({ variant, color });
   const activeColor = defineActiveColorVariant({ variant, color });
   const border = defineBorderVariant({ variant, color });
@@ -63,7 +63,7 @@ const defineBorderVariant = (props: Required<Pick<ButtonProps, "variant" | "colo
   const { variant, color } = props;
 
   if (variant === "solid") {
-    return `0.1rem solid ${vars.colors[color]["600"]}`;
+    return `0.1rem solid ${getColor(color, 600)}`;
   }
   if (variant === "outline") {
     return "0.1rem solid";
@@ -75,26 +75,33 @@ const defineHoverColorVariant = (props: Required<Pick<ButtonProps, "variant" | "
   const { variant, color } = props;
 
   if (variant === "solid") {
-    return vars.colors[color]["700"];
+    return getColor(color, 700);
   }
 
   if (color === "yellow") {
-    return vars.colors[color]["500"];
+    return getColor(color, 500);
   }
 
-  return vars.colors[color]["200"];
+  return getColor(color, 200);
 };
 
 const defineActiveColorVariant = (props: Required<Pick<ButtonProps, "variant" | "color">>) => {
   const { variant, color } = props;
 
   if (variant === "solid") {
-    return vars.colors[color]["700"];
+    return getColor(color, 700);
   }
 
   if (color === "yellow") {
-    return vars.colors[color]["500"];
+    return getColor(color, 500);
   }
 
-  return vars.colors[color]["200"];
+  return getColor(color, 200);
+};
+
+const getColor = (color: keyof typeof vars.colors, level: ColorLevel) => {
+  if (color === "white" || color === "black") {
+    return color;
+  }
+  return vars.colors[color][level];
 };

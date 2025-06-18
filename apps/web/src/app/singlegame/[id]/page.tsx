@@ -7,9 +7,13 @@ import {
   IMG_ID,
 } from "@puzzlepop2/game-core";
 import { fetchGetSingleGamePuzzleById } from "@/remotes/puzzles/singlegame";
-import { WindowSizeDetectAndWarningClient } from "@/components/window-size-detect-and-warning-client";
+import { WindowSizeDetectAndWarningClient } from "@/components/clients";
 import { GameClient } from "@/game/GameClient";
 import { vars } from "@puzzlepop2/themes";
+
+export type SearchParams = {
+  level?: GameLevel;
+};
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -51,7 +55,3 @@ export default async function Page({ params, searchParams }: PageProps) {
     </main>
   );
 }
-
-export type SearchParams = {
-  level?: GameLevel;
-};

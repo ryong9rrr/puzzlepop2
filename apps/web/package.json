@@ -12,12 +12,15 @@
   "dependencies": {
     "@puzzlepop2/game-core": "*",
     "@puzzlepop2/react-components-button": "*",
+    "@puzzlepop2/react-components-input": "*",
     "@puzzlepop2/react-components-layout": "*",
     "@puzzlepop2/react-hooks-alert": "*",
     "@puzzlepop2/react-hooks-base": "*",
+    "@puzzlepop2/react-hooks-modal": "*",
     "@puzzlepop2/react-hooks-toast": "*",
     "@puzzlepop2/themes": "*",
     "@puzzlepop2/ts-config": "*",
+    "@stomp/stompjs": "^7.1.1",
     "@tanstack/react-query": "^5.66.0",
     "animate.css": "^4.1.1",
     "clsx": "^2.1.1",
@@ -27,6 +30,8 @@
     "paper": "^0.12.18",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "stompjs": "^2.3.3",
     "zustand": "^5.0.3"
   },
   "devDependencies": {

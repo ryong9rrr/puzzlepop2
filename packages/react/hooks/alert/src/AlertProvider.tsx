@@ -9,8 +9,8 @@ export const AlertProvider = ({ children }: PropsWithChildren) => {
   const value = useMemo(() => {
     return {
       isShowAlert: !!payload,
-      alert: (payload: AlertPayload) => {
-        setPayload(payload);
+      alert: (newPayload: AlertPayload) => {
+        setPayload(newPayload);
       },
     };
   }, [payload]);

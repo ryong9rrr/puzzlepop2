@@ -9,7 +9,6 @@ export { Spacing } from "./Spacing";
 export type { SpacingProps } from "./Spacing";
 
 export { Dimmed } from "./Dimmed";
-export type { DimmedProps } from "./Dimmed";
 
 export { Text } from "./Text";
 export type { TextProps } from "./Text";

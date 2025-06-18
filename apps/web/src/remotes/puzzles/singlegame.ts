@@ -1,5 +1,5 @@
 import { GameLevel } from "@puzzlepop2/game-core";
-import { getRestServerUrl } from "../end-point";
+import { getRestServerUrl } from "../end-points";
 import { Puzzle } from "./types";
 
 type FetchGetSingleGamePuzzleListRequest = {

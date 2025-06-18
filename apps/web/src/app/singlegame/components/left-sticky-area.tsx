@@ -4,12 +4,15 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 import { motion } from "motion/react";
+
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
-import { Lottie } from "@/components/lottie";
-import { TagGroup } from "@/components/tag";
+
+import { Lottie } from "@/components/lotties";
+import { TagGroup } from "@/components/tags";
+
 import { useSingleGamePage } from "../store";
-import styles from "../page.module.css";
+import styles from "@/components/cards/style.module.css";
 
 export const LeftStickyArea = () => {
   const router = useRouter();
@@ -63,7 +66,7 @@ export const LeftStickyArea = () => {
           direction="column"
           justify="center"
           align="center"
-          className={clsx(styles.box, styles.boxYellow)}
+          className={clsx(styles.box, styles["box-yellow"])}
           style={{
             width: "100%",
             cursor: "default",
@@ -74,9 +77,9 @@ export const LeftStickyArea = () => {
           </div>
           <Spacing scale={0.4} />
           <Flex direction="column" gapScale={0.4} style={{ width: "100%" }}>
-            <TagGroup tags={selectedPuzzle.tags} width="30vw" />
+            <TagGroup tags={selectedPuzzle.tags.map(t => `#${t}`)} width="30vw" />
             {/* TODO: uploader 속성으로 유저 페이지로 연결시키는 기능 */}
-            <Text className={styles.ellipsis} size="sm" bold>
+            <Text className="ellipsis" size="sm" bold>
               {selectedPuzzle.title}
             </Text>
             <Text size="xs">{selectedPuzzle.description}</Text>

@@ -1,18 +1,20 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 import { QueryClientProvider, useInfiniteQuery } from "@tanstack/react-query";
-import clsx from "clsx";
-import { Flex, Grid, GridItem, Skeleton, Spacing, Text } from "@puzzlepop2/react-components-layout";
+
+import { Flex, Skeleton, Spacing } from "@puzzlepop2/react-components-layout";
 import { useIntersectionObserver } from "@puzzlepop2/react-hooks-base";
 import { useToast } from "@puzzlepop2/react-hooks-toast";
-import { ToastClient } from "@/components/toast-client";
-import { TagGroup } from "@/components/tag";
+
+import { ToastClient } from "@/components/clients";
+import { TagGroup } from "@/components/tags";
+import { CardGrid, CardGridSkeleton, CardItem, CardTitle } from "@/components/cards";
+
 import { queryClient } from "@/remotes/query-client";
 import { fetchGetSingleGamePuzzleList } from "@/remotes/puzzles/singlegame";
+
 import { useSingleGamePage } from "../store";
-import styles from "../page.module.css";
 
 export const GridImagesClient = () => {
   return (
@@ -30,7 +32,7 @@ const GridImages = () => {
     useInfiniteScroll();
 
   if (isPending) {
-    return <GridImagesSkeleton />;
+    return <CardGridSkeleton />;
   }
 
   if (isError || !data) {
@@ -41,41 +43,20 @@ const GridImages = () => {
 
   return (
     <>
-      <Grid as="section" templateColumns="repeat(2, 1fr)" gapScale={0.8}>
+      <CardGrid>
         {puzzleList.map(puzzle => {
           return (
-            <GridItem
+            <CardItem
               key={puzzle._id}
-              className={clsx(styles.hoverGrow, styles.box, styles.boxLavender)}
+              imgSrc={`${puzzle.baseUrl}/md.webp`}
               onClick={() => setSelectedPuzzle(puzzle)}
             >
-              <Flex direction="column" gapScale={0.4}>
-                <div className={styles.imageContainer}>
-                  <Image
-                    src={`${puzzle.baseUrl}/md.webp`}
-                    alt="썸네일"
-                    fill
-                    sizes="25vw"
-                    className={styles.image}
-                  />
-                </div>
-                <TagGroup tags={puzzle.tags} width="25vw" />
-                <Text
-                  style={{
-                    width: "25vw",
-                  }}
-                  className="ellipsis"
-                  size="sm"
-                  bold
-                >
-                  {puzzle.title}
-                </Text>
-                <Spacing scale={0.1} />
-              </Flex>
-            </GridItem>
+              <TagGroup tags={puzzle.tags.map(text => `#${text}`)} width="25vw" />
+              <CardTitle text={puzzle.title} />
+            </CardItem>
           );
         })}
-      </Grid>
+      </CardGrid>
       {isFetchingNextPage && <InfinityLoadingSkeleton />}
       {!isFetchingNextPage && hasNextPage && (
         <div
@@ -87,31 +68,6 @@ const GridImages = () => {
         ></div>
       )}
     </>
-  );
-};
-
-const GridImagesSkeleton = (props: { count?: number }) => {
-  const count = props.count || 6;
-
-  return (
-    <Grid as="section" templateColumns="repeat(2, 1fr)" gapScale={0.8}>
-      {[...Array(count)].map((_, index) => (
-        <GridItem key={index} className={styles.box} style={{ cursor: "not-allowed" }}>
-          <Flex direction="column" gapScale={0.4}>
-            <div className={styles.imageContainer} style={{ width: "25vw" }}>
-              <Skeleton width="100%" height="100%" />
-            </div>
-            <Flex gapScale={0.3} style={{ width: "25vw" }}>
-              <Skeleton width="1.5rem" height={24} />
-              <Skeleton width="1rem" height={24} />
-              <Skeleton width="1rem" height={24} />
-            </Flex>
-            <Skeleton width="60%" height={32} />
-            <Spacing scale={0.1} />
-          </Flex>
-        </GridItem>
-      ))}
-    </Grid>
   );
 };
 
@@ -183,5 +139,5 @@ const ErrorSkeleton = () => {
     // eslint-disable-next-line
   }, []);
 
-  return <GridImagesSkeleton />;
+  return <CardGridSkeleton />;
 };
