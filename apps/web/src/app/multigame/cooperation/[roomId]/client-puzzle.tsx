@@ -39,12 +39,15 @@ export const ClientPuzzle = ({ roomId }: PageProps) => {
     connect(() => {
       // 게임방 구독
       subscribe(getGameDestination(roomId), message => {
+        console.log("게임방 연결 완료");
         setIsConnectedGameSocket(true);
         const gameData = JSON.parse(message.body) as MultiGameRoom;
         console.log(gameData);
       });
 
+      // 채팅방 구독
       subscribe(getChatDestination(roomId), message => {
+        console.log("채팅방 연결 완료");
         setIsConnectedChatSocket(true);
         const chatData = JSON.parse(message.body) as ChatData;
         updateChats(chatData);
@@ -55,6 +58,7 @@ export const ClientPuzzle = ({ roomId }: PageProps) => {
         roomId,
         sender: user.id,
         type: "ENTER",
+        team: user.team,
       });
 
       // 채팅방 입장 메시지 전송

@@ -2,7 +2,7 @@
 
 import { Button } from "@puzzlepop2/react-components-button";
 import { ModalLayout, FieldText, FieldRoomSize } from "@/components/games/room-cards";
-import { useCreateCooperationGameRoom } from "@/hooks/games/useCreateCooperationGameRoom";
+import { useGameForm } from "@/hooks/games/useGameForm";
 
 interface Props {
   onCloseModal: () => void;
@@ -14,16 +14,16 @@ export const CreateRoomModal = (props: Props) => {
   const {
     roomTitle,
     onChangeRoomTitle,
-    nickname,
-    onChangeNickname,
     roomSize,
     onDecreaseRoomSize,
     onIncreaseRoomSize,
     isDisabledDecreaseRoomSize,
     isDisabledIncreaseRoomSize,
-    isFetchCreateRoomLoading,
-    onConfirmCreateRoom,
-  } = useCreateCooperationGameRoom();
+    nickname,
+    onChangeNickname,
+    isLoadingFetchCreateRoom,
+    fetchCreateRoom,
+  } = useGameForm();
 
   return (
     <ModalLayout onCloseModal={onCloseModal}>
@@ -37,8 +37,8 @@ export const CreateRoomModal = (props: Props) => {
       />
       <FieldText title="닉네임" value={nickname} onChange={onChangeNickname} />
       <Button
-        onClick={onConfirmCreateRoom}
-        isDisabled={isFetchCreateRoomLoading || !roomTitle || !nickname}
+        onClick={fetchCreateRoom}
+        isDisabled={isLoadingFetchCreateRoom || !roomTitle || !nickname}
       >
         방 만들기
       </Button>
