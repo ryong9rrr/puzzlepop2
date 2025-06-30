@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@/themes/global.css";
+import "@themes/global.css";
 
 export const metadata: Metadata = {
   title: "Puzzle Pop",

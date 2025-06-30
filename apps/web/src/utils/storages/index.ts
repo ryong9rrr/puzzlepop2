@@ -1,1 +1,0 @@
-export { getCooperationGameStorage } from "./game";

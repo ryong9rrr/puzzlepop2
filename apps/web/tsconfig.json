@@ -15,7 +15,17 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@themes/*": ["./src/themes/*"],
+      "@router/*": ["./src/router/*"],
+      "@shared-types/*": ["./src/shared/types/*"],
+      "@shared-components/*": ["./src/shared/components/*"],
+      "@shared-hooks/*": ["./src/shared/hooks/*"],
+      "@shared-storages/*": ["./src/shared/storages/*"],
+      "@shared-utils/*": ["./src/shared/utils/*"],
+      "@remotes-cdn/*": ["./src/remotes/cdn/*"],
+      "@remotes-main/*": ["./src/remotes/servers/main/*"],
+      "@remotes-single-game/*": ["./src/remotes/servers/singleGame/*"],
+      "@remotes-single-rest/*": ["./src/remotes/servers/singleRest/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
