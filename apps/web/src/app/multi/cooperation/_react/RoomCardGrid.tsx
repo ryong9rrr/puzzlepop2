@@ -1,7 +1,10 @@
-import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
+import Image from "next/image";
+import clsx from "clsx";
+import { Flex, Grid, GridItem, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
-import { Card } from "@shared-components/Card";
 import { GameData } from "@shared-types/multi";
+
+import MODULE_CSS from "./RoomCardGrid.module.css";
 
 interface Props {
   mode: "COOPERATION" | "BATTLE";
@@ -23,7 +26,7 @@ export const RoomCardGrid = (props: Props) => {
   }
 
   return (
-    <Card.Grid>
+    <Grid templateColumns="repeat(2, 1fr)" gapScale={0.8}>
       {rooms
         .filter(room => room.redTeam.players.length > 0)
         .map(room => {
@@ -31,38 +34,66 @@ export const RoomCardGrid = (props: Props) => {
           const 최대정원 = room.roomSize;
           const 현재인원 = room.redTeam.players.length;
 
+          const disabled = 게임이_시작됐는가 || 현재인원 >= 최대정원;
+
           return (
-            <Card.Item
+            <GridItem
               key={room.gameId}
-              boxColor={mode === "COOPERATION" ? "lavender" : "yellow"}
-              imgSrc={room.picture.encodedString}
-              disabled={게임이_시작됐는가 || 현재인원 >= 최대정원}
-              onClick={() => onClickCard?.(room.gameId)}
+              className={clsx(
+                MODULE_CSS.hoverGrow,
+                MODULE_CSS.box,
+                MODULE_CSS[`box-${mode === "COOPERATION" ? "lavender" : "yellow"}`],
+                disabled && MODULE_CSS["not-allowed"],
+              )}
+              onClick={() => {
+                onClickCard?.(room.gameId);
+              }}
             >
-              <Card.Title text={room.gameName} />
-              <Flex justify="space-between" align="center">
+              <Flex direction="column" gapScale={0.4}>
+                <div className={MODULE_CSS.imageContainer}>
+                  <Image
+                    src={room.picture.encodedString}
+                    alt=""
+                    fill
+                    sizes="25vw"
+                    className={MODULE_CSS.image}
+                  />
+                </div>
                 <Text
-                  size="md"
+                  style={{
+                    width: "25vw",
+                  }}
+                  className="ellipsis"
+                  size="sm"
                   bold
-                  className="font-gameInline"
-                  color={게임이_시작됐는가 ? vars.colors.red[400] : vars.colors.blue[400]}
                 >
-                  {게임이_시작됐는가 ? "Playing" : "Waiting"}
+                  {room.gameName}
                 </Text>
-                <Flex direction="column" gap={12} justify="center" align="flex-end">
+                <Flex justify="space-between" align="center">
                   <Text
-                    size="xs"
+                    size="md"
                     bold
-                    color={현재인원 >= 최대정원 ? vars.colors.red[400] : vars.colors.blue[400]}
+                    className="font-gameInline"
+                    color={게임이_시작됐는가 ? vars.colors.red[400] : vars.colors.blue[400]}
                   >
-                    {현재인원} / {최대정원}
+                    {게임이_시작됐는가 ? "Playing" : "Waiting"}
                   </Text>
-                  <Text size="xs">{room.admin.id}</Text>
+                  <Flex direction="column" gap={12} justify="center" align="flex-end">
+                    <Text
+                      size="xs"
+                      bold
+                      color={현재인원 >= 최대정원 ? vars.colors.red[400] : vars.colors.blue[400]}
+                    >
+                      {현재인원} / {최대정원}
+                    </Text>
+                    <Text size="xs">{room.admin.id}</Text>
+                  </Flex>
                 </Flex>
+                <Spacing scale={0.1} />
               </Flex>
-            </Card.Item>
+            </GridItem>
           );
         })}
-    </Card.Grid>
+    </Grid>
   );
 };

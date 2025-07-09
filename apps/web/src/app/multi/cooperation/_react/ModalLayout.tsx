@@ -1,6 +1,5 @@
 import { PropsWithChildren } from "react";
 import { IoClose } from "react-icons/io5";
-
 import { Button } from "@puzzlepop2/react-components-button";
 import { Box, Flex, Spacing } from "@puzzlepop2/react-components-layout";
 
@@ -12,7 +11,7 @@ export const ModalLayout = (props: Props) => {
   const { onCloseModal, children } = props;
 
   return (
-    <Box>
+    <>
       <Flex justify="flex-end" align="center">
         <Button
           size="xs"
@@ -30,6 +29,6 @@ export const ModalLayout = (props: Props) => {
       <Box style={{ width: "40vw", padding: "0 0.5rem" }}>{children}</Box>
 
       <Spacing scale={0.5} />
-    </Box>
+    </>
   );
 };

@@ -9,7 +9,7 @@ import { useNavigation } from "@router/useNavigation";
 import { Lottie } from "@shared-components/Lottie";
 
 import MODULE_CSS from "./LeftStickyArea.module.css";
-import { useSelectPuzzleStore } from "./selectPuzzleStore";
+import { useSelectPuzzleStore } from "./useSelectPuzzleStore";
 import { TagGroup } from "./TagGroup";
 
 export const LeftStickyArea = () => {

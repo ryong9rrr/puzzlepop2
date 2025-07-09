@@ -6,9 +6,9 @@ import { StickyBackgroundImage as SharedStickyBackgroundImage } from "@shared-co
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 
 import MODULE_CSS from "./page.module.css";
-import { RightGridCards } from "./_react/RightGridCards";
 import { LeftStickyArea } from "./_react/LeftStickyArea";
 import { StickyBackgroundImage } from "./_react/StickyBackgroundImage";
+import { RightCardGrid } from "./_react/RightCardGrid";
 
 export type SearchParams = {
   cursor?: string;
@@ -27,7 +27,7 @@ export default async function Page() {
         <section className={MODULE_CSS.right}>
           <ToastProvider>
             <TanStackProvider>
-              <RightGridCards />
+              <RightCardGrid />
             </TanStackProvider>
           </ToastProvider>
         </section>
