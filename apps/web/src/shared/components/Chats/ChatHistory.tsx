@@ -25,10 +25,14 @@ export default function ChatHistory(props: Required<ChatHistoryProps>) {
     <div
       ref={scrollRef}
       style={{
+        margin: "0 1px",
         padding: "0.5rem",
         height,
         overflowY: "auto",
         backgroundColor,
+        border: `2px solid ${getColor(color, 100)}`,
+        borderRadius: "0.125rem",
+        borderBottom: "none",
       }}
     >
       {chats.map((chat, index) => (
@@ -39,7 +43,8 @@ export default function ChatHistory(props: Required<ChatHistoryProps>) {
             </Text>
           ) : (
             <Text size="xs">
-              {chat.nickname} : {chat.message}
+              {chat.nickname}
+              {chat.isMe && `(나)`} : {chat.message}
             </Text>
           )}
         </div>

@@ -42,13 +42,13 @@ export const useConnectSocket = (props: Props) => {
 
       subscribe("game", roomId, gameData => {
         connectGameSocket();
-        updateLeaveChats(gameData.redTeam.players, updateChats); // "[게임방을 나간 플레이어]님이 퇴장했어요." 채팅 메시지를 처리하는 로직
+        updateLeaveChats(gameData.redTeam.players, updateChats, user.id); // "[게임방을 나간 플레이어]님이 퇴장했어요." 채팅 메시지를 처리하는 로직
         gameDataCallback?.(gameData);
       });
 
       subscribe("chat", roomId, chatData => {
         connectChatSocket();
-        updateChat(chatData);
+        updateChat(chatData, user.id);
         chatDataCallback?.(chatData);
       });
 

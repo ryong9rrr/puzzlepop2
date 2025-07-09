@@ -6,13 +6,13 @@ import { SystemChatMessage, UserChatMessage } from "./types";
 export const useChat = () => {
   const [chats, setChats] = useState<(SystemChatMessage | UserChatMessage)[]>([]);
 
-  const updateChat = (chatData: ChatData) => {
-    const newChat = makeChat(chatData);
+  const updateChat = (chatData: ChatData, sessionNickname: string) => {
+    const newChat = makeChat(chatData, sessionNickname);
     setChats(prev => [...prev, newChat]);
   };
 
-  const updateChats = (chatDataList: ChatData[]) => {
-    const newChats = chatDataList.map(makeChat);
+  const updateChats = (chatDataList: ChatData[], sessionNickname: string) => {
+    const newChats = chatDataList.map(chatData => makeChat(chatData, sessionNickname));
     setChats(prev => [...prev, ...newChats]);
   };
 
@@ -29,17 +29,19 @@ export const createChatSystemMessage = (props: { userId: string; status: "ENTER"
   return `[SYSTEM] ${userId}님이 ${status === "ENTER" ? "입장" : "퇴장"}했어요.`;
 };
 
-const makeChat = (chatData: ChatData) => {
+const makeChat = (chatData: ChatData, sessionNickname: string) => {
   if (chatData.chatMessage.startsWith("[SYSTEM]")) {
     return {
       type: "system",
       message: chatData.chatMessage.replace("[SYSTEM]", "").trim(),
+      isMe: chatData.userid === sessionNickname,
     } as SystemChatMessage;
   }
   return {
     type: "chat",
     nickname: chatData.userid,
     message: chatData.chatMessage,
+    isMe: chatData.userid === sessionNickname,
   } as UserChatMessage;
 };
 
@@ -79,14 +81,15 @@ export const playerManagerFromGameData = () => {
 
   const updateLeaveChats = (
     newPlayer: Player[],
-    setStateFn: (chatDataList: ChatData[]) => void,
+    setStateFn: (chatDataList: ChatData[], sessionNickname: string) => void,
+    sessionNickname: string,
   ) => {
     const 채팅방을_나간_플레이어가_발생했는가 =
       prevPlayers.length !== 0 && newPlayer.length !== prevPlayers.length;
 
     if (채팅방을_나간_플레이어가_발생했는가) {
       const nextChatDataList = createLeftChatData(newPlayer);
-      setStateFn(nextChatDataList);
+      setStateFn(nextChatDataList, sessionNickname);
     }
     prevPlayers = newPlayer;
   };

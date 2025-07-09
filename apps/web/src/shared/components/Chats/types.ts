@@ -3,6 +3,7 @@ import { vars } from "@puzzlepop2/themes";
 
 type BaseChatMessage = {
   message: string;
+  isMe: boolean;
 };
 
 export type SystemChatMessage = BaseChatMessage & {
@@ -10,8 +11,8 @@ export type SystemChatMessage = BaseChatMessage & {
 };
 
 export type UserChatMessage = BaseChatMessage & {
+  type: "chat";
   nickname: string;
-  type?: "chat";
 };
 
 interface BaseChatProps {

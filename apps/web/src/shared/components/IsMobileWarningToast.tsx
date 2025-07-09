@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useToast } from "@puzzlepop2/react-hooks-toast";
 
-export const WindowSizeDetectAndWarning = () => {
+export const IsMobileWarningToast = () => {
   const { toast } = useToast();
   const { windowSize } = useWindowSizeDetect();
 
@@ -11,7 +11,7 @@ export const WindowSizeDetectAndWarning = () => {
     if (windowSize.width < 1024) {
       toast({
         payload: {
-          message: "모바일 화면에서는 이용이 어려울 수 있어요",
+          message: "모바일 화면은 이용이 어려워요.",
         },
         duration: 5000,
       });

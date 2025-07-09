@@ -2,6 +2,8 @@ import { AutoBackgroundImage } from "@shared-components/BackgroundImages/AutoBac
 import * as CDN from "@remotes-cdn/images";
 
 import { Waiting } from "./_react/Waiting";
+import { ToastProvider } from "@shared-components/Providers/ToastProvider";
+import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 
 interface PageProps {
   roomId: string;
@@ -21,9 +23,12 @@ export default async function Page({ params }: BasePageProps) {
   return (
     <AutoBackgroundImage.Main>
       <AutoBackgroundImage.Background
-        src={CDN.RED_TEAM_BACKGROUND}
-        blurSrc={CDN.RED_TEAM_BACKGROUND_THUMBNAIL}
+        src={CDN.COOPERATION_BACKGROUND}
+        blurSrc={CDN.COOPERATION_BACKGROUND_THUMBNAIL}
       />
+      <ToastProvider>
+        <IsMobileWarningToast />
+      </ToastProvider>
       <Waiting roomId={roomId} />
     </AutoBackgroundImage.Main>
   );

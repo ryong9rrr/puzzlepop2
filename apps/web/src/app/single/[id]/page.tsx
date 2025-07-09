@@ -8,7 +8,7 @@ import {
   IMG_ID,
 } from "@puzzlepop2/game-core";
 import { ToastProvider } from "@shared-components/Providers/ToastProvider";
-import { WindowSizeDetectAndWarning } from "@shared-components/WindowSizeDetectAndWarning";
+import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 
 import { GameClient } from "./_gameClient/GameClient";
 import { fetchGetSingleGamePuzzleById } from "@remotes-single-rest/singleGame/apis";
@@ -54,7 +54,7 @@ export default async function Page({ params, searchParams }: PageProps) {
       ></canvas>
       <GameClient level={level} src={puzzle.src} mode="single" />
       <ToastProvider>
-        <WindowSizeDetectAndWarning />
+        <IsMobileWarningToast />
       </ToastProvider>
     </main>
   );

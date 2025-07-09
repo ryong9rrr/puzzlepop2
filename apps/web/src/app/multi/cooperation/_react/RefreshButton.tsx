@@ -7,6 +7,7 @@ interface Props {
   isLoading?: boolean;
 }
 
+// TODO: 15초 자동 새로고침
 export const RefreshButton = (props: Props) => {
   const { onClick, isLoading = false } = props;
 

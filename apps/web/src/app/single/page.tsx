@@ -3,7 +3,7 @@ import { Flex } from "@puzzlepop2/react-components-layout";
 import { ToastProvider } from "@shared-components/Providers/ToastProvider";
 import { TanStackProvider } from "@shared-components/Providers/TanStackProvider";
 import { StickyBackgroundImage as SharedStickyBackgroundImage } from "@shared-components/BackgroundImages/StickyBackgroundImage";
-import { WindowSizeDetectAndWarning } from "@shared-components/WindowSizeDetectAndWarning";
+import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 
 import MODULE_CSS from "./page.module.css";
 import { RightGridCards } from "./_react/RightGridCards";
@@ -34,7 +34,7 @@ export default async function Page() {
       </Flex>
 
       <ToastProvider>
-        <WindowSizeDetectAndWarning />
+        <IsMobileWarningToast />
       </ToastProvider>
     </SharedStickyBackgroundImage.Main>
   );

@@ -22,7 +22,12 @@ export const RoomCardHeader = (props: Props) => {
           </Text>
           <RefreshButton isLoading={isLoading} onClick={onClickRefreshButton} />
         </Flex>
-        <Button size="xs" onClick={onClickCreateRoomButton} isDisabled={isLoading}>
+        <Button
+          size="xs"
+          onClick={onClickCreateRoomButton}
+          isDisabled={isLoading}
+          style={{ fontWeight: "bold" }}
+        >
           방 만들기
         </Button>
       </Flex>
