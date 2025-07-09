@@ -1,9 +1,9 @@
-import { AutoBackgroundImage } from "@shared-components/BackgroundImages/AutoBackgroundImage";
 import * as CDN from "@remotes-cdn/images";
 
 import { Waiting } from "./_react/Waiting";
-import { ToastProvider } from "@shared-components/Providers/ToastProvider";
+import { ToastClient } from "@shared-components/Clients/ToastClient";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
+import { FullScreenBackground } from "@shared-components/FullScreenBackground";
 
 interface PageProps {
   roomId: string;
@@ -21,15 +21,15 @@ export default async function Page({ params }: BasePageProps) {
   }
 
   return (
-    <AutoBackgroundImage.Main>
-      <AutoBackgroundImage.Background
+    <FullScreenBackground.Main>
+      <FullScreenBackground.Background
         src={CDN.COOPERATION_BACKGROUND}
         blurSrc={CDN.COOPERATION_BACKGROUND_THUMBNAIL}
       />
-      <ToastProvider>
+      <ToastClient>
         <IsMobileWarningToast />
-      </ToastProvider>
+      </ToastClient>
       <Waiting roomId={roomId} />
-    </AutoBackgroundImage.Main>
+    </FullScreenBackground.Main>
   );
 }

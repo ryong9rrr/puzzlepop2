@@ -7,7 +7,7 @@ import {
   GameMode,
   IMG_ID,
 } from "@puzzlepop2/game-core";
-import { ToastProvider } from "@shared-components/Providers/ToastProvider";
+import { ToastClient } from "@shared-components/Clients/ToastClient";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 
 import { GameClient } from "./_gameClient/GameClient";
@@ -53,9 +53,9 @@ export default async function Page({ params, searchParams }: PageProps) {
         }}
       ></canvas>
       <GameClient level={level} src={puzzle.src} mode="single" />
-      <ToastProvider>
+      <ToastClient>
         <IsMobileWarningToast />
-      </ToastProvider>
+      </ToastClient>
     </main>
   );
 }

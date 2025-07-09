@@ -9,17 +9,6 @@ export interface Props {
   blurSrc?: string;
 }
 
-const defaultStyle: CSSProperties = {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
-  width: "100%",
-  objectFit: "cover",
-  zIndex: Z_INDEX.BACKGROUND_Z_INDEX,
-};
-
 export default function Background(props: Props) {
   const { src, blurSrc } = props;
 
@@ -33,17 +22,16 @@ export default function Background(props: Props) {
           alt="blur"
           fill
           priority
-          style={{ ...defaultStyle, opacity: isLoaded ? 0 : 0.4 }}
+          style={{ ...backgroundStyle, opacity: isLoaded ? 0 : 0.4 }}
         />
       )}
-
       <Image
         src={src}
         alt=""
         fill
         priority
         style={{
-          ...defaultStyle,
+          ...backgroundStyle,
           opacity: isLoaded ? 0.4 : 0,
         }}
         onLoad={() => setIsLoaded(true)}
@@ -51,3 +39,14 @@ export default function Background(props: Props) {
     </>
   );
 }
+
+const backgroundStyle: CSSProperties = {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  width: "100%",
+  objectFit: "cover",
+  zIndex: Z_INDEX.BACKGROUND_Z_INDEX,
+};
