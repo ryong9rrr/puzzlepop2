@@ -23,3 +23,11 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.hover-grow {
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}

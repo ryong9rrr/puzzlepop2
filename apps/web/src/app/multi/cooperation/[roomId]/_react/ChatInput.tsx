@@ -6,15 +6,13 @@ import { Input } from "@puzzlepop2/react-components-input";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
-import MODULE_CSS from "./ChatInput.module.css";
-
 const COLOR = "orange";
 
 interface Props {
   onSubmit: (message: string) => void;
 }
 
-export default function ChatInput(props: Props) {
+export const ChatInput = (props: Props) => {
   const { onSubmit } = props;
 
   const [message, setMessage] = useState("");
@@ -64,7 +62,7 @@ export default function ChatInput(props: Props) {
           aria-label="메시지 전송"
         >
           <FaArrowAltCircleUp
-            className={MODULE_CSS["hover-grow"]}
+            className="hover-grow"
             color={message ? vars.colors[COLOR][600] : vars.colors.grey[800]}
             style={{
               fontSize: "1rem",
@@ -74,4 +72,4 @@ export default function ChatInput(props: Props) {
       </Flex>
     </form>
   );
-}
+};

@@ -5,25 +5,27 @@ import { Flex, Grid, GridItem, Text } from "@puzzlepop2/react-components-layout"
 import { vars } from "@puzzlepop2/themes";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
 
-import MODULE_CSS from "./Waiting.module.css";
+import { ChatHistory } from "./ChatHistory";
+import { ChatInput } from "./ChatInput";
 import { useWaiting } from "./useWaiting";
-import ChatHistory from "./ChatHistory";
-import ChatInput from "./ChatInput";
 
 export const Waiting = ({ roomId }: { roomId: string }) => {
-  const { isLoadingComplete, chats, onSubmitChat } = useWaiting({
+  const { isCompleteConnectSocket, gameData, chats, onSubmitChat } = useWaiting({
     roomId,
-    gameDataCallback: gameData => {
-      console.log("Game Data Updated:", gameData);
+    debugGameData: gameData => {
+      console.log("Game Data:", gameData);
     },
-    chatDataCallback: chatData => {
-      console.log("Chat Data Updated:", chatData);
+    debugChatData: chatData => {
+      console.log("Chat Data:", chatData);
     },
   });
 
+  const 방제목 = gameData ? gameData.gameName : "";
+  const 정원현황 = gameData ? `${gameData.redTeam.players.length}/${gameData.roomSize}` : "";
+
   return (
     <>
-      <LoadingOverlay isLoadingComplete={isLoadingComplete} />
+      <LoadingOverlay isLoadingComplete={isCompleteConnectSocket} />
       <Flex
         direction="column"
         justify="center"
@@ -47,18 +49,17 @@ export const Waiting = ({ roomId }: { roomId: string }) => {
               }}
             >
               <Text size="sm" bold className="ellipsis">
-                {roomId}
-                {roomId}
+                {방제목}
               </Text>
               <Text size="sm" bold>
-                6/6
+                {정원현황}
               </Text>
             </Flex>
 
             <Grid templateColumns="repeat(4, 1fr)" gapScale={0.2}>
               {new Array(8).fill(null).map((_, index) => {
                 return (
-                  <Flex key={index} justify="center" align="center" className={MODULE_CSS.card}>
+                  <Flex key={index} justify="center" align="center">
                     <GridItem>
                       <Flex
                         direction="column"

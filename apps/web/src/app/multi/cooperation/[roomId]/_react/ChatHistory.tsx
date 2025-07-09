@@ -4,7 +4,6 @@ import { useEffect, useRef } from "react";
 import { Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
-import { BACKGROUND_COLOR, BORDER_COLOR } from "./constants";
 import { SystemChat, UserChat } from "./types";
 
 const HEIGHT = "25vh";
@@ -13,7 +12,7 @@ interface Props {
   chats: (SystemChat | UserChat)[];
 }
 
-export default function ChatHistory(props: Props) {
+export const ChatHistory = (props: Props) => {
   const { chats } = props;
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -32,8 +31,8 @@ export default function ChatHistory(props: Props) {
         padding: "0.5rem",
         height: HEIGHT,
         overflowY: "auto",
-        backgroundColor: BACKGROUND_COLOR,
-        border: `2px solid ${BORDER_COLOR}`,
+        backgroundColor: vars.colors.grey[50],
+        border: `2px solid ${vars.colors.grey[300]}`,
         borderRadius: "0.125rem",
         borderBottom: "none",
       }}
@@ -53,4 +52,4 @@ export default function ChatHistory(props: Props) {
       ))}
     </div>
   );
-}
+};
