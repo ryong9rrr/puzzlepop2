@@ -1,16 +1,21 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { FaArrowAltCircleUp } from "react-icons/fa";
 import { Input } from "@puzzlepop2/react-components-input";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
 import MODULE_CSS from "./ChatInput.module.css";
-import { ChatInputProps } from "./types";
 
-export default function ChatInput(props: Required<ChatInputProps>) {
-  const { onSubmit, color } = props;
+const COLOR = "orange";
+
+interface Props {
+  onSubmit: (message: string) => void;
+}
+
+export default function ChatInput(props: Props) {
+  const { onSubmit } = props;
 
   const [message, setMessage] = useState("");
 
@@ -23,6 +28,8 @@ export default function ChatInput(props: Required<ChatInputProps>) {
     }
   };
 
+  useEffect(() => {}, []);
+
   return (
     <form onSubmit={handleSubmit}>
       <Flex
@@ -32,7 +39,7 @@ export default function ChatInput(props: Required<ChatInputProps>) {
         }}
       >
         <Input
-          color={color}
+          color={COLOR}
           placeholder="채팅"
           value={message}
           onChange={e => setMessage(e.target.value)}
@@ -58,7 +65,7 @@ export default function ChatInput(props: Required<ChatInputProps>) {
         >
           <FaArrowAltCircleUp
             className={MODULE_CSS["hover-grow"]}
-            color={message ? vars.colors.lavender[600] : vars.colors.grey[800]}
+            color={message ? vars.colors[COLOR][600] : vars.colors.grey[800]}
             style={{
               fontSize: "1rem",
             }}

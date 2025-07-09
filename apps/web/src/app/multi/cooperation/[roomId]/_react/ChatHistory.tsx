@@ -1,19 +1,22 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Text } from "@puzzlepop2/react-components-layout";
-import { ColorLevel, vars } from "@puzzlepop2/themes";
+import { vars } from "@puzzlepop2/themes";
 
-import { ChatHistoryProps } from "./types";
+import { BACKGROUND_COLOR, BORDER_COLOR } from "./constants";
+import { SystemChat, UserChat } from "./types";
 
-export default function ChatHistory(props: Required<ChatHistoryProps>) {
-  const { chats, color, height } = props;
+const HEIGHT = "25vh";
+
+interface Props {
+  chats: (SystemChat | UserChat)[];
+}
+
+export default function ChatHistory(props: Props) {
+  const { chats } = props;
 
   const scrollRef = useRef<HTMLDivElement>(null);
-
-  const backgroundColor = useMemo(() => {
-    return getColor(color, 50);
-  }, [color]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -27,10 +30,10 @@ export default function ChatHistory(props: Required<ChatHistoryProps>) {
       style={{
         margin: "0 1px",
         padding: "0.5rem",
-        height,
+        height: HEIGHT,
         overflowY: "auto",
-        backgroundColor,
-        border: `2px solid ${getColor(color, 100)}`,
+        backgroundColor: BACKGROUND_COLOR,
+        border: `2px solid ${BORDER_COLOR}`,
         borderRadius: "0.125rem",
         borderBottom: "none",
       }}
@@ -43,8 +46,7 @@ export default function ChatHistory(props: Required<ChatHistoryProps>) {
             </Text>
           ) : (
             <Text size="xs">
-              {chat.nickname}
-              {chat.isMe && `(나)`} : {chat.message}
+              {chat.nickname} : {chat.message}
             </Text>
           )}
         </div>
@@ -52,10 +54,3 @@ export default function ChatHistory(props: Required<ChatHistoryProps>) {
     </div>
   );
 }
-
-const getColor = (color: keyof typeof vars.colors, level: ColorLevel) => {
-  if (color === "white" || color === "black") {
-    return color;
-  }
-  return vars.colors[color][level];
-};

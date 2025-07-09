@@ -1,48 +1,31 @@
-import { useState } from "react";
 import { ChatData, Player } from "@shared-types/multi";
+import { SystemChat, UserChat } from "./types";
 
-import { SystemChatMessage, UserChatMessage } from "./types";
-
-export const useChat = () => {
-  const [chats, setChats] = useState<(SystemChatMessage | UserChatMessage)[]>([]);
-
-  const updateChat = (chatData: ChatData, sessionNickname: string) => {
-    const newChat = makeChat(chatData, sessionNickname);
-    setChats(prev => [...prev, newChat]);
-  };
-
-  const updateChats = (chatDataList: ChatData[], sessionNickname: string) => {
-    const newChats = chatDataList.map(chatData => makeChat(chatData, sessionNickname));
-    setChats(prev => [...prev, ...newChats]);
-  };
-
-  return {
-    chats,
-    updateChat,
-    updateChats,
-  };
-};
+const SYSTEM_PREFIX = "[SYSTEM]";
 
 // ******** 채팅 메시지를 타입에 맞게 생성하는 유틸리티 함수들 ********
-export const createChatSystemMessage = (props: { userId: string; status: "ENTER" | "LEAVE" }) => {
-  const { userId, status } = props;
-  return `[SYSTEM] ${userId}님이 ${status === "ENTER" ? "입장" : "퇴장"}했어요.`;
+export const createSystemChatEnterMessage = (userId: string) => {
+  return `${SYSTEM_PREFIX}${userId}님이 입장했어요.`;
 };
 
-const makeChat = (chatData: ChatData, sessionNickname: string) => {
-  if (chatData.chatMessage.startsWith("[SYSTEM]")) {
+export const createSystemChatLeaveMessage = (userId: string) => {
+  return `${SYSTEM_PREFIX}${userId}님이 퇴장했어요.`;
+};
+
+export const makeChat = (chatData: ChatData) => {
+  if (chatData.chatMessage.startsWith(SYSTEM_PREFIX)) {
+    const systemMessage = chatData.chatMessage.replace(SYSTEM_PREFIX, "").trim();
     return {
       type: "system",
-      message: chatData.chatMessage.replace("[SYSTEM]", "").trim(),
-      isMe: chatData.userid === sessionNickname,
-    } as SystemChatMessage;
+      message: systemMessage,
+    } as SystemChat;
   }
+
   return {
     type: "chat",
     nickname: chatData.userid,
     message: chatData.chatMessage,
-    isMe: chatData.userid === sessionNickname,
-  } as UserChatMessage;
+  } as UserChat;
 };
 
 // ******** 채팅방을 나간 플레이어를 관리하는 클로저 ******** // "[게임방을 나간 플레이어]님이 퇴장했어요." 채팅 메시지를 처리하는 로직
@@ -68,10 +51,7 @@ export const playerManagerFromGameData = () => {
       return {
         userid: leftPlayer.id,
         teamColor: "RED",
-        chatMessage: createChatSystemMessage({
-          userId: leftPlayer.id,
-          status: "LEAVE",
-        }),
+        chatMessage: createSystemChatLeaveMessage(leftPlayer.id),
         time: new Date().toISOString(),
       };
     });
@@ -81,15 +61,14 @@ export const playerManagerFromGameData = () => {
 
   const updateLeaveChats = (
     newPlayer: Player[],
-    setStateFn: (chatDataList: ChatData[], sessionNickname: string) => void,
-    sessionNickname: string,
+    setStateFn: (chatDataList: ChatData[]) => void,
   ) => {
     const 채팅방을_나간_플레이어가_발생했는가 =
       prevPlayers.length !== 0 && newPlayer.length !== prevPlayers.length;
 
     if (채팅방을_나간_플레이어가_발생했는가) {
       const nextChatDataList = createLeftChatData(newPlayer);
-      setStateFn(nextChatDataList, sessionNickname);
+      setStateFn(nextChatDataList);
     }
     prevPlayers = newPlayer;
   };

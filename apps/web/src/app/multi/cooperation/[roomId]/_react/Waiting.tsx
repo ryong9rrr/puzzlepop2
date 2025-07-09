@@ -1,17 +1,17 @@
 "use client";
 
+import Image from "next/image";
 import { Flex, Grid, GridItem, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
-import { Chat } from "@shared-components/Chats/Chat";
-
-import { useConnectSocket } from "./useConnectSocket";
-import Image from "next/image";
 
 import MODULE_CSS from "./Waiting.module.css";
+import { useWaiting } from "./useWaiting";
+import ChatHistory from "./ChatHistory";
+import ChatInput from "./ChatInput";
 
 export const Waiting = ({ roomId }: { roomId: string }) => {
-  const { isLoadingComplete, chats, onSubmitChat } = useConnectSocket({
+  const { isLoadingComplete, chats, onSubmitChat } = useWaiting({
     roomId,
     gameDataCallback: gameData => {
       console.log("Game Data Updated:", gameData);
@@ -100,7 +100,10 @@ export const Waiting = ({ roomId }: { roomId: string }) => {
               })}
             </Grid>
 
-            <Chat chats={chats} onSubmit={onSubmitChat} color="lavender" height="20vh" />
+            <Flex direction="column">
+              <ChatHistory chats={chats} />
+              <ChatInput onSubmit={onSubmitChat} />
+            </Flex>
           </Flex>
 
           <div

@@ -1,15 +1,11 @@
 import { useEffect } from "react";
-
 import { ChatData, GameData } from "@shared-types/multi";
 import { useConnectSocketState } from "@shared-hooks/useConnectSocketState";
-import {
-  useChat,
-  createChatSystemMessage,
-  playerManagerFromGameData,
-} from "@shared-components/Chats/useChat";
 
-import { socket } from "@remotes-main/getSocket";
+import { socket } from "@remotes-main/socketStore";
 import { getCooperationGameSessionStorage } from "../../_storages/cooperationGameSessionStorage";
+import { createSystemChatEnterMessage, playerManagerFromGameData } from "./utils";
+import { useChat } from "./useChat";
 
 interface Props {
   roomId: string;
@@ -19,21 +15,11 @@ interface Props {
 
 const { connect, send, disconnect, subscribe } = socket;
 
-export const useConnectSocket = (props: Props) => {
+export const useWaiting = (props: Props) => {
   const { roomId, gameDataCallback, chatDataCallback } = props;
 
   const { isLoadingComplete, connectGameSocket, connectChatSocket } = useConnectSocketState();
-  const { chats, updateChat, updateChats } = useChat();
-
-  const onSubmitChat = (message: string) => {
-    const user = getCooperationGameSessionStorage().getItem();
-    send({
-      roomId,
-      sender: user.id,
-      type: "CHAT",
-      message,
-    });
-  };
+  const { chats, updateChat, updateChats, onSubmitChat } = useChat({ roomId });
 
   useEffect(() => {
     connect(() => {
@@ -42,13 +28,13 @@ export const useConnectSocket = (props: Props) => {
 
       subscribe("game", roomId, gameData => {
         connectGameSocket();
-        updateLeaveChats(gameData.redTeam.players, updateChats, user.id); // "[게임방을 나간 플레이어]님이 퇴장했어요." 채팅 메시지를 처리하는 로직
+        updateLeaveChats(gameData.redTeam.players, updateChats); // "[게임방을 나간 플레이어]님이 퇴장했어요." 채팅 메시지를 처리하는 로직
         gameDataCallback?.(gameData);
       });
 
       subscribe("chat", roomId, chatData => {
         connectChatSocket();
-        updateChat(chatData, user.id);
+        updateChat(chatData);
         chatDataCallback?.(chatData);
       });
 
@@ -65,10 +51,7 @@ export const useConnectSocket = (props: Props) => {
         roomId,
         sender: user.id,
         type: "CHAT",
-        message: createChatSystemMessage({
-          userId: user.id,
-          status: "ENTER",
-        }),
+        message: createSystemChatEnterMessage(user.id),
       });
     });
 
