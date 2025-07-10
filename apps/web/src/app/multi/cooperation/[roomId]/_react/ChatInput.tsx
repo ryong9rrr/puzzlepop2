@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, forwardRef, Ref, useState } from "react";
 import { FaArrowAltCircleUp } from "react-icons/fa";
 import { Input } from "@puzzlepop2/react-components-input";
 import { Flex } from "@puzzlepop2/react-components-layout";
@@ -12,7 +12,7 @@ interface Props {
   onSubmit: (message: string) => void;
 }
 
-export const ChatInput = (props: Props) => {
+const ChatInput = (props: Props, ref: Ref<HTMLInputElement>) => {
   const { onSubmit } = props;
 
   const [message, setMessage] = useState("");
@@ -26,8 +26,6 @@ export const ChatInput = (props: Props) => {
     }
   };
 
-  useEffect(() => {}, []);
-
   return (
     <form onSubmit={handleSubmit}>
       <Flex
@@ -37,6 +35,7 @@ export const ChatInput = (props: Props) => {
         }}
       >
         <Input
+          ref={ref}
           color={COLOR}
           placeholder="채팅"
           value={message}
@@ -73,3 +72,6 @@ export const ChatInput = (props: Props) => {
     </form>
   );
 };
+
+const _ChatInput = forwardRef(ChatInput);
+export { _ChatInput as ChatInput };

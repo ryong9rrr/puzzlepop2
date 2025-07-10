@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
@@ -10,6 +11,8 @@ import { useWaiting } from "./useWaiting";
 import { PlayerCardGrid } from "./PlayerCardGrid";
 
 export const Waiting = ({ roomId }: { roomId: string }) => {
+  const { chatInputRef } = useAutoChatInputFocus();
+
   const { isCompleteConnectSocket, gameData, chats, onSubmitChat } = useWaiting({
     roomId,
     debugGameData: gameData => {
@@ -60,7 +63,7 @@ export const Waiting = ({ roomId }: { roomId: string }) => {
 
             <Flex direction="column">
               <ChatHistory chats={chats} />
-              <ChatInput onSubmit={onSubmitChat} />
+              <ChatInput ref={chatInputRef} onSubmit={onSubmitChat} />
             </Flex>
           </Flex>
 
@@ -77,4 +80,16 @@ export const Waiting = ({ roomId }: { roomId: string }) => {
       </Flex>
     </>
   );
+};
+
+const useAutoChatInputFocus = () => {
+  const chatInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (chatInputRef.current) {
+      chatInputRef.current.focus();
+    }
+  }, []);
+
+  return { chatInputRef };
 };
