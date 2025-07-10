@@ -7,23 +7,6 @@ import {
   GAME_SUBSCRIBE_DESTINATION,
 } from "./_ep";
 
-type BaseSendBody = {
-  roomId: string;
-  sender: string;
-};
-
-// 게임 입장 send
-type SendEnterGameRoomBody = {
-  type: "ENTER";
-  team: "RED" | "BLUE";
-} & BaseSendBody;
-
-// 채팅방 입장 send
-type SendEnterChatRoomBody = {
-  message: string;
-  type: "CHAT";
-} & BaseSendBody;
-
 function createSocket() {
   let stomp: Stomp.Client | null = null;
 
@@ -39,19 +22,12 @@ function createSocket() {
       reconnectDelay: 100,
       heartbeatIncoming: 4000,
       heartbeatOutgoing: 4000,
-      // onStompError: frame => {
-      //   console.error("Broker reported error: " + frame.headers["message"]);
-      //   console.error("Additional details: " + frame.body);
-      // },
-      // debug: str => {
-      //   console.log(`-------- [DEBUG] --------\n${str}`);
-      // },
     });
 
     stomp.activate();
   };
 
-  const send = (body: SendEnterGameRoomBody | SendEnterChatRoomBody) => {
+  const send = (body: SendBody) => {
     if (!stomp) {
       return;
     }
@@ -95,11 +71,45 @@ function createSocket() {
 
   return {
     stomp,
-    connect,
     send,
+    connect,
     subscribe,
     disconnect,
   };
 }
 
 export const socket = createSocket();
+
+// 게임방 입장 메시지 전송
+type SendEnterGameBody = {
+  type: "ENTER";
+  team: "RED" | "BLUE";
+  roomId: string;
+  sender: string;
+};
+
+// 채팅방 입장 및 메시지 전송
+type SendChatBody = {
+  type: "CHAT";
+  roomId: string;
+  sender: string;
+  message: string;
+};
+
+// 그냥 게임방 정보 받아오기
+type SendGameInfoBody = {
+  type: "GAME";
+  message: "GAME_INFO";
+  roomId: string;
+  sender: string;
+  targets?: string; // nowIndex.toString() + "," + preIndex.toString(),
+};
+
+type SendGameStartBody = {
+  type: "GAME";
+  message: "GAME_START";
+  roomId: string;
+  sender: string;
+};
+
+type SendBody = SendEnterGameBody | SendChatBody | SendGameInfoBody | SendGameStartBody;

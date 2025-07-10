@@ -13,7 +13,7 @@ interface Props {
   debugChatData?: (chatData: ChatData) => void;
 }
 
-const { connect, send, disconnect, subscribe } = socket;
+const { connect, disconnect, subscribe, send } = socket;
 
 export const useWaiting = (props: Props) => {
   const { roomId, debugGameData, debugChatData } = props;
@@ -24,7 +24,7 @@ export const useWaiting = (props: Props) => {
 
   useEffect(() => {
     connect(() => {
-      const user = getCooperationGameSessionStorage().getItem();
+      const me = getCooperationGameSessionStorage().getItem();
       const { updateLeaveChats } = playerManagerFromGameData();
 
       subscribe("game", roomId, gameData => {
@@ -44,18 +44,18 @@ export const useWaiting = (props: Props) => {
 
       // 게임방 입장 메시지 전송
       send({
-        roomId,
-        sender: user.id,
         type: "ENTER",
-        team: user.team,
+        roomId,
+        sender: me.id,
+        team: me.team,
       });
 
       // 채팅방 입장 메시지 전송
       send({
-        roomId,
-        sender: user.id,
         type: "CHAT",
-        message: createSystemChatEnterMessage(user.id),
+        roomId,
+        sender: me.id,
+        message: createSystemChatEnterMessage(me.id),
       });
     });
 
@@ -87,10 +87,10 @@ const useChat = ({ roomId }: { roomId: string }) => {
   };
 
   const onSubmitChat = (message: string) => {
-    const user = getCooperationGameSessionStorage().getItem();
+    const me = getCooperationGameSessionStorage().getItem();
     send({
       roomId,
-      sender: user.id,
+      sender: me.id,
       type: "CHAT",
       message,
     });

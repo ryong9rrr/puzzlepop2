@@ -1,17 +1,21 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { Flex, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
+import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
+import { Button } from "@puzzlepop2/react-components-button";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
+import { AlertClient } from "@shared-components/Clients/AlertClient";
+import { useAutoFocusInput } from "@shared-hooks/useAutoFocusInput";
 
+import { getCooperationGameSessionStorage } from "../../_storages/cooperationGameSessionStorage";
 import { ChatHistory } from "./ChatHistory";
 import { ChatInput } from "./ChatInput";
 import { useWaiting } from "./useWaiting";
 import { PlayerCardGrid } from "./PlayerCardGrid";
+import { Picture } from "./Picture";
 
 export const Waiting = ({ roomId }: { roomId: string }) => {
-  const { chatInputRef } = useAutoChatInputFocus();
+  const { inputRef: chatInputRef } = useAutoFocusInput();
 
   const { isCompleteConnectSocket, gameData, chats, onSubmitChat } = useWaiting({
     roomId,
@@ -22,6 +26,22 @@ export const Waiting = ({ roomId }: { roomId: string }) => {
       console.log("Chat Data:", chatData);
     },
   });
+
+  const isDisabledButton = () => {
+    if (!gameData || typeof window === "undefined") {
+      return true;
+    }
+    const me = getCooperationGameSessionStorage().getItem();
+    return gameData.admin.id !== me.id;
+  };
+
+  const getButtonText = () => {
+    if (!gameData || typeof window === "undefined") {
+      return "";
+    }
+    const me = getCooperationGameSessionStorage().getItem();
+    return me.id === gameData.admin.id ? "게임 시작" : "대기 중";
+  };
 
   const roomTitle = gameData ? gameData.gameName : "";
   const 정원현황 = gameData ? `${gameData.redTeam.players.length}/${gameData.roomSize}` : "";
@@ -51,45 +71,48 @@ export const Waiting = ({ roomId }: { roomId: string }) => {
                 backgroundColor: vars.colors.grey[50],
               }}
             >
-              <Text size="sm" bold className="ellipsis">
+              <Text bold className="ellipsis font-gameTitle">
                 {roomTitle}
               </Text>
               <Text size="sm" bold>
                 {정원현황}
               </Text>
             </Flex>
-
             <PlayerCardGrid />
-
             <Flex direction="column">
               <ChatHistory chats={chats} />
               <ChatInput ref={chatInputRef} onSubmit={onSubmitChat} />
             </Flex>
           </Flex>
 
-          <div
+          <Flex
+            direction="column"
             style={{
+              padding: "0.25rem",
               width: "10rem",
               borderRadius: "0.125rem",
               border: `3px solid ${vars.colors.grey[300]}`,
+              backgroundColor: vars.colors.grey[50],
             }}
           >
-            Right
-          </div>
+            <AlertClient>
+              <Picture />
+            </AlertClient>
+            <div style={{ flex: 1 }}></div>
+            <Text size="xs" color="green" bold style={{ textAlign: "center" }}>
+              방장이 게임을 시작할 수 있어요.
+            </Text>
+            <Spacing size={8} />
+            <Button
+              className="font-gameBasic"
+              isDisabled={isDisabledButton()}
+              style={{ paddingBottom: "0.45rem" }}
+            >
+              {getButtonText()}
+            </Button>
+          </Flex>
         </Flex>
       </Flex>
     </>
   );
-};
-
-const useAutoChatInputFocus = () => {
-  const chatInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (chatInputRef.current) {
-      chatInputRef.current.focus();
-    }
-  }, []);
-
-  return { chatInputRef };
 };

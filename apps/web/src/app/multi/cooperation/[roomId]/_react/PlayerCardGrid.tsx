@@ -7,23 +7,6 @@ import { GameData } from "@shared-types/multi";
 
 import { useGameDataStore } from "./useGameDataStore";
 
-type User = {
-  type: "USER";
-  nickname: string;
-  isAdmin: boolean;
-  avatarUrl?: string;
-};
-
-type Empty = {
-  type: "EMPTY";
-};
-
-type Block = {
-  type: "BLOCK";
-};
-
-type PlayerCard = User | Empty | Block;
-
 const CARD_COUNT = 8;
 
 export const PlayerCardGrid = () => {
@@ -83,23 +66,42 @@ const convertPlayerCards = (gameData: GameData | null) => {
   }
 
   return playerCards.map((_, index) => {
+    const player = gameData.redTeam.players[index];
+
     if (index >= gameData.roomSize) {
       return {
         type: "BLOCK",
       } as Block;
     }
 
-    if (gameData.redTeam.players[index]) {
+    if (!player) {
       return {
-        type: "USER",
-        nickname: gameData.redTeam.players[index].id,
-        isAdmin: gameData.redTeam.players[index].sessionId === gameData.admin.sessionId,
-        avatarUrl: "", // TODO: 회원가입 기능 추가하면 구현
-      } as User;
+        type: "EMPTY",
+      } as Empty;
     }
 
     return {
-      type: "EMPTY",
-    } as Empty;
+      type: "USER",
+      nickname: gameData.redTeam.players[index].id,
+      isAdmin: gameData.admin.id === player.id,
+      avatarUrl: "", // TODO: 회원가입 기능 추가하면 구현
+    } as User;
   });
 };
+
+type User = {
+  type: "USER";
+  nickname: string;
+  isAdmin: boolean;
+  avatarUrl?: string;
+};
+
+type Empty = {
+  type: "EMPTY";
+};
+
+type Block = {
+  type: "BLOCK";
+};
+
+type PlayerCard = User | Empty | Block;

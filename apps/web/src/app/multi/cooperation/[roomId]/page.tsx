@@ -1,19 +1,15 @@
-import * as CDN from "@remotes-cdn/images";
-
-import { Waiting } from "./_react/Waiting";
 import { ToastClient } from "@shared-components/Clients/ToastClient";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
+import * as CDN from "@remotes-cdn/images";
+
+import { Waiting } from "./_react/Waiting";
 
 interface PageProps {
-  roomId: string;
+  params: Promise<{ roomId: string }>;
 }
 
-interface BasePageProps {
-  params: Promise<PageProps>;
-}
-
-export default async function Page({ params }: BasePageProps) {
+export default async function Page({ params }: PageProps) {
   const roomId = (await params).roomId;
 
   if (!roomId) {

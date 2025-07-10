@@ -111,7 +111,7 @@ export const useCooperationCreateOrEnterForm = () => {
 
       toast({
         payload: {
-          message: "게임방 생성에 실패했습니다. 다시 시도해주세요.",
+          message: "이미 게임이 시작되었거나, 존재하지 않는 게임방입니다.",
         },
       });
       setIsLoadingFetchEnterRoom(false);

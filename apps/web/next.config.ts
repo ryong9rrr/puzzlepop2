@@ -18,10 +18,6 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "puzzlepop.site",
       },
-      {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
-      },
     ],
   },
 };
