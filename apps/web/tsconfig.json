@@ -15,6 +15,7 @@
     ],
     "baseUrl": ".",
     "paths": {
+      "@public/*": ["/public/*"],
       "@themes/*": ["./src/themes/*"],
       "@router/*": ["./src/router/*"],
       "@shared-types/*": ["./src/shared/types/*"],

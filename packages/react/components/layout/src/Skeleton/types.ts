@@ -6,5 +6,5 @@ export type SkeletonProps = {
 } & BoxProps;
 
 export type SkeletonCircleProps = {
-  size?: number;
+  size?: number | string;
 } & BoxProps;

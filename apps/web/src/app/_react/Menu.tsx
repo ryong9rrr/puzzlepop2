@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import ROAD_WORK from "../../../public/road-work.webp";
 import { motion } from "motion/react";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
 import { useAlert } from "@puzzlepop2/react-hooks-alert";
 import { useNavigation } from "@router/useNavigation";
+
+import ROAD_WORK from "@public/road-work.webp";
 
 export const Menu = () => {
   const navigate = useNavigation();
