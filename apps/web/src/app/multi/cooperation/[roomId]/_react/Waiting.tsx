@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback } from "react";
 import { vars } from "@puzzlepop2/themes";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
@@ -7,12 +8,15 @@ import { LoadingOverlay } from "@shared-components/LoadingOverlay";
 import { AlertClient } from "@shared-components/Clients/AlertClient";
 import { useAutoFocusInput } from "@shared-hooks/useAutoFocusInput";
 
+import { socket } from "@remotes-main/socketStore";
 import { getCooperationGameSessionStorage } from "../../_storages/cooperationGameSessionStorage";
 import { ChatHistory } from "./ChatHistory";
 import { ChatInput } from "./ChatInput";
 import { useWaiting } from "./useWaiting";
 import { PlayerCardGrid } from "./PlayerCardGrid";
 import { Picture } from "./Picture";
+
+const { send } = socket;
 
 export const Waiting = ({ roomId }: { roomId: string }) => {
   const { inputRef: chatInputRef } = useAutoFocusInput();
@@ -26,6 +30,26 @@ export const Waiting = ({ roomId }: { roomId: string }) => {
       console.log("Chat Data:", chatData);
     },
   });
+
+  const handleClickGameStart = useCallback(() => {
+    if (!gameData || typeof window === "undefined") {
+      return true;
+    }
+
+    const me = getCooperationGameSessionStorage().getItem();
+    if (me.id !== gameData.admin.id) {
+      return;
+    }
+
+    console.log("게임 시작 요청...");
+
+    send({
+      type: "GAME",
+      message: "GAME_START",
+      sender: me.id,
+      roomId,
+    });
+  }, []);
 
   const isDisabledButton = () => {
     if (!gameData || typeof window === "undefined") {
@@ -105,8 +129,9 @@ export const Waiting = ({ roomId }: { roomId: string }) => {
             <Spacing size={8} />
             <Button
               className="font-gameBasic"
-              isDisabled={isDisabledButton()}
               style={{ paddingBottom: "0.45rem" }}
+              isDisabled={isDisabledButton()}
+              onClick={handleClickGameStart}
             >
               {getButtonText()}
             </Button>

@@ -16,6 +16,13 @@ interface Props {
 export const RoomCardGrid = (props: Props) => {
   const { mode, isLoading, rooms, onClickCard } = props;
 
+  const handleClickCard = (roomId: string, disabled: boolean) => {
+    if (disabled) {
+      return;
+    }
+    onClickCard?.(roomId);
+  };
+
   if (!isLoading && rooms.length === 0) {
     return (
       <Flex direction="column" justify="center" align="center">
@@ -46,7 +53,7 @@ export const RoomCardGrid = (props: Props) => {
                 disabled && MODULE_CSS["not-allowed"],
               )}
               onClick={() => {
-                onClickCard?.(room.gameId);
+                handleClickCard(room.gameId, disabled);
               }}
             >
               <Flex direction="column" gapScale={0.4}>
