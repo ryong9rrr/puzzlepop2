@@ -3,18 +3,18 @@
 import { Flex, Grid, GridItem, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 import { Avatar } from "@shared-components/Avatar";
-import { GameData } from "@shared-types/multi";
+import { CooperationWaitingGameData } from "@shared-types/multi";
 
-import { useGameDataStore } from "./useGameDataStore";
+import { useWaitingGameDataStore } from "../useWaitingGameDataStore";
 
 const CARD_COUNT = 8;
 
 export const PlayerCardGrid = () => {
-  const { gameData } = useGameDataStore();
+  const { cooperationWaitingGameData } = useWaitingGameDataStore();
 
   return (
     <Grid templateColumns="repeat(4, 1fr)" gapScale={0.2}>
-      {convertPlayerCards(gameData).map((player, index) => {
+      {convertPlayerCards(cooperationWaitingGameData).map((player, index) => {
         return (
           <Flex key={index} justify="center" align="center" style={{ position: "relative" }}>
             {player.type === "USER" && player.isAdmin && (
@@ -56,7 +56,7 @@ export const PlayerCardGrid = () => {
   );
 };
 
-const convertPlayerCards = (gameData: GameData | null) => {
+const convertPlayerCards = (gameData: CooperationWaitingGameData | null) => {
   const playerCards = new Array<PlayerCard>(CARD_COUNT).fill({
     type: "EMPTY",
   });

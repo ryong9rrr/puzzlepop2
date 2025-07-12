@@ -6,24 +6,37 @@ import { Input } from "@puzzlepop2/react-components-input";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
+import { socket } from "@remotes-main/socketStore";
+import { getCooperationGameSessionStorage } from "../../../_storages/cooperationGameSessionStorage";
+
 const COLOR = "orange";
 
+const { send } = socket;
+
 interface Props {
-  onSubmit: (message: string) => void;
+  roomId: string;
 }
 
-const ChatInput = (props: Props, ref: Ref<HTMLInputElement>) => {
-  const { onSubmit } = props;
-
+const ChatInput = ({ roomId }: Props, ref: Ref<HTMLInputElement>) => {
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (message) {
-      onSubmit(message);
-      setMessage("");
+    if (!message) {
+      return;
     }
+
+    const me = getCooperationGameSessionStorage().getItem();
+
+    send({
+      type: "CHAT",
+      message,
+      sender: me.id,
+      roomId,
+    });
+
+    setMessage("");
   };
 
   return (

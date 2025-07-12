@@ -7,8 +7,8 @@ export type ChatData = {
 };
 
 export type Picture = {
-  id: any;
-  name: any;
+  id: null;
+  name: null;
   width: number;
   length: number;
   imgWidth: number;
@@ -28,7 +28,7 @@ export type Player = {
   sessionId: string;
 };
 
-export type GameData = {
+export type CooperationWaitingGameData = {
   gameId: string; // 게임방 ID
   gameName: string; // 게임방 이름
   roomSize: number; // 게임방 정원
@@ -41,18 +41,23 @@ export type GameData = {
   blueTeam: {
     players: Player[];
   };
-  players: any;
-  redPuzzle: any;
-  bluePuzzle: any;
+  players: unknown;
+  redPuzzle: unknown;
+  bluePuzzle: unknown;
   startTime: string;
-  finishTime: any;
+  finishTime: unknown;
   sessionToUser: {
     [key: string]: Player;
   };
-  dropRandomItem: any;
+  dropRandomItem: unknown;
   empty: boolean;
   time: number;
   started: boolean; // 대기방일 경우 false, 게임 시작시(인게임) true
   saved: boolean;
   finished: boolean; // 게임을 시작한 이후(대기방이 아닌 인게임) 끝났는지 여부
+};
+
+export type CooperationInGameGameData = {
+  time: number;
+  // 나머지 값들은 몰라..
 };

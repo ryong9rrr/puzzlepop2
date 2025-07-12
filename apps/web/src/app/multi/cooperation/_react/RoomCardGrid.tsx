@@ -2,13 +2,13 @@ import Image from "next/image";
 import clsx from "clsx";
 import { Flex, Grid, GridItem, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
-import { GameData } from "@shared-types/multi";
+import { CooperationWaitingGameData } from "@shared-types/multi";
 
 import MODULE_CSS from "./RoomCardGrid.module.css";
 
 interface Props {
   mode: "COOPERATION" | "BATTLE";
-  rooms: GameData[];
+  rooms: CooperationWaitingGameData[];
   isLoading: boolean;
   onClickCard?: (roomId: string) => void;
 }

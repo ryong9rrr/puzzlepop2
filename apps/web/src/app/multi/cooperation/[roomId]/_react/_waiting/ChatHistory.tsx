@@ -1,21 +1,19 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
-import { SystemChat, UserChat } from "./types";
+import { useChatStore } from "../useChatStore";
+
+// import { SystemChat, UserChat } from "./types";
 
 const HEIGHT = "25vh";
 
-interface Props {
-  chats: (SystemChat | UserChat)[];
-}
-
-export const ChatHistory = (props: Props) => {
-  const { chats } = props;
-
+export const ChatHistory = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const { chats } = useChatStore();
 
   useEffect(() => {
     if (scrollRef.current) {

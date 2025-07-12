@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useModal } from "@puzzlepop2/react-hooks-modal";
-import { GameData } from "@shared-types/multi";
+import { CooperationWaitingGameData } from "@shared-types/multi";
 
 import { CreateRoomModal } from "./CreateRoomModal";
 import { EnterRoomModal } from "./EnterRoomModal";
@@ -60,14 +60,14 @@ export const RoomCards = () => {
 };
 
 interface Props {
-  fetchFn?: () => Promise<GameData[]>;
+  fetchFn?: () => Promise<CooperationWaitingGameData[]>;
 }
 
 const useRoomCards = (props: Props) => {
   const { fetchFn } = props;
 
   const [isLoading, setIsLoading] = useState(true);
-  const [rooms, setRooms] = useState<GameData[]>([]);
+  const [rooms, setRooms] = useState<CooperationWaitingGameData[]>([]);
 
   const onFetch = useCallback(async () => {
     if (!fetchFn) {

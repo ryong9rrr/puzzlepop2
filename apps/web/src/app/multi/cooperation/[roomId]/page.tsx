@@ -1,9 +1,8 @@
 import { ToastClient } from "@shared-components/Clients/ToastClient";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
-import * as CDN from "@remotes-cdn/images";
 
-import { Waiting } from "./_react/Waiting";
+import { GameRoute } from "./_react/GameRoute";
 
 interface PageProps {
   params: Promise<{ roomId: string }>;
@@ -18,14 +17,10 @@ export default async function Page({ params }: PageProps) {
 
   return (
     <FullScreenBackground.Main>
-      <FullScreenBackground.Background
-        src={CDN.COOPERATION_BACKGROUND}
-        blurSrc={CDN.COOPERATION_BACKGROUND_THUMBNAIL}
-      />
       <ToastClient>
         <IsMobileWarningToast />
       </ToastClient>
-      <Waiting roomId={roomId} />
+      <GameRoute roomId={roomId} />
     </FullScreenBackground.Main>
   );
 }

@@ -1,4 +1,4 @@
-import { GameData, Player } from "@shared-types/multi";
+import { CooperationWaitingGameData, Player } from "@shared-types/multi";
 
 const user1: Player = {
   id: "user1",
@@ -18,7 +18,7 @@ const user3: Player = {
   sessionId: "session-admin-123",
 };
 
-const room: GameData = {
+const room: CooperationWaitingGameData = {
   gameId: "aaa111",
   gameName: "퍼즐 한판!!",
   roomSize: 4,
@@ -64,7 +64,7 @@ const room: GameData = {
   finished: false,
 };
 
-const gameRoomSample1: GameData = {
+const gameRoomSample1: CooperationWaitingGameData = {
   ...room,
   gameId: "gameRoomSample1",
   gameName: "짱구 퍼즐 맞히실분~~",
@@ -78,7 +78,7 @@ const gameRoomSample1: GameData = {
   },
 };
 
-const gameRoomSample2: GameData = {
+const gameRoomSample2: CooperationWaitingGameData = {
   ...room,
   gameId: "gameRoomSample2",
   gameName: "퍼즐 한판 어때요",
@@ -92,7 +92,7 @@ const gameRoomSample2: GameData = {
   },
 };
 
-const gameRoomSample3: GameData = {
+const gameRoomSample3: CooperationWaitingGameData = {
   ...room,
   gameId: "gameRoomSample3",
   gameName: "퍼즐 한판!!!",
@@ -106,7 +106,7 @@ const gameRoomSample3: GameData = {
   },
 };
 
-export const cooperationGameRoomList: GameData[] = [
+export const cooperationGameRoomList: CooperationWaitingGameData[] = [
   room,
   {
     ...room,

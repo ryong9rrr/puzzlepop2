@@ -1,12 +1,12 @@
-import { GameData } from "@shared-types/multi";
+import { CooperationWaitingGameData } from "@shared-types/multi";
 import { RemoteError } from "@shared-utils/error";
 
 import { ORIGINAL_SERVER_END_POINT_HTTP } from "../_ep";
 import { cooperationGameSamples } from "./mocks/cooperation";
 
-export const getCooperationGameRoomList = async (): Promise<GameData[]> => {
+export const getCooperationGameRoomList = async (): Promise<CooperationWaitingGameData[]> => {
   const response = await fetch(`${ORIGINAL_SERVER_END_POINT_HTTP()}/game/rooms/cooperation`);
-  const data = (await response.json()) as GameData[];
+  const data = (await response.json()) as CooperationWaitingGameData[];
   return [...data, ...cooperationGameSamples]; // 허전하니까 일부러 샘플 넣어놓음
 };
 
@@ -14,7 +14,7 @@ export const createGameRoom = async (props: {
   roomTitle: string;
   userId: string;
   roomSize: number;
-}): Promise<GameData> => {
+}): Promise<CooperationWaitingGameData> => {
   const { roomTitle, userId, roomSize: _roomSize } = props;
   const roomSize = Number(_roomSize);
 
@@ -46,7 +46,7 @@ export const createGameRoom = async (props: {
 export const enterGameRoom = async (props: {
   userId: string;
   roomId: string;
-}): Promise<GameData> => {
+}): Promise<CooperationWaitingGameData> => {
   const { userId, roomId } = props;
 
   const body = JSON.stringify({

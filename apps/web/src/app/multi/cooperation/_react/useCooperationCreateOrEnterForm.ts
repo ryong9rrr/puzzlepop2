@@ -111,7 +111,7 @@ export const useCooperationCreateOrEnterForm = () => {
 
       toast({
         payload: {
-          message: "이미 게임이 시작되었거나, 존재하지 않는 게임방입니다.",
+          message: "이미 게임이 시작되었거나 존재하지 않는 게임방입니다.",
         },
       });
       setIsLoadingFetchEnterRoom(false);

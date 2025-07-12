@@ -1,5 +1,5 @@
 import * as Stomp from "@stomp/stompjs";
-import { ChatData, GameData } from "@shared-types/multi";
+import { ChatData } from "@shared-types/multi";
 
 import {
   SEND_PUBLISH_DESTINATION,
@@ -41,7 +41,7 @@ function createSocket() {
   const subscribe = <T extends "game" | "chat">(
     type: T,
     roomId: string,
-    cb: (message: T extends "game" ? GameData : ChatData) => void,
+    cb: (message: T extends "game" ? unknown : ChatData) => void,
   ) => {
     if (!stomp) {
       return;
@@ -56,7 +56,7 @@ function createSocket() {
         return;
       }
 
-      const data = JSON.parse(message.body) as T extends "game" ? GameData : ChatData;
+      const data = JSON.parse(message.body) as T extends "game" ? unknown : ChatData;
       cb(data);
     });
   };
@@ -65,7 +65,6 @@ function createSocket() {
     if (!stomp) {
       return;
     }
-
     stomp.deactivate();
   };
 

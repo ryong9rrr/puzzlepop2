@@ -8,3 +8,5 @@ export const sleep = <T>(callback: Callback<T>, ms: number): Promise<T> => {
     }, ms);
   });
 };
+
+export const wait = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
