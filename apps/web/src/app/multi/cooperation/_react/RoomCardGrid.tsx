@@ -36,6 +36,11 @@ export const RoomCardGrid = (props: Props) => {
     <Grid templateColumns="repeat(2, 1fr)" gapScale={0.8}>
       {rooms
         .filter(room => room.redTeam.players.length > 0)
+        .sort((a, b) => {
+          const aStartTime = new Date(a.startTime).getTime();
+          const bStartTime = new Date(b.startTime).getTime();
+          return bStartTime - aStartTime;
+        })
         .map(room => {
           const 게임이_시작됐는가 = !!room.started;
           const 최대정원 = room.roomSize;
