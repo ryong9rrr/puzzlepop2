@@ -6,7 +6,7 @@ import { vars } from "@puzzlepop2/themes";
 import { Skeleton } from "@puzzlepop2/react-components-layout";
 import { useDevelopingAlert } from "@shared-hooks/useDevelopingAlert";
 
-import { useWaitingGameDataStore } from "../useWaitingGameDataStore";
+import { useWaitingStore } from "../useWaitingStore";
 
 const WIDTH = "9.8rem";
 const HEIGHT = "6rem";
@@ -15,16 +15,16 @@ export const Picture = () => {
   const [isError, setIsError] = useState(false);
 
   const { sorry } = useDevelopingAlert();
-  const { cooperationWaitingGameData } = useWaitingGameDataStore();
+  const imgSrc = useWaitingStore(state => state.imgSrc);
 
-  if (!cooperationWaitingGameData || isError) {
+  if (!imgSrc || isError) {
     return <Skeleton width={WIDTH} height={HEIGHT} />;
   }
 
   return (
     <Suspense fallback={<Skeleton width={WIDTH} height={HEIGHT} />}>
       <Image
-        src={cooperationWaitingGameData.picture.encodedString}
+        src={imgSrc}
         alt=""
         width={300}
         height={200}

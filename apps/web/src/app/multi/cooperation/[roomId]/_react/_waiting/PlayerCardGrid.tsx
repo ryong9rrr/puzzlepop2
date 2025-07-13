@@ -3,18 +3,20 @@
 import { Flex, Grid, GridItem, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 import { Avatar } from "@shared-components/Avatar";
-import { CooperationWaitingGameData } from "@shared-types/multi";
+import { Player } from "@shared-types/multi";
 
-import { useWaitingGameDataStore } from "../useWaitingGameDataStore";
+import { useWaitingStore } from "../useWaitingStore";
 
 const CARD_COUNT = 8;
 
 export const PlayerCardGrid = () => {
-  const { cooperationWaitingGameData } = useWaitingGameDataStore();
+  const roomSize = useWaitingStore(state => state.roomSize);
+  const admin = useWaitingStore(state => state.admin);
+  const players = useWaitingStore(state => state.players);
 
   return (
     <Grid templateColumns="repeat(4, 1fr)" gapScale={0.2}>
-      {convertPlayerCards(cooperationWaitingGameData).map((player, index) => {
+      {convertPlayerCards({ roomSize, admin, players }).map((player, index) => {
         return (
           <Flex key={index} justify="center" align="center" style={{ position: "relative" }}>
             {player.type === "USER" && player.isAdmin && (
@@ -56,25 +58,25 @@ export const PlayerCardGrid = () => {
   );
 };
 
-const convertPlayerCards = (gameData: CooperationWaitingGameData | null) => {
+const convertPlayerCards = (props: {
+  players: Player[];
+  roomSize: number;
+  admin: Player | null;
+}) => {
+  const { players, roomSize, admin } = props;
+
   const playerCards = new Array<PlayerCard>(CARD_COUNT).fill({
     type: "EMPTY",
   });
 
-  if (!gameData) {
-    return playerCards;
-  }
-
   return playerCards.map((_, index) => {
-    const player = gameData.redTeam.players[index];
-
-    if (index >= gameData.roomSize) {
+    if (index >= roomSize) {
       return {
         type: "BLOCK",
       } as Block;
     }
 
-    if (!player) {
+    if (!players[index]) {
       return {
         type: "EMPTY",
       } as Empty;
@@ -82,8 +84,8 @@ const convertPlayerCards = (gameData: CooperationWaitingGameData | null) => {
 
     return {
       type: "USER",
-      nickname: gameData.redTeam.players[index].id,
-      isAdmin: gameData.admin.id === player.id,
+      nickname: players[index].id,
+      isAdmin: admin && admin.id === players[index].id,
       avatarUrl: "", // TODO: 회원가입 기능 추가하면 구현
     } as User;
   });

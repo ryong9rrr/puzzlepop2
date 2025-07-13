@@ -1,10 +1,10 @@
 "use client";
 
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
-import { useInGameDataStore } from "../useInGameDataStore";
+import { useInGameStore } from "../useInGameStore";
 
 export const InGamePage = ({ roomId }: { roomId: string }) => {
-  const time = useInGameDataStore(state => state.time);
+  const time = useInGameStore(state => state.time);
 
   return (
     <Flex direction="column">

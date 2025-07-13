@@ -14,41 +14,46 @@ import { ChatInput } from "./ChatInput";
 
 import { socket } from "@remotes-main/socketStore";
 import { getCooperationGameSessionStorage } from "../../../_storages/cooperationGameSessionStorage";
-import { useWaitingGameDataStore } from "../useWaitingGameDataStore";
+import { useWaitingStore } from "../useWaitingStore";
 import { useChatStore } from "../useChatStore";
 
 const { send } = socket;
 
 export const WaitingPage = ({ roomId }: { roomId: string }) => {
-  const { cooperationWaitingGameData } = useWaitingGameDataStore();
+  const roomTitle = useWaitingStore(state => state.roomTitle);
+  const roomSize = useWaitingStore(state => state.roomSize);
+  const players = useWaitingStore(state => state.players);
+  const admin = useWaitingStore(state => state.admin);
 
-  const { sendSystemMessage } = useChatStore();
+  const sendSystemMessage = useChatStore(state => state.sendSystemMessage);
+
+  const 정원현황 = roomSize === 0 ? "" : `${players.length}/${roomSize}`;
 
   const isDisabledButton = () => {
-    if (!cooperationWaitingGameData || typeof window === "undefined") {
+    if (!admin || typeof window === "undefined") {
       return true;
     }
     const me = getCooperationGameSessionStorage().getItem();
-    return cooperationWaitingGameData.admin.id !== me.id;
+    return admin.id !== me.id;
   };
 
   const getButtonText = () => {
-    if (!cooperationWaitingGameData || typeof window === "undefined") {
+    if (!admin || typeof window === "undefined") {
       return "";
     }
     const me = getCooperationGameSessionStorage().getItem();
-    return me.id === cooperationWaitingGameData.admin.id ? "게임 시작" : "대기 중";
+    return me.id === admin.id ? "게임 시작" : "대기 중";
   };
 
   const handleClickGameStart = useCallback(async () => {
-    if (!cooperationWaitingGameData || typeof window === "undefined") {
+    if (!admin || typeof window === "undefined") {
       console.error("게임 데이터가 없습니다.");
       return;
     }
 
     const me = getCooperationGameSessionStorage().getItem();
 
-    if (me.id !== cooperationWaitingGameData.admin.id) {
+    if (me.id !== admin.id) {
       console.error("게임 시작 권한이 없습니다.");
       return;
     }
@@ -64,11 +69,6 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
       roomId,
     });
   }, []);
-
-  const roomTitle = cooperationWaitingGameData ? cooperationWaitingGameData.gameName : "";
-  const 정원현황 = cooperationWaitingGameData
-    ? `${cooperationWaitingGameData.redTeam.players.length}/${cooperationWaitingGameData.roomSize}`
-    : "";
 
   return (
     <Flex

@@ -13,7 +13,7 @@ const HEIGHT = "25vh";
 export const ChatHistory = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const { chats } = useChatStore();
+  const chats = useChatStore(state => state.chats);
 
   useEffect(() => {
     if (scrollRef.current) {

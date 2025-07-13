@@ -1,11 +1,11 @@
 import { create } from "zustand";
 
-interface InGameDataStore {
+interface InGameStore {
   time: number;
   setTime: (time: number) => void;
 }
 
-export const useInGameDataStore = create<InGameDataStore>(set => ({
+export const useInGameStore = create<InGameStore>(set => ({
   time: 0,
   setTime: (time: number) => set({ time }),
 }));

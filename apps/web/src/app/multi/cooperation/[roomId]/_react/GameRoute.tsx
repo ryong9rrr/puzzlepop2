@@ -10,13 +10,13 @@ import * as CDN from "@remotes-cdn/images";
 import { socket } from "@remotes-main/socketStore";
 
 import { useChatStore } from "./useChatStore";
-import { useWaitingGameDataStore } from "./useWaitingGameDataStore";
+import { useWaitingStore } from "./useWaitingStore";
+import { useInGameStore } from "./useInGameStore";
 
 import { WaitingPage } from "./_waiting/WaitingPage";
 import { InGamePage } from "./_inGame/InGamePage";
 
 import { getCooperationGameSessionStorage } from "../../_storages/cooperationGameSessionStorage";
-import { useInGameDataStore } from "./useInGameDataStore";
 
 const { connect, disconnect, subscribe, send } = socket;
 
@@ -28,11 +28,18 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
   const [isConnectedGameSocket, setIsConnectedGameSocket] = useState(false);
   const [isConnectedChatSocket, setIsConnectedChatSocket] = useState(false);
 
-  const { addChat, leaveChat, clearChat, sendSystemMessage } = useChatStore();
+  const addChat = useChatStore(state => state.addChat);
+  const leaveChat = useChatStore(state => state.leaveChat);
+  const clearChat = useChatStore(state => state.clearChat);
+  const sendSystemMessage = useChatStore(state => state.sendSystemMessage);
 
-  const { setCooperationWaitingGameData } = useWaitingGameDataStore();
+  const setAdmin = useWaitingStore(state => state.setAdmin);
+  const setImgSrc = useWaitingStore(state => state.setImgSrc);
+  const setPlayers = useWaitingStore(state => state.setPlayers);
+  const setRoomSize = useWaitingStore(state => state.setRoomSize);
+  const setRoomTitle = useWaitingStore(state => state.setRoomTitle);
 
-  const { setTime } = useInGameDataStore();
+  const setTime = useInGameStore(state => state.setTime);
 
   useEffect(() => {
     let prevPlayers: Player[] = []; // leaveChat 함수에서 사용하기 위한 이전 플레이어 목록
@@ -43,18 +50,21 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
       subscribe("game", roomId, _gameData => {
         setIsConnectedGameSocket(true); // 최초 한번 연결 상태 초기화
 
-        // 대기방인 경우 : "started"가 false인 경우
-        if (isRecord(_gameData) && _gameData.started === false) {
+        const isWaiting = isRecord(_gameData) && _gameData.started === false;
+        if (isWaiting) {
           setGameRouteState("waiting");
 
           const gameData = _gameData as CooperationWaitingGameData;
+          setAdmin(gameData.admin);
+          setImgSrc(gameData.picture?.encodedString || null);
+          setRoomSize(gameData.roomSize);
+          setRoomTitle(gameData.gameName);
+          setPlayers(gameData.redTeam.players);
           leaveChat({
             prevPlayers,
             currentPlayers: gameData.redTeam.players,
           });
           prevPlayers = _gameData.redTeam.players;
-
-          setCooperationWaitingGameData(gameData);
           return;
         }
 
