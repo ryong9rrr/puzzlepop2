@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CooperationWaitingGameData, MultiGameData, Player } from "@puzzlepop2/game-core";
+import { AlertClient } from "@shared-components/Clients/AlertClient";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
-import { CooperationWaitingGameData, Player } from "@shared-types/multi";
+
 import { isNumber, isRecord } from "@shared-types/utils";
 
 import * as CDN from "@remotes-cdn/images";
@@ -17,11 +19,10 @@ import { WaitingPage } from "./_waiting/WaitingPage";
 import { InGamePage } from "./_inGame/InGamePage";
 
 import { getCooperationGameSessionStorage } from "../../_storages/cooperationGameSessionStorage";
-import { AlertClient } from "@shared-components/Clients/AlertClient";
-
-const { connect, disconnect, subscribe, send } = socket;
 
 type GameRouteState = "waiting" | "inGame" | "finished" | null;
+
+const { connect, disconnect, subscribe, send } = socket;
 
 export const GameRoute = ({ roomId }: { roomId: string }) => {
   const [gameRouteState, setGameRouteState] = useState<GameRouteState>(null);
@@ -31,16 +32,23 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
 
   const addChat = useChatStore(state => state.addChat);
   const leaveChat = useChatStore(state => state.leaveChat);
-  const clearChat = useChatStore(state => state.clearChat);
   const sendSystemMessage = useChatStore(state => state.sendSystemMessage);
+  const resetChatStore = useChatStore(state => state.reset);
 
   const setAdmin = useWaitingStore(state => state.setAdmin);
-  const setImgSrc = useWaitingStore(state => state.setImgSrc);
+  const setWaitingImgSrc = useWaitingStore(state => state.setImgSrc);
   const setPlayers = useWaitingStore(state => state.setPlayers);
   const setRoomSize = useWaitingStore(state => state.setRoomSize);
   const setRoomTitle = useWaitingStore(state => state.setRoomTitle);
+  const resetWaitingStore = useWaitingStore(state => state.reset);
 
   const setTime = useInGameStore(state => state.setTime);
+  const setInGameImgSrc = useInGameStore(state => state.setImgSrc);
+  const setPieceSize = useInGameStore(state => state.setPieceSize);
+  const setWidthCount = useInGameStore(state => state.setWidthCount);
+  const setLengthCount = useInGameStore(state => state.setLengthCount);
+  const setGameData = useInGameStore(state => state.setGameData);
+  const resetInGameStore = useInGameStore(state => state.reset);
 
   useEffect(() => {
     let prevPlayers: Player[] = []; // leaveChat 함수에서 사용하기 위한 이전 플레이어 목록
@@ -54,10 +62,9 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
         const isWaiting = isRecord(_gameData) && _gameData.started === false;
         if (isWaiting) {
           setGameRouteState("waiting");
-
           const gameData = _gameData as CooperationWaitingGameData;
           setAdmin(gameData.admin);
-          setImgSrc(gameData.picture?.encodedString || null);
+          setWaitingImgSrc(gameData.picture?.encodedString || null);
           setRoomSize(gameData.roomSize);
           setRoomTitle(gameData.gameName);
           setPlayers(gameData.redTeam.players);
@@ -72,8 +79,20 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
         // TODO: 끝난 게임인지도 검사해야하는데 이건 나중에...
         setGameRouteState("inGame");
 
-        if (isRecord(_gameData) && isNumber(_gameData.time)) {
+        const isTimeData = isRecord(_gameData) && isNumber(_gameData.time);
+        if (isTimeData) {
           setTime(_gameData.time);
+        }
+
+        const isGameData = isRecord(_gameData) && _gameData.redPuzzle;
+        if (isGameData) {
+          console.log("게임데이터", _gameData);
+          const { picture, redPuzzle } = _gameData as MultiGameData;
+          setInGameImgSrc(picture.encodedString);
+          setPieceSize(redPuzzle.pieceSize);
+          setWidthCount(redPuzzle.widthCnt);
+          setLengthCount(redPuzzle.lengthCnt);
+          setGameData(_gameData as MultiGameData);
         }
       });
 
@@ -95,7 +114,9 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
     });
 
     return () => {
-      clearChat();
+      resetChatStore();
+      resetWaitingStore();
+      resetInGameStore();
       disconnect();
     };
   }, []);

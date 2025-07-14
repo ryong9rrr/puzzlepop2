@@ -1,4 +1,4 @@
-import { CooperationWaitingGameData } from "@shared-types/multi";
+import { CooperationWaitingGameData } from "@puzzlepop2/game-core";
 import { RemoteError } from "@shared-utils/error";
 
 import { ORIGINAL_SERVER_END_POINT_HTTP } from "../_ep";

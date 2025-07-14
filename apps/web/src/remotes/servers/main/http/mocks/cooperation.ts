@@ -1,4 +1,4 @@
-import { CooperationWaitingGameData, Player } from "@shared-types/multi";
+import { CooperationWaitingGameData, Player } from "@puzzlepop2/game-core";
 
 const user1: Player = {
   id: "user1",

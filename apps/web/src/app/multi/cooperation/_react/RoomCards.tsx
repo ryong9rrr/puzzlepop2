@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useModal } from "@puzzlepop2/react-hooks-modal";
-import { CooperationWaitingGameData } from "@shared-types/multi";
+import { CooperationWaitingGameData } from "@puzzlepop2/game-core";
 
 import { CreateRoomModal } from "./CreateRoomModal";
 import { EnterRoomModal } from "./EnterRoomModal";

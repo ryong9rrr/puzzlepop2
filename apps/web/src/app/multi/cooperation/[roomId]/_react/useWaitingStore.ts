@@ -1,7 +1,9 @@
-import { Player } from "@shared-types/multi";
 import { create } from "zustand";
+import { Player } from "@puzzlepop2/game-core";
 
 interface WaitingStore {
+  reset: () => void;
+
   imgSrc: string | null;
   setImgSrc: (src: string | null) => void;
 
@@ -18,17 +20,32 @@ interface WaitingStore {
   setPlayers: (players: Player[]) => void;
 }
 
+const defaultImgSrc = null;
+const defaultRoomTitle = "";
+const defaultRoomSize = 0;
+const defaultAdmin: Player | null = null;
+
 export const useWaitingStore = create<WaitingStore>((set, get) => ({
-  imgSrc: null,
+  reset: () => {
+    set({
+      imgSrc: defaultImgSrc,
+      roomTitle: defaultRoomTitle,
+      roomSize: defaultRoomSize,
+      admin: defaultAdmin,
+      players: [],
+    });
+  },
+
+  imgSrc: defaultImgSrc,
   setImgSrc: src => set({ imgSrc: src }),
 
-  roomTitle: "",
+  roomTitle: defaultRoomTitle,
   setRoomTitle: roomTitle => set({ roomTitle }),
 
-  roomSize: 0,
+  roomSize: defaultRoomSize,
   setRoomSize: roomSize => set({ roomSize }),
 
-  admin: null,
+  admin: defaultAdmin,
   setAdmin: admin => {
     const prevAdmin = get().admin;
     if (prevAdmin && prevAdmin.id === admin.id) {

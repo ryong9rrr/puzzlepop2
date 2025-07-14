@@ -1,4 +1,4 @@
-import { CooperationWaitingGameData } from "@shared-types/multi";
+import { CooperationWaitingGameData } from "@puzzlepop2/game-core";
 import { sleep } from "@shared-utils/promises";
 
 import { cooperationGameRoomList } from "./cooperation";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { vars } from "@puzzlepop2/themes";
 import { Button } from "@puzzlepop2/react-components-button";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
@@ -21,6 +21,8 @@ import { useChatStore } from "../useChatStore";
 const { send } = socket;
 
 export const WaitingPage = ({ roomId }: { roomId: string }) => {
+  const [isReady, setIsReady] = useState(false);
+
   const { inputRef } = useAutoFocusInput();
   const { alert } = useAnimatedAlert();
 
@@ -65,6 +67,7 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
       return;
     }
 
+    setIsReady(true);
     for (let second = 5; second > 0; second -= 1) {
       sendSystemMessage({ roomId, message: `${second}초 뒤 게임이 시작됩니다.` });
       await wait(1000);
@@ -135,6 +138,7 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
             style={{ paddingBottom: "0.45rem" }}
             isDisabled={isDisabledButton()}
             onClick={handleClickGameStart}
+            isPending={isReady}
           >
             {getButtonText()}
           </Button>

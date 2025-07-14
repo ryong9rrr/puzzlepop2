@@ -1,9 +1,9 @@
 "use client";
 
 import { Flex, Grid, GridItem, Text } from "@puzzlepop2/react-components-layout";
+import { Player } from "@puzzlepop2/game-core";
 import { vars } from "@puzzlepop2/themes";
 import { Avatar } from "@shared-components/Avatar";
-import { Player } from "@shared-types/multi";
 
 import { useWaitingStore } from "../useWaitingStore";
 

@@ -1,13 +1,13 @@
-import { socket } from "@remotes-main/socketStore";
-import { ChatData, Player } from "@shared-types/multi";
 import { create } from "zustand";
+import { ChatData, Player } from "@puzzlepop2/game-core";
+import { socket } from "@remotes-main/socketStore";
 
 const SYSTEM_PREFIX = "[__SYSTEM__]";
 
 interface ChatStore {
   chats: (SystemChat | UserChat)[];
   sendSystemMessage: (props: { roomId: string; message: string }) => void;
-  clearChat: () => void;
+  reset: () => void;
   addChat: (chatData: ChatData) => void;
   leaveChat: ({
     prevPlayers,
@@ -30,7 +30,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       message: `${SYSTEM_PREFIX}${message}`,
     });
   },
-  clearChat: () => set({ chats: [] }),
+  reset: () => set({ chats: [] }),
   addChat: chatData => {
     const { chats } = get();
     const newChat = makeChat(chatData);

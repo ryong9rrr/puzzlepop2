@@ -1,5 +1,5 @@
 import * as Stomp from "@stomp/stompjs";
-import { ChatData } from "@shared-types/multi";
+import { ChatData } from "@puzzlepop2/game-core";
 
 import {
   SEND_PUBLISH_DESTINATION,

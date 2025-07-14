@@ -2,7 +2,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import { Flex, Grid, GridItem, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
-import { CooperationWaitingGameData } from "@shared-types/multi";
+import { CooperationWaitingGameData } from "@puzzlepop2/game-core";
 
 import MODULE_CSS from "./RoomCardGrid.module.css";
 

@@ -3,5 +3,5 @@ export const isRecord = (value: unknown): value is Record<string, any> => {
 };
 
 export const isNumber = (value: unknown): value is number => {
-  return typeof value === "number" && !Number.isNaN(value);
+  return typeof value === "number" && !Number.isNaN(Number(value));
 };
