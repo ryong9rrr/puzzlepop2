@@ -29,7 +29,7 @@ function createSocket() {
 
   const send = (body: SendBody) => {
     if (!stomp) {
-      return;
+      throw new Error("Socket is not connected");
     }
 
     stomp.publish({
@@ -44,7 +44,7 @@ function createSocket() {
     cb: (message: T extends "game" ? unknown : ChatData) => void,
   ) => {
     if (!stomp) {
-      return;
+      throw new Error("Socket is not connected");
     }
 
     const destination =
@@ -63,7 +63,7 @@ function createSocket() {
 
   const disconnect = () => {
     if (!stomp) {
-      return;
+      throw new Error("Socket is not connected");
     }
     stomp.deactivate();
   };
