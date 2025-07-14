@@ -4,11 +4,11 @@ import { motion } from "motion/react";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
 import { useNavigation } from "@router/useNavigation";
-import { useDevelopingAlert } from "@shared-hooks/useDevelopingAlert";
+import { useAnimatedAlert } from "@shared-hooks/useAnimatedAlert";
 
 export const Menu = () => {
   const navigate = useNavigation();
-  const { sorry } = useDevelopingAlert();
+  const { alert } = useAnimatedAlert();
 
   return (
     <Flex direction="column" className="font-gameOutline" gapScale={0.4}>
@@ -24,7 +24,7 @@ export const Menu = () => {
           variant="shadow"
           size="lg"
           onClick={() => {
-            sorry();
+            alert("developing");
           }}
         >
           멀티게임
@@ -37,7 +37,7 @@ export const Menu = () => {
           variant="shadow"
           size="lg"
           onClick={() => {
-            sorry();
+            alert("developing");
           }}
         >
           패치노트

@@ -11,9 +11,7 @@ export const Alert = (props: AlertProps) => {
     if (typeof title === "string") {
       return (
         <Flex justify="center">
-          <Text size="lg" bold>
-            {title}
-          </Text>
+          <Text bold>{title}</Text>
         </Flex>
       );
     }
@@ -22,7 +20,7 @@ export const Alert = (props: AlertProps) => {
 
   const renderDescription = useCallback(() => {
     if (typeof description === "string") {
-      return <Text size="sm">{description}</Text>;
+      return <Text size="xs">{description}</Text>;
     }
     return description;
   }, [description]);

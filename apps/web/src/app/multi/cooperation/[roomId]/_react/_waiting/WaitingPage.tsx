@@ -4,7 +4,8 @@ import { useCallback } from "react";
 import { vars } from "@puzzlepop2/themes";
 import { Button } from "@puzzlepop2/react-components-button";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
-import { AlertClient } from "@shared-components/Clients/AlertClient";
+import { useAnimatedAlert } from "@shared-hooks/useAnimatedAlert";
+import { useAutoFocusInput } from "@shared-hooks/useAutoFocusInput";
 import { wait } from "@shared-utils/promises";
 
 import { PlayerCardGrid } from "./PlayerCardGrid";
@@ -20,6 +21,9 @@ import { useChatStore } from "../useChatStore";
 const { send } = socket;
 
 export const WaitingPage = ({ roomId }: { roomId: string }) => {
+  const { inputRef } = useAutoFocusInput();
+  const { alert } = useAnimatedAlert();
+
   const roomTitle = useWaitingStore(state => state.roomTitle);
   const roomSize = useWaitingStore(state => state.roomSize);
   const players = useWaitingStore(state => state.players);
@@ -53,8 +57,11 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
 
     const me = getCooperationGameSessionStorage().getItem();
 
+    // 방장이 새로고침을 하거나 방을 나갔다 다시 들어오는 등의 이유로 현재 인원과 방장 정보의 싱크가 맞지 않는 서버 버그 상황
+    // 에러로 간주하고 다시 방 생성 유도
     if (me.id !== admin.id) {
       console.error("게임 시작 권한이 없습니다.");
+      alert("error", "문제가 발생하여 방을 다시 생성해주세요.");
       return;
     }
 
@@ -103,7 +110,7 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
           <PlayerCardGrid />
           <Flex direction="column">
             <ChatHistory />
-            <ChatInput roomId={roomId} />
+            <ChatInput ref={inputRef} roomId={roomId} />
           </Flex>
         </Flex>
 
@@ -117,9 +124,7 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
             backgroundColor: vars.colors.grey[50],
           }}
         >
-          <AlertClient>
-            <Picture />
-          </AlertClient>
+          <Picture />
           <div style={{ flex: 1 }}></div>
           <Text size="xs" color="green" bold style={{ textAlign: "center" }}>
             방장이 게임을 시작할 수 있어요.

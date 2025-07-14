@@ -2,6 +2,8 @@ const PREFIX = "https://puzzlepop.site/cdn/puzzlepop";
 
 export const LOGO = `${PREFIX}/logo.webp`;
 export const LOADING_PUZZLE = `${PREFIX}/loading-puzzle.webp`;
+export const DEVELOPING = `${PREFIX}/developing.webp`;
+export const WARNING = `${PREFIX}/warning.webp`;
 
 export const MAIN_BACKGROUND = `${PREFIX}/bg-main.webp`;
 export const MAIN_BACKGROUND_THUMBNAIL = `${PREFIX}/bg-main-thumbnail.webp`;

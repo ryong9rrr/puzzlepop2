@@ -4,9 +4,9 @@ import { Suspense, useState } from "react";
 import Image from "next/image";
 import { vars } from "@puzzlepop2/themes";
 import { Skeleton } from "@puzzlepop2/react-components-layout";
-import { useDevelopingAlert } from "@shared-hooks/useDevelopingAlert";
 
 import { useWaitingStore } from "../useWaitingStore";
+import { useAnimatedAlert } from "@shared-hooks/useAnimatedAlert";
 
 const WIDTH = "9.8rem";
 const HEIGHT = "6rem";
@@ -14,7 +14,7 @@ const HEIGHT = "6rem";
 export const Picture = () => {
   const [isError, setIsError] = useState(false);
 
-  const { sorry } = useDevelopingAlert();
+  const { alert } = useAnimatedAlert();
   const imgSrc = useWaitingStore(state => state.imgSrc);
 
   if (!imgSrc || isError) {
@@ -37,7 +37,7 @@ export const Picture = () => {
           borderRadius: "0.25rem",
           cursor: "pointer",
         }}
-        onClick={() => sorry()}
+        onClick={() => alert("developing")}
         onError={() => setIsError(true)}
       />
     </Suspense>

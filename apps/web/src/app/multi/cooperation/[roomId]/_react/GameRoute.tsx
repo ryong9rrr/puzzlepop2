@@ -17,6 +17,7 @@ import { WaitingPage } from "./_waiting/WaitingPage";
 import { InGamePage } from "./_inGame/InGamePage";
 
 import { getCooperationGameSessionStorage } from "../../_storages/cooperationGameSessionStorage";
+import { AlertClient } from "@shared-components/Clients/AlertClient";
 
 const { connect, disconnect, subscribe, send } = socket;
 
@@ -109,7 +110,9 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
             src={CDN.COOPERATION_BACKGROUND}
             blurSrc={CDN.COOPERATION_BACKGROUND_THUMBNAIL}
           />
-          <WaitingPage roomId={roomId} />
+          <AlertClient>
+            <WaitingPage roomId={roomId} />
+          </AlertClient>
         </>
       )}
 
