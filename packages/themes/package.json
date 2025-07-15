@@ -23,7 +23,6 @@
   "dependencies": {
     "@puzzlepop2/esbuild-config": "*",
     "@puzzlepop2/ts-config": "*",
-    "@types/minimatch": "^6.0.0",
     "typescript": "5.0.4"
   }
 }
