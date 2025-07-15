@@ -20,6 +20,7 @@ export const Avatar = (props: Props) => {
     <Suspense fallback={<SkeletonCircle size={size} />}>
       {isError ? (
         <Image
+          priority
           alt=""
           src={userAvatarDefaultSvg}
           width={600}
@@ -33,6 +34,7 @@ export const Avatar = (props: Props) => {
         />
       ) : (
         <Image
+          priority
           alt=""
           src={src || userAvatarDefaultSvg}
           width={600}

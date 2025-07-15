@@ -28,6 +28,7 @@ export const Picture = () => {
         alt=""
         width={300}
         height={200}
+        priority
         style={{
           width: WIDTH,
           height: HEIGHT,

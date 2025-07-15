@@ -79,6 +79,8 @@ export const LeftStickyArea = () => {
               fill
               sizes="40vw"
               className={MODULE_CSS.image}
+              priority
+              unoptimized
             />
           </div>
           <Spacing scale={0.4} />

@@ -69,6 +69,8 @@ export const RoomCardGrid = (props: Props) => {
                     fill
                     sizes="25vw"
                     className={MODULE_CSS.image}
+                    priority
+                    unoptimized
                   />
                 </div>
                 <Text

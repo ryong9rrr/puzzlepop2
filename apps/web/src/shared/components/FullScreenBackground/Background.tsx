@@ -22,6 +22,7 @@ export default function Background(props: Props) {
           alt="blur"
           fill
           priority
+          unoptimized
           style={{ ...backgroundStyle, opacity: isLoaded ? 0 : 0.4 }}
         />
       )}
@@ -30,6 +31,7 @@ export default function Background(props: Props) {
         alt=""
         fill
         priority
+        unoptimized
         style={{
           ...backgroundStyle,
           opacity: isLoaded ? 0.4 : 0,

@@ -19,7 +19,15 @@ export default function Page() {
       <Flex justify="center" align="center" style={{ width: "100%", height: "100vh" }}>
         <Flex justify="center" align="center" direction="column" gapScale={1}>
           <div className={MODULE_CSS.bounceInBack} style={{ width: "6rem" }}>
-            <Image src={CDN.LOGO} alt="logo" layout="responsive" width={1} height={1} priority />
+            <Image
+              src={CDN.LOGO}
+              alt="logo"
+              layout="responsive"
+              width={1}
+              height={1}
+              priority
+              unoptimized
+            />
           </div>
           <div className={MODULE_CSS.bounceInBack}>
             <Flex as="h1" className="font-gameBasic">

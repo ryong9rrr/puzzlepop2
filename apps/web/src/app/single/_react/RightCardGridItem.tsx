@@ -34,7 +34,15 @@ export const RightCardGridItem = (props: Props) => {
     >
       <Flex direction="column" gapScale={0.4}>
         <div className={MODULE_CSS.imageContainer}>
-          <Image src={imgSrc} alt="" fill sizes="25vw" className={MODULE_CSS.image} />
+          <Image
+            src={imgSrc}
+            alt=""
+            fill
+            sizes="25vw"
+            className={MODULE_CSS.image}
+            priority
+            unoptimized
+          />
         </div>
         {children}
         <Spacing scale={0.1} />
