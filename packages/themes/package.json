@@ -21,8 +21,9 @@
     "build:css": "node scripts/build-css-module.js"
   },
   "dependencies": {
-    "@puzzlepop2/ts-config": "*",
     "@puzzlepop2/esbuild-config": "*",
-    "typescript": "^5"
+    "@puzzlepop2/ts-config": "*",
+    "@types/minimatch": "^6.0.0",
+    "typescript": "5.0.4"
   }
 }
