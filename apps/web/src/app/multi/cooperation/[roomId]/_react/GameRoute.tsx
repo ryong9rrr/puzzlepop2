@@ -17,6 +17,7 @@ import { useInGameStore } from "./useInGameStore";
 
 import { WaitingPage } from "./_waiting/WaitingPage";
 import { InGamePage } from "./_inGame/InGamePage";
+import { canvasStore } from "./_inGame/_canvas/store";
 
 import { getCooperationGameSessionStorage } from "../../_storages/cooperationGameSessionStorage";
 
@@ -44,9 +45,6 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
 
   const setTime = useInGameStore(state => state.setTime);
   const setInGameImgSrc = useInGameStore(state => state.setImgSrc);
-  const setPieceSize = useInGameStore(state => state.setPieceSize);
-  const setWidthCount = useInGameStore(state => state.setWidthCount);
-  const setLengthCount = useInGameStore(state => state.setLengthCount);
   const setGameData = useInGameStore(state => state.setGameData);
   const resetInGameStore = useInGameStore(state => state.reset);
 
@@ -87,12 +85,21 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
         const isGameData = isRecord(_gameData) && _gameData.redPuzzle;
         if (isGameData) {
           console.log("게임데이터", _gameData);
+
+          // 리액트 UI에 사용되는 데이터들
           const { picture, redPuzzle } = _gameData as MultiGameData;
           setInGameImgSrc(picture.encodedString);
-          setPieceSize(redPuzzle.pieceSize);
-          setWidthCount(redPuzzle.widthCnt);
-          setLengthCount(redPuzzle.lengthCnt);
           setGameData(_gameData as MultiGameData);
+
+          // 퍼즐캔버스 초기화에 사용되는 데이터들
+          const { shapes, setWidthCount, setLengthCount, setPieceSize, setShapes } =
+            canvasStore.getState();
+          if (shapes.length === 0) {
+            setPieceSize(redPuzzle.pieceSize);
+            setWidthCount(redPuzzle.widthCnt);
+            setLengthCount(redPuzzle.lengthCnt);
+            setShapes(redPuzzle.board);
+          }
         }
       });
 
@@ -114,9 +121,12 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
     });
 
     return () => {
+      const { reset: resetCanvasStore } = canvasStore.getState();
+
       resetChatStore();
       resetWaitingStore();
       resetInGameStore();
+      resetCanvasStore();
       disconnect();
     };
   }, []);

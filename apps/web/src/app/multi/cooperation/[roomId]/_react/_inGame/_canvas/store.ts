@@ -1,71 +1,57 @@
 import { createStore } from "zustand/vanilla";
-import { MultiGamePuzzlePiece, Shape } from "@puzzlepop2/game-core";
-
-import { LoadProps } from "./load";
+import { Bundle, MultiGamePuzzlePiece, Shape } from "@puzzlepop2/game-core";
 
 import { createShapes } from "./createShapes";
 
 interface CanvasStore {
-  imgElement: HTMLImageElement | null;
-  canvasElement: HTMLCanvasElement | null;
-  widthCount: LoadProps["widthCount"];
-  lengthCount: LoadProps["lengthCount"];
-  pieceSize: LoadProps["pieceSize"];
-  bundles: LoadProps["bundles"];
+  widthCount: number;
+  setWidthCount: (widthCount: number) => void;
 
-  reset: () => void;
+  lengthCount: number;
+  setLengthCount: (lengthCount: number) => void;
 
-  init: (props: {
-    imgElement: HTMLImageElement;
-    canvasElement: HTMLCanvasElement;
-    widthCount: LoadProps["widthCount"];
-    lengthCount: LoadProps["lengthCount"];
-    pieceSize: LoadProps["pieceSize"];
-    bundles: LoadProps["bundles"];
-  }) => void;
+  pieceSize: number;
+  setPieceSize: (pieceSize: number) => void;
 
   shapes: Shape[];
-  initShapes: (board: MultiGamePuzzlePiece[][]) => void;
+  setShapes: (board: MultiGamePuzzlePiece[][]) => void;
+
+  bundles: Bundle[];
+  setBundles: (bundles: Bundle[]) => void;
+
+  reset: () => void;
 }
 
 export const canvasStore = createStore<CanvasStore>((set, get) => ({
-  imgElement: null,
-  canvasElement: null,
   widthCount: 0,
+  setWidthCount: (widthCount: number) => set({ widthCount }),
+
   lengthCount: 0,
+  setLengthCount: (lengthCount: number) => set({ lengthCount }),
+
   pieceSize: 0,
+  setPieceSize: (pieceSize: number) => set({ pieceSize }),
+
+  shapes: [],
+  setShapes: (board: MultiGamePuzzlePiece[][]) => {
+    const { shapes: prevShapes } = get();
+    if (prevShapes.length > 0) {
+      return;
+    }
+    const shapes = createShapes(board);
+    set({ shapes });
+  },
+
   bundles: [],
+  setBundles: (bundles: Bundle[]) => set({ bundles }),
 
   reset: () => {
     set({
-      imgElement: null,
-      canvasElement: null,
       widthCount: 0,
       lengthCount: 0,
       pieceSize: 0,
+      shapes: [],
       bundles: [],
     });
-  },
-
-  init: props => {
-    const { imgElement, canvasElement, widthCount, lengthCount, pieceSize, bundles } = props;
-    set({
-      imgElement,
-      canvasElement,
-      widthCount,
-      lengthCount,
-      pieceSize,
-      bundles,
-    });
-  },
-
-  shapes: [],
-  initShapes: board => {
-    const { shapes: prevShapes, widthCount, lengthCount } = get();
-    if (prevShapes) {
-      return;
-    }
-    const shapes = createShapes({ board, widthCount, lengthCount });
-    set({ shapes });
   },
 }));

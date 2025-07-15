@@ -1,13 +1,8 @@
-import { MultiGamePuzzlePiece, Shape } from "@puzzlepop2/game-core";
+import { Shape, MultiGamePuzzlePiece } from "@puzzlepop2/game-core";
+import { canvasStore } from "./store";
 
-type Props = {
-  board: MultiGamePuzzlePiece[][];
-  widthCount: number;
-  lengthCount: number;
-};
-
-export const createShapes = (props: Props) => {
-  const { board, widthCount, lengthCount } = props;
+export const createShapes = (board: MultiGamePuzzlePiece[][]): Shape[] => {
+  const { lengthCount, widthCount } = canvasStore.getState();
 
   const shapes: Shape[] = [];
 
