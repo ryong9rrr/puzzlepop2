@@ -1,12 +1,12 @@
 import { createStore } from "zustand/vanilla";
 import { MultiGamePuzzlePiece, Shape } from "@puzzlepop2/game-core";
 
-import { createShapes } from "./createShapes";
-
 type InitParams = {
   widthCount: number;
   lengthCount: number;
   pieceSize: number;
+  roomId: string;
+  myNickname: string;
   board: MultiGamePuzzlePiece[][];
 };
 
@@ -15,6 +15,8 @@ interface CanvasStore {
   lengthCount: number;
   pieceSize: number;
   shapes: Shape[];
+  roomId: string;
+  myNickname: string;
 
   isInitialized: boolean;
   init: (params: InitParams) => void;
@@ -27,15 +29,19 @@ export const canvasStore = createStore<CanvasStore>(set => ({
   lengthCount: 0,
   pieceSize: 0,
   shapes: [],
+  roomId: "",
+  myNickname: "",
 
   isInitialized: false,
   init: params => {
-    const { widthCount, lengthCount, pieceSize, board } = params;
+    const { widthCount, lengthCount, pieceSize, roomId, myNickname, board } = params;
     set({
       widthCount,
       lengthCount,
       pieceSize,
       shapes: createShapes({ board, widthCount, lengthCount }),
+      roomId,
+      myNickname,
       isInitialized: true,
     });
   },
@@ -50,3 +56,26 @@ export const canvasStore = createStore<CanvasStore>(set => ({
     });
   },
 }));
+
+const createShapes = (params: {
+  board: MultiGamePuzzlePiece[][];
+  widthCount: number;
+  lengthCount: number;
+}): Shape[] => {
+  const { board, widthCount, lengthCount } = params;
+
+  const shapes: Shape[] = [];
+  for (let y = 0; y < lengthCount; y += 1) {
+    for (let x = 0; x < widthCount; x += 1) {
+      const { type } = board[y][x];
+      const [top, right, bottom, left] = type;
+      shapes.push({
+        top,
+        right,
+        bottom,
+        left,
+      });
+    }
+  }
+  return shapes;
+};

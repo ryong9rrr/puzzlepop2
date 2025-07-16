@@ -9,13 +9,14 @@ import {
   IMG_ID,
   MultiGameData,
   Player,
+  MouseDragResponse,
 } from "@puzzlepop2/game-core";
 import { vars } from "@puzzlepop2/themes";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { AlertClient } from "@shared-components/Clients/AlertClient";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
-import { isNumber, isRecord } from "@shared-types/utils";
+import { isRecord } from "@shared-types/utils";
 
 import * as CDN from "@remotes-cdn/images";
 import { socket } from "@remotes-main/socketStore";
@@ -30,7 +31,9 @@ import { useInGameStore } from "./useInGameStore";
 import { getCooperationGameSessionStorage } from "../../_storages/cooperationGameSessionStorage";
 
 // 핵심 게임 클라이언트 로직
-import { canvasStore } from "./_inGame/_canvas/store";
+import { canvasStore } from "./_inGame/_canvas/stores/canvasStore";
+import { pieceStore } from "./_inGame/_canvas/stores/pieceStore";
+import { Point } from "paper/dist/paper-core";
 
 type GameRouteState = "waiting" | "inGame" | "finished" | null;
 
@@ -89,8 +92,7 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
         // TODO: 끝난 게임인지도 검사해야하는데 이건 나중에...
         setGameRouteState("inGame");
 
-        const isTimeData = isRecord(_gameData) && isNumber(_gameData.time);
-        if (isTimeData) {
+        if (isRecord(_gameData) && "time" in _gameData) {
           setTime(_gameData.time as number);
         }
 
@@ -106,22 +108,26 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
               lengthCount: redPuzzle.lengthCnt,
               pieceSize: redPuzzle.pieceSize,
               board: redPuzzle.board,
+              roomId,
+              myNickname: me.id,
             });
           }
 
           setInGameImgSrc(picture.encodedString);
           setGameData(_gameData as MultiGameData);
-
-          const imgElement = window.document.getElementById(IMG_ID) as HTMLImageElement;
-          const 이미지로드완료 = imgElement && imgElement.complete && imgElement.naturalWidth > 0;
-          if (이미지로드완료) {
-            console.log("이때부터 리렌더 ㄱㄱ");
-          }
         }
 
-        // time 빼고 디버깅
-        if (isRecord(_gameData) && Object.keys(_gameData).length !== 1) {
-          console.log("게임데이터", _gameData);
+        if (isRecord(_gameData) && "message" in _gameData && _gameData.message === "MOVE") {
+          const gameData = _gameData as MouseDragResponse;
+          const { pieces } = pieceStore.getState();
+          const targets = JSON.parse(gameData.targets) as {
+            x: number;
+            y: number;
+            index: number;
+          }[];
+          targets.forEach(({ x, y, index }) => {
+            pieces[index].paperGroup.position = new Point(x, y);
+          });
         }
       });
 
@@ -144,11 +150,13 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
 
     return () => {
       const { reset: resetCanvasStore } = canvasStore.getState();
+      const { reset: resetPieceStore } = pieceStore.getState();
 
       resetChatStore();
       resetWaitingStore();
       resetInGameStore();
       resetCanvasStore();
+      resetPieceStore();
       disconnect();
     };
 

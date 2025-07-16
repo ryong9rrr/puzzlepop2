@@ -1,7 +1,8 @@
 import Paper from "paper";
-import * as Styles from "./styles";
-import { canvasStore } from "../store";
 import { IMG_ID } from "@puzzlepop2/game-core";
+
+import * as Styles from "./styles";
+import { canvasStore } from "../stores/canvasStore";
 
 export const createPiece = (params: { mask: paper.Path; x: number; y: number }) => {
   const { mask, x, y } = params;

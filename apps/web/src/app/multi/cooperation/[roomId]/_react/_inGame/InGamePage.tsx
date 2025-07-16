@@ -27,9 +27,12 @@ export const InGamePage = ({ roomId }: { roomId: string }) => {
   }, []);
 
   useEffect(() => {
-    const imgElement = window.document.getElementById(IMG_ID) as HTMLImageElement;
+    if (!imgSrc || !gameData) {
+      return;
+    }
 
-    if (!imgSrc || !imgElement || imgElement.src || !gameData) {
+    const imgElement = window.document.getElementById(IMG_ID) as HTMLImageElement;
+    if (!imgElement || imgElement.src) {
       return;
     }
 

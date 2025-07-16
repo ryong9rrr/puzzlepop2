@@ -1,26 +1,31 @@
 import Paper from "paper";
 
 import { IMG_ID, MultiGamePuzzlePiece } from "@puzzlepop2/game-core";
-import { canvasStore } from "./store";
+import { canvasStore } from "./stores/canvasStore";
 import { getMask } from "./renders/getMask";
 import * as Styles from "./renders/styles";
 import { createPiece } from "./renders/createPiece";
 import { Point } from "paper/dist/paper-core";
+import { Piece, pieceStore } from "./stores/pieceStore";
+import { attachEvents } from "./attachEvents";
 
 export const render = (board: MultiGamePuzzlePiece[][], bundles: unknown[][] = []) => {
   const imgElement = window.document.getElementById(IMG_ID) as HTMLImageElement;
   const { pieceSize, widthCount, lengthCount, shapes } = canvasStore.getState();
 
   if (!imgElement) {
-    console.log("아직 이미지가 로드되지 않았어요");
-    return;
+    throw new Error("이미지 엘리먼트가 존재하지 않습니다.");
   }
 
+  const pieces: Piece[] = [];
   for (let y = 0; y < lengthCount; y += 1) {
     for (let x = 0; x < widthCount; x += 1) {
-      const shape = shapes[y * widthCount + x];
+      const index = y * widthCount + x;
+
+      const shape = shapes[index];
       if (!shape) {
-        throw new Error(`${y * widthCount + x}에 해당하는 조각이 없어 에러가 발생했어요`);
+        console.error(`Index ${index}에 해당하는 조각이 없습니다.`);
+        return;
       }
 
       const mask = getMask({
@@ -40,6 +45,16 @@ export const render = (board: MultiGamePuzzlePiece[][], bundles: unknown[][] = [
       });
 
       piece.position = new Point(board[y][x].position_x, board[y][x].position_y);
+
+      pieces.push({
+        groupId: null,
+        index,
+        paperGroup: piece,
+      });
     }
   }
+
+  const { setPieces } = pieceStore.getState();
+  setPieces(pieces);
+  attachEvents();
 };

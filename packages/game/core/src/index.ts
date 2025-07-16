@@ -15,4 +15,5 @@ export type {
   MultiGamePuzzlePiece,
   Picture,
   Player,
+  MouseDragResponse,
 } from "./types";

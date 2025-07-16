@@ -97,7 +97,7 @@ export type MultiGamePuzzlePiece = {
   type: [number, number, number, number]; // top right bottom left 순이며 -1, 0, 1 세 값 중 하나를 갖는다.
 };
 
-export type Bundle = {};
+export type Bundle = {}; // TODO
 
 export type MultiGamePuzzle = {
   board: MultiGamePuzzlePiece[][];
@@ -151,4 +151,25 @@ export type MultiGameData = {
   startTime: string;
   started: boolean;
   time: number;
+};
+
+export type MouseDragResponse = {
+  message: "MOVE";
+  blueBundles: Bundle[] | null;
+  blueItemList: (MultiGameItem | null)[];
+  blueProgressPercent: number;
+  combo: null; // TODO
+  comboCnt: number;
+  deleted: null; // TODO, 필요한가?
+  finished: boolean;
+  game: null; // TODO, 필요한가?
+  item: null; // TODO, 필요한가?
+  randomItem: null | unknown; // TODO
+  redBundles: Bundle[] | null; // 협동일 경우 레드팀이니까 null은 안오는 것 같은데 확실하지 않음;
+  redItemList: (MultiGameItem | null)[];
+  redProgressPercent: number;
+  senderId: string; // send한 사람의 닉네임
+  targetList: null; // TODO, 필요한가?
+  targets: string; // nowIndex.toString() + "," + preIndex.toString() << 이 형태라서 parse해서 써야하는듯
+  team: "RED" | "BLUE"; // send한 사람의 팀..
 };

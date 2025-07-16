@@ -1,5 +1,6 @@
 import * as Stomp from "@stomp/stompjs";
 import { ChatData } from "@puzzlepop2/game-core";
+import { isRecord } from "@shared-types/utils";
 
 import {
   SEND_PUBLISH_DESTINATION,
@@ -41,7 +42,7 @@ function createSocket() {
   const subscribe = <T extends "game" | "chat">(
     type: T,
     roomId: string,
-    cb: (message: T extends "game" ? unknown : ChatData) => void,
+    cb: (message: T extends "game" ? Record<string, unknown> : ChatData) => void,
   ) => {
     if (!stomp) {
       throw new Error("Socket is not connected");
@@ -56,7 +57,14 @@ function createSocket() {
         return;
       }
 
-      const data = JSON.parse(message.body) as T extends "game" ? unknown : ChatData;
+      const data = JSON.parse(message.body) as T extends "game"
+        ? Record<string, unknown>
+        : ChatData;
+
+      if (!isRecord(data)) {
+        return;
+      }
+
       cb(data);
     });
   };
@@ -101,7 +109,6 @@ type SendGameInfoBody = {
   message: "GAME_INFO";
   roomId: string;
   sender: string;
-  targets?: string; // nowIndex.toString() + "," + preIndex.toString(),
 };
 
 type SendGameStartBody = {
@@ -111,4 +118,19 @@ type SendGameStartBody = {
   sender: string;
 };
 
-type SendBody = SendEnterGameBody | SendChatBody | SendGameInfoBody | SendGameStartBody;
+type SendMouseDragBody = {
+  type: "GAME";
+  message: "MOUSE_DRAG";
+  roomId: string;
+  sender: string;
+  targets: string; // nowIndex.toString() + "," + preIndex.toString() 형식
+  position_x: number;
+  position_y: number;
+};
+
+type SendBody =
+  | SendEnterGameBody
+  | SendChatBody
+  | SendGameInfoBody
+  | SendGameStartBody
+  | SendMouseDragBody;
