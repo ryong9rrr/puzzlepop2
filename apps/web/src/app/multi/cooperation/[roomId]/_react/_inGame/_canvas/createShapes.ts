@@ -1,14 +1,17 @@
 import { Shape, MultiGamePuzzlePiece } from "@puzzlepop2/game-core";
-import { canvasStore } from "./store";
 
-export const createShapes = (board: MultiGamePuzzlePiece[][]): Shape[] => {
-  const { lengthCount, widthCount } = canvasStore.getState();
+export const createShapes = (params: {
+  board: MultiGamePuzzlePiece[][];
+  widthCount: number;
+  lengthCount: number;
+}): Shape[] => {
+  const { board, widthCount, lengthCount } = params;
 
   const shapes: Shape[] = [];
 
-  for (let i = 0; i < lengthCount; i += 1) {
-    for (let j = 0; j < widthCount; j += 1) {
-      const { type } = board[i][j];
+  for (let y = 0; y < lengthCount; y += 1) {
+    for (let x = 0; x < widthCount; x += 1) {
+      const { type } = board[y][x];
       const [top, right, bottom, left] = type;
       shapes.push({
         top,

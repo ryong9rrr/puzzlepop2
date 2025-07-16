@@ -1,25 +1,36 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CooperationWaitingGameData, MultiGameData, Player } from "@puzzlepop2/game-core";
+import {
+  CANVAS_HEIGHT,
+  CANVAS_ID,
+  CANVAS_WIDTH,
+  CooperationWaitingGameData,
+  IMG_ID,
+  MultiGameData,
+  Player,
+} from "@puzzlepop2/game-core";
+import { vars } from "@puzzlepop2/themes";
+import { Flex } from "@puzzlepop2/react-components-layout";
 import { AlertClient } from "@shared-components/Clients/AlertClient";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
-
 import { isNumber, isRecord } from "@shared-types/utils";
 
 import * as CDN from "@remotes-cdn/images";
 import { socket } from "@remotes-main/socketStore";
 
+import { WaitingPage } from "./_waiting/WaitingPage";
+import { InGamePage } from "./_inGame/InGamePage";
+
 import { useChatStore } from "./useChatStore";
 import { useWaitingStore } from "./useWaitingStore";
 import { useInGameStore } from "./useInGameStore";
 
-import { WaitingPage } from "./_waiting/WaitingPage";
-import { InGamePage } from "./_inGame/InGamePage";
-import { canvasStore } from "./_inGame/_canvas/store";
-
 import { getCooperationGameSessionStorage } from "../../_storages/cooperationGameSessionStorage";
+
+// 핵심 게임 클라이언트 로직
+import { canvasStore } from "./_inGame/_canvas/store";
 
 type GameRouteState = "waiting" | "inGame" | "finished" | null;
 
@@ -60,6 +71,7 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
         const isWaiting = isRecord(_gameData) && _gameData.started === false;
         if (isWaiting) {
           setGameRouteState("waiting");
+
           const gameData = _gameData as CooperationWaitingGameData;
           setAdmin(gameData.admin);
           setWaitingImgSrc(gameData.picture?.encodedString || null);
@@ -84,22 +96,31 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
 
         const isGameData = isRecord(_gameData) && _gameData.redPuzzle;
         if (isGameData) {
-          console.log("게임데이터", _gameData);
-
-          // 리액트 UI에 사용되는 데이터들
           const { picture, redPuzzle } = _gameData as MultiGameData;
+
+          // 퍼즐캔버스 초기화
+          const { isInitialized, init } = canvasStore.getState();
+          if (!isInitialized) {
+            init({
+              widthCount: redPuzzle.widthCnt,
+              lengthCount: redPuzzle.lengthCnt,
+              pieceSize: redPuzzle.pieceSize,
+              board: redPuzzle.board,
+            });
+          }
+
           setInGameImgSrc(picture.encodedString);
           setGameData(_gameData as MultiGameData);
 
-          // 퍼즐캔버스 초기화에 사용되는 데이터들
-          const { shapes, setWidthCount, setLengthCount, setPieceSize, setShapes } =
-            canvasStore.getState();
-          if (shapes.length === 0) {
-            setPieceSize(redPuzzle.pieceSize);
-            setWidthCount(redPuzzle.widthCnt);
-            setLengthCount(redPuzzle.lengthCnt);
-            setShapes(redPuzzle.board);
+          const imgElement = window.document.getElementById(IMG_ID) as HTMLImageElement;
+          if (imgElement?.complete) {
+            console.log("이때부터 리렌더 ㄱㄱ");
           }
+        }
+
+        // time 빼고 디버깅
+        if (isRecord(_gameData) && Object.keys(_gameData).length !== 1) {
+          console.log("게임데이터", _gameData);
         }
       });
 
@@ -153,6 +174,27 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
             src={CDN.RED_TEAM_BACKGROUND}
             blurSrc={CDN.RED_TEAM_BACKGROUND_THUMBNAIL}
           />
+          <Flex
+            justify="center"
+            align="center"
+            style={{
+              width: "100vw",
+              height: "100vh",
+            }}
+          >
+            <img id={IMG_ID} style={{ display: "none" }} />
+            <canvas
+              id={CANVAS_ID}
+              style={{
+                width: `${CANVAS_WIDTH}px`,
+                height: `${CANVAS_HEIGHT}px`,
+                backgroundColor: vars.colors.grey[50],
+                borderRadius: "0.25rem",
+                opacity: 0.8,
+                border: `3px solid ${vars.colors.grey[500]}`,
+              }}
+            />
+          </Flex>
           <InGamePage roomId={roomId} />
         </>
       )}

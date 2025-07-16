@@ -3,7 +3,6 @@ import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
 
 import { GameRoute } from "./_react/GameRoute";
-import { StorageGuard } from "./_react/StorageGuard";
 
 interface PageProps {
   params: Promise<{ roomId: string }>;
@@ -21,9 +20,7 @@ export default async function Page({ params }: PageProps) {
       <ToastClient>
         <IsMobileWarningToast />
       </ToastClient>
-      <StorageGuard>
-        <GameRoute roomId={roomId} />
-      </StorageGuard>
+      <GameRoute roomId={roomId} />
     </FullScreenBackground.Main>
   );
 }
