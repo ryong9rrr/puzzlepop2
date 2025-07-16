@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 

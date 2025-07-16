@@ -1,8 +1,7 @@
 "use client";
 
 import { SetStateAction } from "react";
-import { FaPlus } from "react-icons/fa";
-import { FaMinus } from "react-icons/fa";
+import { FaPlus, FaMinus } from "react-icons/fa";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
 

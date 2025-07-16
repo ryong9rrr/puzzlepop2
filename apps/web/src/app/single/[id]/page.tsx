@@ -43,7 +43,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         alignItems: "center",
       }}
     >
-      <img id={IMG_ID} src={puzzle.src} style={{ display: "none" }} />
+      <img id={IMG_ID} alt="" src={puzzle.src} style={{ display: "none" }} />
       <canvas
         id={CANVAS_ID}
         style={{

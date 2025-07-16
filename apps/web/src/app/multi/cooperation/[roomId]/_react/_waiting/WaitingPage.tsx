@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { vars } from "@puzzlepop2/themes";
 import { Button } from "@puzzlepop2/react-components-button";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
@@ -78,7 +78,7 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
       sender: me.id,
       roomId,
     });
-  }, []);
+  }, [admin, roomId]);
 
   return (
     <Flex

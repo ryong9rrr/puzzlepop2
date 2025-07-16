@@ -82,7 +82,7 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
             prevPlayers,
             currentPlayers: gameData.redTeam.players,
           });
-          prevPlayers = _gameData.redTeam.players;
+          prevPlayers = gameData.redTeam.players;
           return;
         }
 
@@ -91,7 +91,7 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
 
         const isTimeData = isRecord(_gameData) && isNumber(_gameData.time);
         if (isTimeData) {
-          setTime(_gameData.time);
+          setTime(_gameData.time as number);
         }
 
         const isGameData = isRecord(_gameData) && _gameData.redPuzzle;
@@ -113,7 +113,8 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
           setGameData(_gameData as MultiGameData);
 
           const imgElement = window.document.getElementById(IMG_ID) as HTMLImageElement;
-          if (imgElement?.complete) {
+          const 이미지로드완료 = imgElement && imgElement.complete && imgElement.naturalWidth > 0;
+          if (이미지로드완료) {
             console.log("이때부터 리렌더 ㄱㄱ");
           }
         }
@@ -150,6 +151,8 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
       resetCanvasStore();
       disconnect();
     };
+
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -182,7 +185,7 @@ export const GameRoute = ({ roomId }: { roomId: string }) => {
               height: "100vh",
             }}
           >
-            <img id={IMG_ID} style={{ display: "none" }} />
+            <img id={IMG_ID} alt="" style={{ display: "none" }} />
             <canvas
               id={CANVAS_ID}
               style={{

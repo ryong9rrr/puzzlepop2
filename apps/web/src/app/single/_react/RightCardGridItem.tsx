@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
 import Image from "next/image";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import { Flex, GridItem, Spacing } from "@puzzlepop2/react-components-layout";
 
 import MODULE_CSS from "./RightCard.module.css";

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import { motion } from "motion/react";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
