@@ -1,11 +1,11 @@
-import { MultiGameInfoMessage } from "@puzzlepop2/game-core";
 import { RemoteError } from "@shared-utils/error";
 
 import { ORIGINAL_SERVER_END_POINT_HTTP } from "./_ep";
+import { GameInfoData } from "@puzzlepop/types/base";
 
-export const getCooperationGameRoomList = async (): Promise<MultiGameInfoMessage[]> => {
+export const getCooperationGameRoomList = async (): Promise<GameInfoData[]> => {
   const response = await fetch(`${ORIGINAL_SERVER_END_POINT_HTTP()}/game/rooms/cooperation`);
-  const data = (await response.json()) as MultiGameInfoMessage[];
+  const data = (await response.json()) as GameInfoData[];
   return data;
 };
 
@@ -13,7 +13,7 @@ export const createGameRoom = async (props: {
   roomTitle: string;
   userId: string;
   roomSize: number;
-}): Promise<MultiGameInfoMessage> => {
+}): Promise<GameInfoData> => {
   const { roomTitle, userId, roomSize: _roomSize } = props;
   const roomSize = Number(_roomSize);
 
@@ -45,7 +45,7 @@ export const createGameRoom = async (props: {
 export const enterGameRoom = async (props: {
   userId: string;
   roomId: string;
-}): Promise<MultiGameInfoMessage> => {
+}): Promise<GameInfoData> => {
   const { userId, roomId } = props;
 
   const body = JSON.stringify({

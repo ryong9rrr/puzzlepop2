@@ -1,9 +1,9 @@
 import { canvasStaticStore } from "./canvasStaticStore";
-import { onMouseDown } from "./events/onMouseDown/onMouseDown";
-import { onMouseDrag } from "./events/onMouseDrag/onMouseDrag";
-import { onMouseEnter } from "./events/onMouseEnter/onMouseEnter";
-import { onMouseLeave } from "./events/onMouseLeave/onMouseLeave";
-import { onMouseUp } from "./events/onMouseUp/onMouseUp";
+import { onMouseDown } from "./events/onMouseDown";
+import { onMouseDrag } from "./events/onMouseDrag";
+import { onMouseEnter } from "./events/onMouseEnter";
+import { onMouseLeave } from "./events/onMouseLeave";
+import { onMouseUp } from "./events/onMouseUp";
 
 export const attachEvents = () => {
   const {

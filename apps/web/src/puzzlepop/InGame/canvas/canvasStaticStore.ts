@@ -1,12 +1,6 @@
 import { createStore } from "zustand/vanilla";
-import { Point } from "paper/dist/paper-core";
-import {
-  MeFromStorage,
-  MultiGameMouseDragMessage,
-  MultiGamePieceType,
-  MultiGameTeamType,
-  Shape,
-} from "@puzzlepop2/game-core";
+import { Shape } from "@puzzlepop2/game-core";
+import { Me, Piece } from "../../types/base";
 
 export type CanvasPiece = {
   groupId: number | null;
@@ -19,27 +13,29 @@ type InitData = {
   lengthCount: number;
   pieceSize: number;
   roomId: string;
-  myNickname: string;
+  me: Me;
+  level: number;
+
   shapes: Shape[];
-  me: MeFromStorage;
 };
+
+type InitParams = {
+  board: Piece[][];
+} & Required<Omit<InitData, "shapes">>;
 
 const getDefaultInitData = (): InitData => ({
   widthCount: 0,
   lengthCount: 0,
   pieceSize: 0,
   roomId: "",
-  myNickname: "",
-  shapes: [],
   me: {
     id: new Date().getTime().toString(), // 임시 ID
     team: "RED",
   },
-});
+  level: 1,
 
-type InitParams = {
-  board: MultiGamePieceType[][];
-} & Required<Omit<InitData, "shapes">>;
+  shapes: [],
+});
 
 interface CanvasStaticStore {
   isInitialized: boolean;
@@ -48,12 +44,15 @@ interface CanvasStaticStore {
 
   redPieces: CanvasPiece[];
   setRedPieces: (redPieces: CanvasPiece[]) => void;
+  redBundles: Piece[][];
+  setRedBundles: (redBundles: Piece[][]) => void;
 
   bluePieces: CanvasPiece[];
   setBluePieces: (bluePieces: CanvasPiece[]) => void;
+  blueBundles: Piece[][];
+  setBlueBundles: (blueBundles: Piece[][]) => void;
 
   reset: () => void;
-  syncMouseDragEvent: (gameData: MultiGameMouseDragMessage, team: MultiGameTeamType) => void;
 }
 
 export const canvasStaticStore = createStore<CanvasStaticStore>((set, get) => ({
@@ -64,8 +63,9 @@ export const canvasStaticStore = createStore<CanvasStaticStore>((set, get) => ({
     if (isInitialized) {
       return;
     }
-    const { widthCount, lengthCount, pieceSize, roomId, myNickname, board, me } = params;
+    const { widthCount, lengthCount, pieceSize, roomId, board, me, level } = params;
     const shapes = createShapes({ board, widthCount, lengthCount });
+
     set({
       isInitialized: true,
       initData: {
@@ -73,18 +73,22 @@ export const canvasStaticStore = createStore<CanvasStaticStore>((set, get) => ({
         lengthCount,
         pieceSize,
         roomId,
-        myNickname,
         shapes,
         me,
+        level,
       },
     });
   },
 
   redPieces: [],
   setRedPieces: redPieces => set({ redPieces }),
+  redBundles: [],
+  setRedBundles: redBundles => set({ redBundles }),
 
   bluePieces: [],
   setBluePieces: bluePieces => set({ bluePieces }),
+  blueBundles: [],
+  setBlueBundles: blueBundles => set({ blueBundles }),
 
   reset: () => {
     set({
@@ -94,30 +98,10 @@ export const canvasStaticStore = createStore<CanvasStaticStore>((set, get) => ({
       bluePieces: [],
     });
   },
-
-  syncMouseDragEvent: gameData => {
-    const { me } = get().initData;
-    const { targets, senderId, team } = gameData as MultiGameMouseDragMessage;
-
-    if (me.id === senderId || me.team !== team) {
-      return;
-    }
-
-    const { redPieces, bluePieces } = get();
-    const pieces = team === "RED" ? redPieces : bluePieces;
-    const groupedPieces = JSON.parse(targets) as {
-      x: number;
-      y: number;
-      index: number;
-    }[];
-    groupedPieces.forEach(({ x, y, index }) => {
-      pieces[index].paperGroup.position = new Point(x, y);
-    });
-  },
 }));
 
 const createShapes = (params: {
-  board: MultiGamePieceType[][];
+  board: Piece[][];
   widthCount: number;
   lengthCount: number;
 }): Shape[] => {

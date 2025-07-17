@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { ChatMessage, MultiGamePlayerType } from "@puzzlepop2/game-core";
 import { socketStaticStore } from "./socketStaticStore";
+import { ChatData } from "./types/chat";
+import { Player } from "./types/base";
 
 const SYSTEM_PREFIX = "[__SYSTEM__]";
 
@@ -8,13 +9,13 @@ interface ChatStore {
   chats: (SystemChat | UserChat)[];
   sendSystemMessage: (props: { roomId: string; message: string }) => void;
   reset: () => void;
-  addChat: (chatData: ChatMessage) => void;
+  addChat: (chatData: ChatData) => void;
   leaveChat: ({
     prevPlayers,
     currentPlayers,
   }: {
-    prevPlayers: MultiGamePlayerType[];
-    currentPlayers: MultiGamePlayerType[];
+    prevPlayers: Player[];
+    currentPlayers: Player[];
   }) => void;
 }
 
@@ -40,8 +41,8 @@ export const useChatStore = create<ChatStore>((set, get) => ({
     prevPlayers,
     currentPlayers,
   }: {
-    prevPlayers: MultiGamePlayerType[];
-    currentPlayers: MultiGamePlayerType[];
+    prevPlayers: Player[];
+    currentPlayers: Player[];
   }) => {
     const 채팅방을_나간_플레이어가_발생했는가 =
       prevPlayers.length !== 0 && currentPlayers.length !== prevPlayers.length;
@@ -56,7 +57,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       );
     });
 
-    const nextChatDataList: ChatMessage[] = leftPlayers.map(leftPlayer => {
+    const nextChatDataList: ChatData[] = leftPlayers.map(leftPlayer => {
       return {
         userid: leftPlayer.id,
         teamColor: "RED",
@@ -82,7 +83,7 @@ type UserChat = {
   message: string;
 };
 
-const makeChat = (chatData: ChatMessage) => {
+const makeChat = (chatData: ChatData) => {
   if (chatData.chatMessage.startsWith(SYSTEM_PREFIX)) {
     const systemMessage = chatData.chatMessage.replace(SYSTEM_PREFIX, "").trim();
     return {

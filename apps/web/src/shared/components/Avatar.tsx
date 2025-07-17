@@ -44,6 +44,7 @@ export const Avatar = (props: Props) => {
             height: size,
             objectFit: "cover",
             borderRadius: "50%",
+            opacity: src ? 1 : 0.8,
           }}
           onError={() => setIsError(true)}
         />

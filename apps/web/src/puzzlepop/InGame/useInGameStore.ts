@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { MultiGamePuzzleType, MultiGamePlayerType } from "@puzzlepop2/game-core";
+import { Player, Puzzle } from "../types/base";
 
 interface InGameStore {
   reset: () => void;
@@ -13,15 +13,19 @@ interface InGameStore {
   imgSrc: string | null;
   setImgSrc: (imgSrc: string) => void;
 
-  redPuzzle: MultiGamePuzzleType | null;
-  setRedPuzzle: (redPuzzle: MultiGamePuzzleType | null) => void;
-  redPlayers: MultiGamePlayerType[];
-  setRedPlayers: (redPlayers: MultiGamePlayerType[]) => void;
+  redPuzzle: Puzzle | null;
+  setRedPuzzle: (redPuzzle: Puzzle | null) => void;
+  redPlayers: Player[];
+  setRedPlayers: (redPlayers: Player[]) => void;
+  redComboCount: number;
+  setRedComboCount: (redComboCount: number) => void;
 
-  bluePuzzle: MultiGamePuzzleType | null;
-  setBluePuzzle: (bluePuzzle: MultiGamePuzzleType | null) => void;
-  bluePlayers: MultiGamePlayerType[];
-  setBluePlayers: (bluePlayers: MultiGamePlayerType[]) => void;
+  bluePuzzle: Puzzle | null;
+  setBluePuzzle: (bluePuzzle: Puzzle | null) => void;
+  bluePlayers: Player[];
+  setBluePlayers: (bluePlayers: Player[]) => void;
+  blueComboCount: number;
+  setBlueComboCount: (blueComboCount: number) => void;
 }
 
 const defaultTime = 0;
@@ -57,12 +61,16 @@ export const useInGameStore = create<InGameStore>((set, get) => ({
   },
 
   redPuzzle: null,
-  setRedPuzzle: (redPuzzle: MultiGamePuzzleType | null) => set({ redPuzzle }),
+  setRedPuzzle: (redPuzzle: Puzzle | null) => set({ redPuzzle }),
   redPlayers: [],
-  setRedPlayers: (redPlayers: MultiGamePlayerType[]) => set({ redPlayers }),
+  setRedPlayers: (redPlayers: Player[]) => set({ redPlayers }),
+  redComboCount: 0,
+  setRedComboCount: (redComboCount: number) => set({ redComboCount }),
 
   bluePuzzle: null,
-  setBluePuzzle: (bluePuzzle: MultiGamePuzzleType | null) => set({ bluePuzzle }),
+  setBluePuzzle: (bluePuzzle: Puzzle | null) => set({ bluePuzzle }),
   bluePlayers: [],
-  setBluePlayers: (bluePlayers: MultiGamePlayerType[]) => set({ bluePlayers }),
+  setBluePlayers: (bluePlayers: Player[]) => set({ bluePlayers }),
+  blueComboCount: 0,
+  setBlueComboCount: (blueComboCount: number) => set({ blueComboCount: 0 }),
 }));

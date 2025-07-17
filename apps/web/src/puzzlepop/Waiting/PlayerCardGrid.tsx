@@ -1,11 +1,11 @@
 "use client";
 
 import { Flex, Grid, GridItem, Text } from "@puzzlepop2/react-components-layout";
-import { MultiGamePlayerType } from "@puzzlepop2/game-core";
 import { vars } from "@puzzlepop2/themes";
 import { Avatar } from "@shared-components/Avatar";
 
 import { useWaitingStore } from "./useWaitingStore";
+import { Player } from "../types/base";
 
 const CARD_COUNT = 8;
 
@@ -59,9 +59,9 @@ export const PlayerCardGrid = () => {
 };
 
 const convertPlayerCards = (props: {
-  players: MultiGamePlayerType[];
+  players: Player[];
   roomSize: number;
-  admin: MultiGamePlayerType | null;
+  admin: Player | null;
 }) => {
   const { players, roomSize, admin } = props;
 

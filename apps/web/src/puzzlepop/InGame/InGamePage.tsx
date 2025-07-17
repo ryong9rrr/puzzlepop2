@@ -6,11 +6,12 @@ import { IMG_ID } from "@puzzlepop2/game-core";
 import { socketStaticStore } from "../socketStaticStore";
 import { getMultiGameStorage } from "../storage";
 
-import { useInGameStore } from "./useInGameStore";
-import { Timer } from "./Timer";
-
 import { setup } from "./canvas/setup";
 import { render } from "./canvas/render";
+
+import { useInGameStore } from "./useInGameStore";
+import { Timer } from "./Timer";
+import { ComboToast } from "./ComboToast";
 
 const { send } = socketStaticStore.getState();
 
@@ -53,7 +54,8 @@ export const InGamePage = ({ roomId }: { roomId: string }) => {
 
   return (
     <>
-      <Timer roomId={roomId} />
+      <ComboToast />
+      <Timer />
     </>
   );
 };

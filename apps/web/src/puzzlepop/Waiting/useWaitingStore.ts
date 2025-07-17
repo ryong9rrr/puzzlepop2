@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { MultiGamePlayerType } from "@puzzlepop2/game-core";
+import { Player } from "../types/base";
 
 interface WaitingStore {
   reset: () => void;
@@ -13,20 +13,20 @@ interface WaitingStore {
   roomSize: number;
   setRoomSize: (roomSize: number) => void;
 
-  admin: MultiGamePlayerType | null;
-  setAdmin: (admin: MultiGamePlayerType) => void;
+  admin: Player | null;
+  setAdmin: (admin: Player) => void;
 
-  redPlayers: MultiGamePlayerType[];
-  setRedPlayers: (players: MultiGamePlayerType[]) => void;
+  redPlayers: Player[];
+  setRedPlayers: (players: Player[]) => void;
 
-  bluePlayers: MultiGamePlayerType[];
-  setBluePlayers: (players: MultiGamePlayerType[]) => void;
+  bluePlayers: Player[];
+  setBluePlayers: (players: Player[]) => void;
 }
 
 const defaultImgSrc = null;
 const defaultRoomTitle = "";
 const defaultRoomSize = 0;
-const defaultAdmin: MultiGamePlayerType | null = null;
+const defaultAdmin: Player | null = null;
 
 export const useWaitingStore = create<WaitingStore>((set, get) => ({
   reset: () => {

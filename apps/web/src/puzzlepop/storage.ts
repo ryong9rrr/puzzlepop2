@@ -1,9 +1,9 @@
-import { MeFromStorage } from "@puzzlepop2/game-core";
 import { AbstractStorage } from "@shared-storages/AbstractStorage";
 import { createStorage } from "@shared-storages/createStorage";
-import { isRecord } from "./typeUtils";
+import { isRecord } from "./socketMessageMatchers";
+import { Me } from "./types/base";
 
-class MultiGameStorage extends AbstractStorage<MeFromStorage> {
+class MultiGameStorage extends AbstractStorage<Me> {
   constructor() {
     super({
       key: "COOPERATION_USER_KEY",
@@ -11,7 +11,7 @@ class MultiGameStorage extends AbstractStorage<MeFromStorage> {
     });
   }
 
-  validate(parsedData: unknown): parsedData is MeFromStorage {
+  validate(parsedData: unknown): parsedData is Me {
     if (!parsedData || !isRecord(parsedData)) {
       return false;
     }

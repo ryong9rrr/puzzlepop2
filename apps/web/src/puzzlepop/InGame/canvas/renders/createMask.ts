@@ -1,12 +1,9 @@
 import Paper from "paper";
 import { Shape } from "@puzzlepop2/game-core";
+import { canvasStaticStore } from "../canvasStaticStore";
+import { getRenderingData } from "./getRenderingData";
 
-export const getMask = (params: {
-  pieceSize: number;
-  shape: Shape;
-  imgWidth: number;
-  imgHeight: number;
-}) => {
+export const createMask = (shape: Shape) => {
   const CURVY_COORDINATES = [
     0, 0, 35, 15, 37, 5, 37, 5, 40, 0, 38, -5, 38, -5, 20, -20, 50, -20, 50, -20, 80, -20, 62, -5,
     62, -5, 60, 0, 63, 5, 63, 5, 65, 15, 100, 0,
@@ -21,7 +18,11 @@ export const getMask = (params: {
     return result;
   };
 
-  const { pieceSize, shape, imgWidth, imgHeight } = params;
+  const {
+    initData: { pieceSize },
+  } = canvasStaticStore.getState();
+
+  const { imgWidth, imgHeight } = getRenderingData();
 
   const pieceRatio = pieceSize / TOTAL_PERCENTAGE;
   const mask = new Paper.Path();

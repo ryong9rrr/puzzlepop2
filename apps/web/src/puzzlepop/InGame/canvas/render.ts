@@ -1,14 +1,18 @@
 import Paper from "paper";
 import { Point } from "paper/dist/paper-core";
-import { IMG_ID, MultiGamePieceType } from "@puzzlepop2/game-core";
+import { IMG_ID } from "@puzzlepop2/game-core";
 
-import * as Styles from "./renders/styles";
-import { getMask } from "./renders/getMask";
-import { createPiece } from "./renders/createPiece";
+import { Piece } from "../../types/base";
+
 import { attachEvents } from "./attachEvents";
 import { CanvasPiece, canvasStaticStore } from "./canvasStaticStore";
 
-export const render = (board: MultiGamePieceType[][], bundles: unknown[][] = []) => {
+import * as Styles from "./renders/styles";
+import { createMask } from "./renders/createMask";
+import { createPiece } from "./renders/createPiece";
+import { reGroupForBundles } from "./utils/reGroupForBundles";
+
+export const render = (board: Piece[][]) => {
   const imgElement = window.document.getElementById(IMG_ID) as HTMLImageElement;
 
   if (!imgElement) {
@@ -16,7 +20,9 @@ export const render = (board: MultiGamePieceType[][], bundles: unknown[][] = [])
   }
 
   const {
-    initData: { pieceSize, widthCount, lengthCount, shapes, me },
+    initData: { widthCount, lengthCount, shapes, me },
+    redBundles,
+    blueBundles,
     setRedPieces,
     setBluePieces,
   } = canvasStaticStore.getState();
@@ -32,12 +38,7 @@ export const render = (board: MultiGamePieceType[][], bundles: unknown[][] = [])
         return;
       }
 
-      const mask = getMask({
-        shape,
-        pieceSize,
-        imgWidth: imgElement.width,
-        imgHeight: imgElement.height,
-      });
+      const mask = createMask(shape);
 
       mask.opacity = Styles.MASK_OPACITY;
       mask.strokeColor = new Paper.Color(Styles.MASK_STROKE_COLOR);
@@ -61,4 +62,7 @@ export const render = (board: MultiGamePieceType[][], bundles: unknown[][] = [])
   const setPieces = me.team === "RED" ? setRedPieces : setBluePieces;
   setPieces(pieces);
   attachEvents();
+
+  const bundles = me.team === "RED" ? redBundles : blueBundles;
+  reGroupForBundles(bundles, me.team);
 };

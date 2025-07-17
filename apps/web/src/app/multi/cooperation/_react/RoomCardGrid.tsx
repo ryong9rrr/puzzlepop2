@@ -2,13 +2,13 @@ import Image from "next/image";
 import { clsx } from "clsx";
 import { Flex, Grid, GridItem, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
-import { MultiGameInfoMessage } from "@puzzlepop2/game-core";
 
 import MODULE_CSS from "./RoomCardGrid.module.css";
+import { GameInfoData } from "@puzzlepop/types/base";
 
 interface Props {
   mode: "COOPERATION" | "BATTLE";
-  rooms: MultiGameInfoMessage[];
+  rooms: GameInfoData[];
   isLoading: boolean;
   onClickCard?: (roomId: string) => void;
 }

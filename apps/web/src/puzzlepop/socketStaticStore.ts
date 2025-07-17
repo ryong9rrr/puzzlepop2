@@ -1,7 +1,5 @@
 import { createStore } from "zustand/vanilla";
 import * as Stomp from "@stomp/stompjs";
-import { ChatMessage } from "@puzzlepop2/game-core";
-import { isRecord } from "./typeUtils";
 
 import {
   SEND_PUBLISH_DESTINATION,
@@ -10,6 +8,10 @@ import {
   CHAT_SUBSCRIBE_DESTINATION,
 } from "@remotes-main/_ep";
 
+import { isRecord } from "./socketMessageMatchers";
+import { ChatData } from "./types/chat";
+import { SendBody } from "./types/sendBody";
+
 interface SocketStaticStore {
   stomp: Stomp.Client | null;
   connect: (onConnect: Stomp.frameCallbackType) => void;
@@ -17,7 +19,7 @@ interface SocketStaticStore {
   subscribe: <T extends "game" | "chat">(
     type: T,
     roomId: string,
-    cb: (message: T extends "game" ? Record<string, unknown> : ChatMessage) => void,
+    cb: (message: T extends "game" ? Record<string, unknown> : ChatData) => void,
   ) => void;
   disconnect: () => void;
 }
@@ -59,7 +61,7 @@ export const socketStaticStore = createStore<SocketStaticStore>((set, get) => ({
   subscribe: <T extends "game" | "chat">(
     type: T,
     roomId: string,
-    cb: (message: T extends "game" ? Record<string, unknown> : ChatMessage) => void,
+    cb: (message: T extends "game" ? Record<string, unknown> : ChatData) => void,
   ) => {
     const { stomp } = get();
     if (!stomp) {
@@ -77,7 +79,7 @@ export const socketStaticStore = createStore<SocketStaticStore>((set, get) => ({
 
       const data = JSON.parse(message.body) as T extends "game"
         ? Record<string, unknown>
-        : ChatMessage;
+        : ChatData;
 
       if (!isRecord(data)) {
         console.error("기대되지 않은 데이터를 받았다...", data);
@@ -98,46 +100,3 @@ export const socketStaticStore = createStore<SocketStaticStore>((set, get) => ({
     set({ stomp: null });
   },
 }));
-
-// 게임방 입장 메시지 전송
-type EnterGame = {
-  type: "ENTER";
-  team: "RED" | "BLUE";
-  roomId: string;
-  sender: string;
-};
-
-// 채팅방 입장 및 메시지 전송
-type SendChat = {
-  type: "CHAT";
-  roomId: string;
-  sender: string;
-  message: string;
-};
-
-// 그냥 게임방 정보 받아오기
-type GetGameInfo = {
-  type: "GAME";
-  message: "GAME_INFO";
-  roomId: string;
-  sender: string;
-};
-
-type StartGame = {
-  type: "GAME";
-  message: "GAME_START";
-  roomId: string;
-  sender: string;
-};
-
-type MouseDrag = {
-  type: "GAME";
-  message: "MOUSE_DRAG";
-  roomId: string;
-  sender: string;
-  targets: string; // nowIndex.toString() + "," + preIndex.toString() 형식
-  position_x: number;
-  position_y: number;
-};
-
-type SendBody = EnterGame | SendChat | GetGameInfo | StartGame | MouseDrag;

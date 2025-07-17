@@ -1,14 +1,14 @@
 import Paper from "paper";
 
-import { socketStaticStore } from "../../../../socketStaticStore";
-import { CanvasPiece, canvasStaticStore } from "../../canvasStaticStore";
-import { getGroupedPiece } from "../getGroupedPiece";
+import { socketStaticStore } from "../../../socketStaticStore";
+import { CanvasPiece, canvasStaticStore } from "../canvasStaticStore";
+import { getTargets } from "../utils/getTargets";
 
 const { send } = socketStaticStore.getState();
 
 export const onMouseDrag = (event: paper.MouseEvent, piece: CanvasPiece) => {
   const {
-    initData: { pieceSize, myNickname, roomId, me },
+    initData: { pieceSize, roomId, me },
     redPieces,
     bluePieces,
   } = canvasStaticStore.getState();
@@ -44,15 +44,13 @@ export const onMouseDrag = (event: paper.MouseEvent, piece: CanvasPiece) => {
     }
   }
 
-  const grouped = getGroupedPiece(piece);
-
   // 인터벌 걸어야하나?
   send({
     type: "GAME",
     message: "MOUSE_DRAG",
     roomId,
-    sender: myNickname,
-    targets: JSON.stringify(grouped),
+    sender: me.id,
+    targets: JSON.stringify(getTargets(piece.index, me.team)),
     position_x: nx,
     position_y: ny,
   });
