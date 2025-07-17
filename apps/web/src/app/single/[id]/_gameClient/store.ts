@@ -1,5 +1,9 @@
 import { createStore } from "zustand/vanilla";
-import { Piece, PUZZLE_PIECE_SIZE_MAP, GameLevel } from "@puzzlepop2/game-core";
+import {
+  Piece,
+  SINGLE_GAME_PUZZLE_PIECE_SIZE_MAP,
+  SingleGameLevelType,
+} from "@puzzlepop2/game-core";
 
 import * as GameServerSingleGameApi from "@remotes-single-game/singleGame/apis";
 
@@ -13,7 +17,7 @@ interface GameStore {
   currentMaxGroupId: number;
   setCurrentMaxGroupId: (groupId: number) => void;
 
-  level: GameLevel;
+  level: SingleGameLevelType;
   pieceSize: number;
   perColumn: number;
   perRow: number;
@@ -47,8 +51,8 @@ const gameStore = createStore<GameStore>(set => ({
       bundles: data.pieces,
       perColumn: data.perColumn,
       perRow: data.perRow,
-      pieceSize: PUZZLE_PIECE_SIZE_MAP[level as GameLevel],
-      level: level as GameLevel,
+      pieceSize: SINGLE_GAME_PUZZLE_PIECE_SIZE_MAP[level as SingleGameLevelType],
+      level: level as SingleGameLevelType,
     });
   },
 
@@ -59,6 +63,6 @@ const gameStore = createStore<GameStore>(set => ({
 export const getGameStore = () => gameStore.getState();
 
 const isValidGameLevel = (level: string) => {
-  const gameLevels: GameLevel[] = ["easy", "normal", "hard"];
-  return gameLevels.includes(level as GameLevel);
+  const gameLevels: SingleGameLevelType[] = ["easy", "normal", "hard"];
+  return gameLevels.includes(level as SingleGameLevelType);
 };

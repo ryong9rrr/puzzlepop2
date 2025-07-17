@@ -1,14 +1,14 @@
 "use client";
 
-import { GameLevel, GameMode } from "@puzzlepop2/game-core";
+import { SingleGameLevelType, SingleGameModeType } from "@puzzlepop2/game-core";
 import { Dimmed, Flex, Text } from "@puzzlepop2/react-components-layout";
 import { usePromise } from "@puzzlepop2/react-hooks-base";
 import { load } from "./canvas";
 
 export type GameClientProps = {
-  mode: GameMode;
+  mode: SingleGameModeType;
   src: string;
-  level: GameLevel;
+  level: SingleGameLevelType;
 };
 
 export const GameClient = (props: GameClientProps) => {

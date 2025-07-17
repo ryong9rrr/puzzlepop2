@@ -5,7 +5,7 @@ import { Button } from "@puzzlepop2/react-components-button";
 import { usePromise } from "@puzzlepop2/react-hooks-base";
 import { useModal } from "@puzzlepop2/react-hooks-modal";
 
-import { getCooperationGameRoomList } from "@remotes-main/http/cooperation";
+import { getCooperationGameRoomList } from "@remotes-main/cooperation";
 
 import { RefreshButton } from "./RefreshButton";
 import { RoomCardGrid } from "./RoomCardGrid";

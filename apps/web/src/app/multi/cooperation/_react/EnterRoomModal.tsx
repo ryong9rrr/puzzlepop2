@@ -10,8 +10,9 @@ import { TextField } from "@shared-components/TextField";
 import { isRemoteError } from "@shared-utils/error";
 import { generateRandomNickname } from "@shared-utils/autoTextGenerator";
 
-import { enterGameRoom } from "@remotes-main/http/cooperation";
-import { getCooperationGameSessionStorage } from "../_storages/cooperationGameSessionStorage";
+import { enterGameRoom } from "@remotes-main/cooperation";
+
+import { getMultiGameStorage } from "@puzzlepop/storage";
 
 interface Props {
   roomId: string;
@@ -44,7 +45,7 @@ export const EnterRoomModal = (props: Props) => {
         roomId,
       });
 
-      getCooperationGameSessionStorage().setItem({
+      getMultiGameStorage().setItem({
         id: nickname,
         team: "RED",
       });

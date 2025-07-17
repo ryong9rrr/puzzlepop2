@@ -10,9 +10,9 @@ import { TextField } from "@shared-components/TextField";
 import { RoomSizeField } from "@shared-components/RoomSizeField";
 import { isRemoteError } from "@shared-utils/error";
 import { generateRandomNickname, generateRandomRoomTitle } from "@shared-utils/autoTextGenerator";
+import { createGameRoom } from "@remotes-main/cooperation";
 
-import { createGameRoom } from "@remotes-main/http/cooperation";
-import { getCooperationGameSessionStorage } from "../_storages/cooperationGameSessionStorage";
+import { getMultiGameStorage } from "@puzzlepop/storage";
 
 interface Props {
   onCloseModal: () => void;
@@ -53,7 +53,7 @@ export const CreateRoomModal = (props: Props) => {
         roomSize,
       });
 
-      getCooperationGameSessionStorage().setItem({
+      getMultiGameStorage().setItem({
         id: nickname,
         team: "RED",
       });

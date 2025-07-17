@@ -1,8 +1,7 @@
 import { ToastClient } from "@shared-components/Clients/ToastClient";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
-
-import { GameRoute } from "./_react/GameRoute";
+import { Connection } from "@puzzlepop/Connection";
 
 interface PageProps {
   params: Promise<{ roomId: string }>;
@@ -20,7 +19,7 @@ export default async function Page({ params }: PageProps) {
       <ToastClient>
         <IsMobileWarningToast />
       </ToastClient>
-      <GameRoute roomId={roomId} />
+      <Connection roomId={roomId} />
     </FullScreenBackground.Main>
   );
 }

@@ -1,6 +1,6 @@
 import fs from "fs";
 import sharp from "sharp";
-import { PUZZLE_IMAGE_SIZE_MAP } from "@puzzlepop2/game-core";
+import { SINGLE_GAME_PUZZLE_IMAGE_SIZE_MAP } from "@puzzlepop2/game-core";
 
 const createRootDir = (destination = "out") => {
   // 이미 있으면 pass
@@ -41,7 +41,7 @@ export const createImages = props => {
 
   // 리사이징하면서 webp로 변환
   Promise.all(
-    Object.entries(PUZZLE_IMAGE_SIZE_MAP).map(([gameMode, size]) => {
+    Object.entries(SINGLE_GAME_PUZZLE_IMAGE_SIZE_MAP).map(([gameMode, size]) => {
       const { width, height } = size;
       sharp(source)
         .flatten({ background: { r: 255, g: 255, b: 255 } })

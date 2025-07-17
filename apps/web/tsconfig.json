@@ -19,6 +19,7 @@
       "@public/*": ["/public/*"],
       "@themes/*": ["./src/themes/*"],
       "@router/*": ["./src/router/*"],
+      "@puzzlepop/*": ["./src/puzzlepop/*"],
       "@shared-types/*": ["./src/shared/types/*"],
       "@shared-components/*": ["./src/shared/components/*"],
       "@shared-hooks/*": ["./src/shared/hooks/*"],

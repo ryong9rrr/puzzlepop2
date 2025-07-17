@@ -1,13 +1,13 @@
 import { create } from "zustand";
-import { GameLevel } from "@puzzlepop2/game-core";
+import { SingleGameLevelType } from "@puzzlepop2/game-core";
 import { Puzzle } from "@shared-types/single";
 
 interface SelectPuzzleStoreProps {
   selectedPuzzle: Puzzle | null;
   setSelectedPuzzle: (puzzle: Puzzle) => void;
 
-  selectedLevel: GameLevel | null;
-  setSelectedLevel: (level: GameLevel) => void;
+  selectedLevel: SingleGameLevelType | null;
+  setSelectedLevel: (level: SingleGameLevelType) => void;
 }
 
 export const useSelectPuzzleStore = create<SelectPuzzleStoreProps>(set => ({

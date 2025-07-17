@@ -1,11 +1,10 @@
 import { vars } from "@puzzlepop2/themes";
 import {
-  GameLevel,
   CANVAS_HEIGHT,
   CANVAS_ID,
   CANVAS_WIDTH,
-  GameMode,
   IMG_ID,
+  SingleGameLevelType,
 } from "@puzzlepop2/game-core";
 import { ToastClient } from "@shared-components/Clients/ToastClient";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
@@ -14,7 +13,7 @@ import { GameClient } from "./_gameClient/GameClient";
 import { fetchGetSingleGamePuzzleById } from "@remotes-single-rest/singleGame/apis";
 
 export type SearchParams = {
-  level?: GameLevel;
+  level?: SingleGameLevelType;
 };
 
 interface PageProps {
