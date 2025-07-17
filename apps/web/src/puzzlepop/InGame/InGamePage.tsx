@@ -5,17 +5,21 @@ import { IMG_ID } from "@puzzlepop2/game-core";
 
 import { socketStaticStore } from "../socketStaticStore";
 import { getMultiGameStorage } from "../storage";
+
 import { useInGameStore } from "./useInGameStore";
 import { Timer } from "./Timer";
+
 import { setup } from "./canvas/setup";
 import { render } from "./canvas/render";
 
 const { send } = socketStaticStore.getState();
 
 export const InGamePage = ({ roomId }: { roomId: string }) => {
+  const imgSrc = useInGameStore(state => state.imgSrc);
+  const setRenderComplete = useInGameStore(state => state.setRenderComplete);
+
   const redPuzzle = useInGameStore(state => state.redPuzzle);
   const bluePuzzle = useInGameStore(state => state.bluePuzzle);
-  const imgSrc = useInGameStore(state => state.imgSrc);
 
   // 최초한번 게임 데이터 불러오기
   useEffect(() => {
@@ -43,6 +47,7 @@ export const InGamePage = ({ roomId }: { roomId: string }) => {
       setup();
       const puzzle = me.team === "RED" ? redPuzzle : bluePuzzle;
       render(puzzle.board);
+      setRenderComplete(true);
     };
   }, [imgSrc, redPuzzle, bluePuzzle]);
 

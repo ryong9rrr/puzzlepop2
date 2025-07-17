@@ -50,6 +50,7 @@ export const LoadingOverlay = ({ isLoadingComplete }: Props) => {
         src={CDN.LOADING_PUZZLE}
         alt=""
         priority
+        unoptimized
         width={600}
         height={400}
         style={{ objectFit: "cover" }}

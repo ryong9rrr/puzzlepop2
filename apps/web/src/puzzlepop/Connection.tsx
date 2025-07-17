@@ -22,7 +22,7 @@ import * as CDN from "@remotes-cdn/images";
 
 import { socketStaticStore } from "./socketStaticStore";
 import { getMultiGameStorage } from "./storage";
-import { hasPuzzle, hasTime, isFinished, isRecord, isWaiting } from "./typeUtils";
+import { hasPuzzle, hasTime, isFinished, isWaiting } from "./typeUtils";
 
 import { useChatStore } from "./useChatStore";
 
@@ -57,6 +57,7 @@ export const Connection = ({ roomId }: { roomId: string }) => {
   const setWaitingRoomTitle = useWaitingStore(state => state.setRoomTitle);
 
   const resetInGameStore = useInGameStore(state => state.reset);
+  const isRenderComplete = useInGameStore(state => state.isRenderComplete);
   const setInGameTime = useInGameStore(state => state.setTime);
   const setInGameImgSrc = useInGameStore(state => state.setImgSrc);
   const setInGameRedPuzzle = useInGameStore(state => state.setRedPuzzle);
@@ -72,11 +73,6 @@ export const Connection = ({ roomId }: { roomId: string }) => {
 
       subscribe("game", roomId, _gameData => {
         setIsConnectedGameSocket(true);
-
-        if (!isRecord(_gameData)) {
-          console.error("예측하지 못한 데이터가 들어왔다;;;", _gameData);
-          return;
-        }
 
         if (isWaiting(_gameData)) {
           setPageStatus("waiting");
@@ -152,7 +148,12 @@ export const Connection = ({ roomId }: { roomId: string }) => {
   return (
     <>
       <LoadingOverlay
-        isLoadingComplete={isConnectedGameSocket && isConnectedChatSocket && !!pageStatus}
+        isLoadingComplete={
+          isConnectedGameSocket &&
+          isConnectedChatSocket &&
+          !!pageStatus &&
+          (pageStatus === "inGame" ? isRenderComplete : true)
+        }
       />
 
       {pageStatus === "waiting" && (

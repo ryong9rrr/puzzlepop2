@@ -4,6 +4,9 @@ import { MultiGamePuzzleType, MultiGamePlayerType } from "@puzzlepop2/game-core"
 interface InGameStore {
   reset: () => void;
 
+  isRenderComplete: boolean;
+  setRenderComplete: (isRenderComplete: boolean) => void;
+
   time: number;
   setTime: (time: number) => void;
 
@@ -11,14 +14,14 @@ interface InGameStore {
   setImgSrc: (imgSrc: string) => void;
 
   redPuzzle: MultiGamePuzzleType | null;
-  setRedPuzzle: (puzzle: MultiGamePuzzleType | null) => void;
+  setRedPuzzle: (redPuzzle: MultiGamePuzzleType | null) => void;
   redPlayers: MultiGamePlayerType[];
-  setRedPlayers: (players: MultiGamePlayerType[]) => void;
+  setRedPlayers: (redPlayers: MultiGamePlayerType[]) => void;
 
   bluePuzzle: MultiGamePuzzleType | null;
-  setBluePuzzle: (puzzle: MultiGamePuzzleType | null) => void;
+  setBluePuzzle: (bluePuzzle: MultiGamePuzzleType | null) => void;
   bluePlayers: MultiGamePlayerType[];
-  setBluePlayers: (players: MultiGamePlayerType[]) => void;
+  setBluePlayers: (bluePlayers: MultiGamePlayerType[]) => void;
 }
 
 const defaultTime = 0;
@@ -27,6 +30,8 @@ const defaultImgSrc = null;
 export const useInGameStore = create<InGameStore>((set, get) => ({
   reset: () => {
     set({
+      isRenderComplete: false,
+
       time: defaultTime,
       imgSrc: defaultImgSrc,
 
@@ -36,6 +41,9 @@ export const useInGameStore = create<InGameStore>((set, get) => ({
       bluePlayers: [],
     });
   },
+
+  isRenderComplete: false,
+  setRenderComplete: (isRenderComplete: boolean) => set({ isRenderComplete }),
 
   time: defaultTime,
   setTime: (time: number) => set({ time }),
@@ -49,12 +57,12 @@ export const useInGameStore = create<InGameStore>((set, get) => ({
   },
 
   redPuzzle: null,
-  setRedPuzzle: (puzzle: MultiGamePuzzleType | null) => set({ redPuzzle: puzzle }),
+  setRedPuzzle: (redPuzzle: MultiGamePuzzleType | null) => set({ redPuzzle }),
   redPlayers: [],
-  setRedPlayers: (players: MultiGamePlayerType[]) => set({ redPlayers: players }),
+  setRedPlayers: (redPlayers: MultiGamePlayerType[]) => set({ redPlayers }),
 
   bluePuzzle: null,
-  setBluePuzzle: (puzzle: MultiGamePuzzleType | null) => set({ bluePuzzle: puzzle }),
+  setBluePuzzle: (bluePuzzle: MultiGamePuzzleType | null) => set({ bluePuzzle }),
   bluePlayers: [],
-  setBluePlayers: (players: MultiGamePlayerType[]) => set({ bluePlayers: players }),
+  setBluePlayers: (bluePlayers: MultiGamePlayerType[]) => set({ bluePlayers }),
 }));
