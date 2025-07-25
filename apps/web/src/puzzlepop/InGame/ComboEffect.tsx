@@ -15,7 +15,6 @@ export const ComboEffect = ({ x, y, count }: ComboEffectProps) => {
       <DotLottieReact
         src="/lotties/stars-spark.lottie"
         autoplay
-        loop
         speed={2}
         style={{
           position: "absolute",
@@ -24,13 +23,13 @@ export const ComboEffect = ({ x, y, count }: ComboEffectProps) => {
           transform: "translate(-50%, -50%)",
           width: "5rem",
           height: "5rem",
-          zIndex: 1000,
+          zIndex: 99,
           pointerEvents: "none",
         }}
       />
       {count > 0 && (
         <Text
-          className="font-gameOutline animate__bounceIn"
+          className="font-gameOutline animate__bounceIn animate__fadeOut"
           size="xs"
           bold
           color="orange"
@@ -38,7 +37,7 @@ export const ComboEffect = ({ x, y, count }: ComboEffectProps) => {
             position: "absolute",
             top: `${y}px`,
             left: `${x}px`,
-            zIndex: 1000,
+            zIndex: 99,
             pointerEvents: "none",
           }}
         >

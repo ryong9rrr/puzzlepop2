@@ -6,7 +6,7 @@ import { getNeighborPieceIndexMap } from "../../utils/getNeighborPieceIndexMap";
 import { getMaxGroupId } from "../../utils/getMaxGroupId";
 import { attachPieceToPiece } from "../../utils/attachPieceToPiece";
 
-import { isInValidRange } from "./isInValidRange";
+import { isNeighbor } from "./isNeighbor";
 
 export const moveOnePiece = (piece: CanvasPiece) => {
   const {
@@ -30,7 +30,7 @@ export const moveOnePiece = (piece: CanvasPiece) => {
     }
 
     // 범위내에 없다면 pass
-    if (!isInValidRange(piece.index, neighborPieceIndex, me.team)) {
+    if (!isNeighbor(piece.index, neighborPieceIndex, me.team)) {
       continue;
     }
 

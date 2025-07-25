@@ -2,11 +2,7 @@ import { TeamColor } from "@puzzlepop/types/base";
 import { canvasStaticStore } from "../../canvasStaticStore";
 import { getNeighborPieceIndexMap } from "../../utils/getNeighborPieceIndexMap";
 
-export const isInValidRange = (
-  pieceIndex: number,
-  toPieceIndex: number,
-  team: TeamColor,
-): boolean => {
+export const isNeighbor = (pieceIndex: number, toPieceIndex: number, team: TeamColor): boolean => {
   const {
     initData: { pieceSize },
     redPieces,

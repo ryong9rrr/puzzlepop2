@@ -6,7 +6,7 @@ import { CanvasPiece, canvasStaticStore } from "../../canvasStaticStore";
 import { getNeighborPieceIndexMap } from "../../utils/getNeighborPieceIndexMap";
 import { attachPieceToPiece } from "../../utils/attachPieceToPiece";
 
-import { isInValidRange } from "./isInValidRange";
+import { isNeighbor } from "./isNeighbor";
 
 export const moveGroupPiece = (piece: CanvasPiece) => {
   const {
@@ -42,7 +42,7 @@ export const moveGroupPiece = (piece: CanvasPiece) => {
       }
 
       // 근처에 없다면 pass
-      if (!isInValidRange(sidePiece.index, neighborPieceIndex, me.team)) {
+      if (!isNeighbor(sidePiece.index, neighborPieceIndex, me.team)) {
         continue;
       }
 

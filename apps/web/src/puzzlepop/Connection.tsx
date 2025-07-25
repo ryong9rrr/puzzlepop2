@@ -44,12 +44,13 @@ type PageStatus = "waiting" | "inGame" | "finished" | null;
 const { connect, disconnect, subscribe, send } = socketStaticStore.getState();
 
 export const Connection = ({ roomId }: { roomId: string }) => {
-  const [combo, setCombo] = useState<{ x: number; y: number; count: number }[]>([]);
-
   const [pageStatus, setPageStatus] = useState<PageStatus>(null);
 
   const [isConnectedGameSocket, setIsConnectedGameSocket] = useState(false);
   const [isConnectedChatSocket, setIsConnectedChatSocket] = useState(false);
+
+  const [combo, setCombo] = useState<{ x: number; y: number; count: number }[]>([]);
+  const [isFinished, setIsFinished] = useState(false);
 
   const resetChatStore = useChatStore(state => state.reset);
   const addChat = useChatStore(state => state.addChat);
@@ -102,34 +103,26 @@ export const Connection = ({ roomId }: { roomId: string }) => {
 
         setPageStatus("inGame");
 
-        if (isGameFinishState(_gameData)) {
-          window.alert("게임이 종료되었습니다.");
-          return;
-        }
-
         if (isMoveEvent(_gameData)) {
           moveGroupedPieces(_gameData, me);
-          return;
-        }
-
-        if (isLockedEvent(_gameData)) {
-          lockGroupedPieces(_gameData, me);
-          return;
-        }
-
-        if (isBlockedEvent(_gameData)) {
-          blockGroupedPieces(_gameData, me);
-          return;
-        }
-
-        if (isUnLockedEvent(_gameData)) {
-          unLockGroupedPieces(_gameData, me);
           return;
         }
 
         if (isTimeTickData(_gameData)) {
           setInGameUITime(_gameData.time as number);
           return;
+        }
+
+        if (isLockedEvent(_gameData)) {
+          lockGroupedPieces(_gameData, me);
+        }
+
+        if (isBlockedEvent(_gameData)) {
+          blockGroupedPieces(_gameData, me);
+        }
+
+        if (isUnLockedEvent(_gameData)) {
+          unLockGroupedPieces(_gameData, me);
         }
 
         if (hasPuzzleData(_gameData)) {
@@ -163,11 +156,8 @@ export const Connection = ({ roomId }: { roomId: string }) => {
 
         if (isAddPieceEvent(_gameData)) {
           const { team, combo, comboCnt } = _gameData;
-
           const { redPieces, bluePieces } = canvasStaticStore.getState();
-
           const pieces = team === "RED" ? redPieces : bluePieces;
-
           if (combo && team === me.team) {
             const newCombo = [];
             for (const [pieceIndex, toPieceIndex] of combo) {
@@ -185,16 +175,13 @@ export const Connection = ({ roomId }: { roomId: string }) => {
                 count: comboCnt,
               });
             }
-
             setCombo(newCombo);
-
             setTimeout(() => {
               setCombo([]);
             }, 500);
           }
         }
 
-        // bundles 데이터로 동기화하는 것은 맨 마지막에 위치
         if (hasBundlesData(_gameData)) {
           const { redBundles, blueBundles } = _gameData;
           const { setRedBundles, setBlueBundles } = canvasStaticStore.getState();
@@ -202,6 +189,12 @@ export const Connection = ({ roomId }: { roomId: string }) => {
           setBlueBundles(blueBundles || []);
           const bundles = me.team === "RED" ? redBundles || [] : blueBundles || [];
           reGroupForBundles(bundles, me.team);
+        }
+
+        if (isGameFinishState(_gameData)) {
+          setTimeout(() => {
+            setIsFinished(true);
+          }, 500);
         }
       });
 
@@ -276,6 +269,24 @@ export const Connection = ({ roomId }: { roomId: string }) => {
             </div>
           </Flex>
           <InGamePage roomId={roomId} />
+          {isFinished && (
+            <Flex
+              direction="column"
+              justify="center"
+              align="center"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
+                zIndex: 9999,
+              }}
+            >
+              <div>게임이 종료되었습니다.</div>
+            </Flex>
+          )}
         </>
       )}
     </>
