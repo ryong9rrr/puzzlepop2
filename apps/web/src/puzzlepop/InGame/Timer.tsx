@@ -3,10 +3,10 @@
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
-import { useInGameStore } from "./useInGameStore";
+import { useInGameUIStore } from "./useInGameUIStore";
 
 export const Timer = () => {
-  const time = useInGameStore(state => state.time);
+  const time = useInGameUIStore(state => state.time);
 
   const HHMMSS = (time: number) => {
     const hours = Math.floor(time / 3600);

@@ -9,18 +9,17 @@ import { getMultiGameStorage } from "../storage";
 import { setup } from "./canvas/setup";
 import { render } from "./canvas/render";
 
-import { useInGameStore } from "./useInGameStore";
+import { useInGameUIStore } from "./useInGameUIStore";
 import { Timer } from "./Timer";
-import { ComboToast } from "./ComboToast";
 
 const { send } = socketStaticStore.getState();
 
 export const InGamePage = ({ roomId }: { roomId: string }) => {
-  const imgSrc = useInGameStore(state => state.imgSrc);
-  const setRenderComplete = useInGameStore(state => state.setRenderComplete);
+  const imgSrc = useInGameUIStore(state => state.imgSrc);
+  const setRenderComplete = useInGameUIStore(state => state.setRenderComplete);
 
-  const redPuzzle = useInGameStore(state => state.redPuzzle);
-  const bluePuzzle = useInGameStore(state => state.bluePuzzle);
+  const redPuzzle = useInGameUIStore(state => state.redPuzzle);
+  const bluePuzzle = useInGameUIStore(state => state.bluePuzzle);
 
   // 최초한번 게임 데이터 불러오기
   useEffect(() => {
@@ -54,7 +53,6 @@ export const InGamePage = ({ roomId }: { roomId: string }) => {
 
   return (
     <>
-      <ComboToast />
       <Timer />
     </>
   );

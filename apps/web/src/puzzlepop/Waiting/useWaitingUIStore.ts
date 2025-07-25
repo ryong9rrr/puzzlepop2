@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Player } from "../types/base";
 
-interface WaitingStore {
+interface WaitingUIStore {
   reset: () => void;
 
   imgSrc: string | null;
@@ -28,7 +28,7 @@ const defaultRoomTitle = "";
 const defaultRoomSize = 0;
 const defaultAdmin: Player | null = null;
 
-export const useWaitingStore = create<WaitingStore>((set, get) => ({
+export const useWaitingUIStore = create<WaitingUIStore>((set, get) => ({
   reset: () => {
     set({
       imgSrc: defaultImgSrc,

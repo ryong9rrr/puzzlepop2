@@ -13,7 +13,7 @@ import { getMultiGameStorage } from "../storage";
 
 import { useChatStore } from "../useChatStore";
 
-import { useWaitingStore } from "./useWaitingStore";
+import { useWaitingUIStore } from "./useWaitingUIStore";
 import { PlayerCardGrid } from "./PlayerCardGrid";
 import { Picture } from "./Picture";
 import { ChatHistory } from "./ChatHistory";
@@ -27,10 +27,10 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
   const { inputRef } = useAutoFocusInput();
   const { alert } = useAnimatedAlert();
 
-  const roomTitle = useWaitingStore(state => state.roomTitle);
-  const roomSize = useWaitingStore(state => state.roomSize);
-  const players = useWaitingStore(state => state.redPlayers);
-  const admin = useWaitingStore(state => state.admin);
+  const roomTitle = useWaitingUIStore(state => state.roomTitle);
+  const roomSize = useWaitingUIStore(state => state.roomSize);
+  const players = useWaitingUIStore(state => state.redPlayers);
+  const admin = useWaitingUIStore(state => state.admin);
 
   const sendSystemMessage = useChatStore(state => state.sendSystemMessage);
 

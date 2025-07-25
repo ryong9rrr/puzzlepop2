@@ -4,15 +4,15 @@ import { Flex, Grid, GridItem, Text } from "@puzzlepop2/react-components-layout"
 import { vars } from "@puzzlepop2/themes";
 import { Avatar } from "@shared-components/Avatar";
 
-import { useWaitingStore } from "./useWaitingStore";
+import { useWaitingUIStore } from "./useWaitingUIStore";
 import { Player } from "../types/base";
 
 const CARD_COUNT = 8;
 
 export const PlayerCardGrid = () => {
-  const roomSize = useWaitingStore(state => state.roomSize);
-  const admin = useWaitingStore(state => state.admin);
-  const players = useWaitingStore(state => state.redPlayers);
+  const roomSize = useWaitingUIStore(state => state.roomSize);
+  const admin = useWaitingUIStore(state => state.admin);
+  const players = useWaitingUIStore(state => state.redPlayers);
 
   return (
     <Grid templateColumns="repeat(4, 1fr)" gapScale={0.2}>

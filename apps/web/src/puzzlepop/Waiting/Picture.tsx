@@ -5,7 +5,7 @@ import Image from "next/image";
 import { vars } from "@puzzlepop2/themes";
 import { Skeleton } from "@puzzlepop2/react-components-layout";
 import { useAnimatedAlert } from "@shared-hooks/useAnimatedAlert";
-import { useWaitingStore } from "./useWaitingStore";
+import { useWaitingUIStore } from "./useWaitingUIStore";
 
 const WIDTH = "9.8rem";
 const HEIGHT = "6rem";
@@ -14,7 +14,7 @@ export const Picture = () => {
   const [isError, setIsError] = useState(false);
 
   const { alert } = useAnimatedAlert();
-  const imgSrc = useWaitingStore(state => state.imgSrc);
+  const imgSrc = useWaitingUIStore(state => state.imgSrc);
 
   if (!imgSrc || isError) {
     return <Skeleton width={WIDTH} height={HEIGHT} />;

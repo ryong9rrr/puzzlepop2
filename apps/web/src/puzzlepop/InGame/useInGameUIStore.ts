@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Player, Puzzle } from "../types/base";
 
-interface InGameStore {
+interface InGameUIStore {
   reset: () => void;
 
   isRenderComplete: boolean;
@@ -17,21 +17,17 @@ interface InGameStore {
   setRedPuzzle: (redPuzzle: Puzzle | null) => void;
   redPlayers: Player[];
   setRedPlayers: (redPlayers: Player[]) => void;
-  redComboCount: number;
-  setRedComboCount: (redComboCount: number) => void;
 
   bluePuzzle: Puzzle | null;
   setBluePuzzle: (bluePuzzle: Puzzle | null) => void;
   bluePlayers: Player[];
   setBluePlayers: (bluePlayers: Player[]) => void;
-  blueComboCount: number;
-  setBlueComboCount: (blueComboCount: number) => void;
 }
 
 const defaultTime = 0;
 const defaultImgSrc = null;
 
-export const useInGameStore = create<InGameStore>((set, get) => ({
+export const useInGameUIStore = create<InGameUIStore>((set, get) => ({
   reset: () => {
     set({
       isRenderComplete: false,
@@ -64,13 +60,9 @@ export const useInGameStore = create<InGameStore>((set, get) => ({
   setRedPuzzle: (redPuzzle: Puzzle | null) => set({ redPuzzle }),
   redPlayers: [],
   setRedPlayers: (redPlayers: Player[]) => set({ redPlayers }),
-  redComboCount: 0,
-  setRedComboCount: (redComboCount: number) => set({ redComboCount }),
 
   bluePuzzle: null,
   setBluePuzzle: (bluePuzzle: Puzzle | null) => set({ bluePuzzle }),
   bluePlayers: [],
   setBluePlayers: (bluePlayers: Player[]) => set({ bluePlayers }),
-  blueComboCount: 0,
-  setBlueComboCount: (blueComboCount: number) => set({ blueComboCount: 0 }),
 }));

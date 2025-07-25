@@ -1,6 +1,6 @@
 import { TeamColor } from "@puzzlepop/types/base";
-import { canvasStaticStore } from "../canvasStaticStore";
-import { getNeighborPieceIndexMap } from "./getNeighborPieceIndexMap";
+import { canvasStaticStore } from "../../canvasStaticStore";
+import { getNeighborPieceIndexMap } from "../../utils/getNeighborPieceIndexMap";
 
 export const isInValidRange = (
   pieceIndex: number,

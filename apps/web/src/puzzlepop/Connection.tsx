@@ -22,28 +22,30 @@ import {
   isUnLockedEvent,
   hasBundlesData,
   isAddPieceEvent,
-  hasComboData,
 } from "./socketMessageMatchers";
 import { useChatStore } from "./useChatStore";
-import { Canvas } from "./Canvas";
 
 import { WaitingPage } from "./Waiting/WaitingPage";
-import { useWaitingStore } from "./Waiting/useWaitingStore";
-
-import { InGamePage } from "./InGame/InGamePage";
-import { useInGameStore } from "./InGame/useInGameStore";
-import { canvasStaticStore } from "./InGame/canvas/canvasStaticStore";
-import { reGroupForBundles } from "./InGame/canvas/utils/reGroupForBundles";
-import { attachPieceToPiece } from "./InGame/canvas/utils/attachPieceToPiece";
+import { useWaitingUIStore } from "./Waiting/useWaitingUIStore";
 
 import { Me, Player, TeamColor, GameInfoData } from "./types/base";
 import { BlockedEventData, LockedEventData, MoveEventData } from "./types/inGame";
+
+import { InGamePage } from "./InGame/InGamePage";
+import { Canvas } from "./InGame/Canvas";
+import { ComboEffect } from "./InGame/ComboEffect";
+import { useInGameUIStore } from "./InGame/useInGameUIStore";
+import { canvasStaticStore } from "./InGame/canvas/canvasStaticStore";
+import { reGroupForBundles } from "./InGame/canvas/utils/reGroupForBundles";
+import { attachPieceToPiece } from "./InGame/canvas/utils/attachPieceToPiece";
 
 type PageStatus = "waiting" | "inGame" | "finished" | null;
 
 const { connect, disconnect, subscribe, send } = socketStaticStore.getState();
 
 export const Connection = ({ roomId }: { roomId: string }) => {
+  const [combo, setCombo] = useState<{ x: number; y: number; count: number }[]>([]);
+
   const [pageStatus, setPageStatus] = useState<PageStatus>(null);
 
   const [isConnectedGameSocket, setIsConnectedGameSocket] = useState(false);
@@ -54,24 +56,22 @@ export const Connection = ({ roomId }: { roomId: string }) => {
   const leaveChat = useChatStore(state => state.leaveChat);
   const sendSystemMessage = useChatStore(state => state.sendSystemMessage);
 
-  const resetWaitingStore = useWaitingStore(state => state.reset);
-  const setWaitingAdmin = useWaitingStore(state => state.setAdmin);
-  const setWaitingImgSrc = useWaitingStore(state => state.setImgSrc);
-  const setWaitingRedPlayers = useWaitingStore(state => state.setRedPlayers);
-  const setWaitingBluePlayers = useWaitingStore(state => state.setBluePlayers);
-  const setWaitingRoomSize = useWaitingStore(state => state.setRoomSize);
-  const setWaitingRoomTitle = useWaitingStore(state => state.setRoomTitle);
+  const resetWaitingUIStore = useWaitingUIStore(state => state.reset);
+  const setWaitingUIAdmin = useWaitingUIStore(state => state.setAdmin);
+  const setWaitingUIImgSrc = useWaitingUIStore(state => state.setImgSrc);
+  const setWaitingUIRedPlayers = useWaitingUIStore(state => state.setRedPlayers);
+  const setWaitingUIBluePlayers = useWaitingUIStore(state => state.setBluePlayers);
+  const setWaitingUIRoomSize = useWaitingUIStore(state => state.setRoomSize);
+  const setWaitingUIRoomTitle = useWaitingUIStore(state => state.setRoomTitle);
 
-  const resetInGameStore = useInGameStore(state => state.reset);
-  const isRenderComplete = useInGameStore(state => state.isRenderComplete);
-  const setInGameTime = useInGameStore(state => state.setTime);
-  const setInGameImgSrc = useInGameStore(state => state.setImgSrc);
-  const setInGameRedPuzzle = useInGameStore(state => state.setRedPuzzle);
-  const setInGameRedPlayers = useInGameStore(state => state.setRedPlayers);
-  const setInGameBluePuzzle = useInGameStore(state => state.setBluePuzzle);
-  const setInGameBluePlayers = useInGameStore(state => state.setBluePlayers);
-  const setInGameRedComboCount = useInGameStore(state => state.setRedComboCount);
-  const setInGameBlueComboCount = useInGameStore(state => state.setBlueComboCount);
+  const resetInGameUIStore = useInGameUIStore(state => state.reset);
+  const isRenderComplete = useInGameUIStore(state => state.isRenderComplete);
+  const setInGameUITime = useInGameUIStore(state => state.setTime);
+  const setInGameUIImgSrc = useInGameUIStore(state => state.setImgSrc);
+  const setInGameUIRedPuzzle = useInGameUIStore(state => state.setRedPuzzle);
+  const setInGameUIRedPlayers = useInGameUIStore(state => state.setRedPlayers);
+  const setInGameUIBluePuzzle = useInGameUIStore(state => state.setBluePuzzle);
+  const setInGameUIBluePlayers = useInGameUIStore(state => state.setBluePlayers);
 
   useEffect(() => {
     let prevPlayers: Player[] = [];
@@ -85,12 +85,12 @@ export const Connection = ({ roomId }: { roomId: string }) => {
         if (isGameWaitingState(_gameData)) {
           setPageStatus("waiting");
           const gameData = _gameData as GameInfoData;
-          setWaitingAdmin(gameData.admin);
-          setWaitingImgSrc(gameData.picture?.encodedString || null);
-          setWaitingRoomSize(gameData.roomSize);
-          setWaitingRoomTitle(gameData.gameName);
-          setWaitingRedPlayers(gameData.redTeam.players);
-          setWaitingBluePlayers(gameData.blueTeam.players);
+          setWaitingUIAdmin(gameData.admin);
+          setWaitingUIImgSrc(gameData.picture?.encodedString || null);
+          setWaitingUIRoomSize(gameData.roomSize);
+          setWaitingUIRoomTitle(gameData.gameName);
+          setWaitingUIRedPlayers(gameData.redTeam.players);
+          setWaitingUIBluePlayers(gameData.blueTeam.players);
           const newPlayers = [...gameData.redTeam.players, ...gameData.blueTeam.players];
           leaveChat({
             prevPlayers,
@@ -107,9 +107,29 @@ export const Connection = ({ roomId }: { roomId: string }) => {
           return;
         }
 
-        // React UI 상태 업데이트
+        if (isMoveEvent(_gameData)) {
+          moveGroupedPieces(_gameData, me);
+          return;
+        }
+
+        if (isLockedEvent(_gameData)) {
+          lockGroupedPieces(_gameData, me);
+          return;
+        }
+
+        if (isBlockedEvent(_gameData)) {
+          blockGroupedPieces(_gameData, me);
+          return;
+        }
+
+        if (isUnLockedEvent(_gameData)) {
+          unLockGroupedPieces(_gameData, me);
+          return;
+        }
+
         if (isTimeTickData(_gameData)) {
-          setInGameTime(_gameData.time as number);
+          setInGameUITime(_gameData.time as number);
+          return;
         }
 
         if (hasPuzzleData(_gameData)) {
@@ -129,48 +149,27 @@ export const Connection = ({ roomId }: { roomId: string }) => {
           setRedBundles(redPuzzle.bundles);
           setBlueBundles(bluePuzzle.bundles);
 
-          // React UI 상태 업데이트
-          setInGameImgSrc(picture.encodedString);
-          setInGameRedPuzzle(redPuzzle);
-          setInGameRedPlayers(redTeam.players);
-          setInGameBluePuzzle(bluePuzzle);
-          setInGameBluePlayers(blueTeam.players);
-        }
-
-        // Canvas UI 처리
-        if (isLockedEvent(_gameData)) {
-          lockGroupedPieces(_gameData, me);
-        }
-
-        if (isBlockedEvent(_gameData)) {
-          blockGroupedPieces(_gameData, me);
-        }
-
-        if (isUnLockedEvent(_gameData)) {
-          unLockGroupedPieces(_gameData, me);
-        }
-
-        if (isMoveEvent(_gameData)) {
-          moveGroupedPieces(_gameData, me);
+          setInGameUIImgSrc(picture.encodedString);
+          setInGameUIRedPuzzle(redPuzzle);
+          setInGameUIRedPlayers(redTeam.players);
+          setInGameUIBluePuzzle(bluePuzzle);
+          setInGameUIBluePlayers(blueTeam.players);
         }
 
         // 디버그용
-        if (!isTimeTickData(_gameData) && !isMoveEvent(_gameData)) {
-          console.log(_gameData);
-        }
-
-        if (hasComboData(_gameData)) {
-          const { comboCnt, team } = _gameData;
-          if (team === "RED") {
-            setInGameRedComboCount(comboCnt || 0);
-          } else {
-            setInGameBlueComboCount(comboCnt || 0);
-          }
-        }
+        // if (!isTimeTickData(_gameData) && !isMoveEvent(_gameData)) {
+        //   console.log(_gameData);
+        // }
 
         if (isAddPieceEvent(_gameData)) {
-          const { team, combo } = _gameData;
-          if (combo) {
+          const { team, combo, comboCnt } = _gameData;
+
+          const { redPieces, bluePieces } = canvasStaticStore.getState();
+
+          const pieces = team === "RED" ? redPieces : bluePieces;
+
+          if (combo && team === me.team) {
+            const newCombo = [];
             for (const [pieceIndex, toPieceIndex] of combo) {
               attachPieceToPiece({
                 pieceIndex,
@@ -178,7 +177,20 @@ export const Connection = ({ roomId }: { roomId: string }) => {
                 team,
                 isSend: false,
               });
+
+              const piece = pieces[pieceIndex];
+              newCombo.push({
+                x: piece.paperGroup.position.x,
+                y: piece.paperGroup.position.y,
+                count: comboCnt,
+              });
             }
+
+            setCombo(newCombo);
+
+            setTimeout(() => {
+              setCombo([]);
+            }, 500);
           }
         }
 
@@ -194,7 +206,7 @@ export const Connection = ({ roomId }: { roomId: string }) => {
       });
 
       subscribe("chat", roomId, _chatData => {
-        setIsConnectedChatSocket(true); // 최초 한번 연결 상태 초기화
+        setIsConnectedChatSocket(true);
         addChat(_chatData);
       });
 
@@ -210,8 +222,8 @@ export const Connection = ({ roomId }: { roomId: string }) => {
     return () => {
       const { reset: resetCanvasStaticStore } = canvasStaticStore.getState();
       resetChatStore();
-      resetWaitingStore();
-      resetInGameStore();
+      resetWaitingUIStore();
+      resetInGameUIStore();
       resetCanvasStaticStore();
       disconnect();
     };
@@ -256,7 +268,12 @@ export const Connection = ({ roomId }: { roomId: string }) => {
               height: "100vh",
             }}
           >
-            <Canvas />
+            <div style={{ position: "relative" }}>
+              <Canvas />
+              {combo.map(({ x, y, count }, index) => (
+                <ComboEffect key={index} x={x} y={y} count={count} />
+              ))}
+            </div>
           </Flex>
           <InGamePage roomId={roomId} />
         </>
