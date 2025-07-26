@@ -17,11 +17,15 @@ interface InGameUIStore {
   setRedPuzzle: (redPuzzle: Puzzle | null) => void;
   redPlayers: Player[];
   setRedPlayers: (redPlayers: Player[]) => void;
+  redPercentage: number;
+  setRedPercentage: (redPercentage: number) => void;
 
   bluePuzzle: Puzzle | null;
   setBluePuzzle: (bluePuzzle: Puzzle | null) => void;
   bluePlayers: Player[];
   setBluePlayers: (bluePlayers: Player[]) => void;
+  bluePercentage: number;
+  setBluePercentage: (bluePercentage: number) => void;
 }
 
 const defaultTime = 0;
@@ -60,9 +64,13 @@ export const useInGameUIStore = create<InGameUIStore>((set, get) => ({
   setRedPuzzle: (redPuzzle: Puzzle | null) => set({ redPuzzle }),
   redPlayers: [],
   setRedPlayers: (redPlayers: Player[]) => set({ redPlayers }),
+  redPercentage: 0,
+  setRedPercentage: (redPercentage: number) => set({ redPercentage }),
 
   bluePuzzle: null,
   setBluePuzzle: (bluePuzzle: Puzzle | null) => set({ bluePuzzle }),
   bluePlayers: [],
   setBluePlayers: (bluePlayers: Player[]) => set({ bluePlayers }),
+  bluePercentage: 0,
+  setBluePercentage: (bluePercentage: number) => set({ bluePercentage }),
 }));

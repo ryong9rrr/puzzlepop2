@@ -4,6 +4,7 @@ import { Flex, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
 import { useInGameUIStore } from "./useInGameUIStore";
+import { CircularProgressbar } from "./CircularProgressbar";
 
 export const Timer = () => {
   const time = useInGameUIStore(state => state.time);
@@ -39,6 +40,7 @@ export const Timer = () => {
         <Text size="sm" bold>
           {HHMMSS(time)}
         </Text>
+        <CircularProgressbar />
       </Flex>
     </div>
   );

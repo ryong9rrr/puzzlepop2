@@ -22,6 +22,7 @@ import {
   isUnLockedEvent,
   hasBundlesData,
   isAddPieceEvent,
+  hasProgressPercentData,
 } from "./socketMessageMatchers";
 import { useChatStore } from "./useChatStore";
 
@@ -70,8 +71,10 @@ export const Connection = ({ roomId }: { roomId: string }) => {
   const setInGameUIImgSrc = useInGameUIStore(state => state.setImgSrc);
   const setInGameUIRedPuzzle = useInGameUIStore(state => state.setRedPuzzle);
   const setInGameUIRedPlayers = useInGameUIStore(state => state.setRedPlayers);
+  const setInGameUIRedPercentage = useInGameUIStore(state => state.setRedPercentage);
   const setInGameUIBluePuzzle = useInGameUIStore(state => state.setBluePuzzle);
   const setInGameUIBluePlayers = useInGameUIStore(state => state.setBluePlayers);
+  const setInGameUIBluePercentage = useInGameUIStore(state => state.setBluePercentage);
 
   useEffect(() => {
     let prevPlayers: Player[] = [];
@@ -106,6 +109,12 @@ export const Connection = ({ roomId }: { roomId: string }) => {
           setTimeout(() => {
             setIsFinished(true);
           }, 500);
+        }
+
+        if (hasProgressPercentData(_gameData)) {
+          const { redProgressPercent, blueProgressPercent } = _gameData;
+          setInGameUIRedPercentage(redProgressPercent);
+          setInGameUIBluePercentage(blueProgressPercent);
         }
 
         if (isLockedEvent(_gameData)) {

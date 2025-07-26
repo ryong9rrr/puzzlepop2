@@ -67,3 +67,9 @@ export const hasComboData = (
 ): gameData is { combo: Combo[] | null; comboCnt: number | null; team: TeamColor } => {
   return "combo" in gameData && "comboCnt" in gameData && "team" in gameData;
 };
+
+export const hasProgressPercentData = (
+  gameData: Record<string, unknown>,
+): gameData is { redProgressPercent: number; blueProgressPercent: number } => {
+  return "redProgressPercent" in gameData && "blueProgressPercent" in gameData;
+};
