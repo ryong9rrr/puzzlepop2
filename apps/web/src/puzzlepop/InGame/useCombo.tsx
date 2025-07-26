@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { Text } from "@puzzlepop2/react-components-layout";
 
-type ComboType = {
+type ComboState = {
   id: string;
   x: number;
   y: number;
@@ -12,9 +12,9 @@ type ComboType = {
 };
 
 export const useCombo = () => {
-  const [combos, setCombos] = useState<ComboType[]>([]);
+  const [combos, setCombos] = useState<ComboState[]>([]);
 
-  const addCombo = (combo: Omit<ComboType, "id" | "visible">) => {
+  const addCombo = (combo: Omit<ComboState, "id" | "visible">) => {
     const id = uuid();
     setCombos(prev => [...prev, { ...combo, id, visible: true }]);
 
@@ -33,7 +33,7 @@ export const useCombo = () => {
   };
 };
 
-export const Combos = ({ combos }: { combos: ComboType[] }) => {
+export const Combos = ({ combos }: { combos: ComboState[] }) => {
   return (
     <>
       {combos.map(({ id, x, y, count, visible }) => (

@@ -36,9 +36,8 @@ import { Canvas } from "./InGame/Canvas";
 import { useCombo, Combos } from "./InGame/useCombo";
 import { useInGameUIStore } from "./InGame/useInGameUIStore";
 import { canvasStaticStore } from "./InGame/canvas/canvasStaticStore";
-import { reGroupForBundles } from "./InGame/canvas/utils/reGroupForBundles";
+import { reBundles } from "./InGame/canvas/utils/reBundles";
 import { attachPieceToPiece } from "./InGame/canvas/utils/attachPieceToPiece";
-import { Button } from "@puzzlepop2/react-components-button";
 
 type PageStatus = "waiting" | "inGame" | "finished" | null;
 
@@ -103,14 +102,10 @@ export const Connection = ({ roomId }: { roomId: string }) => {
 
         setPageStatus("inGame");
 
-        if (isMoveEvent(_gameData)) {
-          moveGroupedPieces(_gameData, me);
-          return;
-        }
-
-        if (isTimeTickData(_gameData)) {
-          setInGameUITime(_gameData.time as number);
-          return;
+        if (isGameFinishState(_gameData)) {
+          setTimeout(() => {
+            setIsFinished(true);
+          }, 500);
         }
 
         if (isLockedEvent(_gameData)) {
@@ -123,6 +118,16 @@ export const Connection = ({ roomId }: { roomId: string }) => {
 
         if (isUnLockedEvent(_gameData)) {
           unLockGroupedPieces(_gameData, me);
+        }
+
+        if (isMoveEvent(_gameData)) {
+          moveGroupedPieces(_gameData, me);
+          return;
+        }
+
+        if (isTimeTickData(_gameData)) {
+          setInGameUITime(_gameData.time as number);
+          return;
         }
 
         if (hasPuzzleData(_gameData)) {
@@ -182,13 +187,10 @@ export const Connection = ({ roomId }: { roomId: string }) => {
           setRedBundles(redBundles || []);
           setBlueBundles(blueBundles || []);
           const bundles = me.team === "RED" ? redBundles || [] : blueBundles || [];
-          reGroupForBundles(bundles, me.team);
-        }
-
-        if (isGameFinishState(_gameData)) {
-          setTimeout(() => {
-            setIsFinished(true);
-          }, 500);
+          reBundles({
+            bundles,
+            team: me.team,
+          });
         }
       });
 
@@ -247,7 +249,7 @@ export const Connection = ({ roomId }: { roomId: string }) => {
             src={CDN.RED_TEAM_BACKGROUND}
             blurSrc={CDN.RED_TEAM_BACKGROUND_THUMBNAIL}
           />
-          <div style={{ position: "absolute", top: 0, left: 0 }}>
+          {/* <div style={{ position: "absolute", top: 0, left: 0 }}>
             <Button
               onClick={() => {
                 // 0에서 500 사이의 랜덤x
@@ -264,7 +266,7 @@ export const Connection = ({ roomId }: { roomId: string }) => {
             >
               콤보테스트
             </Button>
-          </div>
+          </div> */}
           <Flex
             justify="center"
             align="center"

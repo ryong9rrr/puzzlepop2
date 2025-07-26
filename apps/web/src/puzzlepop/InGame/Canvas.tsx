@@ -1,5 +1,3 @@
-"use client";
-
 import { CANVAS_HEIGHT, CANVAS_ID, CANVAS_WIDTH, IMG_ID } from "@puzzlepop2/game-core";
 import { vars } from "@puzzlepop2/themes";
 

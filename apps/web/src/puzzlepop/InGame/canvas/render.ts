@@ -10,7 +10,7 @@ import { CanvasPiece, canvasStaticStore } from "./canvasStaticStore";
 import * as Styles from "./renders/styles";
 import { createMask } from "./renders/createMask";
 import { createPiece } from "./renders/createPiece";
-import { reGroupForBundles } from "./utils/reGroupForBundles";
+import { reBundles } from "./utils/reBundles";
 
 export const render = (board: Piece[][]) => {
   const imgElement = window.document.getElementById(IMG_ID) as HTMLImageElement;
@@ -64,5 +64,8 @@ export const render = (board: Piece[][]) => {
   attachEvents();
 
   const bundles = me.team === "RED" ? redBundles : blueBundles;
-  reGroupForBundles(bundles, me.team);
+  reBundles({
+    bundles,
+    team: me.team,
+  });
 };
