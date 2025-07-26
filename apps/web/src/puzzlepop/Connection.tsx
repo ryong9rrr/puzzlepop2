@@ -28,16 +28,17 @@ import { useChatStore } from "./useChatStore";
 import { WaitingPage } from "./Waiting/WaitingPage";
 import { useWaitingUIStore } from "./Waiting/useWaitingUIStore";
 
-import { Me, Player, TeamColor, GameInfoData } from "./types/base";
-import { BlockedEventData, LockedEventData, MoveEventData } from "./types/inGame";
+import type { Me, Player, TeamColor, GameInfoData } from "./types/base";
+import type { BlockedEventData, LockedEventData, MoveEventData } from "./types/inGame";
 
 import { InGamePage } from "./InGame/InGamePage";
 import { Canvas } from "./InGame/Canvas";
-import { ComboEffect } from "./InGame/ComboEffect";
+import { useCombo, Combos } from "./InGame/useCombo";
 import { useInGameUIStore } from "./InGame/useInGameUIStore";
 import { canvasStaticStore } from "./InGame/canvas/canvasStaticStore";
 import { reGroupForBundles } from "./InGame/canvas/utils/reGroupForBundles";
 import { attachPieceToPiece } from "./InGame/canvas/utils/attachPieceToPiece";
+import { Button } from "@puzzlepop2/react-components-button";
 
 type PageStatus = "waiting" | "inGame" | "finished" | null;
 
@@ -45,12 +46,11 @@ const { connect, disconnect, subscribe, send } = socketStaticStore.getState();
 
 export const Connection = ({ roomId }: { roomId: string }) => {
   const [pageStatus, setPageStatus] = useState<PageStatus>(null);
-
   const [isConnectedGameSocket, setIsConnectedGameSocket] = useState(false);
   const [isConnectedChatSocket, setIsConnectedChatSocket] = useState(false);
-
-  const [combo, setCombo] = useState<{ x: number; y: number; count: number }[]>([]);
   const [isFinished, setIsFinished] = useState(false);
+
+  const { combos, addCombo } = useCombo();
 
   const resetChatStore = useChatStore(state => state.reset);
   const addChat = useChatStore(state => state.addChat);
@@ -159,7 +159,6 @@ export const Connection = ({ roomId }: { roomId: string }) => {
           const { redPieces, bluePieces } = canvasStaticStore.getState();
           const pieces = team === "RED" ? redPieces : bluePieces;
           if (combo && team === me.team) {
-            const newCombo = [];
             for (const [pieceIndex, toPieceIndex] of combo) {
               attachPieceToPiece({
                 pieceIndex,
@@ -168,17 +167,12 @@ export const Connection = ({ roomId }: { roomId: string }) => {
                 isSend: false,
               });
 
-              const piece = pieces[pieceIndex];
-              newCombo.push({
-                x: piece.paperGroup.position.x,
-                y: piece.paperGroup.position.y,
+              addCombo({
+                x: pieces[pieceIndex].paperGroup.position.x,
+                y: pieces[pieceIndex].paperGroup.position.y,
                 count: comboCnt,
               });
             }
-            setCombo(newCombo);
-            setTimeout(() => {
-              setCombo([]);
-            }, 500);
           }
         }
 
@@ -253,6 +247,24 @@ export const Connection = ({ roomId }: { roomId: string }) => {
             src={CDN.RED_TEAM_BACKGROUND}
             blurSrc={CDN.RED_TEAM_BACKGROUND_THUMBNAIL}
           />
+          <div style={{ position: "absolute", top: 0, left: 0 }}>
+            <Button
+              onClick={() => {
+                // 0에서 500 사이의 랜덤x
+                const randomX = Math.floor(Math.random() * 500);
+                // 0에서 500 사이의 랜덤y
+                const randomY = Math.floor(Math.random() * 500);
+
+                addCombo({
+                  x: randomX,
+                  y: randomY,
+                  count: 10,
+                });
+              }}
+            >
+              콤보테스트
+            </Button>
+          </div>
           <Flex
             justify="center"
             align="center"
@@ -263,9 +275,7 @@ export const Connection = ({ roomId }: { roomId: string }) => {
           >
             <div style={{ position: "relative" }}>
               <Canvas />
-              {combo.map(({ x, y, count }, index) => (
-                <ComboEffect key={index} x={x} y={y} count={count} />
-              ))}
+              <Combos combos={combos} />
             </div>
           </Flex>
           <InGamePage roomId={roomId} />
