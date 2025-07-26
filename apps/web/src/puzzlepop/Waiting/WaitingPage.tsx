@@ -9,8 +9,7 @@ import { useAutoFocusInput } from "@shared-hooks/useAutoFocusInput";
 import { wait } from "@shared-utils/promises";
 
 import { socketStaticStore } from "../socketStaticStore";
-import { getMultiGameStorage } from "../storage";
-
+import { useUserStore } from "../useUserStore";
 import { useChatStore } from "../useChatStore";
 
 import { useWaitingUIStore } from "./useWaitingUIStore";
@@ -22,6 +21,8 @@ import { ChatInput } from "./ChatInput";
 const { send } = socketStaticStore.getState();
 
 export const WaitingPage = ({ roomId }: { roomId: string }) => {
+  const me = useUserStore(state => state.me);
+
   const [isReady, setIsReady] = useState(false);
 
   const { inputRef } = useAutoFocusInput();
@@ -37,18 +38,16 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
   const 정원현황 = roomSize === 0 ? "" : `${players.length}/${roomSize}`;
 
   const isDisabledButton = () => {
-    if (!admin || typeof window === "undefined") {
+    if (!admin || typeof window === "undefined" || !me) {
       return true;
     }
-    const me = getMultiGameStorage().getItem();
     return admin.id !== me.id;
   };
 
   const getButtonText = () => {
-    if (!admin || typeof window === "undefined") {
+    if (!admin || typeof window === "undefined" || !me) {
       return "";
     }
-    const me = getMultiGameStorage().getItem();
     return me.id === admin.id ? "게임 시작" : "대기 중";
   };
 
@@ -58,11 +57,9 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
       return;
     }
 
-    const me = getMultiGameStorage().getItem();
-
     // 방장이 새로고침을 하거나 방을 나갔다 다시 들어오는 등의 이유로 현재 인원과 방장 정보의 싱크가 맞지 않는 서버 버그 상황
     // 에러로 간주하고 다시 방 생성 유도
-    if (me.id !== admin.id) {
+    if (!me || me.id !== admin.id) {
       console.error("게임 시작 권한이 없습니다.");
       alert("error", "문제가 발생하여 방을 다시 생성해주세요.");
       return;
@@ -79,7 +76,7 @@ export const WaitingPage = ({ roomId }: { roomId: string }) => {
       sender: me.id,
       roomId,
     });
-  }, [admin, roomId]);
+  }, [admin, roomId, me]);
 
   return (
     <Flex

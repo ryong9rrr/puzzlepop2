@@ -6,8 +6,8 @@ import { Input } from "@puzzlepop2/react-components-input";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
-import { getMultiGameStorage } from "../storage";
 import { socketStaticStore } from "../socketStaticStore";
+import { useUserStore } from "../useUserStore";
 
 const COLOR = "orange";
 
@@ -18,16 +18,15 @@ interface Props {
 }
 
 const ChatInput = ({ roomId }: Props, ref: Ref<HTMLInputElement>) => {
+  const me = useUserStore(state => state.me);
   const [message, setMessage] = useState("");
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
 
-    if (!message) {
+    if (!message || !me) {
       return;
     }
-
-    const me = getMultiGameStorage().getItem();
 
     send({
       type: "CHAT",

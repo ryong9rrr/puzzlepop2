@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 import { IMG_ID } from "@puzzlepop2/game-core";
 
+import { useUserStore } from "../useUserStore";
 import { socketStaticStore } from "../socketStaticStore";
-import { getMultiGameStorage } from "../storage";
 
 import { setup } from "./canvas/setup";
 import { render } from "./canvas/render";
@@ -15,6 +15,8 @@ import { Timer } from "./Timer";
 const { send } = socketStaticStore.getState();
 
 export const InGamePage = ({ roomId }: { roomId: string }) => {
+  const me = useUserStore(state => state.me);
+
   const imgSrc = useInGameUIStore(state => state.imgSrc);
   const setRenderComplete = useInGameUIStore(state => state.setRenderComplete);
 
@@ -32,11 +34,10 @@ export const InGamePage = ({ roomId }: { roomId: string }) => {
   }, []);
 
   useEffect(() => {
-    if (!imgSrc || !redPuzzle || !bluePuzzle) {
+    if (!imgSrc || !redPuzzle || !bluePuzzle || !me) {
       return;
     }
 
-    const me = getMultiGameStorage().getItem();
     const imgElement = window.document.getElementById(IMG_ID) as HTMLImageElement;
     if (!imgElement || imgElement.src) {
       return;
@@ -49,7 +50,7 @@ export const InGamePage = ({ roomId }: { roomId: string }) => {
       render(puzzle.board);
       setRenderComplete(true);
     };
-  }, [imgSrc, redPuzzle, bluePuzzle]);
+  }, [imgSrc, redPuzzle, bluePuzzle, me]);
 
   return (
     <>

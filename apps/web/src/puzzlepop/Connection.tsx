@@ -24,6 +24,7 @@ import {
   isAddPieceEvent,
   hasProgressPercentData,
 } from "./socketMessageMatchers";
+import { useUserStore } from "./useUserStore";
 import { useChatStore } from "./useChatStore";
 
 import { WaitingPage } from "./Waiting/WaitingPage";
@@ -52,6 +53,8 @@ export const Connection = ({ roomId }: { roomId: string }) => {
 
   const { combos, addCombo } = useCombo();
 
+  const setMe = useUserStore(state => state.setMe);
+
   const resetChatStore = useChatStore(state => state.reset);
   const addChat = useChatStore(state => state.addChat);
   const leaveChat = useChatStore(state => state.leaveChat);
@@ -77,11 +80,11 @@ export const Connection = ({ roomId }: { roomId: string }) => {
   const setInGameUIBluePercentage = useInGameUIStore(state => state.setBluePercentage);
 
   useEffect(() => {
+    const me = getMultiGameStorage().getItem();
+    setMe(me);
+
     let prevPlayers: Player[] = [];
-
     connect(() => {
-      const me = getMultiGameStorage().getItem();
-
       subscribe("game", roomId, _gameData => {
         setIsConnectedGameSocket(true);
 

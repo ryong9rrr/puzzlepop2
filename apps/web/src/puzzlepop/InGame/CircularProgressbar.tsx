@@ -1,26 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import "react-circular-progressbar/dist/styles.css";
 import { CircularProgressbar as CP, buildStyles } from "react-circular-progressbar";
 
-import { Me } from "../types/base";
-import { getMultiGameStorage } from "../storage";
-
+import { useUserStore } from "../useUserStore";
 import { useInGameUIStore } from "./useInGameUIStore";
 
 export const CircularProgressbar = () => {
-  const [me, setMe] = useState<Me | null>(null);
+  const me = useUserStore(state => state.me);
   const redPercentage = useInGameUIStore(state => state.redPercentage);
   const bluePercentage = useInGameUIStore(state => state.bluePercentage);
 
   const percentage = Math.floor(me && me.team === "BLUE" ? bluePercentage : redPercentage);
   const color = me && me.team === "BLUE" ? `var(--blue-400)` : `var(--red-400)`;
-
-  useEffect(() => {
-    const storageMe = getMultiGameStorage().getItem();
-    setMe(storageMe);
-  }, []);
 
   return (
     <div
