@@ -20,9 +20,7 @@ export const LeftStickyArea = () => {
     if (!selectedLevel || !selectedPuzzle) {
       return;
     }
-    navigate.push("/single", {
-      slug: `${selectedPuzzle._id}?level=${selectedLevel}`,
-    });
+    navigate.push("/single", `${selectedPuzzle._id}?level=${selectedLevel}`);
   };
 
   if (!selectedPuzzle) {

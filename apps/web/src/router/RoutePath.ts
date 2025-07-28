@@ -1,1 +1,1 @@
-export type RoutePath = "/" | "/single" | "/multi" | "/multi/cooperation";
+export type RoutePath = "/" | "/single" | "/multi" | "/multi/cooperation" | "/multi/battle";

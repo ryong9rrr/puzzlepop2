@@ -5,8 +5,12 @@ import { useMemo } from "react";
 
 import { RoutePath } from "./RoutePath";
 
-type DynamicPath = {
-  slug?: string;
+type QueryRecord = {
+  [key: string]: string;
+};
+
+type Options = {
+  queryRecord?: QueryRecord;
 };
 
 export const useNavigation = () => {
@@ -14,8 +18,9 @@ export const useNavigation = () => {
 
   return useMemo(() => {
     return {
-      push: (path: RoutePath, dynamic?: DynamicPath) => {
-        router.push(`${path}${parseSlug(dynamic)}`);
+      push: (path: RoutePath, slug?: string, options?: Options) => {
+        const nextPath = slug ? `${path}/${slug}` : path;
+        router.push(`${nextPath}${makeQueryString(options)}`);
       },
       replace: (path: RoutePath) => {
         router.replace(path);
@@ -33,12 +38,10 @@ export const useNavigation = () => {
   }, [router]);
 };
 
-const parseSlug = (dynamic?: DynamicPath) => {
-  if (!dynamic || !dynamic.slug) {
-    return ``;
+const makeQueryString = (options?: Options) => {
+  if (!options || !options.queryRecord) {
+    return "";
   }
-  if (dynamic.slug.startsWith("/")) {
-    return dynamic.slug;
-  }
-  return `/${dynamic.slug}`;
+  const queries = Object.entries(options.queryRecord).map(([key, value]) => `${key}=${value}`);
+  return `?${queries.join("&")}`;
 };

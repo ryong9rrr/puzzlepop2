@@ -14,18 +14,18 @@ export abstract class AbstractStorage<T> {
     this.storage = type === "session" ? window.sessionStorage : window.localStorage;
   }
 
-  getItem(): T {
+  getItem(): T | null {
     const value = this.storage.getItem(this.key);
 
     if (!value) {
       this.removeItem();
-      throw new Error(`No value found for key: ${this.key}`);
+      return null;
     }
 
     const parsedValue = JSON.parse(value);
     if (!this.validate(parsedValue)) {
       this.removeItem();
-      throw new Error(`Invalid value for key: ${this.key}`);
+      return null;
     }
 
     return parsedValue;

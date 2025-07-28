@@ -14,7 +14,7 @@ export const usePromise = <T>(fn: () => Promise<T>) => {
     } finally {
       setIsPending(false);
     }
-  }, [fn]);
+  }, []);
 
   useEffect(() => {
     refetch();

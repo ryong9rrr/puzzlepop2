@@ -1,6 +1,8 @@
 import { ToastClient } from "@shared-components/Clients/ToastClient";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
+
+import { StorageGuard } from "@puzzlepop/StorageGuard";
 import { Connection } from "@puzzlepop/Connection";
 
 interface PageProps {
@@ -19,7 +21,9 @@ export default async function Page({ params }: PageProps) {
       <ToastClient>
         <IsMobileWarningToast />
       </ToastClient>
-      <Connection roomId={roomId} />
+      <StorageGuard>
+        <Connection roomId={roomId} />
+      </StorageGuard>
     </FullScreenBackground.Main>
   );
 }

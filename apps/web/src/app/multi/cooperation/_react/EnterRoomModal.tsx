@@ -1,18 +1,11 @@
 "use client";
 
-import { FormEvent, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { Button } from "@puzzlepop2/react-components-button";
 import { Box, Flex, Spacing } from "@puzzlepop2/react-components-layout";
-import { useToast } from "@puzzlepop2/react-hooks-toast";
-import { useNavigation } from "@router/useNavigation";
 import { TextField } from "@shared-components/TextField";
-import { isRemoteError } from "@shared-utils/error";
-import { generateRandomNickname } from "@shared-utils/autoTextGenerator";
 
-import { enterGameRoom } from "@remotes-main/cooperation";
-
-import { getMultiGameStorage } from "@puzzlepop/storage";
+import { useEnterRoom } from "../../../../puzzlepop/useEnterRoom";
 
 interface Props {
   roomId: string;
@@ -22,56 +15,10 @@ interface Props {
 export const EnterRoomModal = (props: Props) => {
   const { onCloseModal, roomId } = props;
 
-  const navigate = useNavigation();
-
-  const { toast } = useToast();
-
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [nickname, setNickname] = useState(generateRandomNickname());
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-
-    if (!nickname) {
-      return;
-    }
-
-    // TODO: 욕설이나 선정적인 텍스트 검증
-    try {
-      setIsLoading(true);
-      const room = await enterGameRoom({
-        userId: nickname,
-        roomId,
-      });
-
-      getMultiGameStorage().setItem({
-        id: nickname,
-        team: "RED",
-      });
-
-      navigate.push("/multi/cooperation", {
-        slug: room.gameId,
-      });
-    } catch (error) {
-      if (isRemoteError(error)) {
-        toast({
-          payload: {
-            message: error.message,
-          },
-        });
-        setIsLoading(false);
-        return;
-      }
-
-      toast({
-        payload: {
-          message: "이미 게임이 시작되었거나 존재하지 않는 게임방입니다.",
-        },
-      });
-      setIsLoading(false);
-    }
-  };
+  const { nickname, setNickname, isLoading, onFetchEnterRoom } = useEnterRoom({
+    roomId,
+    gameType: "COOPERATION",
+  });
 
   return (
     <>
@@ -90,14 +37,14 @@ export const EnterRoomModal = (props: Props) => {
       <Spacing scale={0.5} />
 
       <Box style={{ width: "40vw", padding: "0 0.5rem" }}>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onFetchEnterRoom}>
           <Flex direction="column" gapScale={1}>
             <TextField
               title="닉네임"
               value={nickname}
               onChange={e => setNickname(e.target.value)}
             />
-            <Button type="submit" onClick={handleSubmit} isDisabled={!nickname || isLoading}>
+            <Button type="submit" isDisabled={!nickname || isLoading}>
               입장하기
             </Button>
           </Flex>

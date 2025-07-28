@@ -3,18 +3,19 @@ import { RemoteError } from "@shared-utils/error";
 import { ORIGINAL_SERVER_END_POINT_HTTP } from "./_ep";
 import { GameInfoData } from "@puzzlepop/types/base";
 
-export const getCooperationGameRoomList = async (): Promise<GameInfoData[]> => {
-  const response = await fetch(`${ORIGINAL_SERVER_END_POINT_HTTP()}/game/rooms/cooperation`);
+export const getRoomList = async (gameType: "cooperation" | "battle"): Promise<GameInfoData[]> => {
+  const response = await fetch(`${ORIGINAL_SERVER_END_POINT_HTTP()}/game/rooms/${gameType}`);
   const data = (await response.json()) as GameInfoData[];
   return data;
 };
 
-export const createGameRoom = async (props: {
+export const postCreateRoom = async (props: {
   roomTitle: string;
   userId: string;
   roomSize: number;
+  gameType: "COOPERATION" | "BATTLE";
 }): Promise<GameInfoData> => {
-  const { roomTitle, userId, roomSize: _roomSize } = props;
+  const { roomTitle, userId, roomSize: _roomSize, gameType } = props;
   const roomSize = Number(_roomSize);
 
   // 예외처리: 1인 ~ 8인 이하까지 가능
@@ -27,7 +28,7 @@ export const createGameRoom = async (props: {
     userid: userId,
     roomSize,
     type: "TEAM",
-    gameType: "COOPERATION",
+    gameType,
   });
 
   const response = await fetch(`${ORIGINAL_SERVER_END_POINT_HTTP()}/game/room`, {
@@ -42,7 +43,7 @@ export const createGameRoom = async (props: {
   return data;
 };
 
-export const enterGameRoom = async (props: {
+export const postEnterRoom = async (props: {
   userId: string;
   roomId: string;
 }): Promise<GameInfoData> => {
@@ -60,12 +61,9 @@ export const enterGameRoom = async (props: {
     body,
   });
 
-  if (response.status === 400) {
-    throw new RemoteError("다른 닉네임을 사용해주세요.");
-  }
-
-  if (response.status === 403) {
-    throw new RemoteError("정원이 가득 찼어요.");
+  if (response.status === 400 || response.status === 403) {
+    const errorText = await response.text();
+    throw new RemoteError(errorText);
   }
 
   const data = await response.json();

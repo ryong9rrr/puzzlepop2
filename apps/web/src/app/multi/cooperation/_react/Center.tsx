@@ -5,7 +5,7 @@ import { Button } from "@puzzlepop2/react-components-button";
 import { usePromise } from "@puzzlepop2/react-hooks-base";
 import { useModal } from "@puzzlepop2/react-hooks-modal";
 
-import { getCooperationGameRoomList } from "@remotes-main/cooperation";
+import { getRoomList } from "@remotes-main/apis";
 
 import { RefreshButton } from "./RefreshButton";
 import { RoomCardGrid } from "./RoomCardGrid";
@@ -15,7 +15,7 @@ import { EnterRoomModal } from "./EnterRoomModal";
 export const Center = () => {
   const { open, close } = useModal();
 
-  const { data: rooms, isPending, refetch } = usePromise(getCooperationGameRoomList);
+  const { data: rooms, isPending, refetch } = usePromise(() => getRoomList("cooperation"));
 
   const handleClickCreateRoomButton = () => {
     open({
