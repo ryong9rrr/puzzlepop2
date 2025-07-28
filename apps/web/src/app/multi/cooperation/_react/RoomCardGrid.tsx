@@ -4,7 +4,7 @@ import { Flex, Grid, GridItem, Spacing, Text } from "@puzzlepop2/react-component
 import { vars } from "@puzzlepop2/themes";
 
 import MODULE_CSS from "./RoomCardGrid.module.css";
-import { GameInfoData } from "@puzzlepop/types/base";
+import { GameInfoData } from "@puzzlepop-client/types/base";
 
 interface Props {
   mode: "COOPERATION" | "BATTLE";

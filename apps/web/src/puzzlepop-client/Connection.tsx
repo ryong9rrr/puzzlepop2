@@ -46,14 +46,14 @@ type PageStatus = "waiting" | "inGame" | "finished" | null;
 const { connect, disconnect, subscribe, send } = socketStaticStore.getState();
 
 export const Connection = ({ roomId }: { roomId: string }) => {
+  const me = useUserStore(state => state.me) as Me;
+
   const [pageStatus, setPageStatus] = useState<PageStatus>(null);
   const [isConnectedGameSocket, setIsConnectedGameSocket] = useState(false);
   const [isConnectedChatSocket, setIsConnectedChatSocket] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
 
   const { combos, addCombo } = useCombo();
-
-  const setMe = useUserStore(state => state.setMe);
 
   const resetChatStore = useChatStore(state => state.reset);
   const addChat = useChatStore(state => state.addChat);
@@ -80,9 +80,6 @@ export const Connection = ({ roomId }: { roomId: string }) => {
   const setInGameUIBluePercentage = useInGameUIStore(state => state.setBluePercentage);
 
   useEffect(() => {
-    const me = getMultiGameStorage().getItem();
-    setMe(me);
-
     let prevPlayers: Player[] = [];
     connect(() => {
       subscribe("game", roomId, _gameData => {

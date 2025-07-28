@@ -5,7 +5,7 @@ import { Button } from "@puzzlepop2/react-components-button";
 import { Box, Flex, Spacing } from "@puzzlepop2/react-components-layout";
 import { TextField } from "@shared-components/TextField";
 
-import { useEnterRoom } from "../../../../puzzlepop/useEnterRoom";
+import { useEnterRoom } from "@puzzlepop-client/useEnterRoom";
 
 interface Props {
   roomId: string;

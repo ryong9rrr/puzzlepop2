@@ -1,7 +1,7 @@
 import { RemoteError } from "@shared-utils/error";
 
 import { ORIGINAL_SERVER_END_POINT_HTTP } from "./_ep";
-import { GameInfoData } from "@puzzlepop/types/base";
+import { GameInfoData } from "@puzzlepop-client/types/base";
 
 export const getRoomList = async (gameType: "cooperation" | "battle"): Promise<GameInfoData[]> => {
   const response = await fetch(`${ORIGINAL_SERVER_END_POINT_HTTP()}/game/rooms/${gameType}`);

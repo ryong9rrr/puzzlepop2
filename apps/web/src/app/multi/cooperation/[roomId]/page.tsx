@@ -2,8 +2,8 @@ import { ToastClient } from "@shared-components/Clients/ToastClient";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
 
-import { StorageGuard } from "@puzzlepop/StorageGuard";
-import { Connection } from "@puzzlepop/Connection";
+import { StorageGuard } from "@puzzlepop-client/StorageGuard";
+import { Connection } from "@puzzlepop-client/Connection";
 
 interface PageProps {
   params: Promise<{ roomId: string }>;

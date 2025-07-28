@@ -8,7 +8,7 @@ import { Box, Flex, Spacing } from "@puzzlepop2/react-components-layout";
 import { TextField } from "@shared-components/TextField";
 import { RoomSizeField } from "@shared-components/RoomSizeField";
 
-import { useCreateRoom } from "../../../../puzzlepop/useCreateRoom";
+import { useCreateRoom } from "@puzzlepop-client/useCreateRoom";
 
 interface Props {
   onCloseModal: () => void;
