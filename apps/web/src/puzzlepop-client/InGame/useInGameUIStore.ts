@@ -28,31 +28,35 @@ interface InGameUIStore {
   setBluePercentage: (bluePercentage: number) => void;
 }
 
-const defaultTime = 0;
-const defaultImgSrc = null;
+const getDefaultValues = () => {
+  return {
+    isRenderComplete: false,
+    time: 0,
+    imgSrc: null,
+
+    redPuzzle: null,
+    redPlayers: [],
+    redPercentage: 0,
+
+    bluePuzzle: null,
+    bluePlayers: [],
+    bluePercentage: 0,
+  };
+};
 
 export const useInGameUIStore = create<InGameUIStore>((set, get) => ({
   reset: () => {
-    set({
-      isRenderComplete: false,
-
-      time: defaultTime,
-      imgSrc: defaultImgSrc,
-
-      redPuzzle: null,
-      redPlayers: [],
-      bluePuzzle: null,
-      bluePlayers: [],
-    });
+    const defaultValues = getDefaultValues();
+    set({ ...defaultValues });
   },
 
   isRenderComplete: false,
   setRenderComplete: (isRenderComplete: boolean) => set({ isRenderComplete }),
 
-  time: defaultTime,
+  time: getDefaultValues().time,
   setTime: (time: number) => set({ time }),
 
-  imgSrc: defaultImgSrc,
+  imgSrc: getDefaultValues().imgSrc,
   setImgSrc: (imgSrc: string) => {
     const prev = get().imgSrc;
     if (!prev) {
@@ -60,17 +64,17 @@ export const useInGameUIStore = create<InGameUIStore>((set, get) => ({
     }
   },
 
-  redPuzzle: null,
+  redPuzzle: getDefaultValues().redPuzzle,
   setRedPuzzle: (redPuzzle: Puzzle | null) => set({ redPuzzle }),
-  redPlayers: [],
+  redPlayers: getDefaultValues().redPlayers,
   setRedPlayers: (redPlayers: Player[]) => set({ redPlayers }),
-  redPercentage: 0,
+  redPercentage: getDefaultValues().redPercentage,
   setRedPercentage: (redPercentage: number) => set({ redPercentage }),
 
-  bluePuzzle: null,
+  bluePuzzle: getDefaultValues().bluePuzzle,
   setBluePuzzle: (bluePuzzle: Puzzle | null) => set({ bluePuzzle }),
-  bluePlayers: [],
+  bluePlayers: getDefaultValues().bluePlayers,
   setBluePlayers: (bluePlayers: Player[]) => set({ bluePlayers }),
-  bluePercentage: 0,
+  bluePercentage: getDefaultValues().bluePercentage,
   setBluePercentage: (bluePercentage: number) => set({ bluePercentage }),
 }));

@@ -23,33 +23,33 @@ interface WaitingUIStore {
   setBluePlayers: (players: Player[]) => void;
 }
 
-const defaultImgSrc = null;
-const defaultRoomTitle = "";
-const defaultRoomSize = 0;
-const defaultAdmin: Player | null = null;
+const getDefaultValues = () => {
+  return {
+    imgSrc: null,
+    roomTitle: "",
+    roomSize: 0,
+    admin: null,
+    redPlayers: [],
+    bluePlayers: [],
+  };
+};
 
 export const useWaitingUIStore = create<WaitingUIStore>((set, get) => ({
   reset: () => {
-    set({
-      imgSrc: defaultImgSrc,
-      roomTitle: defaultRoomTitle,
-      roomSize: defaultRoomSize,
-      admin: defaultAdmin,
-      redPlayers: [],
-      bluePlayers: [],
-    });
+    const defaultValues = getDefaultValues();
+    set({ ...defaultValues });
   },
 
-  imgSrc: defaultImgSrc,
+  imgSrc: getDefaultValues().imgSrc,
   setImgSrc: src => set({ imgSrc: src }),
 
-  roomTitle: defaultRoomTitle,
+  roomTitle: getDefaultValues().roomTitle,
   setRoomTitle: roomTitle => set({ roomTitle }),
 
-  roomSize: defaultRoomSize,
+  roomSize: getDefaultValues().roomSize,
   setRoomSize: roomSize => set({ roomSize }),
 
-  admin: defaultAdmin,
+  admin: getDefaultValues().admin,
   setAdmin: admin => {
     const prevAdmin = get().admin;
     if (prevAdmin && prevAdmin.id === admin.id) {
@@ -58,8 +58,9 @@ export const useWaitingUIStore = create<WaitingUIStore>((set, get) => ({
     set({ admin });
   },
 
-  redPlayers: [],
+  redPlayers: getDefaultValues().redPlayers,
   setRedPlayers: redPlayers => set({ redPlayers }),
-  bluePlayers: [],
+
+  bluePlayers: getDefaultValues().bluePlayers,
   setBluePlayers: bluePlayers => set({ bluePlayers }),
 }));
