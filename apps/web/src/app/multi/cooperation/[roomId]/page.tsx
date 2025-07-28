@@ -2,8 +2,7 @@ import { ToastClient } from "@shared-components/Clients/ToastClient";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
 
-import { StorageGuard } from "@puzzlepop-client/StorageGuard";
-import { Connection } from "@puzzlepop-client/Connection";
+import { PuzzlePopClient } from "@puzzlepop-client/PuzzlePopClient";
 
 interface PageProps {
   params: Promise<{ roomId: string }>;
@@ -21,9 +20,7 @@ export default async function Page({ params }: PageProps) {
       <ToastClient>
         <IsMobileWarningToast />
       </ToastClient>
-      <StorageGuard>
-        <Connection roomId={roomId} />
-      </StorageGuard>
+      <PuzzlePopClient roomId={roomId} gameType="COOPERATION" />
     </FullScreenBackground.Main>
   );
 }

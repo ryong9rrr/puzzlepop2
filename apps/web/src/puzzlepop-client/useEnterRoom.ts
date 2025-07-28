@@ -1,30 +1,20 @@
 import { FormEvent, useState } from "react";
-import { useToast } from "@puzzlepop2/react-hooks-toast";
-import { useNavigation } from "@router/useNavigation";
 import { generateRandomNickname } from "@shared-utils/autoTextGenerator";
 import { isRemoteError } from "@shared-utils/error";
 
 import * as API from "@remotes-main/apis";
 import { getMultiGameStorage } from "./storage";
+import { GameInfoData } from "./types/base";
 
-interface Props {
-  roomId: string;
-  gameType: "COOPERATION" | "BATTLE";
-}
-
-export const useEnterRoom = (props: Props) => {
-  const { roomId, gameType } = props;
-
-  const navigate = useNavigation();
-  const { toast } = useToast();
+export const useEnterRoom = (roomId: string) => {
   const [isLoading, setIsLoading] = useState(false);
   const [nickname, setNickname] = useState(generateRandomNickname());
 
-  const onFetchEnterRoom = async (e: FormEvent) => {
+  const fetchGetEnteredRoom = async (e: FormEvent): Promise<GameInfoData> => {
     e.preventDefault();
 
     if (!nickname) {
-      return;
+      throw new Error("닉네임을 입력해주세요.");
     }
 
     // TODO: 욕설이나 선정적인 텍스트 검증
@@ -40,25 +30,14 @@ export const useEnterRoom = (props: Props) => {
         team: "RED",
       });
 
-      const path = gameType === "COOPERATION" ? "/multi/cooperation" : "/multi/battle";
-      navigate.push(path, room.gameId);
+      return room;
     } catch (error) {
+      let errorMessage = "이미 게임이 시작되었거나 존재하지 않는 게임방이에요.";
       if (isRemoteError(error)) {
-        toast({
-          payload: {
-            message: error.message,
-          },
-        });
-        setIsLoading(false);
-        return;
+        errorMessage = error.message;
       }
-
-      toast({
-        payload: {
-          message: "이미 게임이 시작되었거나 존재하지 않는 게임방입니다.",
-        },
-      });
       setIsLoading(false);
+      throw new Error(errorMessage);
     }
   };
 
@@ -66,6 +45,6 @@ export const useEnterRoom = (props: Props) => {
     nickname,
     setNickname,
     isLoading,
-    onFetchEnterRoom,
+    fetchGetEnteredRoom,
   };
 };
