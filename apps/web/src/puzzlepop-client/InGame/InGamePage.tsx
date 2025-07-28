@@ -11,6 +11,7 @@ import { render } from "./canvas/render";
 
 import { useInGameUIStore } from "./useInGameUIStore";
 import { Timer } from "./Timer";
+import { ChatWidget } from "./ChatWidget";
 
 const { send } = socketStaticStore.getState();
 
@@ -55,6 +56,7 @@ export const InGamePage = ({ roomId }: { roomId: string }) => {
   return (
     <>
       <Timer />
+      <ChatWidget roomId={roomId} />
     </>
   );
 };

@@ -6,8 +6,8 @@ import { Input } from "@puzzlepop2/react-components-input";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
-import { socketStaticStore } from "../socketStaticStore";
-import { useUserStore } from "../useUserStore";
+import { socketStaticStore } from "./socketStaticStore";
+import { useUserStore } from "./useUserStore";
 
 const COLOR = "orange";
 

@@ -10,7 +10,6 @@ import { FullScreenBackground } from "@shared-components/FullScreenBackground";
 import * as CDN from "@remotes-cdn/images";
 
 import { socketStaticStore } from "./socketStaticStore";
-import { getMultiGameStorage } from "./storage";
 import {
   hasPuzzleData,
   isGameWaitingState,
@@ -35,11 +34,12 @@ import type { BlockedEventData, LockedEventData, MoveEventData } from "./types/i
 
 import { InGamePage } from "./InGame/InGamePage";
 import { Canvas } from "./InGame/Canvas";
-import { useCombo, Combos } from "./InGame/useCombo";
-import { useInGameUIStore } from "./InGame/useInGameUIStore";
 import { canvasStaticStore } from "./InGame/canvas/canvasStaticStore";
 import { reBundles } from "./InGame/canvas/utils/reBundles";
 import { attachPieceToPiece } from "./InGame/canvas/utils/attachPieceToPiece";
+import { useCombo, Combos } from "./InGame/useCombo";
+import { useInGameUIStore } from "./InGame/useInGameUIStore";
+import { Finished } from "./InGame/Finished";
 
 type PageStatus = "waiting" | "inGame" | "finished" | null;
 
@@ -78,6 +78,10 @@ export const Connection = ({ roomId }: { roomId: string }) => {
   const setInGameUIBluePuzzle = useInGameUIStore(state => state.setBluePuzzle);
   const setInGameUIBluePlayers = useInGameUIStore(state => state.setBluePlayers);
   const setInGameUIBluePercentage = useInGameUIStore(state => state.setBluePercentage);
+
+  useEffect(() => {
+    resetChatStore();
+  }, [pageStatus]);
 
   useEffect(() => {
     let prevPlayers: Player[] = [];
@@ -258,24 +262,6 @@ export const Connection = ({ roomId }: { roomId: string }) => {
             src={CDN.RED_TEAM_BACKGROUND}
             blurSrc={CDN.RED_TEAM_BACKGROUND_THUMBNAIL}
           />
-          {/* <div style={{ position: "absolute", top: 0, left: 0 }}>
-            <Button
-              onClick={() => {
-                // 0에서 500 사이의 랜덤x
-                const randomX = Math.floor(Math.random() * 500);
-                // 0에서 500 사이의 랜덤y
-                const randomY = Math.floor(Math.random() * 500);
-
-                addCombo({
-                  x: randomX,
-                  y: randomY,
-                  count: 10,
-                });
-              }}
-            >
-              콤보테스트
-            </Button>
-          </div> */}
           <Flex
             justify="center"
             align="center"
@@ -290,24 +276,7 @@ export const Connection = ({ roomId }: { roomId: string }) => {
             </div>
           </Flex>
           <InGamePage roomId={roomId} />
-          {isFinished && (
-            <Flex
-              direction="column"
-              justify="center"
-              align="center"
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100vw",
-                height: "100vh",
-                backgroundColor: "rgba(0, 0, 0, 0.5)",
-                zIndex: 9999,
-              }}
-            >
-              <div>게임이 종료되었습니다.</div>
-            </Flex>
-          )}
+          {isFinished && <Finished />}
         </>
       )}
     </>

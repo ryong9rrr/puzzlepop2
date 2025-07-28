@@ -11,12 +11,12 @@ import { wait } from "@shared-utils/promises";
 import { socketStaticStore } from "../socketStaticStore";
 import { useUserStore } from "../useUserStore";
 import { useChatStore } from "../useChatStore";
+import { ChatInput } from "../ChatInput";
 
 import { useWaitingUIStore } from "./useWaitingUIStore";
 import { PlayerCardGrid } from "./PlayerCardGrid";
 import { Picture } from "./Picture";
 import { ChatHistory } from "./ChatHistory";
-import { ChatInput } from "./ChatInput";
 
 const { send } = socketStaticStore.getState();
 

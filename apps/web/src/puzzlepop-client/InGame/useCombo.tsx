@@ -39,7 +39,7 @@ export const Combos = ({ combos }: { combos: ComboState[] }) => {
       {combos.map(({ id, x, y, count, visible }) => (
         <div key={id}>
           <DotLottieReact
-            src="/lotties/stars-spark.lottie"
+            src="/lotties/combo.lottie"
             autoplay
             loop
             speed={1}
