@@ -1,7 +1,8 @@
 import { CANVAS_HEIGHT, CANVAS_ID, CANVAS_WIDTH, IMG_ID } from "@puzzlepop2/game-core";
 import { vars } from "@puzzlepop2/themes";
+import { CanvasLoader } from "./CanvasLoader";
 
-export const Canvas = () => {
+export const Canvas = ({ roomId }: { roomId: string }) => {
   return (
     <>
       <img id={IMG_ID} alt="" style={{ display: "none" }} />
@@ -16,6 +17,7 @@ export const Canvas = () => {
           border: `3px solid ${vars.colors.grey[500]}`,
         }}
       />
+      <CanvasLoader roomId={roomId} />
     </>
   );
 };

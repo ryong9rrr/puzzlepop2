@@ -1,15 +1,23 @@
 "use client";
 
-import { CSSProperties, useState } from "react";
+import { CSSProperties } from "react";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
+import { useSideWidgetStore } from "./useSideWidgetStore";
+
 import { IoIosTimer as IoTimer } from "react-icons/io";
 import { PiPercentBold as IoPercent } from "react-icons/pi";
+import { BsImage as IoImage } from "react-icons/bs";
 
 export const SideWidget = () => {
-  const [isActiveTimer, setIsActiveTimer] = useState(true);
-  const [isActivePercent, setIsActivePercent] = useState(true);
+  const isActiveTimer = useSideWidgetStore(state => state.isActiveTimer);
+  const isActivePercent = useSideWidgetStore(state => state.isActivePercent);
+  const isActiveExampleImage = useSideWidgetStore(state => state.isActiveExampleImage);
+
+  const toggleTimer = useSideWidgetStore(state => state.toggleTimer);
+  const togglePercent = useSideWidgetStore(state => state.togglePercent);
+  const toggleExampleImage = useSideWidgetStore(state => state.toggleExampleImage);
 
   const getIconStyle = (isActive: boolean) => {
     return {
@@ -25,7 +33,7 @@ export const SideWidget = () => {
         justify="center"
         align="center"
         style={getIconStyle(isActiveTimer)}
-        onClick={() => setIsActiveTimer(!isActiveTimer)}
+        onClick={toggleTimer}
       >
         <IoTimer size={30} />
       </Flex>
@@ -33,9 +41,17 @@ export const SideWidget = () => {
         justify="center"
         align="center"
         style={getIconStyle(isActivePercent)}
-        onClick={() => setIsActivePercent(!isActivePercent)}
+        onClick={togglePercent}
       >
         <IoPercent size={24} />
+      </Flex>
+      <Flex
+        justify="center"
+        align="center"
+        style={getIconStyle(isActiveExampleImage)}
+        onClick={toggleExampleImage}
+      >
+        <IoImage size={22} />
       </Flex>
     </Flex>
   );

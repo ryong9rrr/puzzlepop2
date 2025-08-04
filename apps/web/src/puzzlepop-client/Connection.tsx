@@ -32,7 +32,6 @@ import { useWaitingUIStore } from "./Waiting/useWaitingUIStore";
 import type { Me, Player, TeamColor, GameInfoData } from "./types/base";
 import type { BlockedEventData, LockedEventData, MoveEventData } from "./types/inGame";
 
-import { InGamePage } from "./InGame/InGamePage";
 import { Canvas } from "./InGame/Canvas";
 import { canvasStaticStore } from "./InGame/canvas/canvasStaticStore";
 import { reBundles } from "./InGame/canvas/utils/reBundles";
@@ -41,6 +40,11 @@ import { useCombo, Combos } from "./InGame/useCombo";
 import { useInGameUIStore } from "./InGame/useInGameUIStore";
 import { Finished } from "./InGame/Finished";
 import { ProgressBar } from "./InGame/ProgressBar";
+import { Timer } from "./InGame/Timer";
+import { ChatWidget } from "./InGame/ChatWidget";
+import { SideWidget } from "./InGame/SideWidget";
+import { useSideWidgetStore } from "./InGame/useSideWidgetStore";
+import { ExampleImage } from "./InGame/ExampleImage";
 
 interface ConnectionProps {
   roomId: string;
@@ -88,6 +92,8 @@ export const Connection = (props: ConnectionProps) => {
   const setInGameUIBluePlayers = useInGameUIStore(state => state.setBluePlayers);
   const inGameBluePercentage = useInGameUIStore(state => state.bluePercentage);
   const setInGameUIBluePercentage = useInGameUIStore(state => state.setBluePercentage);
+
+  const resetSideWidgetStore = useSideWidgetStore(state => state.reset);
 
   useEffect(() => {
     resetChatStore();
@@ -237,6 +243,7 @@ export const Connection = (props: ConnectionProps) => {
       resetWaitingUIStore();
       resetInGameUIStore();
       resetCanvasStaticStore();
+      resetSideWidgetStore();
       disconnect();
     };
 
@@ -285,12 +292,14 @@ export const Connection = (props: ConnectionProps) => {
                 color={gameType === "COOPERATION" ? "orange" : me.team === "RED" ? "red" : "blue"}
                 percent={me.team === "RED" ? inGameRedPercentage : inGameBluePercentage}
               />
-              <Spacing size={4} />
-              <Canvas />
+              <Canvas roomId={roomId} />
               <Combos combos={combos} />
             </div>
           </Flex>
-          <InGamePage roomId={roomId} />
+          <ExampleImage />
+          <Timer />
+          <ChatWidget roomId={roomId} />
+          <SideWidget />
           {isFinished && <Finished />}
         </>
       )}

@@ -4,8 +4,10 @@ import { Flex, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
 import { useInGameUIStore } from "./useInGameUIStore";
+import { useSideWidgetStore } from "./useSideWidgetStore";
 
 export const Timer = () => {
+  const isActiveTimer = useSideWidgetStore(state => state.isActiveTimer);
   const time = useInGameUIStore(state => state.time);
 
   const HHMMSS = (time: number) => {
@@ -14,6 +16,10 @@ export const Timer = () => {
     const seconds = time % 60;
     return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
+
+  if (!isActiveTimer) {
+    return null;
+  }
 
   return (
     <Flex

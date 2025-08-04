@@ -7,9 +7,9 @@ import Image from "next/image";
 import { vars } from "@puzzlepop2/themes";
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 
+import MODULE_CSS from "./ChatWidget.module.css";
 import { ChatInput } from "../ChatInput";
 import { useChatStore } from "../useChatStore";
-import styles from "./ChatWidget.module.css";
 
 export const ChatWidget = ({ roomId }: { roomId: string }) => {
   const [isShowAlarm, setIsShowAlarm] = useState(false);
@@ -70,7 +70,7 @@ const ChatIcon = ({
 }) => {
   return (
     <div
-      className={styles["hover-grow"]}
+      className={MODULE_CSS["hover-grow"]}
       style={{
         position: "relative",
       }}
@@ -157,7 +157,7 @@ const ChatSlide = ({
       </Flex>
       <Flex
         direction="column"
-        className={styles["slide-up"]}
+        className={MODULE_CSS["slide-up"]}
         style={{
           height: "60vh",
         }}

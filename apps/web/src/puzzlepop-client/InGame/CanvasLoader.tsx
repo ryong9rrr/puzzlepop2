@@ -10,12 +10,10 @@ import { setup } from "./canvas/setup";
 import { render } from "./canvas/render";
 
 import { useInGameUIStore } from "./useInGameUIStore";
-import { Timer } from "./Timer";
-import { ChatWidget } from "./ChatWidget";
 
 const { send } = socketStaticStore.getState();
 
-export const InGamePage = ({ roomId }: { roomId: string }) => {
+export const CanvasLoader = ({ roomId }: { roomId: string }) => {
   const me = useUserStore(state => state.me);
 
   const imgSrc = useInGameUIStore(state => state.imgSrc);
@@ -53,10 +51,5 @@ export const InGamePage = ({ roomId }: { roomId: string }) => {
     };
   }, [imgSrc, redPuzzle, bluePuzzle, me]);
 
-  return (
-    <>
-      <Timer />
-      <ChatWidget roomId={roomId} />
-    </>
-  );
+  return null;
 };
