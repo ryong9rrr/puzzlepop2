@@ -1,9 +1,8 @@
 "use client";
 
 import React, { CSSProperties } from "react";
-import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
+import { Flex, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
-import { useSideWidgetStore } from "./useSideWidgetStore";
 
 interface Props {
   percent: number; // 0~100
@@ -13,8 +12,6 @@ interface Props {
 const HEIGHT_PX = 40;
 
 export const ProgressBar = ({ percent: _percent, color = "orange" }: Props) => {
-  const isActivePercent = useSideWidgetStore(state => state.isActivePercent);
-
   const fillUpMinColor = `var(--${color}-500)`;
   const fillDownMinColor = `var(--${color}-600)`;
   const fillUpMaxColor = `var(--${color}-100)`;
@@ -30,10 +27,6 @@ export const ProgressBar = ({ percent: _percent, color = "orange" }: Props) => {
     position: "relative",
     zIndex: 1,
   };
-
-  if (!isActivePercent) {
-    return null;
-  }
 
   return (
     <>
@@ -102,7 +95,6 @@ export const ProgressBar = ({ percent: _percent, color = "orange" }: Props) => {
           </Text>
         </Flex>
       </div>
-      <Spacing size={4} />
     </>
   );
 };

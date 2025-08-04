@@ -4,13 +4,11 @@ import Image from "next/image";
 import { vars } from "@puzzlepop2/themes";
 
 import { useInGameUIStore } from "./useInGameUIStore";
-import { useSideWidgetStore } from "./useSideWidgetStore";
 
 export const ExampleImage = () => {
-  const isActiveExampleImage = useSideWidgetStore(state => state.isActiveExampleImage);
   const inGameUIImgSrc = useInGameUIStore(state => state.imgSrc);
 
-  if (!inGameUIImgSrc || !isActiveExampleImage) {
+  if (!inGameUIImgSrc) {
     return null;
   }
 
