@@ -1,7 +1,7 @@
 "use client";
 
 import { PropsWithChildren, useEffect, useState } from "react";
-import { vars } from "@puzzlepop2/themes";
+import { vars, Z_INDEX } from "@puzzlepop2/themes";
 import { Box, Flex } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
 import { useToast } from "@puzzlepop2/react-hooks-toast";
@@ -80,7 +80,7 @@ export const StorageGuard = ({ children, roomId, gameType }: Props) => {
           width: "100vw",
           height: "100vh",
           backgroundColor: vars.colors.black,
-          zIndex: 1000,
+          zIndex: Z_INDEX.ALERT_Z_INDEX + 1,
         }}
       >
         <Box

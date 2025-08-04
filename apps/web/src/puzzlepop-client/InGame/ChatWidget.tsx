@@ -4,7 +4,7 @@ import { RiArrowDropDownFill as ArrowDown } from "react-icons/ri";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { vars } from "@puzzlepop2/themes";
+import { vars, Z_INDEX } from "@puzzlepop2/themes";
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 
 import { useChatStore } from "../stores/useChatStore";
@@ -52,7 +52,7 @@ export const ChatWidget = ({ roomId }: { roomId: string }) => {
         position: "fixed",
         bottom: "4px",
         right: "8px",
-        zIndex: 999,
+        zIndex: Z_INDEX.DIMMED_Z_INDEX - 1,
       }}
     >
       <ChatIcon isShowAlarm={isShowAlarm} handleOpenChat={handleOpenChat} />

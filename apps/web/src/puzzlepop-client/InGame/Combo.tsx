@@ -24,7 +24,7 @@ export const Combo = () => {
               transform: "translate(-50%, -50%)",
               width: "5rem",
               height: "5rem",
-              zIndex: 99,
+              zIndex: 1,
               pointerEvents: "none",
             }}
           />
@@ -38,7 +38,7 @@ export const Combo = () => {
                 position: "absolute",
                 top: `${y}px`,
                 left: `${x}px`,
-                zIndex: 99,
+                zIndex: 1,
                 pointerEvents: "none",
               }}
             >

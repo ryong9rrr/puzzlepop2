@@ -1,7 +1,7 @@
 "use client";
 
+import { vars, Z_INDEX } from "@puzzlepop2/themes";
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
-import { vars } from "@puzzlepop2/themes";
 
 import { useInGameUIStore } from "../stores/useInGameUIStore";
 
@@ -32,7 +32,7 @@ export const Timer = () => {
         backdropFilter: "blur(5px)",
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
         padding: "0.5rem 0.5rem 0.4rem 0.5rem",
-        zIndex: 1000,
+        zIndex: Z_INDEX.DIMMED_Z_INDEX - 1,
       }}
     >
       <Text bold>{HHMMSS(time)}</Text>
