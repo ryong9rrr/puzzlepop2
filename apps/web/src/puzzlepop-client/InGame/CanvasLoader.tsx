@@ -10,14 +10,16 @@ import { setup } from "./canvas/setup";
 import { render } from "./canvas/render";
 
 import { useInGameUIStore } from "./useInGameUIStore";
+import { useLoadingStore } from "@puzzlepop-client/stores/useLoadingStore";
 
 const { send } = socketStaticStore.getState();
 
 export const CanvasLoader = ({ roomId }: { roomId: string }) => {
   const me = useUserStore(state => state.me);
 
+  const setIsSetupCompleteCanvas = useLoadingStore(state => state.setIsSetupCompleteCanvas);
+
   const imgSrc = useInGameUIStore(state => state.imgSrc);
-  const setRenderComplete = useInGameUIStore(state => state.setRenderComplete);
 
   const redPuzzle = useInGameUIStore(state => state.redPuzzle);
   const bluePuzzle = useInGameUIStore(state => state.bluePuzzle);
@@ -47,7 +49,7 @@ export const CanvasLoader = ({ roomId }: { roomId: string }) => {
       setup();
       const puzzle = me.team === "RED" ? redPuzzle : bluePuzzle;
       render(puzzle.board);
-      setRenderComplete(true);
+      setIsSetupCompleteCanvas(true);
     };
   }, [imgSrc, redPuzzle, bluePuzzle, me]);
 

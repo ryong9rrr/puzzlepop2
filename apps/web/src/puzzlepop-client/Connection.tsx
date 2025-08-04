@@ -1,7 +1,7 @@
 "use client";
 
 import { Point } from "paper/dist/paper-core";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Flex, Spacing } from "@puzzlepop2/react-components-layout";
 import { AlertClient } from "@shared-components/Clients/AlertClient";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
@@ -45,6 +45,7 @@ import { Timer } from "./InGame/Timer";
 import { ChatWidget } from "./InGame/ChatWidget";
 import { SideWidgetContainer, SideWidgetIcon } from "./InGame/SideWidgets";
 import { ExampleImage } from "./InGame/ExampleImage";
+import { useLoadingStore } from "./stores/useLoadingStore";
 
 interface ConnectionProps {
   roomId: string;
@@ -61,8 +62,26 @@ export const Connection = (props: ConnectionProps) => {
   const me = useUserStore(state => state.me) as Me;
 
   const [pageStatus, setPageStatus] = useState<PageStatus>(null);
-  const [isConnectedGameSocket, setIsConnectedGameSocket] = useState(false);
-  const [isConnectedChatSocket, setIsConnectedChatSocket] = useState(false);
+
+  const resetLoadingStore = useLoadingStore(state => state.reset);
+  const isSetupCompleteCanvas = useLoadingStore(state => state.isSetupCompleteCanvas);
+  const isConnectCompleteGameSocket = useLoadingStore(state => state.isConnectCompleteGameSocket);
+  const isConnectCompleteChatSocket = useLoadingStore(state => state.isConnectCompleteChatSocket);
+  const setIsConnectCompleteGameSocket = useLoadingStore(
+    state => state.setIsConnectCompleteGameSocket,
+  );
+  const setIsConnectCompleteChatSocket = useLoadingStore(
+    state => state.setIsConnectCompleteChatSocket,
+  );
+  const isLoadingComplete = useMemo(() => {
+    return (
+      isConnectCompleteGameSocket &&
+      isConnectCompleteChatSocket &&
+      !!pageStatus &&
+      (pageStatus === "inGame" ? isSetupCompleteCanvas : true)
+    );
+  }, [isConnectCompleteGameSocket, isConnectCompleteChatSocket, pageStatus, isSetupCompleteCanvas]);
+
   const [isFinished, setIsFinished] = useState(false);
 
   const { combos, addCombo } = useCombo();
@@ -84,7 +103,6 @@ export const Connection = (props: ConnectionProps) => {
   const setWaitingUIRoomTitle = useWaitingUIStore(state => state.setRoomTitle);
 
   const resetInGameUIStore = useInGameUIStore(state => state.reset);
-  const isRenderComplete = useInGameUIStore(state => state.isRenderComplete);
   const setInGameUITime = useInGameUIStore(state => state.setTime);
   const setInGameUIImgSrc = useInGameUIStore(state => state.setImgSrc);
   const setInGameUIRedPuzzle = useInGameUIStore(state => state.setRedPuzzle);
@@ -104,7 +122,7 @@ export const Connection = (props: ConnectionProps) => {
     let prevPlayers: Player[] = [];
     connect(() => {
       subscribe("game", roomId, _gameData => {
-        setIsConnectedGameSocket(true);
+        setIsConnectCompleteGameSocket(true);
 
         if (isGameWaitingState(_gameData)) {
           setPageStatus("waiting");
@@ -225,7 +243,7 @@ export const Connection = (props: ConnectionProps) => {
       });
 
       subscribe("chat", roomId, _chatData => {
-        setIsConnectedChatSocket(true);
+        setIsConnectCompleteChatSocket(true);
         addChat(_chatData);
       });
 
@@ -241,6 +259,8 @@ export const Connection = (props: ConnectionProps) => {
     return () => {
       const { reset: resetCanvasStaticStore } = canvasStaticStore.getState();
       resetCanvasStaticStore();
+
+      resetLoadingStore();
       resetChatStore();
       resetWaitingUIStore();
       resetInGameUIStore();
@@ -252,14 +272,7 @@ export const Connection = (props: ConnectionProps) => {
 
   return (
     <>
-      <LoadingOverlay
-        isLoadingComplete={
-          isConnectedGameSocket &&
-          isConnectedChatSocket &&
-          !!pageStatus &&
-          (pageStatus === "inGame" ? isRenderComplete : true)
-        }
-      />
+      <LoadingOverlay isLoadingComplete={isLoadingComplete} />
 
       {pageStatus === "waiting" && (
         <>

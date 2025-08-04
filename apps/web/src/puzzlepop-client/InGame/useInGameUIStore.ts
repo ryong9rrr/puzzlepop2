@@ -4,9 +4,6 @@ import { Player, Puzzle } from "../types/base";
 interface InGameUIStore {
   reset: () => void;
 
-  isRenderComplete: boolean;
-  setRenderComplete: (isRenderComplete: boolean) => void;
-
   time: number;
   setTime: (time: number) => void;
 
@@ -30,7 +27,6 @@ interface InGameUIStore {
 
 const getDefaultValues = () => {
   return {
-    isRenderComplete: false,
     time: 0,
     imgSrc: null,
 
@@ -49,9 +45,6 @@ export const useInGameUIStore = create<InGameUIStore>((set, get) => ({
     const defaultValues = getDefaultValues();
     set({ ...defaultValues });
   },
-
-  isRenderComplete: false,
-  setRenderComplete: (isRenderComplete: boolean) => set({ isRenderComplete }),
 
   time: getDefaultValues().time,
   setTime: (time: number) => set({ time }),
