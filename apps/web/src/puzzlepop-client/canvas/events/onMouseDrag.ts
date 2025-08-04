@@ -1,6 +1,6 @@
 import Paper from "paper";
 
-import { socketStaticStore } from "../../../socketStaticStore";
+import { socketStaticStore } from "../../socketStaticStore";
 import { CanvasPiece, canvasStaticStore } from "../canvasStaticStore";
 import { getTargets } from "../utils/getTargets";
 

@@ -2,7 +2,7 @@ import Paper from "paper";
 import { Point } from "paper/dist/paper-core";
 import { IMG_ID } from "@puzzlepop2/game-core";
 
-import { Piece } from "../../types/base";
+import { Piece } from "../types/base";
 
 import { attachEvents } from "./attachEvents";
 import { CanvasPiece, canvasStaticStore } from "./canvasStaticStore";

@@ -1,4 +1,4 @@
-import { TeamColor } from "@puzzlepop/types/base";
+import { TeamColor } from "../../types/base";
 import { canvasStaticStore } from "../canvasStaticStore";
 
 // 한조각에 퍼즐에 이어진, 즉 한 그룹인 조각들을 찾아 배열로 반환하는 함수

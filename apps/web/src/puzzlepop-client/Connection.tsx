@@ -34,9 +34,10 @@ import { useComboStore } from "./stores/useComboStore";
 import type { Me, Player, TeamColor, GameInfoData } from "./types/base";
 import type { BlockedEventData, LockedEventData, MoveEventData } from "./types/inGame";
 
-import { canvasStaticStore } from "./InGame/canvas/canvasStaticStore";
-import { reBundles } from "./InGame/canvas/utils/reBundles";
-import { attachPieceToPiece } from "./InGame/canvas/utils/attachPieceToPiece";
+import { canvasStaticStore } from "./canvas/canvasStaticStore";
+import { reBundles } from "./canvas/utils/reBundles";
+import { attachPieceToPiece } from "./canvas/utils/attachPieceToPiece";
+
 import { WaitingPage } from "./Waiting/WaitingPage";
 import { InGamePage } from "./InGame/InGamePage";
 

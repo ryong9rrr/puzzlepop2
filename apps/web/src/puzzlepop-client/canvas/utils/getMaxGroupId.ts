@@ -1,4 +1,4 @@
-import { TeamColor } from "@puzzlepop/types/base";
+import { TeamColor } from "../../types/base";
 import { canvasStaticStore } from "../canvasStaticStore";
 
 export const getMaxGroupId = (team: TeamColor) => {

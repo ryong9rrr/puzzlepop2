@@ -10,8 +10,8 @@ import { useLoadingStore } from "../stores/useLoadingStore";
 import { useUserStore } from "../stores/useUserStore";
 import { useInGameUIStore } from "../stores/useInGameUIStore";
 
-import { setup } from "./canvas/setup";
-import { render } from "./canvas/render";
+import { setup } from "./setup";
+import { render } from "./render";
 
 const { send } = socketStaticStore.getState();
 

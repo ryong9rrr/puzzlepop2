@@ -1,5 +1,5 @@
-import { TeamColor } from "../../../types/base";
-import { socketStaticStore } from "../../../socketStaticStore";
+import { TeamColor } from "../../types/base";
+import { socketStaticStore } from "../../socketStaticStore";
 import { canvasStaticStore } from "../canvasStaticStore";
 import { getNeighborPieceIndexMap } from "./getNeighborPieceIndexMap";
 
