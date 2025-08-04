@@ -35,7 +35,7 @@ import { canvasStaticStore } from "./canvas/canvasStaticStore";
 
 const { connect, disconnect, subscribe, send } = socketStaticStore.getState();
 
-type PageStatus = "waiting" | "inGame" | "finished" | null;
+type PageStatus = "waiting" | "inGame" | null;
 
 interface Props {
   roomId: string;

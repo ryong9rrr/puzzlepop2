@@ -11,12 +11,12 @@ import { InGamePage } from "./InGame/InGamePage";
 
 import { useConnection } from "./useConnection";
 
-interface ConnectionProps {
+interface Props {
   roomId: string;
   gameType: "COOPERATION" | "BATTLE";
 }
 
-export const Connection = (props: ConnectionProps) => {
+export const GamePageRouter = (props: Props) => {
   const { roomId, gameType } = props;
 
   const { isLoadingComplete, pageStatus } = useConnection({ roomId, gameType });

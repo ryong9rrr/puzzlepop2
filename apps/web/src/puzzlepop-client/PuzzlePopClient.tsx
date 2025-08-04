@@ -1,7 +1,7 @@
 "use client";
 
 import { ToastClient } from "@shared-components/Clients/ToastClient";
-import { Connection } from "./Connection";
+import { GamePageRouter } from "./GamePageRouter";
 import { StorageGuard } from "./StorageGuard";
 
 interface Props {
@@ -13,7 +13,7 @@ export const PuzzlePopClient = ({ roomId, gameType }: Props) => {
   return (
     <ToastClient>
       <StorageGuard roomId={roomId} gameType={gameType}>
-        <Connection roomId={roomId} gameType={gameType} />
+        <GamePageRouter roomId={roomId} gameType={gameType} />
       </StorageGuard>
     </ToastClient>
   );
