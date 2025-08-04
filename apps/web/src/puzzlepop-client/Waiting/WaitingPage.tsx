@@ -11,9 +11,9 @@ import { wait } from "@shared-utils/promises";
 import { socketStaticStore } from "../socketStaticStore";
 import { useUserStore } from "../stores/useUserStore";
 import { useChatStore } from "../stores/useChatStore";
+import { useWaitingUIStore } from "../stores/useWaitingUIStore";
 import { ChatInput } from "../ChatInput";
 
-import { useWaitingUIStore } from "./useWaitingUIStore";
 import { PlayerCardGrid } from "./PlayerCardGrid";
 import { Picture } from "./Picture";
 import { ChatHistory } from "./ChatHistory";

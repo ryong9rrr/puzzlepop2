@@ -5,7 +5,8 @@ import Image from "next/image";
 import { vars } from "@puzzlepop2/themes";
 import { Skeleton } from "@puzzlepop2/react-components-layout";
 import { useAnimatedAlert } from "@shared-hooks/useAnimatedAlert";
-import { useWaitingUIStore } from "./useWaitingUIStore";
+
+import { useWaitingUIStore } from "../stores/useWaitingUIStore";
 
 const WIDTH = "9.8rem";
 const HEIGHT = "6rem";

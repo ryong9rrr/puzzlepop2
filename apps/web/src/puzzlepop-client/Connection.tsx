@@ -10,9 +10,6 @@ import { useToggle } from "@shared-hooks/useToggle";
 
 import * as CDN from "@remotes-cdn/images";
 
-import { useUserStore } from "./stores/useUserStore";
-import { useChatStore } from "./stores/useChatStore";
-
 import { socketStaticStore } from "./socketStaticStore";
 import {
   hasPuzzleData,
@@ -28,8 +25,11 @@ import {
   hasProgressPercentData,
 } from "./socketMessageMatchers";
 
+import { useUserStore } from "./stores/useUserStore";
+import { useChatStore } from "./stores/useChatStore";
+import { useWaitingUIStore } from "./stores/useWaitingUIStore";
+
 import { WaitingPage } from "./Waiting/WaitingPage";
-import { useWaitingUIStore } from "./Waiting/useWaitingUIStore";
 
 import type { Me, Player, TeamColor, GameInfoData } from "./types/base";
 import type { BlockedEventData, LockedEventData, MoveEventData } from "./types/inGame";
@@ -265,6 +265,7 @@ export const Connection = (props: ConnectionProps) => {
       resetChatStore();
       resetWaitingUIStore();
       resetInGameUIStore();
+
       disconnect();
     };
 

@@ -4,7 +4,7 @@ import { Flex, Grid, GridItem, Text } from "@puzzlepop2/react-components-layout"
 import { vars } from "@puzzlepop2/themes";
 import { Avatar } from "@shared-components/Avatar";
 
-import { useWaitingUIStore } from "./useWaitingUIStore";
+import { useWaitingUIStore } from "../stores/useWaitingUIStore";
 import { Player } from "../types/base";
 
 const CARD_COUNT = 8;
