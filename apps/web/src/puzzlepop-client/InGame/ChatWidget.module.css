@@ -6,12 +6,10 @@
   transition: transform 0.2s ease;
 }
 
-/* 채팅창 */
 .slide-up {
   animation: slideUp 0.3s ease;
 }
 
-/* 슬라이드 애니메이션 */
 @keyframes slideUp {
   from {
     transform: translateY(20px);

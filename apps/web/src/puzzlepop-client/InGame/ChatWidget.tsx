@@ -1,7 +1,9 @@
+"use client";
+
+import { CgLoadbar } from "react-icons/cg";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Button } from "@puzzlepop2/react-components-button";
 import { vars } from "@puzzlepop2/themes";
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 
@@ -11,7 +13,7 @@ import styles from "./ChatWidget.module.css";
 
 export const ChatWidget = ({ roomId }: { roomId: string }) => {
   const [isShowAlarm, setIsShowAlarm] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const chats = useChatStore(state => state.chats);
 
@@ -33,9 +35,10 @@ export const ChatWidget = ({ roomId }: { roomId: string }) => {
         setIsShowAlarm(false);
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   // chats 상태가 바뀌면 알람 true
@@ -99,7 +102,7 @@ const ChatIcon = ({
         style={{
           padding: "8px",
           backgroundColor: "rgba(255, 255, 255, 0.8)",
-          border: `3px solid ${vars.colors.grey[500]}`,
+          border: `3px solid ${vars.colors[isShowAlarm ? "blue" : "grey"][200]}`,
           borderRadius: "8px",
           cursor: "pointer",
           objectFit: "cover",
@@ -128,47 +131,71 @@ const ChatSlide = ({
   return (
     <Flex
       direction="column"
-      className={styles["slide-up"]}
+      justify="center"
+      align="center"
       style={{
         position: "absolute",
         bottom: "4px",
         right: "0",
         width: "10rem",
-        height: "60vh",
-        zIndex: 2,
 
+        zIndex: 2,
         backgroundColor: vars.colors.grey[50],
         border: `3px solid ${vars.colors.grey[300]}`,
-        borderRadius: "0.125rem",
+        borderRadius: "0.5rem 0.5rem 0.125rem 0.125rem",
         boxShadow: "2px 4px 6px rgba(0, 0, 0, 0.25)",
+        overflow: "hidden",
       }}
     >
-      <Button size="xs" onClick={handleCloseChat}>
-        접기
-      </Button>
-      <div
-        ref={scrollRef}
+      <Flex
+        justify="center"
+        align="center"
+        style={{ cursor: "pointer", width: "100%", color: vars.colors.grey[500] }}
+        onClick={handleCloseChat}
+      >
+        <CgLoadbar />
+      </Flex>
+      <Flex
+        direction="column"
+        className={styles["slide-up"]}
         style={{
-          flex: 1,
-          padding: "0.5rem",
-          overflowY: "auto",
+          height: "60vh",
         }}
       >
-        {chats.map((chat, index) => (
-          <div key={index}>
-            {chat.type === "system" ? (
-              <Text bold size="xs" color={vars.colors.green[600]}>
-                {chat.message}
-              </Text>
-            ) : (
-              <Text size="xs">
-                {chat.nickname} : {chat.message}
-              </Text>
-            )}
+        <div
+          ref={scrollRef}
+          style={{
+            flex: 1,
+            padding: "0 0.5rem 0.5rem 0.5rem",
+            overflowY: "auto",
+          }}
+        >
+          <div>
+            <Text bold size="xs" color={vars.colors.green[600]}>
+              게임이 시작됐어요.
+            </Text>
           </div>
-        ))}
-      </div>
-      <ChatInput roomId={roomId} />
+          <div>
+            <Text bold size="xs" color={vars.colors.green[600]}>
+              비속어는 자제해주세요!
+            </Text>
+          </div>
+          {chats.map((chat, index) => (
+            <div key={index}>
+              {chat.type === "system" ? (
+                <Text bold size="xs" color={vars.colors.green[600]}>
+                  {chat.message}
+                </Text>
+              ) : (
+                <Text size="xs">
+                  {chat.nickname} : {chat.message}
+                </Text>
+              )}
+            </div>
+          ))}
+        </div>
+        <ChatInput roomId={roomId} />
+      </Flex>
     </Flex>
   );
 };
