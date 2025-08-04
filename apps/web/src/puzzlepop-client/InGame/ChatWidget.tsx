@@ -1,6 +1,6 @@
 "use client";
 
-import { CgLoadbar } from "react-icons/cg";
+import { RiArrowDropDownFill as ArrowDown } from "react-icons/ri";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -153,7 +153,7 @@ const ChatSlide = ({
         style={{ cursor: "pointer", width: "100%", color: vars.colors.grey[500] }}
         onClick={handleCloseChat}
       >
-        <CgLoadbar />
+        <ArrowDown />
       </Flex>
       <Flex
         direction="column"

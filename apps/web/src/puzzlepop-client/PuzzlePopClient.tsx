@@ -13,7 +13,7 @@ export const PuzzlePopClient = ({ roomId, gameType }: Props) => {
   return (
     <ToastClient>
       <StorageGuard roomId={roomId} gameType={gameType}>
-        <Connection roomId={roomId} />
+        <Connection roomId={roomId} gameType={gameType} />
       </StorageGuard>
     </ToastClient>
   );

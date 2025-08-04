@@ -4,7 +4,6 @@ import { Flex, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
 import { useInGameUIStore } from "./useInGameUIStore";
-import { CircularProgressbar } from "./CircularProgressbar";
 
 export const Timer = () => {
   const time = useInGameUIStore(state => state.time);
@@ -16,32 +15,27 @@ export const Timer = () => {
     return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
   };
 
-  // TODO: 나중에 스타일 수정
   return (
-    <div
+    <Flex
+      className="font-gameInline"
+      justify="center"
+      align="center"
       style={{
         position: "absolute",
         top: "4px",
         right: "4px",
-        border: `4px solid ${vars.colors.orange[400]}`,
-        width: "3rem",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        border: `4px solid ${vars.colors.orange[200]}`,
+        color: vars.colors.grey[800],
+        width: "4rem",
         borderRadius: "0.25rem",
         backgroundColor: vars.colors.grey[50],
         backdropFilter: "blur(5px)",
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-        padding: "0.5rem",
+        padding: "0.5rem 0.5rem 0.4rem 0.5rem",
         zIndex: 1000,
       }}
     >
-      <Flex direction="column" align="center">
-        <Text size="sm" bold>
-          {HHMMSS(time)}
-        </Text>
-        <CircularProgressbar />
-      </Flex>
-    </div>
+      <Text bold>{HHMMSS(time)}</Text>
+    </Flex>
   );
 };

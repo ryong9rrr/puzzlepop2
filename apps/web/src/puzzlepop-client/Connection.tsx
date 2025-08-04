@@ -2,7 +2,7 @@
 
 import { Point } from "paper/dist/paper-core";
 import { useEffect, useState } from "react";
-import { Flex } from "@puzzlepop2/react-components-layout";
+import { Flex, Spacing } from "@puzzlepop2/react-components-layout";
 import { AlertClient } from "@shared-components/Clients/AlertClient";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
@@ -40,12 +40,20 @@ import { attachPieceToPiece } from "./InGame/canvas/utils/attachPieceToPiece";
 import { useCombo, Combos } from "./InGame/useCombo";
 import { useInGameUIStore } from "./InGame/useInGameUIStore";
 import { Finished } from "./InGame/Finished";
+import { ProgressBar } from "./InGame/ProgressBar";
+
+interface ConnectionProps {
+  roomId: string;
+  gameType: "COOPERATION" | "BATTLE";
+}
 
 type PageStatus = "waiting" | "inGame" | "finished" | null;
 
 const { connect, disconnect, subscribe, send } = socketStaticStore.getState();
 
-export const Connection = ({ roomId }: { roomId: string }) => {
+export const Connection = (props: ConnectionProps) => {
+  const { roomId, gameType } = props;
+
   const me = useUserStore(state => state.me) as Me;
 
   const [pageStatus, setPageStatus] = useState<PageStatus>(null);
@@ -74,9 +82,11 @@ export const Connection = ({ roomId }: { roomId: string }) => {
   const setInGameUIImgSrc = useInGameUIStore(state => state.setImgSrc);
   const setInGameUIRedPuzzle = useInGameUIStore(state => state.setRedPuzzle);
   const setInGameUIRedPlayers = useInGameUIStore(state => state.setRedPlayers);
+  const inGameRedPercentage = useInGameUIStore(state => state.redPercentage);
   const setInGameUIRedPercentage = useInGameUIStore(state => state.setRedPercentage);
   const setInGameUIBluePuzzle = useInGameUIStore(state => state.setBluePuzzle);
   const setInGameUIBluePlayers = useInGameUIStore(state => state.setBluePlayers);
+  const inGameBluePercentage = useInGameUIStore(state => state.bluePercentage);
   const setInGameUIBluePercentage = useInGameUIStore(state => state.setBluePercentage);
 
   useEffect(() => {
@@ -271,6 +281,11 @@ export const Connection = ({ roomId }: { roomId: string }) => {
             }}
           >
             <div style={{ position: "relative" }}>
+              <ProgressBar
+                color={gameType === "COOPERATION" ? "orange" : me.team === "RED" ? "red" : "blue"}
+                percent={me.team === "RED" ? inGameRedPercentage : inGameBluePercentage}
+              />
+              <Spacing size={4} />
               <Canvas />
               <Combos combos={combos} />
             </div>
