@@ -10,6 +10,9 @@ interface InGameUIStore {
   imgSrc: string | null;
   setImgSrc: (imgSrc: string) => void;
 
+  isFinished: boolean;
+  setIsFinished: (isFinished: boolean) => void;
+
   redPuzzle: Puzzle | null;
   setRedPuzzle: (redPuzzle: Puzzle | null) => void;
   redPlayers: Player[];
@@ -29,6 +32,7 @@ const getDefaultValues = () => {
   return {
     time: 0,
     imgSrc: null,
+    isFinished: false,
 
     redPuzzle: null,
     redPlayers: [],
@@ -56,6 +60,9 @@ export const useInGameUIStore = create<InGameUIStore>((set, get) => ({
       set({ imgSrc });
     }
   },
+
+  isFinished: getDefaultValues().isFinished,
+  setIsFinished: (isFinished: boolean) => set({ isFinished }),
 
   redPuzzle: getDefaultValues().redPuzzle,
   setRedPuzzle: (redPuzzle: Puzzle | null) => set({ redPuzzle }),

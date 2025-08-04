@@ -2,11 +2,10 @@
 
 import { Point } from "paper/dist/paper-core";
 import { useEffect, useMemo, useState } from "react";
-import { Flex, Spacing } from "@puzzlepop2/react-components-layout";
+
 import { AlertClient } from "@shared-components/Clients/AlertClient";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
-import { useToggle } from "@shared-hooks/useToggle";
 
 import * as CDN from "@remotes-cdn/images";
 
@@ -32,22 +31,14 @@ import { useWaitingUIStore } from "./stores/useWaitingUIStore";
 import { useInGameUIStore } from "./stores/useInGameUIStore";
 import { useComboStore } from "./stores/useComboStore";
 
-import { WaitingPage } from "./Waiting/WaitingPage";
-
 import type { Me, Player, TeamColor, GameInfoData } from "./types/base";
 import type { BlockedEventData, LockedEventData, MoveEventData } from "./types/inGame";
 
-import { Canvas } from "./InGame/Canvas";
 import { canvasStaticStore } from "./InGame/canvas/canvasStaticStore";
 import { reBundles } from "./InGame/canvas/utils/reBundles";
 import { attachPieceToPiece } from "./InGame/canvas/utils/attachPieceToPiece";
-import { Finished } from "./InGame/Finished";
-import { ProgressBar } from "./InGame/ProgressBar";
-import { Timer } from "./InGame/Timer";
-import { ChatWidget } from "./InGame/ChatWidget";
-import { SideWidgetContainer, SideWidgetIcon } from "./InGame/SideWidgets";
-import { ExampleImage } from "./InGame/ExampleImage";
-import { Combo } from "./InGame/Combo";
+import { WaitingPage } from "./Waiting/WaitingPage";
+import { InGamePage } from "./InGame/InGamePage";
 
 interface ConnectionProps {
   roomId: string;
@@ -84,12 +75,6 @@ export const Connection = (props: ConnectionProps) => {
     );
   }, [isConnectCompleteGameSocket, isConnectCompleteChatSocket, pageStatus, isSetupCompleteCanvas]);
 
-  const [isFinished, setIsFinished] = useState(false);
-
-  const { isActive: isActiveTimer, toggle: toggleActiveTimer } = useToggle();
-  const { isActive: isActiveProgressBar, toggle: toggleActiveProgressBar } = useToggle();
-  const { isActive: isActiveExampleImage, toggle: toggleActiveExampleImage } = useToggle();
-
   const resetChatStore = useChatStore(state => state.reset);
   const addChat = useChatStore(state => state.addChat);
   const leaveChat = useChatStore(state => state.leaveChat);
@@ -108,12 +93,11 @@ export const Connection = (props: ConnectionProps) => {
   const setInGameUIImgSrc = useInGameUIStore(state => state.setImgSrc);
   const setInGameUIRedPuzzle = useInGameUIStore(state => state.setRedPuzzle);
   const setInGameUIRedPlayers = useInGameUIStore(state => state.setRedPlayers);
-  const inGameRedPercentage = useInGameUIStore(state => state.redPercentage);
   const setInGameUIRedPercentage = useInGameUIStore(state => state.setRedPercentage);
   const setInGameUIBluePuzzle = useInGameUIStore(state => state.setBluePuzzle);
   const setInGameUIBluePlayers = useInGameUIStore(state => state.setBluePlayers);
-  const inGameBluePercentage = useInGameUIStore(state => state.bluePercentage);
   const setInGameUIBluePercentage = useInGameUIStore(state => state.setBluePercentage);
+  const setIsFinished = useInGameUIStore(state => state.setIsFinished);
 
   const resetComboStore = useComboStore(state => state.reset);
   const addCombo = useComboStore(state => state.addCombo);
@@ -151,7 +135,7 @@ export const Connection = (props: ConnectionProps) => {
         if (isGameFinishState(_gameData)) {
           setTimeout(() => {
             setIsFinished(true);
-          }, 500);
+          }, 1000);
         }
 
         if (hasProgressPercentData(_gameData)) {
@@ -298,47 +282,7 @@ export const Connection = (props: ConnectionProps) => {
             src={CDN.RED_TEAM_BACKGROUND}
             blurSrc={CDN.RED_TEAM_BACKGROUND_THUMBNAIL}
           />
-          <Flex
-            justify="center"
-            align="center"
-            style={{
-              width: "100vw",
-              height: "100vh",
-            }}
-          >
-            <div style={{ position: "relative" }}>
-              {isActiveProgressBar && (
-                <>
-                  <ProgressBar
-                    color={
-                      gameType === "COOPERATION" ? "orange" : me.team === "RED" ? "red" : "blue"
-                    }
-                    percent={me.team === "RED" ? inGameRedPercentage : inGameBluePercentage}
-                  />
-                  <Spacing size={4} />
-                </>
-              )}
-              <Canvas roomId={roomId} />
-              <Combo />
-            </div>
-          </Flex>
-          {isActiveExampleImage && <ExampleImage />}
-          {isActiveTimer && <Timer />}
-          <ChatWidget roomId={roomId} />
-          <SideWidgetContainer>
-            <SideWidgetIcon isActive={isActiveTimer} toggle={toggleActiveTimer} iconType="timer" />
-            <SideWidgetIcon
-              isActive={isActiveProgressBar}
-              toggle={toggleActiveProgressBar}
-              iconType="percent"
-            />
-            <SideWidgetIcon
-              isActive={isActiveExampleImage}
-              toggle={toggleActiveExampleImage}
-              iconType="image"
-            />
-          </SideWidgetContainer>
-          {isFinished && <Finished />}
+          <InGamePage roomId={roomId} gameType={gameType} />
         </>
       )}
     </>

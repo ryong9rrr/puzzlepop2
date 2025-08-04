@@ -12,7 +12,7 @@ type IconType = "timer" | "percent" | "image";
 
 interface IconProps {
   isActive: boolean;
-  toggle: () => void;
+  onToggle: () => void;
 
   iconType: IconType;
 }
@@ -25,7 +25,7 @@ export const SideWidgetContainer = ({ children }: PropsWithChildren) => {
   );
 };
 
-export const SideWidgetIcon = ({ isActive, toggle, iconType }: IconProps) => {
+export const SideWidgetIcon = ({ isActive, onToggle, iconType }: IconProps) => {
   const getIconStyle = (isActive: boolean) => {
     return {
       ...baseIconStyle,
@@ -35,7 +35,7 @@ export const SideWidgetIcon = ({ isActive, toggle, iconType }: IconProps) => {
   };
 
   return (
-    <Flex justify="center" align="center" style={getIconStyle(isActive)} onClick={toggle}>
+    <Flex justify="center" align="center" style={getIconStyle(isActive)} onClick={onToggle}>
       {renderIcon(iconType)}
     </Flex>
   );
