@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { vars } from "@puzzlepop2/themes";
 
-import { useInGameUIStore } from "./useInGameUIStore";
+import { useInGameUIStore } from "../stores/useInGameUIStore";
 
 export const ExampleImage = () => {
   const inGameUIImgSrc = useInGameUIStore(state => state.imgSrc);

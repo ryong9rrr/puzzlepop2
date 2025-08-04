@@ -3,7 +3,7 @@
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
 
-import { useInGameUIStore } from "./useInGameUIStore";
+import { useInGameUIStore } from "../stores/useInGameUIStore";
 
 export const Timer = () => {
   const time = useInGameUIStore(state => state.time);

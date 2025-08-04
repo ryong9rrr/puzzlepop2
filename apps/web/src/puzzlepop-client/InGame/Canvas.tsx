@@ -5,14 +5,13 @@ import { useEffect, useRef } from "react";
 import { CANVAS_HEIGHT, CANVAS_ID, CANVAS_WIDTH, IMG_ID } from "@puzzlepop2/game-core";
 import { vars } from "@puzzlepop2/themes";
 
+import { socketStaticStore } from "../socketStaticStore";
 import { useLoadingStore } from "../stores/useLoadingStore";
 import { useUserStore } from "../stores/useUserStore";
-import { socketStaticStore } from "../socketStaticStore";
+import { useInGameUIStore } from "../stores/useInGameUIStore";
 
 import { setup } from "./canvas/setup";
 import { render } from "./canvas/render";
-
-import { useInGameUIStore } from "./useInGameUIStore";
 
 const { send } = socketStaticStore.getState();
 

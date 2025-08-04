@@ -28,6 +28,7 @@ import {
 import { useUserStore } from "./stores/useUserStore";
 import { useChatStore } from "./stores/useChatStore";
 import { useWaitingUIStore } from "./stores/useWaitingUIStore";
+import { useInGameUIStore } from "./stores/useInGameUIStore";
 
 import { WaitingPage } from "./Waiting/WaitingPage";
 
@@ -39,7 +40,6 @@ import { canvasStaticStore } from "./InGame/canvas/canvasStaticStore";
 import { reBundles } from "./InGame/canvas/utils/reBundles";
 import { attachPieceToPiece } from "./InGame/canvas/utils/attachPieceToPiece";
 import { useCombo, Combos } from "./InGame/useCombo";
-import { useInGameUIStore } from "./InGame/useInGameUIStore";
 import { Finished } from "./InGame/Finished";
 import { ProgressBar } from "./InGame/ProgressBar";
 import { Timer } from "./InGame/Timer";
