@@ -7,8 +7,8 @@ import { Button } from "@puzzlepop2/react-components-button";
 import { useToast } from "@puzzlepop2/react-hooks-toast";
 import { TextField } from "@shared-components/TextField";
 
+import { useUserStore } from "./stores/useUserStore";
 import { getMultiGameStorage } from "./storage";
-import { useUserStore } from "./useUserStore";
 import { useEnterRoom } from "./useEnterRoom";
 
 interface Props extends PropsWithChildren {

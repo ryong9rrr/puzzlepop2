@@ -10,6 +10,9 @@ import { useToggle } from "@shared-hooks/useToggle";
 
 import * as CDN from "@remotes-cdn/images";
 
+import { useUserStore } from "./stores/useUserStore";
+import { useChatStore } from "./stores/useChatStore";
+
 import { socketStaticStore } from "./socketStaticStore";
 import {
   hasPuzzleData,
@@ -24,8 +27,6 @@ import {
   isAddPieceEvent,
   hasProgressPercentData,
 } from "./socketMessageMatchers";
-import { useUserStore } from "./useUserStore";
-import { useChatStore } from "./useChatStore";
 
 import { WaitingPage } from "./Waiting/WaitingPage";
 import { useWaitingUIStore } from "./Waiting/useWaitingUIStore";

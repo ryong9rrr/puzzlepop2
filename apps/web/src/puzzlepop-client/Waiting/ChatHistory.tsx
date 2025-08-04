@@ -3,7 +3,8 @@
 import { useEffect, useRef } from "react";
 import { Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
-import { useChatStore } from "../useChatStore";
+
+import { useChatStore } from "../stores/useChatStore";
 
 const HEIGHT = "25vh";
 

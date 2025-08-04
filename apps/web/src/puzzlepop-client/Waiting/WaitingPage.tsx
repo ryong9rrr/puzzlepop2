@@ -9,8 +9,8 @@ import { useAutoFocusInput } from "@shared-hooks/useAutoFocusInput";
 import { wait } from "@shared-utils/promises";
 
 import { socketStaticStore } from "../socketStaticStore";
-import { useUserStore } from "../useUserStore";
-import { useChatStore } from "../useChatStore";
+import { useUserStore } from "../stores/useUserStore";
+import { useChatStore } from "../stores/useChatStore";
 import { ChatInput } from "../ChatInput";
 
 import { useWaitingUIStore } from "./useWaitingUIStore";

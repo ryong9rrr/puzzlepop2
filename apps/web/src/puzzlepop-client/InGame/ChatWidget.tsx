@@ -7,9 +7,9 @@ import Image from "next/image";
 import { vars } from "@puzzlepop2/themes";
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 
-import MODULE_CSS from "./ChatWidget.module.css";
+import { useChatStore } from "../stores/useChatStore";
 import { ChatInput } from "../ChatInput";
-import { useChatStore } from "../useChatStore";
+import MODULE_CSS from "./ChatWidget.module.css";
 
 export const ChatWidget = ({ roomId }: { roomId: string }) => {
   const [isShowAlarm, setIsShowAlarm] = useState(false);

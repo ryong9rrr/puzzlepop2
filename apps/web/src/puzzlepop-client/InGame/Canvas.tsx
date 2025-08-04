@@ -6,7 +6,7 @@ import { CANVAS_HEIGHT, CANVAS_ID, CANVAS_WIDTH, IMG_ID } from "@puzzlepop2/game
 import { vars } from "@puzzlepop2/themes";
 
 import { useLoadingStore } from "../stores/useLoadingStore";
-import { useUserStore } from "../useUserStore";
+import { useUserStore } from "../stores/useUserStore";
 import { socketStaticStore } from "../socketStaticStore";
 
 import { setup } from "./canvas/setup";

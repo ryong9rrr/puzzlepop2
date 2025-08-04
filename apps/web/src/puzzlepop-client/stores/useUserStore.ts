@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-import { Me } from "./types/base";
+import { Me } from "../types/base";
 
 interface UserStore {
   me: Me | null;
