@@ -1,39 +1,13 @@
-import { useState } from "react";
-import { v4 as uuid } from "uuid";
+"use client";
+
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { Text } from "@puzzlepop2/react-components-layout";
 
-type ComboState = {
-  id: string;
-  x: number;
-  y: number;
-  count: number;
-  visible: boolean;
-};
+import { useComboStore } from "../stores/useComboStore";
 
-export const useCombo = () => {
-  const [combos, setCombos] = useState<ComboState[]>([]);
+export const Combo = () => {
+  const { combos } = useComboStore();
 
-  const addCombo = (combo: Omit<ComboState, "id" | "visible">) => {
-    const id = uuid();
-    setCombos(prev => [...prev, { ...combo, id, visible: true }]);
-
-    setTimeout(() => {
-      setCombos(prev => prev.map(c => (c.id === id ? { ...c, visible: false } : c)));
-
-      setTimeout(() => {
-        setCombos(prev => prev.filter(c => c.id !== id));
-      }, 700);
-    }, 300);
-  };
-
-  return {
-    combos,
-    addCombo,
-  };
-};
-
-export const Combos = ({ combos }: { combos: ComboState[] }) => {
   return (
     <>
       {combos.map(({ id, x, y, count, visible }) => (

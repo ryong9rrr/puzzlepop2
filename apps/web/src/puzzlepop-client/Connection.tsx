@@ -25,10 +25,12 @@ import {
   hasProgressPercentData,
 } from "./socketMessageMatchers";
 
+import { useLoadingStore } from "./stores/useLoadingStore";
 import { useUserStore } from "./stores/useUserStore";
 import { useChatStore } from "./stores/useChatStore";
 import { useWaitingUIStore } from "./stores/useWaitingUIStore";
 import { useInGameUIStore } from "./stores/useInGameUIStore";
+import { useComboStore } from "./stores/useComboStore";
 
 import { WaitingPage } from "./Waiting/WaitingPage";
 
@@ -39,14 +41,13 @@ import { Canvas } from "./InGame/Canvas";
 import { canvasStaticStore } from "./InGame/canvas/canvasStaticStore";
 import { reBundles } from "./InGame/canvas/utils/reBundles";
 import { attachPieceToPiece } from "./InGame/canvas/utils/attachPieceToPiece";
-import { useCombo, Combos } from "./InGame/useCombo";
 import { Finished } from "./InGame/Finished";
 import { ProgressBar } from "./InGame/ProgressBar";
 import { Timer } from "./InGame/Timer";
 import { ChatWidget } from "./InGame/ChatWidget";
 import { SideWidgetContainer, SideWidgetIcon } from "./InGame/SideWidgets";
 import { ExampleImage } from "./InGame/ExampleImage";
-import { useLoadingStore } from "./stores/useLoadingStore";
+import { Combo } from "./InGame/Combo";
 
 interface ConnectionProps {
   roomId: string;
@@ -85,7 +86,6 @@ export const Connection = (props: ConnectionProps) => {
 
   const [isFinished, setIsFinished] = useState(false);
 
-  const { combos, addCombo } = useCombo();
   const { isActive: isActiveTimer, toggle: toggleActiveTimer } = useToggle();
   const { isActive: isActiveProgressBar, toggle: toggleActiveProgressBar } = useToggle();
   const { isActive: isActiveExampleImage, toggle: toggleActiveExampleImage } = useToggle();
@@ -114,6 +114,9 @@ export const Connection = (props: ConnectionProps) => {
   const setInGameUIBluePlayers = useInGameUIStore(state => state.setBluePlayers);
   const inGameBluePercentage = useInGameUIStore(state => state.bluePercentage);
   const setInGameUIBluePercentage = useInGameUIStore(state => state.setBluePercentage);
+
+  const resetComboStore = useComboStore(state => state.reset);
+  const addCombo = useComboStore(state => state.addCombo);
 
   useEffect(() => {
     resetChatStore();
@@ -265,6 +268,7 @@ export const Connection = (props: ConnectionProps) => {
       resetChatStore();
       resetWaitingUIStore();
       resetInGameUIStore();
+      resetComboStore();
 
       disconnect();
     };
@@ -315,7 +319,7 @@ export const Connection = (props: ConnectionProps) => {
                 </>
               )}
               <Canvas roomId={roomId} />
-              <Combos combos={combos} />
+              <Combo />
             </div>
           </Flex>
           {isActiveExampleImage && <ExampleImage />}
