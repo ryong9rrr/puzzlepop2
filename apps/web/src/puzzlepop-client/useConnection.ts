@@ -183,11 +183,6 @@ export const useConnection = (props: Props) => {
           setInGameUIBluePlayers(blueTeam.players);
         }
 
-        // 디버그용
-        // if (!isTimeTickData(_gameData) && !isMoveEvent(_gameData)) {
-        //   console.log(_gameData);
-        // }
-
         if (isAddPieceEvent(_gameData)) {
           const { team, combo, comboCnt } = _gameData;
           const { redPieces, bluePieces } = canvasStaticStore.getState();

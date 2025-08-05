@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, redirect, RedirectType } from "next/navigation";
 import { useMemo } from "react";
 
 import { RoutePath } from "./RoutePath";
@@ -33,6 +33,10 @@ export const useNavigation = () => {
       },
       refresh: () => {
         router.refresh();
+      },
+      redirect: (path: RoutePath, slug?: string, type?: RedirectType) => {
+        const nextPath = slug ? `${path}/${slug}` : path;
+        redirect(nextPath, type);
       },
     };
   }, [router]);

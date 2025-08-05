@@ -9,7 +9,7 @@ import { useUserStore } from "../stores/useUserStore";
 import { Me } from "../types/base";
 import { useInGameUIStore } from "../stores/useInGameUIStore";
 
-import { Finished } from "./Finished";
+import { FinishOverlay } from "./FinishOverlay";
 import { ProgressBar } from "./ProgressBar";
 import { Timer } from "./Timer";
 import { ChatWidget } from "./ChatWidget";
@@ -75,7 +75,7 @@ export const InGamePage = (props: Props) => {
           iconType="image"
         />
       </SideWidgetContainer>
-      {isFinished && <Finished />}
+      {isFinished && <FinishOverlay />}
     </>
   );
 };
