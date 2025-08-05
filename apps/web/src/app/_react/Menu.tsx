@@ -24,7 +24,7 @@ export const Menu = () => {
           variant="shadow"
           size="lg"
           onClick={() => {
-            alert("developing");
+            navigate.push("/multi/cooperation");
           }}
         >
           멀티게임

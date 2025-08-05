@@ -29,7 +29,12 @@ export default function Page() {
               unoptimized
             />
           </div>
-          <div className={MODULE_CSS.bounceInBack}>
+          <div
+            className={MODULE_CSS.bounceInBack}
+            style={{
+              pointerEvents: "none",
+            }}
+          >
             <Flex as="h1" className="font-gameBasic">
               <Text
                 size="5xl"
