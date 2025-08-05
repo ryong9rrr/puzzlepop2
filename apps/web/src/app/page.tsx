@@ -6,7 +6,6 @@ import { FullScreenBackground } from "@shared-components/FullScreenBackground";
 import { AlertClient } from "@shared-components/Clients/AlertClient";
 import * as CDN from "@remotes-cdn/images";
 
-import MODULE_CSS from "./page.module.css";
 import { Menu } from "./_react/Menu";
 
 export default function Page() {
@@ -18,7 +17,7 @@ export default function Page() {
       />
       <Flex justify="center" align="center" style={{ width: "100%", height: "100vh" }}>
         <Flex justify="center" align="center" direction="column" gapScale={1}>
-          <div className={MODULE_CSS.bounceInBack} style={{ width: "6rem" }}>
+          <div className="bounceInBack" style={{ width: "6rem" }}>
             <Image
               src={CDN.LOGO}
               alt="logo"
@@ -30,7 +29,7 @@ export default function Page() {
             />
           </div>
           <div
-            className={MODULE_CSS.bounceInBack}
+            className="bounceInBack"
             style={{
               pointerEvents: "none",
             }}

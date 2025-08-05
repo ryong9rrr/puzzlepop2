@@ -1,5 +1,6 @@
 "use client";
 
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { Button } from "@puzzlepop2/react-components-button";
@@ -7,7 +8,6 @@ import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Z_INDEX, vars } from "@puzzlepop2/themes";
 
 import { useNavigation } from "@router/useNavigation";
-import MODULE_CSS from "./FinishOverlay.module.css";
 
 export const FinishOverlay = () => {
   const navigation = useNavigation();
@@ -47,11 +47,12 @@ export const FinishOverlay = () => {
         width: "100vw",
         height: "100vh",
         backgroundColor: "rgba(0, 0, 0, 0.2)",
-        zIndex: Z_INDEX.TOAST_Z_INDEX - 1,
+        zIndex: Z_INDEX.TOAST_Z_INDEX - 2,
       }}
     >
+      <CongratulationLotties />
       <Flex
-        className={`${MODULE_CSS.bounceInBack}`}
+        className="bounceInBack"
         direction="column"
         justify="center"
         align="center"
@@ -88,5 +89,55 @@ export const FinishOverlay = () => {
         </Button>
       </Flex>
     </Flex>
+  );
+};
+
+const CongratulationLotties = () => {
+  return (
+    <>
+      <Lottie top={100} left={100} />
+      <Lottie bottom={100} right={100} speed={1.2} />
+      <Lottie bottom={430} right={100} />
+      <Lottie top={500} left={600} />
+      <Lottie top={300} left={200} speed={1.5} />
+      <Lottie top={100} right={200} />
+      <Lottie top={120} right={412} speed={1.4} />
+      <Lottie top={50} left={234} />
+      <Lottie top={25} left={704} speed={0.7} />
+    </>
+  );
+};
+
+const Lottie = ({
+  top,
+  left,
+  bottom,
+  right,
+  speed,
+}: {
+  top?: number;
+  left?: number;
+  bottom?: number;
+  right?: number;
+  speed?: number;
+}) => {
+  return (
+    <DotLottieReact
+      autoplay
+      loop
+      speed={speed || 1}
+      src="/lotties/congratulations.lottie"
+      style={{
+        position: "absolute",
+        top: top ? `${top}px` : undefined,
+        left: left ? `${left}px` : undefined,
+        bottom: bottom ? `${bottom}px` : undefined,
+        right: right ? `${right}px` : undefined,
+        width: "10rem",
+        height: "10rem",
+        zIndex: Z_INDEX.TOAST_Z_INDEX - 1,
+        pointerEvents: "none",
+      }}
+    />
   );
 };
