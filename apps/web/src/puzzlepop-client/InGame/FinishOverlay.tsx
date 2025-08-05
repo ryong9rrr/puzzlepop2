@@ -10,11 +10,11 @@ import { useNavigation } from "@router/useNavigation";
 import MODULE_CSS from "./FinishOverlay.module.css";
 
 export const FinishOverlay = () => {
-  const router = useNavigation();
+  const navigation = useNavigation();
   const [redirectTimer, setRedirectTimer] = useState(60);
 
   const handleRedirect = () => {
-    router.redirect("/multi/cooperation");
+    navigation.redirect("/multi/cooperation");
   };
 
   // 30초 후 홈으로 이동

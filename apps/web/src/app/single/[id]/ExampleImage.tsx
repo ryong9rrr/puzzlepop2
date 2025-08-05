@@ -1,18 +1,8 @@
-"use client";
-
 import Image from "next/image";
 import { vars } from "@puzzlepop2/themes";
-
-import { useInGameUIStore } from "../stores/useInGameUIStore";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 
-export const ExampleImage = () => {
-  const inGameUIImgSrc = useInGameUIStore(state => state.imgSrc);
-
-  if (!inGameUIImgSrc) {
-    return null;
-  }
-
+export const ExampleImage = ({ src }: { src: string }) => {
   return (
     <div
       style={{
@@ -37,7 +27,7 @@ export const ExampleImage = () => {
         </Text>
         <Spacing size={8} />
         <Image
-          src={inGameUIImgSrc}
+          src={src}
           alt=""
           width={300}
           height={200}
