@@ -128,7 +128,7 @@ export const useConnection = (props: Props) => {
         if (isGameFinishState(_gameData)) {
           setTimeout(() => {
             setIsFinished(true);
-          }, 1000);
+          }, 500);
         }
 
         if (hasProgressPercentData(_gameData)) {
