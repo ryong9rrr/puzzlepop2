@@ -75,8 +75,7 @@ export const InGamePage = (props: Props) => {
           iconType="image"
         />
       </SideWidgetContainer>
-      <FinishOverlay />
-      {/* {isFinished && <FinishOverlay />} */}
+      {isFinished && <FinishOverlay />}
     </>
   );
 };

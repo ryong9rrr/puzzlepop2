@@ -7,6 +7,8 @@ import { Button } from "@puzzlepop2/react-components-button";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Z_INDEX, vars } from "@puzzlepop2/themes";
 
+import * as CDN from "@remotes-cdn/images";
+
 import { useNavigation } from "@router/useNavigation";
 
 export const FinishOverlay = () => {
@@ -65,7 +67,7 @@ export const FinishOverlay = () => {
         }}
       >
         <Image
-          src="/win.webp"
+          src={CDN.WIN}
           alt=""
           width={1}
           height={1}

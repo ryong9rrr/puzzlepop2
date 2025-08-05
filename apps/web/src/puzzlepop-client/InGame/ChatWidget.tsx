@@ -7,6 +7,8 @@ import Image from "next/image";
 import { vars, Z_INDEX } from "@puzzlepop2/themes";
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 
+import * as CDN from "@remotes-cdn/images";
+
 import { useChatStore } from "../stores/useChatStore";
 import { ChatInput } from "../ChatInput";
 import MODULE_CSS from "./ChatWidget.module.css";
@@ -94,7 +96,7 @@ const ChatIcon = ({
       )}
       <Image
         className={isShowAlarm ? "animate__animated animate__swing animate__repeat-3" : ""}
-        src="/group-chat.webp"
+        src={CDN.GROUP_CHAT}
         alt="chatIcon"
         width={60}
         height={60}
