@@ -53,7 +53,7 @@ jobs:
             docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:game-server || true
             docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web || true
             docker-compose pull
-            docker-compose up -d --remove-orphans
+            docker-compose up -d
             docker image prune -f
 
             sudo chmod 777 /var/www/cdn
