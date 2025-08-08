@@ -72,7 +72,7 @@ export const GameClient = (props: GameClientProps) => {
         <Button
           size="sm"
           onClick={() => {
-            navigation.push("/single");
+            navigation.redirect("/single");
           }}
         >
           나가기
