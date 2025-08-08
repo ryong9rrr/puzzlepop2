@@ -6,7 +6,6 @@ import { FullScreenBackground } from "@shared-components/FullScreenBackground";
 import { AlertClient } from "@shared-components/Clients/AlertClient";
 import * as CDN from "@remotes-cdn/images";
 
-import MODULE_CSS from "./page.module.css";
 import { Menu } from "./_react/Menu";
 
 export default function Page() {
@@ -18,10 +17,23 @@ export default function Page() {
       />
       <Flex justify="center" align="center" style={{ width: "100%", height: "100vh" }}>
         <Flex justify="center" align="center" direction="column" gapScale={1}>
-          <div className={MODULE_CSS.bounceInBack} style={{ width: "6rem" }}>
-            <Image src={CDN.LOGO} alt="logo" layout="responsive" width={1} height={1} priority />
+          <div className="bounceInBack" style={{ width: "6rem" }}>
+            <Image
+              src={CDN.LOGO}
+              alt="logo"
+              layout="responsive"
+              width={1}
+              height={1}
+              priority
+              unoptimized
+            />
           </div>
-          <div className={MODULE_CSS.bounceInBack}>
+          <div
+            className="bounceInBack"
+            style={{
+              pointerEvents: "none",
+            }}
+          >
             <Flex as="h1" className="font-gameBasic">
               <Text
                 size="5xl"

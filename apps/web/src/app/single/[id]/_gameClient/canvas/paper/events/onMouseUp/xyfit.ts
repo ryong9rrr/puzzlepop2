@@ -1,10 +1,10 @@
-import { GameLevel, Shape } from "@puzzlepop2/game-core";
+import { SingleGameLevelType, Shape } from "@puzzlepop2/game-core";
 
 // TODO: Hard 보정값 수정이 필요함...
 export const getFittableValues = (props: {
   nowShape: Shape;
   preShape: Shape;
-  gameLevel: GameLevel;
+  gameLevel: SingleGameLevelType;
 }) => {
   const { nowShape, preShape, gameLevel } = props;
 

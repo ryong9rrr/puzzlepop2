@@ -1,0 +1,22 @@
+.hover-grow {
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  transition: transform 0.2s ease;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}

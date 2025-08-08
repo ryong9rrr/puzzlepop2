@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { redirect } from "next/navigation";
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 
 import { RoutePath } from "./RoutePath";
+import { useNavigation } from "./useNavigation";
 
 interface Props {
   redirectName: string;
@@ -13,6 +13,8 @@ interface Props {
 
 export const LazyRedirect = (props: Props) => {
   const { redirectName, redirectPath } = props;
+
+  const navigation = useNavigation();
   const [time, setTime] = useState(4);
 
   useEffect(() => {
@@ -21,7 +23,9 @@ export const LazyRedirect = (props: Props) => {
     }, 1000);
 
     if (time === 0) {
-      redirect(redirectPath);
+      navigation.redirect(redirectPath);
+      clearInterval(timer);
+      return;
     }
 
     return () => {

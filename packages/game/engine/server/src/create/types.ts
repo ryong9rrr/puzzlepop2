@@ -1,9 +1,9 @@
-import { GameLevel } from "@puzzlepop2/game-core";
+import { SingleGameLevelType } from "@puzzlepop2/game-core";
 
 export type InitPiecePosition = "random" | "arranged";
 
 export type CreatePiecesProps = {
-  gameLevel: GameLevel;
+  gameLevel: SingleGameLevelType;
   imgWidth: number;
   imgHeight: number;
   options?: {

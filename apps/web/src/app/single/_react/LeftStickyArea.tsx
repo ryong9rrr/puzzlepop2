@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import clsx from "clsx";
+import { clsx } from "clsx";
 import { motion } from "motion/react";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Button } from "@puzzlepop2/react-components-button";
@@ -20,9 +20,7 @@ export const LeftStickyArea = () => {
     if (!selectedLevel || !selectedPuzzle) {
       return;
     }
-    navigate.push("/single", {
-      slug: `${selectedPuzzle._id}?level=${selectedLevel}`,
-    });
+    navigate.push("/single", `${selectedPuzzle._id}?level=${selectedLevel}`);
   };
 
   if (!selectedPuzzle) {
@@ -79,6 +77,8 @@ export const LeftStickyArea = () => {
               fill
               sizes="40vw"
               className={MODULE_CSS.image}
+              priority
+              unoptimized
             />
           </div>
           <Spacing scale={0.4} />

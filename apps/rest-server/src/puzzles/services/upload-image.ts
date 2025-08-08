@@ -1,4 +1,4 @@
-import { PUZZLE_IMAGE_SIZE_MAP } from '@puzzlepop2/game-core';
+import { SINGLE_GAME_PUZZLE_IMAGE_SIZE_MAP } from '@puzzlepop2/game-core';
 import * as FormData from 'form-data';
 import * as fs from 'fs';
 import * as sharp from 'sharp';
@@ -73,14 +73,16 @@ export const createCDNImage = async (file: Express.Multer.File) => {
   }
 
   const makeToGameMode = () => {
-    return Object.entries(PUZZLE_IMAGE_SIZE_MAP).map(([gameMode, size]) => {
-      const { width, height } = size;
-      sharp(origin)
-        .flatten({ background: { r: 255, g: 255, b: 255 } })
-        .resize(width, height, { fit: 'cover', position: 'center' })
-        .toFormat('webp')
-        .toFile(`${file.destination}/${gameMode}.webp`);
-    });
+    return Object.entries(SINGLE_GAME_PUZZLE_IMAGE_SIZE_MAP).map(
+      ([gameMode, size]) => {
+        const { width, height } = size;
+        sharp(origin)
+          .flatten({ background: { r: 255, g: 255, b: 255 } })
+          .resize(width, height, { fit: 'cover', position: 'center' })
+          .toFormat('webp')
+          .toFile(`${file.destination}/${gameMode}.webp`);
+      },
+    );
   };
 
   const makeToCDN = () => {

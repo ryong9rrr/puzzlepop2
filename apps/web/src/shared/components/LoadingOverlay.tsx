@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { vars, Z_INDEX } from "@puzzlepop2/themes";
 import { Flex } from "@puzzlepop2/react-components-layout";
-import { vars } from "@puzzlepop2/themes";
+
 import * as CDN from "@remotes-cdn/images";
 
 interface Props {
@@ -39,7 +40,7 @@ export const LoadingOverlay = ({ isLoadingComplete }: Props) => {
         left: 0,
         right: 0,
         bottom: 0,
-        zIndex: 9999,
+        zIndex: Z_INDEX.TOAST_Z_INDEX - 1,
         visibility: hide ? "hidden" : "visible",
         opacity: isLoadingComplete ? 0 : 1,
         transition: `opacity ${SECOND}s ease-in-out`,
@@ -50,6 +51,7 @@ export const LoadingOverlay = ({ isLoadingComplete }: Props) => {
         src={CDN.LOADING_PUZZLE}
         alt=""
         priority
+        unoptimized
         width={600}
         height={400}
         style={{ objectFit: "cover" }}

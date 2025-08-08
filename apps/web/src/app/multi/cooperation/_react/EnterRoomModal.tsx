@@ -1,12 +1,14 @@
 "use client";
 
-import { FormEvent } from "react";
+import { IoClose } from "react-icons/io5";
+import { useToast } from "@puzzlepop2/react-hooks-toast";
 import { Button } from "@puzzlepop2/react-components-button";
+import { Box, Flex, Spacing } from "@puzzlepop2/react-components-layout";
 
-import { ModalLayout } from "./ModalLayout";
-import { ModalForm } from "./ModalForm";
-import { TextField } from "./TextField";
-import { useCooperationCreateOrEnterForm } from "./useCooperationCreateOrEnterForm";
+import { useNavigation } from "@router/useNavigation";
+import { TextField } from "@shared-components/TextField";
+
+import { useEnterRoom } from "@puzzlepop-client/useEnterRoom";
 
 interface Props {
   roomId: string;
@@ -16,26 +18,65 @@ interface Props {
 export const EnterRoomModal = (props: Props) => {
   const { onCloseModal, roomId } = props;
 
-  const { nickname, onChangeNickname, isLoadingFetchEnterRoom, fetchEnterRoom } =
-    useCooperationCreateOrEnterForm();
+  const { toast } = useToast();
+  const navigate = useNavigation();
 
-  const handleSubmit = (e: FormEvent) => {
+  const { nickname, setNickname, isLoading, fetchGetEnteredRoom } = useEnterRoom(roomId);
+
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    fetchEnterRoom(roomId);
+    try {
+      const enteredRoom = await fetchGetEnteredRoom(e);
+      navigate.push("/multi/cooperation", enteredRoom.gameId);
+    } catch (error) {
+      if (error instanceof Error) {
+        toast({
+          payload: {
+            message: error.message,
+          },
+        });
+        return;
+      }
+      toast({
+        payload: {
+          message: "다시 시도해주세요.",
+        },
+      });
+    }
   };
 
   return (
-    <ModalLayout onCloseModal={onCloseModal}>
-      <ModalForm onSubmit={handleSubmit}>
-        <TextField title="닉네임" value={nickname} onChange={onChangeNickname} />
+    <>
+      <Flex justify="flex-end" align="center">
         <Button
-          type="submit"
-          onClick={() => fetchEnterRoom(roomId)}
-          isDisabled={!nickname || isLoadingFetchEnterRoom}
+          size="xs"
+          style={{
+            padding: "0.25rem 0.5rem",
+          }}
+          onClick={onCloseModal}
         >
-          입장하기
+          <IoClose style={{ margin: 0, padding: 0, fontSize: "1rem" }} />
         </Button>
-      </ModalForm>
-    </ModalLayout>
+      </Flex>
+
+      <Spacing scale={0.5} />
+
+      <Box style={{ width: "40vw", padding: "0 0.5rem" }}>
+        <form onSubmit={onSubmit}>
+          <Flex direction="column" gapScale={1}>
+            <TextField
+              title="닉네임"
+              value={nickname}
+              onChange={e => setNickname(e.target.value)}
+            />
+            <Button type="submit" isDisabled={!nickname || isLoading}>
+              입장하기
+            </Button>
+          </Flex>
+        </form>
+      </Box>
+
+      <Spacing scale={0.5} />
+    </>
   );
 };

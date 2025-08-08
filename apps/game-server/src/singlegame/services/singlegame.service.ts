@@ -1,13 +1,13 @@
 import * as probe from 'probe-image-size';
 import { HttpException, Injectable } from '@nestjs/common';
-import { GameLevel } from '@puzzlepop2/game-core';
+import { SingleGameLevelType } from '@puzzlepop2/game-core';
 import { Engine } from '@puzzlepop2/game-engine-server';
 
 @Injectable()
 export class SinglegameService {
   constructor() {}
 
-  async initializePieces(props: { src: string; level: GameLevel }) {
+  async initializePieces(props: { src: string; level: SingleGameLevelType }) {
     const { src, level } = props;
 
     try {

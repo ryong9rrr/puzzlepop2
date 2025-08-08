@@ -29,6 +29,8 @@ export const useAnimatedAlert = () => {
         <Flex justify="center">
           <div className="animate__animated animate__bounceIn" style={{ width: "6rem" }}>
             <Image
+              priority
+              unoptimized
               src={src}
               alt="https://www.flaticon.com/kr/free-icons/"
               layout="responsive"

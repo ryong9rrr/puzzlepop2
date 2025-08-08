@@ -4,6 +4,9 @@ export const LOGO = `${PREFIX}/logo.webp`;
 export const LOADING_PUZZLE = `${PREFIX}/loading-puzzle.webp`;
 export const DEVELOPING = `${PREFIX}/developing.webp`;
 export const WARNING = `${PREFIX}/warning.webp`;
+export const GROUP_CHAT = `${PREFIX}/group-chat.webp`;
+export const WIN = `${PREFIX}/win.webp`;
+export const YOU_LOSE = `${PREFIX}/you-lose.webp`;
 
 export const MAIN_BACKGROUND = `${PREFIX}/bg-main.webp`;
 export const MAIN_BACKGROUND_THUMBNAIL = `${PREFIX}/bg-main-thumbnail.webp`;

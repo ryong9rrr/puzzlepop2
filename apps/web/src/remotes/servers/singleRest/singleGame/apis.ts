@@ -1,4 +1,4 @@
-import { GameLevel } from "@puzzlepop2/game-core";
+import { SingleGameLevelType } from "@puzzlepop2/game-core";
 import { Puzzle } from "@shared-types/single";
 
 import { REST_SERVER_END_POINT } from "../_ep";
@@ -22,12 +22,12 @@ export const fetchGetSingleGamePuzzleById = async ({
   level,
 }: {
   id: string;
-  level: GameLevel;
+  level: SingleGameLevelType;
 }) => {
   const response = await fetch(`${REST_SERVER_END_POINT()}/puzzles/${id}?level=${level}`);
   const { data } = await response.json();
   return data as {
-    level: GameLevel;
+    level: SingleGameLevelType;
     src: string;
   } & Puzzle;
 };

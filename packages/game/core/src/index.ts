@@ -1,18 +1,5 @@
 export * from "./constants";
 
-export type {
-  GameMode,
-  GameLevel,
-  Direction,
-  Piece,
-  Shape,
-  Bundle,
-  ChatData,
-  CooperationWaitingGameData,
-  MultiGameData,
-  MultiGameItem,
-  MultiGamePuzzle,
-  MultiGamePuzzlePiece,
-  Picture,
-  Player,
-} from "./types";
+export type { Direction, Piece, Shape } from "./types/common";
+
+export type { SingleGameModeType, SingleGameLevelType } from "./types/single";

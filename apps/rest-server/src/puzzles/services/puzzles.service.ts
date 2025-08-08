@@ -1,5 +1,5 @@
 import { HttpException, Injectable } from '@nestjs/common';
-import { GameLevel } from '@puzzlepop2/game-core';
+import { SingleGameLevelType } from '@puzzlepop2/game-core';
 import { PuzzlesRepository } from '../repositories/puzzles.repository';
 import { validateNSFW, createNewFile, createCDNImage } from './upload-image';
 
@@ -16,7 +16,7 @@ export class PuzzlesService {
     return result;
   }
 
-  async getPuzzle(id: string, level: GameLevel) {
+  async getPuzzle(id: string, level: SingleGameLevelType) {
     const puzzle = await this.puzzlesRepository.findPuzzleById(id);
     if (!puzzle) {
       throw new HttpException('Puzzle not found', 404);
