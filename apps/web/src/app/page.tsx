@@ -21,11 +21,16 @@ export default function Page() {
             <Image
               src={CDN.LOGO}
               alt="logo"
-              layout="responsive"
               width={1}
               height={1}
               priority
               unoptimized
+              style={{
+                objectFit: "contain",
+                width: "100%",
+                height: "auto",
+                pointerEvents: "none",
+              }}
             />
           </div>
           <div

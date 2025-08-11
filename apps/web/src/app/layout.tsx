@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "@themes/global.css";
 
 export const metadata: Metadata = {
-  title: "Puzzle Pop",
-  description: "웹 퍼즐게임",
+  title: "퍼즐팝",
+  description: "온라인으로 퍼즐을 맞춰보세요.",
 };
 
 export default function RootLayout({
