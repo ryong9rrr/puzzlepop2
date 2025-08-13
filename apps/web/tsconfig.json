@@ -27,8 +27,7 @@
       "@shared-utils/*": ["./src/shared/utils/*"],
       "@remotes-cdn/*": ["./src/remotes/cdn/*"],
       "@remotes-main/*": ["./src/remotes/servers/main/*"],
-      "@remotes-single-game/*": ["./src/remotes/servers/singleGame/*"],
-      "@remotes-single-rest/*": ["./src/remotes/servers/singleRest/*"]
+      "@remotes-single-game/*": ["./src/remotes/servers/singleGame/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

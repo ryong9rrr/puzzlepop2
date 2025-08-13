@@ -1,13 +1,15 @@
 import { create } from "zustand";
-import { SingleGameLevelType } from "@puzzlepop2/game-core";
-import { Puzzle } from "@shared-types/single";
+
+import { PracticePuzzle } from "../../apis/types";
+
+type Level = "easy" | "normal" | "hard";
 
 interface SelectPuzzleStoreProps {
-  selectedPuzzle: Puzzle | null;
-  setSelectedPuzzle: (puzzle: Puzzle) => void;
+  selectedPuzzle: PracticePuzzle | null;
+  setSelectedPuzzle: (puzzle: PracticePuzzle) => void;
 
-  selectedLevel: SingleGameLevelType | null;
-  setSelectedLevel: (level: SingleGameLevelType) => void;
+  selectedLevel: Level | null;
+  setSelectedLevel: (level: Level) => void;
 }
 
 export const useSelectPuzzleStore = create<SelectPuzzleStoreProps>(set => ({

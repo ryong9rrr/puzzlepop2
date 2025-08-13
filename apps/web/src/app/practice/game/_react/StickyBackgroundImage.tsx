@@ -10,7 +10,7 @@ export const StickyBackgroundImage = () => {
 
   return (
     <StickyBackground.Background
-      src={selectedPuzzle ? selectedPuzzle.imgUrl : CDN.SINGLE_GAME_BACKGROUND}
+      src={selectedPuzzle ? selectedPuzzle.originImgSrc : CDN.SINGLE_GAME_BACKGROUND}
     />
   );
 };

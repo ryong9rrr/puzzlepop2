@@ -22,7 +22,7 @@ export const LeftStickyArea = () => {
     }
 
     navigate.push("/practice/game", {
-      slug: selectedPuzzle._id,
+      slug: selectedPuzzle.id,
       query: { level: selectedLevel },
     });
   };
@@ -58,7 +58,7 @@ export const LeftStickyArea = () => {
   return (
     <Flex justify="center" align="center" style={{ padding: "0.5rem", width: "100%" }}>
       <motion.div
-        key={selectedPuzzle._id}
+        key={selectedPuzzle.id}
         initial={{ opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut", delay: 0.1 }}
         animate={{ opacity: 1 }}
@@ -76,7 +76,7 @@ export const LeftStickyArea = () => {
         >
           <div className={MODULE_CSS.imageContainer} style={{ width: "100%" }}>
             <Image
-              src={selectedPuzzle.imgUrl}
+              src={selectedPuzzle.imgSrc}
               alt=""
               fill
               sizes="40vw"

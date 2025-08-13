@@ -11,9 +11,9 @@ import { ToastClient } from "@shared-components/Clients/ToastClient";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 import { FullScreenBackground } from "@shared-components/FullScreenBackground";
 
-import { fetchGetSingleGamePuzzleById } from "@remotes-single-rest/singleGame/apis";
-
 import { GameClient } from "./_gameClient/GameClient";
+import { wait } from "@shared-utils/promises";
+import { PracticePuzzle } from "../../apis/types";
 
 export type SearchParams = {
   level?: SingleGameLevelType;
@@ -32,15 +32,19 @@ export default async function Page({ params, searchParams }: PageProps) {
     throw new Error("Invalid level");
   }
 
-  const puzzle = await fetchGetSingleGamePuzzleById({ id, level });
+  const puzzle = await safeFetch(id);
+
+  if (!puzzle) {
+    throw new Error("Invalid id");
+  }
 
   return (
     <ToastClient>
       <IsMobileWarningToast />
 
       <FullScreenBackground.Main>
-        <FullScreenBackground.Background src={puzzle.src} />
-        <img id={IMG_ID} alt="" src={puzzle.src} style={{ display: "none" }} />
+        <FullScreenBackground.Background src={puzzle.originImgSrc} />
+        <img id={IMG_ID} alt="" src={puzzle.originImgSrc} style={{ display: "none" }} />
         <Flex justify="center" align="center" style={{ height: "100%" }}>
           <canvas
             id={CANVAS_ID}
@@ -54,8 +58,30 @@ export default async function Page({ params, searchParams }: PageProps) {
             }}
           ></canvas>
         </Flex>
-        <GameClient level={level} src={puzzle.src} mode="single" />
+        <GameClient level={level} src={puzzle.originImgSrc} mode="single" />
       </FullScreenBackground.Main>
     </ToastClient>
   );
 }
+
+const safeFetch = async (id: string) => {
+  await wait(3000);
+
+  const response = await fetch("http://localhost:3000/practice/apis", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      type: "GET_PUZZLE_BY_ID",
+      id,
+    }),
+  });
+
+  if (response.status === 200) {
+    const { data } = await response.json();
+    return data as PracticePuzzle;
+  }
+
+  return null;
+};

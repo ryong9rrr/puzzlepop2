@@ -2,20 +2,18 @@
 
 import { Grid, Text } from "@puzzlepop2/react-components-layout";
 
-import {
-  InfinityLoadingSkeleton,
-  RightCardGridErrorSkeleton,
-  RightCardGridSkeleton,
-} from "./RightCardGridSkeletons";
+import { RightCardGridErrorSkeleton, RightCardGridSkeleton } from "./RightCardGridSkeletons";
 import { RightCardGridItem } from "./RightCardGridItem";
 import { TagGroup } from "./TagGroup";
 import { useSelectPuzzleStore } from "./useSelectPuzzleStore";
-import { useInfiniteScroll } from "./useInfiniteScroll";
+import { wait } from "@shared-utils/promises";
+import { PracticePuzzle } from "../../apis/types";
+import { usePromise } from "@puzzlepop2/react-hooks-base";
 
 export const RightCardGrid = () => {
   const { setSelectedPuzzle } = useSelectPuzzleStore();
-  const { data, isError, isPending, hasNextPage, isFetchingNextPage, observerRef } =
-    useInfiniteScroll();
+
+  const { data, isError, isPending } = usePromise(safeFetch);
 
   if (isPending) {
     return <RightCardGridSkeleton />;
@@ -25,16 +23,14 @@ export const RightCardGrid = () => {
     return <RightCardGridErrorSkeleton />;
   }
 
-  const puzzleList = data.pages.flatMap(page => page.data);
-
   return (
     <>
       <Grid templateColumns="repeat(2, 1fr)" gapScale={0.8}>
-        {puzzleList.map(puzzle => {
+        {data.map(puzzle => {
           return (
             <RightCardGridItem
-              key={puzzle._id}
-              imgSrc={`${puzzle.baseUrl}/md.webp`}
+              key={puzzle.id}
+              imgSrc={puzzle.imgSrc}
               onClick={() => setSelectedPuzzle(puzzle)}
             >
               <TagGroup tags={puzzle.tags.map(text => `#${text}`)} width="25vw" />
@@ -52,16 +48,27 @@ export const RightCardGrid = () => {
           );
         })}
       </Grid>
-      {isFetchingNextPage && <InfinityLoadingSkeleton />}
-      {!isFetchingNextPage && hasNextPage && (
-        <div
-          ref={observerRef}
-          style={{
-            width: "100%",
-            height: "2rem",
-          }}
-        ></div>
-      )}
     </>
   );
+};
+
+const safeFetch = async () => {
+  await wait(3000);
+
+  const response = await fetch("http://localhost:3000/practice/apis", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      type: "GET_PUZZLE_LIST",
+    }),
+  });
+
+  if (response.status === 200) {
+    const { data } = await response.json();
+    return data as PracticePuzzle[];
+  }
+
+  return [];
 };

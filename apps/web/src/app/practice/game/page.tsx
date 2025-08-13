@@ -1,18 +1,14 @@
 import { Flex } from "@puzzlepop2/react-components-layout";
 
 import { ToastClient } from "@shared-components/Clients/ToastClient";
-import { TanStackClient } from "@shared-components/Clients/TanStackClient";
 import { StickyBackground } from "@shared-components/StickyBackground";
 import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
 
-import MODULE_CSS from "./page.module.css";
 import { LeftStickyArea } from "./_react/LeftStickyArea";
 import { StickyBackgroundImage } from "./_react/StickyBackgroundImage";
 import { RightCardGrid } from "./_react/RightCardGrid";
 
-export type SearchParams = {
-  cursor?: string;
-};
+import MODULE_CSS from "./page.module.css";
 
 export default async function Page() {
   return (
@@ -26,9 +22,7 @@ export default async function Page() {
         </section>
         <section className={MODULE_CSS.right}>
           <ToastClient>
-            <TanStackClient>
-              <RightCardGrid />
-            </TanStackClient>
+            <RightCardGrid />
           </ToastClient>
         </section>
       </Flex>
