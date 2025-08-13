@@ -12,6 +12,7 @@
   "dependencies": {
     "@lottiefiles/dotlottie-react": "^0.14.4",
     "@puzzlepop2/game-core": "*",
+    "@puzzlepop2/game-engine-server": "*",
     "@puzzlepop2/react-components-button": "*",
     "@puzzlepop2/react-components-input": "*",
     "@puzzlepop2/react-components-layout": "*",

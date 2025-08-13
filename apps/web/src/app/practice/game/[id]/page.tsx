@@ -14,6 +14,7 @@ import { FullScreenBackground } from "@shared-components/FullScreenBackground";
 import { GameClient } from "./_gameClient/GameClient";
 import { wait } from "@shared-utils/promises";
 import { PracticePuzzle } from "../../apis/types";
+import { WEB_END_POINT } from "src/remotes/_eq";
 
 export type SearchParams = {
   level?: SingleGameLevelType;
@@ -67,7 +68,7 @@ export default async function Page({ params, searchParams }: PageProps) {
 const safeFetch = async (id: string) => {
   await wait(3000);
 
-  const response = await fetch("http://localhost:3000/practice/apis", {
+  const response = await fetch(`${WEB_END_POINT()}/practice/apis`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

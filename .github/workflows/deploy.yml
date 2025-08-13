@@ -19,16 +19,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: rest-server Docker 이미지 빌드 & 푸시
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:rest-server -f apps/rest-server/Dockerfile .
-          docker push ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:rest-server
-
-      - name: game-server Docker 이미지 빌드 & 푸시
-        run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:game-server -f apps/game-server/Dockerfile .
-          docker push ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:game-server
-
       - name: web Docker 이미지 빌드 & 푸시
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web -f apps/web/Dockerfile .
@@ -49,8 +39,6 @@ jobs:
             sudo su - <<EOF
             cd /root/puzzlepop2
             docker-compose down
-            docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:rest-server || true
-            docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:game-server || true
             docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web || true
             docker-compose pull
             docker-compose up -d

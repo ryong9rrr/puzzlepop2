@@ -1,11 +1,11 @@
 import { createStore } from "zustand/vanilla";
 import {
+  IMG_ID,
   Piece,
   SINGLE_GAME_PUZZLE_PIECE_SIZE_MAP,
   SingleGameLevelType,
 } from "@puzzlepop2/game-core";
-
-import * as GameServerSingleGameApi from "@remotes-single-game/singleGame/apis";
+import { Engine } from "@puzzlepop2/game-engine-server";
 
 export type PaperPiece = {
   groupId: number | null;
@@ -45,7 +45,18 @@ const gameStore = createStore<GameStore>(set => ({
       return Promise.reject(new Error("Invalid game level"));
     }
 
-    const data = await GameServerSingleGameApi.fetchPuzzleData({ src, level });
+    const imgElement = window.document.getElementById(IMG_ID) as HTMLImageElement;
+    const width = imgElement.naturalWidth;
+    const height = imgElement.naturalHeight;
+
+    const data = Engine.createPieces({
+      gameLevel: level,
+      imgWidth: width,
+      imgHeight: height,
+      options: {
+        position: "random",
+      },
+    });
 
     set({
       bundles: data.pieces,
@@ -62,7 +73,7 @@ const gameStore = createStore<GameStore>(set => ({
 
 export const getGameStore = () => gameStore.getState();
 
-const isValidGameLevel = (level: string) => {
+const isValidGameLevel = (level: string): level is SingleGameLevelType => {
   const gameLevels: SingleGameLevelType[] = ["easy", "normal", "hard"];
   return gameLevels.includes(level as SingleGameLevelType);
 };

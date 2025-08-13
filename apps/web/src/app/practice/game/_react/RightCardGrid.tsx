@@ -9,6 +9,7 @@ import { useSelectPuzzleStore } from "./useSelectPuzzleStore";
 import { wait } from "@shared-utils/promises";
 import { PracticePuzzle } from "../../apis/types";
 import { usePromise } from "@puzzlepop2/react-hooks-base";
+import { WEB_END_POINT } from "src/remotes/_eq";
 
 export const RightCardGrid = () => {
   const { setSelectedPuzzle } = useSelectPuzzleStore();
@@ -55,7 +56,7 @@ export const RightCardGrid = () => {
 const safeFetch = async () => {
   await wait(3000);
 
-  const response = await fetch("http://localhost:3000/practice/apis", {
+  const response = await fetch(`${WEB_END_POINT()}/practice/apis`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
