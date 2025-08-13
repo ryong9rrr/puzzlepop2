@@ -1,26 +1,24 @@
 "use client";
 
-import { useRouter, redirect, RedirectType } from "next/navigation";
 import { useMemo } from "react";
+import { useRouter, redirect } from "next/navigation";
 
-import { RoutePath } from "./RoutePath";
-
-type QueryRecord = {
-  [key: string]: string;
-};
-
-type Options = {
-  queryRecord?: QueryRecord;
-};
+import { RoutePath, PushOptions, RedirectOptions } from "./RoutePath";
+import { makePath } from "./utils";
 
 export const useNavigation = () => {
   const router = useRouter();
 
   return useMemo(() => {
     return {
-      push: (path: RoutePath, slug?: string, options?: Options) => {
-        const nextPath = slug ? `${path}/${slug}` : path;
-        router.push(`${nextPath}${makeQueryString(options)}`);
+      push: (path: RoutePath, options?: PushOptions) => {
+        const nextPath = makePath({
+          path,
+          slug: options?.slug,
+          query: options?.query,
+        });
+
+        router.push(nextPath);
       },
       replace: (path: RoutePath) => {
         router.replace(path);
@@ -34,18 +32,15 @@ export const useNavigation = () => {
       refresh: () => {
         router.refresh();
       },
-      redirect: (path: RoutePath, slug?: string, type?: RedirectType) => {
-        const nextPath = slug ? `${path}/${slug}` : path;
-        redirect(nextPath, type);
+      redirect: (path: RoutePath, options?: RedirectOptions) => {
+        const nextPath = makePath({
+          path,
+          slug: options?.slug,
+          query: options?.query,
+        });
+
+        redirect(nextPath, options?.type);
       },
     };
   }, [router]);
-};
-
-const makeQueryString = (options?: Options) => {
-  if (!options || !options.queryRecord) {
-    return "";
-  }
-  const queries = Object.entries(options.queryRecord).map(([key, value]) => `${key}=${value}`);
-  return `?${queries.join("&")}`;
 };

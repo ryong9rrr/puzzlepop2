@@ -1,11 +1,12 @@
-import Link from "next/link";
 import { PropsWithChildren } from "react";
 import { Z_INDEX } from "@puzzlepop2/themes";
 import { Flex } from "@puzzlepop2/react-components-layout";
+import { Link } from "@router/Link";
 
 import { AiOutlineHome as 홈 } from "react-icons/ai";
 import { IoExtensionPuzzleOutline as 연습모드 } from "react-icons/io5";
 import { GoPeople as 멀티게임 } from "react-icons/go";
+
 import MODULE_CSS from "./SideNavigation.module.css";
 
 export const SideNavigation = () => {
@@ -25,7 +26,7 @@ export const SideNavigation = () => {
           <홈 size={40} />
         </Icon>
       </Link>
-      <Link href="/single">
+      <Link href="/practice/game">
         <Icon>
           <연습모드 />
         </Icon>

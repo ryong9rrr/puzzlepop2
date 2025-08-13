@@ -27,7 +27,9 @@ export const EnterRoomModal = (props: Props) => {
     e.preventDefault();
     try {
       const enteredRoom = await fetchGetEnteredRoom(e);
-      navigate.push("/multi/cooperation", enteredRoom.gameId);
+      navigate.push("/multi/cooperation", {
+        slug: enteredRoom.gameId,
+      });
     } catch (error) {
       if (error instanceof Error) {
         toast({

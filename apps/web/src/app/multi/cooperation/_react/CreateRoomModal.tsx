@@ -37,7 +37,9 @@ export const CreateRoomModal = (props: Props) => {
     e.preventDefault();
     try {
       const newRoom = await fetchGetNewRoom(e);
-      navigate.push("/multi/cooperation", newRoom.gameId);
+      navigate.push("/multi/cooperation", {
+        slug: newRoom.gameId,
+      });
     } catch (error) {
       if (error instanceof Error) {
         toast({

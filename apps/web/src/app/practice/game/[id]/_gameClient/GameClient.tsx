@@ -72,7 +72,7 @@ export const GameClient = (props: GameClientProps) => {
         <Button
           size="sm"
           onClick={() => {
-            navigation.redirect("/single");
+            navigation.redirect("/practice/game");
           }}
         >
           나가기
