@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
 
 import { RoutePath } from "./RoutePath";
-import { useNavigation } from "./useNavigation";
+import { useSafeRouter } from "./useSafeRouter";
 
 interface Props {
   redirectName: string;
@@ -14,7 +14,7 @@ interface Props {
 export const LazyRedirect = (props: Props) => {
   const { redirectName, redirectPath } = props;
 
-  const navigation = useNavigation();
+  const router = useSafeRouter();
   const [time, setTime] = useState(4);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const LazyRedirect = (props: Props) => {
     }, 1000);
 
     if (time === 0) {
-      navigation.redirect(redirectPath);
+      router.redirect(redirectPath);
       clearInterval(timer);
       return;
     }

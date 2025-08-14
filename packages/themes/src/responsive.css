@@ -66,11 +66,10 @@ html {
 
 @media (min-width: 1513px) {
   html {
-    font-size: 36px;
+    font-size: 32px;
   }
 }
 
-/* 🎯 반응형 텍스트 */
 .text-xs {
   font-size: var(--xs);
 }
@@ -114,7 +113,6 @@ html {
   font-size: var(--10xl);
 }
 
-/* 🎯 반응형 버튼 */
 .btn-xs {
   padding: var(--btn-xs);
   font-size: var(--xs);
@@ -144,4 +142,14 @@ html {
   padding: var(--btn-2xl);
   font-size: var(--2xl);
   border-radius: var(--radius-2xl);
+}
+
+.box-yellow {
+  border: 3px solid var(--yellow-300);
+  box-shadow: 0px 7px 29px 0px var(--yellow-500);
+}
+
+.box-lavender {
+  border: 3px solid var(--lavender-100);
+  box-shadow: 0px 7px 29px 0px var(--lavender-300);
 }

@@ -6,7 +6,7 @@ import { GameInfoData } from "@puzzlepop-client/types/base";
 export const getRoomList = async (gameType: "cooperation" | "battle"): Promise<GameInfoData[]> => {
   const response = await fetch(`${getHttpEndPoint()}/game/rooms/${gameType}`);
   const data = (await response.json()) as GameInfoData[];
-  return data;
+  return [...data, gameInfoDataSample1, gameInfoDataSample2];
 };
 
 export const postCreateRoom = async (props: {
@@ -69,3 +69,41 @@ export const postEnterRoom = async (props: {
   const data = await response.json();
   return data;
 };
+
+const gameInfoDataSample1 = {
+  admin: {
+    id: "룡구르르",
+    member: false,
+    sessionId: "",
+  },
+  gameName: "치이카와 귀여워",
+  gameId: "sample1",
+  started: true,
+  redTeam: {
+    players: [{ id: "red_player_1" }, { id: "룡구르르" }],
+  },
+  roomSize: 3,
+  picture: {
+    encodedString:
+      "https://puzzlepop.site/cdn/bdfbb0f7-c8ea-4104-b3d6-bcf0e21468ea1747680621120/origin.webp",
+  },
+} as GameInfoData;
+
+const gameInfoDataSample2 = {
+  admin: {
+    id: "송태섭",
+    member: false,
+    sessionId: "",
+  },
+  gameName: "왼손은 거들뿐...",
+  gameId: "sample2",
+  started: true,
+  redTeam: {
+    players: [{ id: "송태섭" }],
+  },
+  roomSize: 1,
+  picture: {
+    encodedString:
+      "https://puzzlepop.site/cdn/516ae116-8596-4f74-94c9-ca60d49e417c1747677367656/origin.webp",
+  },
+} as GameInfoData;

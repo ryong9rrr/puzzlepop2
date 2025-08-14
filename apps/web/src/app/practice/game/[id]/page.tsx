@@ -1,8 +1,8 @@
 import { vars } from "@puzzlepop2/themes";
 import { Flex } from "@puzzlepop2/react-components-layout";
-import { ToastClient } from "@shared-components/Clients/ToastClient";
-import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
-import { FullScreenBackground } from "@shared-components/FullScreenBackground";
+import { ImageBackground } from "@shared-components/ImageBackground";
+import { ToastServerProvider } from "@shared-components/server-providers/ToastServerProvider";
+import { MobileWarningToast } from "@shared-components/MobileWarningToast";
 
 import { getHttpEndPoint } from "@remotes-web/endPoints";
 
@@ -40,11 +40,11 @@ export default async function Page({ params, searchParams }: PageProps) {
   }
 
   return (
-    <FullScreenBackground.Main>
-      <ToastClient>
-        <IsMobileWarningToast />
-      </ToastClient>
-      <FullScreenBackground.Background src={puzzle.originImgSrc} />
+    <main style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+      <ToastServerProvider>
+        <MobileWarningToast />
+      </ToastServerProvider>
+      <ImageBackground src={puzzle.originImgSrc} />
       <img id={IMG_ID} alt="" src={puzzle.originImgSrc} style={{ display: "none" }} />
       <Flex justify="center" align="center" style={{ height: "100%" }}>
         <canvas
@@ -60,7 +60,7 @@ export default async function Page({ params, searchParams }: PageProps) {
         ></canvas>
       </Flex>
       <GameClient level={level} src={puzzle.originImgSrc} />
-    </FullScreenBackground.Main>
+    </main>
   );
 }
 

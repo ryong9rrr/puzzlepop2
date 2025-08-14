@@ -9,6 +9,7 @@
 @import "@puzzlepop2/react-hooks-modal/style.css";
 @import "@puzzlepop2/react-hooks-alert/style.css";
 @import "@puzzlepop2/react-hooks-toast/style.css";
+@import "@puzzlepop2/react-components-card/style.css";
 
 /* lottie를 위한 임시코드 */
 #puzzle-lottie rect {

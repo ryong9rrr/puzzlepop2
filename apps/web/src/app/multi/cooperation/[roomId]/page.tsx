@@ -1,6 +1,5 @@
-import { ToastClient } from "@shared-components/Clients/ToastClient";
-import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
-import { FullScreenBackground } from "@shared-components/FullScreenBackground";
+import { ToastServerProvider } from "@shared-components/server-providers/ToastServerProvider";
+import { MobileWarningToast } from "@shared-components/MobileWarningToast";
 
 import { PuzzlePopClient } from "@puzzlepop-client/PuzzlePopClient";
 
@@ -16,11 +15,11 @@ export default async function Page({ params }: PageProps) {
   }
 
   return (
-    <FullScreenBackground.Main>
-      <ToastClient>
-        <IsMobileWarningToast />
-      </ToastClient>
+    <>
+      <ToastServerProvider>
+        <MobileWarningToast />
+      </ToastServerProvider>
       <PuzzlePopClient roomId={roomId} gameType="COOPERATION" />
-    </FullScreenBackground.Main>
+    </>
   );
 }

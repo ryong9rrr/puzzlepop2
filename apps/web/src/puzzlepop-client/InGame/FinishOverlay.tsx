@@ -8,15 +8,15 @@ import { Button } from "@puzzlepop2/react-components-button";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Z_INDEX, vars } from "@puzzlepop2/themes";
 
-import { useNavigation } from "@router/useNavigation";
+import { useSafeRouter } from "@router/useSafeRouter";
 import * as CDN from "@remotes-cdn/images";
 
 export const FinishOverlay = () => {
-  const navigation = useNavigation();
+  const router = useSafeRouter();
   const [redirectTimer, setRedirectTimer] = useState(60);
 
   const handleRedirect = () => {
-    navigation.redirect("/multi/cooperation");
+    router.redirect("/multi/cooperation");
   };
 
   // 30초 후 홈으로 이동

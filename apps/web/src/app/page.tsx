@@ -2,19 +2,17 @@ import Image from "next/image";
 
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { vars } from "@puzzlepop2/themes";
-import { FullScreenBackground } from "@shared-components/FullScreenBackground";
-import { AlertClient } from "@shared-components/Clients/AlertClient";
+import { AlertServerProvider } from "@shared-components/server-providers/AlertServerProvider";
+import { ImageBackground } from "@shared-components/ImageBackground";
+
 import * as CDN from "@remotes-cdn/images";
 
-import { Menu } from "./_react/Menu";
+import { Menu } from "./Menu";
 
 export default function Page() {
   return (
-    <FullScreenBackground.Main>
-      <FullScreenBackground.Background
-        src={CDN.MAIN_BACKGROUND}
-        blurSrc={CDN.MAIN_BACKGROUND_THUMBNAIL}
-      />
+    <main style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+      <ImageBackground src={CDN.MOVING_PUZZLE} />
       <Flex justify="center" align="center" style={{ width: "100%", height: "100vh" }}>
         <Flex justify="center" align="center" direction="column" gapScale={1}>
           <div className="bounceInBack" style={{ width: "6rem" }}>
@@ -59,11 +57,11 @@ export default function Page() {
               </Text>
             </Flex>
           </div>
-          <AlertClient>
+          <AlertServerProvider>
             <Menu />
-          </AlertClient>
+          </AlertServerProvider>
         </Flex>
       </Flex>
-    </FullScreenBackground.Main>
+    </main>
   );
 }

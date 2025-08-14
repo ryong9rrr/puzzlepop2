@@ -1,8 +1,8 @@
 "use client";
 
-import { AlertClient } from "@shared-components/Clients/AlertClient";
+import { AlertProvider } from "@puzzlepop2/react-hooks-alert";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
-import { FullScreenBackground } from "@shared-components/FullScreenBackground";
+import { ImageBackground } from "@shared-components/ImageBackground";
 
 import * as CDN from "@remotes-cdn/images";
 
@@ -26,25 +26,19 @@ export const GamePageRouter = (props: Props) => {
       <LoadingOverlay isLoadingComplete={isLoadingComplete} />
 
       {pageStatus === "waiting" && (
-        <>
-          <FullScreenBackground.Background
-            src={CDN.COOPERATION_BACKGROUND}
-            blurSrc={CDN.COOPERATION_BACKGROUND_THUMBNAIL}
-          />
-          <AlertClient>
+        <main style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+          <ImageBackground src={CDN.BACKGROUND_BLUE_MOON} />
+          <AlertProvider>
             <WaitingPage roomId={roomId} />
-          </AlertClient>
-        </>
+          </AlertProvider>
+        </main>
       )}
 
       {pageStatus === "inGame" && (
-        <>
-          <FullScreenBackground.Background
-            src={CDN.RED_TEAM_BACKGROUND}
-            blurSrc={CDN.RED_TEAM_BACKGROUND_THUMBNAIL}
-          />
+        <main style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
+          <ImageBackground src={CDN.BACKGROUND_BLUE_TRAIN} />
           <InGamePage roomId={roomId} gameType={gameType} />
-        </>
+        </main>
       )}
     </>
   );

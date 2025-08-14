@@ -7,7 +7,7 @@ import { Z_INDEX } from "@puzzlepop2/themes";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { usePromise } from "@puzzlepop2/react-hooks-base";
 
-import { useNavigation } from "@router/useNavigation";
+import { useSafeRouter } from "@router/useSafeRouter";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
 import { useToggle } from "@shared-hooks/useToggle";
 
@@ -25,7 +25,7 @@ export type GameClientProps = {
 export const GameClient = (props: GameClientProps) => {
   const { src, level } = props;
 
-  const navigation = useNavigation();
+  const router = useSafeRouter();
 
   const { isActive: isActiveExampleImage, toggle: onToggleExampleImage } = useToggle();
 
@@ -71,7 +71,7 @@ export const GameClient = (props: GameClientProps) => {
         <Button
           size="sm"
           onClick={() => {
-            navigation.redirect("/practice/game");
+            router.redirect("/practice/game");
           }}
         >
           나가기

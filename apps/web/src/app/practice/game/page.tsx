@@ -1,35 +1,36 @@
-import { Flex } from "@puzzlepop2/react-components-layout";
+"use client";
 
-import { ToastClient } from "@shared-components/Clients/ToastClient";
-import { StickyBackground } from "@shared-components/StickyBackground";
-import { IsMobileWarningToast } from "@shared-components/IsMobileWarningToast";
+import { Spacing, Text } from "@puzzlepop2/react-components-layout";
+import { ModalServerProvider } from "@shared-components/server-providers/ModalServerProvider";
+import { ToastServerProvider } from "@shared-components/server-providers/ToastServerProvider";
+import { ImageBackground } from "@shared-components/ImageBackground";
 
-import { LeftStickyArea } from "./_react/LeftStickyArea";
-import { StickyBackgroundImage } from "./_react/StickyBackgroundImage";
-import { RightCardGrid } from "./_react/RightCardGrid";
+import * as CDN from "@remotes-cdn/images";
 
+import { CardGrid } from "./CardGrid";
+import { useSelectPuzzleStore } from "./useSelectPuzzleStore";
 import MODULE_CSS from "./page.module.css";
 
-export default async function Page() {
-  return (
-    <StickyBackground.Main>
-      <StickyBackgroundImage />
-      <Flex justify="center" gapScale={1} style={{ paddingLeft: "1rem" }}>
-        <section className={MODULE_CSS.left}>
-          <div className={MODULE_CSS.sticky}>
-            <LeftStickyArea />
-          </div>
-        </section>
-        <section className={MODULE_CSS.right}>
-          <ToastClient>
-            <RightCardGrid />
-          </ToastClient>
-        </section>
-      </Flex>
+export default function Page() {
+  const { selectedPuzzle } = useSelectPuzzleStore();
 
-      <ToastClient>
-        <IsMobileWarningToast />
-      </ToastClient>
-    </StickyBackground.Main>
+  return (
+    <main style={{ position: "relative" }}>
+      <ImageBackground
+        src={selectedPuzzle ? selectedPuzzle.originImgSrc : CDN.BACKGROUND_PRACTICE}
+      />
+
+      <div className={MODULE_CSS["grid-layout"]}>
+        <ToastServerProvider>
+          <ModalServerProvider>
+            <Text size="lg" className="font-gameTitle">
+              연습모드
+            </Text>
+            <Spacing scale={0.8} />
+            <CardGrid />
+          </ModalServerProvider>
+        </ToastServerProvider>
+      </div>
+    </main>
   );
 }

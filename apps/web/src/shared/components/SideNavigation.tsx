@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { Z_INDEX } from "@puzzlepop2/themes";
 import { Flex } from "@puzzlepop2/react-components-layout";
-import { Link } from "@router/Link";
+import { SafeLink } from "@router/SafeLink";
 
 import { AiOutlineHome as 홈 } from "react-icons/ai";
 import { IoExtensionPuzzleOutline as 연습모드 } from "react-icons/io5";
@@ -21,22 +21,22 @@ export const SideNavigation = () => {
         zIndex: Z_INDEX.DIMMED_Z_INDEX - 1,
       }}
     >
-      <Link href="/">
+      <SafeLink href="/">
         <Icon>
           <홈 size={40} />
         </Icon>
-      </Link>
-      <Link href="/practice/game">
+      </SafeLink>
+      <SafeLink href="/practice/game">
         <Icon>
           <연습모드 />
         </Icon>
-      </Link>
+      </SafeLink>
       {/* TODO: /multi로 바꾸고 협동-배틀은 탭으로 처리하기 */}
-      <Link href="/multi/cooperation">
+      <SafeLink href="/multi/cooperation">
         <Icon>
           <멀티게임 />
         </Icon>
-      </Link>
+      </SafeLink>
     </Flex>
   );
 };

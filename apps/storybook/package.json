@@ -23,6 +23,7 @@
     "@puzzlepop2/react-components-layout": "*",
     "@puzzlepop2/react-components-button": "*",
     "@puzzlepop2/react-components-input": "*",
+    "@puzzlepop2/react-components-card": "*",
     "@puzzlepop2/react-hooks-modal": "*",
     "@puzzlepop2/react-hooks-alert": "*",
     "@puzzlepop2/react-hooks-toast": "*",
