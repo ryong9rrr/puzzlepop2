@@ -1,6 +1,6 @@
 import Paper from "paper";
-import { Direction } from "@puzzlepop2/game-core";
 
+import { Direction } from "../../../../types";
 import { getGameStore, PaperPiece } from "../../../../store";
 import { OnMouseEventType } from "../types";
 import { getNeighborPieceIdMap } from "../../utils";

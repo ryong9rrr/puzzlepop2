@@ -1,5 +1,6 @@
 import Paper from "paper";
-import { IMG_ID } from "@puzzlepop2/game-core";
+
+import { IMG_ID } from "../../constants";
 
 import * as Styles from "./styles";
 import { canvasStaticStore } from "../canvasStaticStore";

@@ -2,11 +2,11 @@ import { createStore } from "zustand/vanilla";
 import * as Stomp from "@stomp/stompjs";
 
 import {
-  SEND_PUBLISH_DESTINATION,
-  ORIGINAL_SERVER_END_POINT_WS,
-  GAME_SUBSCRIBE_DESTINATION,
-  CHAT_SUBSCRIBE_DESTINATION,
-} from "@remotes-main/_ep";
+  getSendPublishDestination,
+  getWebSocketEndPoint,
+  getGameSubscribeDestination,
+  getChatSubscribeDestination,
+} from "@remotes-main/endPoints";
 
 import { isRecord } from "./socketMessageMatchers";
 import { ChatData } from "./types/chat";
@@ -34,7 +34,7 @@ export const socketStaticStore = createStore<SocketStaticStore>((set, get) => ({
     }
 
     const stomp = new Stomp.Client({
-      brokerURL: `${ORIGINAL_SERVER_END_POINT_WS()}/game`,
+      brokerURL: `${getWebSocketEndPoint()}/game`,
       onConnect,
       connectHeaders: {},
       reconnectDelay: 100,
@@ -53,7 +53,7 @@ export const socketStaticStore = createStore<SocketStaticStore>((set, get) => ({
     }
 
     stomp.publish({
-      destination: SEND_PUBLISH_DESTINATION,
+      destination: getSendPublishDestination,
       body: JSON.stringify(body),
     });
   },
@@ -69,7 +69,7 @@ export const socketStaticStore = createStore<SocketStaticStore>((set, get) => ({
     }
 
     const destination =
-      type === "game" ? GAME_SUBSCRIBE_DESTINATION(roomId) : CHAT_SUBSCRIBE_DESTINATION(roomId);
+      type === "game" ? getGameSubscribeDestination(roomId) : getChatSubscribeDestination(roomId);
 
     stomp.subscribe(destination, message => {
       if (!message || !message.body) {

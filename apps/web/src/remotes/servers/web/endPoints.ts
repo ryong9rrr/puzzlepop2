@@ -1,4 +1,4 @@
-export const WEB_END_POINT = () => {
+export const getHttpEndPoint = () => {
   return process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
     : "https://puzzlepop.site";

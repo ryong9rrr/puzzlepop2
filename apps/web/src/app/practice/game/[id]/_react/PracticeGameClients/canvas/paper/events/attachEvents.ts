@@ -1,10 +1,11 @@
 import { getGameStore } from "../../../store";
+import { CANVAS_ID } from "../../../constants";
+
 import { onMouseDown } from "./onMouseDown/onMouseDown";
 import { onMouseDrag } from "./onMouseDrag/onMouseDrag";
 import { onMouseUp } from "./onMouseUp/onMouseUp";
 import { onMouseEnter } from "./onMouseEnter/onMouseEnter";
 import { onMouseLeave } from "./onMouseLeave/onMouseLeave";
-import { CANVAS_ID } from "@puzzlepop2/game-core";
 
 export const attachEvents = () => {
   const canvasElement = window.document.getElementById(CANVAS_ID) as HTMLCanvasElement;

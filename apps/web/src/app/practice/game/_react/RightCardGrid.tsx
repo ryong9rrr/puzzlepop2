@@ -1,15 +1,16 @@
 "use client";
 
 import { Grid, Text } from "@puzzlepop2/react-components-layout";
+import { usePromise } from "@puzzlepop2/react-hooks-base";
+
+import { getHttpEndPoint } from "@remotes-web/endPoints";
+
+import { PracticePuzzle } from "../../apis/types";
 
 import { RightCardGridErrorSkeleton, RightCardGridSkeleton } from "./RightCardGridSkeletons";
 import { RightCardGridItem } from "./RightCardGridItem";
 import { TagGroup } from "./TagGroup";
 import { useSelectPuzzleStore } from "./useSelectPuzzleStore";
-import { wait } from "@shared-utils/promises";
-import { PracticePuzzle } from "../../apis/types";
-import { usePromise } from "@puzzlepop2/react-hooks-base";
-import { WEB_END_POINT } from "src/remotes/_eq";
 
 export const RightCardGrid = () => {
   const { setSelectedPuzzle } = useSelectPuzzleStore();
@@ -54,9 +55,7 @@ export const RightCardGrid = () => {
 };
 
 const safeFetch = async () => {
-  await wait(3000);
-
-  const response = await fetch(`${WEB_END_POINT()}/practice/apis`, {
+  const response = await fetch(`${getHttpEndPoint()}/practice/apis`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

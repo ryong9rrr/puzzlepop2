@@ -1,4 +1,4 @@
-import { CANVAS_ID } from "@puzzlepop2/game-core";
+import { CANVAS_ID } from "../../constants";
 import { CanvasPiece } from "../canvasStaticStore";
 
 export const onMouseLeave = (event: paper.MouseEvent, piece: CanvasPiece) => {

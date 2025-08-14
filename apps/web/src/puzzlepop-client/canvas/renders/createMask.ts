@@ -1,5 +1,7 @@
 import Paper from "paper";
-import { Shape } from "@puzzlepop2/game-core";
+
+import { Shape } from "../../types/base";
+
 import { canvasStaticStore } from "../canvasStaticStore";
 import { getRenderingData } from "./getRenderingData";
 

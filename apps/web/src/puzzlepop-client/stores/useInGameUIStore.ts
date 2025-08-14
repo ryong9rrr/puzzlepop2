@@ -1,4 +1,5 @@
 import { create } from "zustand";
+
 import { Player, Puzzle } from "../types/base";
 
 interface InGameUIStore {

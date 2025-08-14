@@ -1,4 +1,5 @@
-import { Direction } from "@puzzlepop2/game-core";
+import { Direction } from "../../types/base";
+
 import { canvasStaticStore } from "../canvasStaticStore";
 
 export const getNeighborPieceIndexMap = (pieceIndex: number): Record<Direction, number | null> => {

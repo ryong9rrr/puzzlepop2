@@ -1,4 +1,4 @@
-import { Direction } from "@puzzlepop2/game-core";
+import { Direction } from "../../../types/base";
 
 import { CanvasPiece, canvasStaticStore } from "../../canvasStaticStore";
 

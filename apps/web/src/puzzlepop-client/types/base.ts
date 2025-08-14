@@ -1,3 +1,8 @@
+export type Direction = "top" | "right" | "bottom" | "left";
+export type Shape = {
+  [key in Direction]: number;
+};
+
 export type TeamColor = "RED" | "BLUE";
 export type GameType = "COOPERATION" | "BATTLE";
 export type ItemName = "FRAME" | "MAGNET" | "HINT";

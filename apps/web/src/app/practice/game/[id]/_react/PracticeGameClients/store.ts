@@ -1,11 +1,9 @@
 import { createStore } from "zustand/vanilla";
-import {
-  IMG_ID,
-  Piece,
-  SINGLE_GAME_PUZZLE_PIECE_SIZE_MAP,
-  SingleGameLevelType,
-} from "@puzzlepop2/game-core";
+
 import { createPieces } from "./canvas/createPieces";
+
+import { IMG_ID, PRACTICE_GAME_PUZZLE_PIECE_SIZE_MAP } from "./constants";
+import { Piece, PracticeGameLevel } from "./types";
 
 export type PaperPiece = {
   groupId: number | null;
@@ -17,7 +15,7 @@ interface GameStore {
   currentMaxGroupId: number;
   setCurrentMaxGroupId: (groupId: number) => void;
 
-  level: SingleGameLevelType;
+  level: PracticeGameLevel;
   pieceSize: number;
   perColumn: number;
   perRow: number;
@@ -62,8 +60,8 @@ const gameStore = createStore<GameStore>(set => ({
       bundles: data.pieces,
       perColumn: data.perColumn,
       perRow: data.perRow,
-      pieceSize: SINGLE_GAME_PUZZLE_PIECE_SIZE_MAP[level as SingleGameLevelType],
-      level: level as SingleGameLevelType,
+      pieceSize: PRACTICE_GAME_PUZZLE_PIECE_SIZE_MAP[level as PracticeGameLevel],
+      level: level as PracticeGameLevel,
     });
   },
 
@@ -73,7 +71,7 @@ const gameStore = createStore<GameStore>(set => ({
 
 export const getGameStore = () => gameStore.getState();
 
-const isValidGameLevel = (level: string): level is SingleGameLevelType => {
-  const gameLevels: SingleGameLevelType[] = ["easy", "normal", "hard"];
-  return gameLevels.includes(level as SingleGameLevelType);
+const isValidGameLevel = (level: string): level is PracticeGameLevel => {
+  const gameLevels: PracticeGameLevel[] = ["easy", "normal", "hard"];
+  return gameLevels.includes(level as PracticeGameLevel);
 };

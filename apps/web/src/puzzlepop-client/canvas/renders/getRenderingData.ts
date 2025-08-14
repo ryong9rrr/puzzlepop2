@@ -1,4 +1,5 @@
-import { IMG_ID } from "@puzzlepop2/game-core";
+import { IMG_ID } from "../../constants";
+
 import { canvasStaticStore } from "../canvasStaticStore";
 
 // level 임의로 3단계로

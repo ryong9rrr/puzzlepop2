@@ -1,3 +1,5 @@
+export type PracticeGameLevel = "easy" | "normal" | "hard";
+
 export type Direction = "top" | "right" | "bottom" | "left";
 
 export type Piece = {

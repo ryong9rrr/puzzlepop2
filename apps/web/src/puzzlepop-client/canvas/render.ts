@@ -1,7 +1,7 @@
 import Paper from "paper";
 import { Point } from "paper/dist/paper-core";
-import { IMG_ID } from "@puzzlepop2/game-core";
 
+import { IMG_ID } from "../constants";
 import { Piece } from "../types/base";
 
 import { attachEvents } from "./attachEvents";
@@ -10,6 +10,7 @@ import { CanvasPiece, canvasStaticStore } from "./canvasStaticStore";
 import * as Styles from "./renders/styles";
 import { createMask } from "./renders/createMask";
 import { createPiece } from "./renders/createPiece";
+
 import { reBundles } from "./utils/reBundles";
 
 export const render = (board: Piece[][]) => {

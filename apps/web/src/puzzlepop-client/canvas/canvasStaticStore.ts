@@ -1,6 +1,6 @@
 import { createStore } from "zustand/vanilla";
-import { Shape } from "@puzzlepop2/game-core";
-import { Me, Piece } from "../types/base";
+
+import { Me, Piece, Shape } from "../types/base";
 
 export type CanvasPiece = {
   groupId: number | null;

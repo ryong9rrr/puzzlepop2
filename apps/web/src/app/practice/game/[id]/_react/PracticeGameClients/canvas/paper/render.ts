@@ -1,7 +1,8 @@
 import Paper from "paper";
-import { IMG_ID } from "@puzzlepop2/game-core";
 
 import { getGameStore, PaperPiece } from "../../store";
+import { IMG_ID } from "../../constants";
+
 import { createPiece, getMask } from "./renderHelpers";
 import * as Styles from "./styles";
 import { getPieceId } from "./utils";

@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-
-import { CANVAS_HEIGHT, CANVAS_ID, CANVAS_WIDTH, IMG_ID } from "@puzzlepop2/game-core";
 import { vars } from "@puzzlepop2/themes";
 
+import { CANVAS_HEIGHT, CANVAS_ID, CANVAS_WIDTH, IMG_ID } from "../constants";
 import { socketStaticStore } from "../socketStaticStore";
 import { useLoadingStore } from "../stores/useLoadingStore";
 import { useUserStore } from "../stores/useUserStore";

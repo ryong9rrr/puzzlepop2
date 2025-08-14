@@ -1,10 +1,10 @@
 import { RemoteError } from "@shared-utils/error";
 
-import { ORIGINAL_SERVER_END_POINT_HTTP } from "./_ep";
+import { getHttpEndPoint } from "./endPoints";
 import { GameInfoData } from "@puzzlepop-client/types/base";
 
 export const getRoomList = async (gameType: "cooperation" | "battle"): Promise<GameInfoData[]> => {
-  const response = await fetch(`${ORIGINAL_SERVER_END_POINT_HTTP()}/game/rooms/${gameType}`);
+  const response = await fetch(`${getHttpEndPoint()}/game/rooms/${gameType}`);
   const data = (await response.json()) as GameInfoData[];
   return data;
 };
@@ -31,7 +31,7 @@ export const postCreateRoom = async (props: {
     gameType,
   });
 
-  const response = await fetch(`${ORIGINAL_SERVER_END_POINT_HTTP()}/game/room`, {
+  const response = await fetch(`${getHttpEndPoint()}/game/room`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export const postEnterRoom = async (props: {
     id: userId,
   });
 
-  const response = await fetch(`${ORIGINAL_SERVER_END_POINT_HTTP()}/game/room/${roomId}`, {
+  const response = await fetch(`${getHttpEndPoint()}/game/room/${roomId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

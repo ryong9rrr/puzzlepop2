@@ -1,5 +1,6 @@
 import * as Paper from "paper";
-import { CANVAS_ID } from "@puzzlepop2/game-core";
+
+import { CANVAS_ID } from "../../constants";
 import { CanvasPiece } from "../canvasStaticStore";
 
 export const onMouseEnter = (event: paper.MouseEvent, piece: CanvasPiece) => {

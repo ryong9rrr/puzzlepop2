@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import "@themes/global.css";
 
 export const metadata: Metadata = {
   title: "연습모드 | 퍼즐팝",

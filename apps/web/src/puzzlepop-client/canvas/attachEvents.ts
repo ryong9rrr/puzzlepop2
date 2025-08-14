@@ -1,4 +1,5 @@
 import { canvasStaticStore } from "./canvasStaticStore";
+
 import { onMouseDown } from "./events/onMouseDown";
 import { onMouseDrag } from "./events/onMouseDrag";
 import { onMouseEnter } from "./events/onMouseEnter";

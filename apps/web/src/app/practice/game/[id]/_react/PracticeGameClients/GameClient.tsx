@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useToast } from "@puzzlepop2/react-hooks-toast";
-import { SingleGameLevelType, SingleGameModeType } from "@puzzlepop2/game-core";
 import { Button } from "@puzzlepop2/react-components-button";
 import { Z_INDEX } from "@puzzlepop2/themes";
 import { Flex } from "@puzzlepop2/react-components-layout";
@@ -15,16 +14,16 @@ import { useToggle } from "@shared-hooks/useToggle";
 import { SideWidgetContainer, SideWidgetIcon } from "../SideWidgets";
 import { ExampleImage } from "../ExampleImage";
 
-import { load } from "./canvas";
+import { PracticeGameLevel } from "./types";
+import { load } from "./canvas/load";
 
 export type GameClientProps = {
-  mode: SingleGameModeType;
   src: string;
-  level: SingleGameLevelType;
+  level: PracticeGameLevel;
 };
 
 export const GameClient = (props: GameClientProps) => {
-  const { mode, src, level } = props;
+  const { src, level } = props;
 
   const navigation = useNavigation();
 

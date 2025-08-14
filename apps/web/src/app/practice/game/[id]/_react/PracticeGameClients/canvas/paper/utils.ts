@@ -1,6 +1,5 @@
-import { Direction } from "@puzzlepop2/game-core";
-
 import { getGameStore } from "../../store";
+import { Direction } from "../../types";
 
 export const getPieceId = (x: number, y: number) => {
   const { perColumn, perRow } = getGameStore();

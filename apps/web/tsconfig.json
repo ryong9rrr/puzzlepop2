@@ -26,7 +26,8 @@
       "@shared-storages/*": ["./src/shared/storages/*"],
       "@shared-utils/*": ["./src/shared/utils/*"],
       "@remotes-cdn/*": ["./src/remotes/cdn/*"],
-      "@remotes-main/*": ["./src/remotes/servers/main/*"]
+      "@remotes-main/*": ["./src/remotes/servers/main/*"],
+      "@remotes-web/*": ["./src/remotes/servers/web/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

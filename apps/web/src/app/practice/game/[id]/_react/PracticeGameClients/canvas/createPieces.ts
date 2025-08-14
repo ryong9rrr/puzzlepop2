@@ -1,10 +1,5 @@
-import {
-  Piece,
-  Shape,
-  SINGLE_GAME_PUZZLE_PIECE_SIZE_MAP,
-  CANVAS_WIDTH,
-  CANVAS_HEIGHT,
-} from "@puzzlepop2/game-core";
+import { PRACTICE_GAME_PUZZLE_PIECE_SIZE_MAP, CANVAS_WIDTH, CANVAS_HEIGHT } from "../constants";
+import { Piece, Shape } from "../types";
 
 type InitPiecePosition = "random" | "arranged";
 
@@ -24,7 +19,7 @@ type CreateShapesProps = {
 
 export const createPieces = (props: CreatePiecesProps) => {
   const { gameLevel, imgWidth, imgHeight, options } = props;
-  const pieceSize = SINGLE_GAME_PUZZLE_PIECE_SIZE_MAP[gameLevel];
+  const pieceSize = PRACTICE_GAME_PUZZLE_PIECE_SIZE_MAP[gameLevel];
   const perColumn = Math.floor(imgHeight / pieceSize);
   const perRow = Math.floor(imgWidth / pieceSize);
 

@@ -3,10 +3,11 @@
 import { Flex, Spacing } from "@puzzlepop2/react-components-layout";
 import { useToggle } from "@shared-hooks/useToggle";
 
+import { Me } from "../types/base";
+
 import { Canvas } from "../canvas/Canvas";
 
 import { useUserStore } from "../stores/useUserStore";
-import { Me } from "../types/base";
 import { useInGameUIStore } from "../stores/useInGameUIStore";
 
 import { FinishOverlay } from "./FinishOverlay";

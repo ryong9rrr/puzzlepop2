@@ -1,5 +1,4 @@
-import { Direction } from "@puzzlepop2/game-core";
-import { Piece, TeamColor } from "../../types/base";
+import { Piece, TeamColor, Direction } from "../../types/base";
 import { canvasStaticStore } from "../canvasStaticStore";
 import { getNeighborPieceIndexMap } from "./getNeighborPieceIndexMap";
 import { attachPieceToPiece } from "./attachPieceToPiece";

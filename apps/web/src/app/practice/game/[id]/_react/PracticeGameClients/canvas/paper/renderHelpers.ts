@@ -1,6 +1,7 @@
 import Paper from "paper";
-import { Shape } from "@puzzlepop2/game-core";
 import * as Styles from "./styles";
+
+import { Shape } from "../../types";
 
 export const getMask = (props: {
   pieceSize: number;
