@@ -5,7 +5,22 @@ import {
   CANVAS_WIDTH,
   CANVAS_HEIGHT,
 } from "@puzzlepop2/game-core";
-import { CreatePiecesProps, CreateShapesProps, InitPiecePosition } from "./types";
+
+type InitPiecePosition = "random" | "arranged";
+
+type CreatePiecesProps = {
+  gameLevel: "easy" | "normal" | "hard";
+  imgWidth: number;
+  imgHeight: number;
+  options?: {
+    position?: InitPiecePosition;
+  };
+};
+
+type CreateShapesProps = {
+  perColumn: number;
+  perRow: number;
+};
 
 export const createPieces = (props: CreatePiecesProps) => {
   const { gameLevel, imgWidth, imgHeight, options } = props;

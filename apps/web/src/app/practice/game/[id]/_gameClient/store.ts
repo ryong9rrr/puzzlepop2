@@ -5,7 +5,7 @@ import {
   SINGLE_GAME_PUZZLE_PIECE_SIZE_MAP,
   SingleGameLevelType,
 } from "@puzzlepop2/game-core";
-import { Engine } from "@puzzlepop2/game-engine-server";
+import { createPieces } from "./canvas/createPieces";
 
 export type PaperPiece = {
   groupId: number | null;
@@ -49,7 +49,7 @@ const gameStore = createStore<GameStore>(set => ({
     const width = imgElement.naturalWidth;
     const height = imgElement.naturalHeight;
 
-    const data = Engine.createPieces({
+    const data = createPieces({
       gameLevel: level,
       imgWidth: width,
       imgHeight: height,
