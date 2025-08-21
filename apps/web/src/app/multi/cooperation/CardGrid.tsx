@@ -1,4 +1,3 @@
-import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { CardGridContainer, CardGridItem, CardTitle } from "@puzzlepop2/react-components-card";
 import { CardImage } from "@shared-components/CardImage";
 import { CardGameStatus } from "@shared-components/CardGameStatus";
@@ -18,12 +17,11 @@ type Room = {
 interface Props {
   color: "lavender" | "yellow";
   rooms: Room[];
-  isLoading: boolean;
   onClickCard?: (roomId: string) => void;
 }
 
 export const CardGrid = (props: Props) => {
-  const { color, rooms, isLoading, onClickCard } = props;
+  const { color, rooms, onClickCard } = props;
 
   const handleClickCard = (roomId: string, disabled: boolean) => {
     if (disabled) {
@@ -31,15 +29,6 @@ export const CardGrid = (props: Props) => {
     }
     onClickCard?.(roomId);
   };
-
-  if (!isLoading && rooms.length === 0) {
-    return (
-      <Flex direction="column" justify="center" align="center">
-        <Spacing scale={1} />
-        <Text size="xs">현재 생성된 게임방이 없습니다.</Text>
-      </Flex>
-    );
-  }
 
   return (
     <CardGridContainer>

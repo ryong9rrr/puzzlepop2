@@ -7,6 +7,7 @@ import { Box, Flex, Spacing } from "@puzzlepop2/react-components-layout";
 
 import { useSafeRouter } from "@router/useSafeRouter";
 import { TextField } from "@shared-components/TextField";
+import { ModalLayout } from "@shared-components/ModalLayout";
 
 import { useEnterRoom } from "@puzzlepop-client/useEnterRoom";
 
@@ -63,20 +64,22 @@ export const EnterRoomModal = (props: Props) => {
 
       <Spacing scale={0.5} />
 
-      <Box style={{ width: "40vw", padding: "0 0.5rem" }}>
-        <form onSubmit={onSubmit}>
-          <Flex direction="column" gapScale={1}>
-            <TextField
-              title="닉네임"
-              value={nickname}
-              onChange={e => setNickname(e.target.value)}
-            />
-            <Button type="submit" isDisabled={!nickname || isLoading}>
-              입장하기
-            </Button>
-          </Flex>
-        </form>
-      </Box>
+      <ModalLayout>
+        <Box style={{ padding: "0 0.5rem" }}>
+          <form onSubmit={onSubmit}>
+            <Flex direction="column" gapScale={1}>
+              <TextField
+                title="닉네임"
+                value={nickname}
+                onChange={e => setNickname(e.target.value)}
+              />
+              <Button type="submit" isDisabled={!nickname || isLoading}>
+                입장하기
+              </Button>
+            </Flex>
+          </form>
+        </Box>
+      </ModalLayout>
 
       <Spacing scale={0.5} />
     </>

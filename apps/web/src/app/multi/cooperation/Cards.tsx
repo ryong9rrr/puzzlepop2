@@ -1,6 +1,6 @@
 "use client";
 
-import { Spacing } from "@puzzlepop2/react-components-layout";
+import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { useModal } from "@puzzlepop2/react-hooks-modal";
 import { usePromise } from "@puzzlepop2/react-hooks-base";
 
@@ -14,7 +14,7 @@ import { CardGrid } from "./CardGrid";
 export const Cards = () => {
   const { open, close } = useModal();
 
-  const { data, isPending, refetch } = usePromise(() => getRoomList("cooperation"));
+  const { data, isPending, isError, refetch } = usePromise(() => getRoomList("cooperation"));
 
   const handleClickCreateRoomButton = () => {
     open({
@@ -62,12 +62,14 @@ export const Cards = () => {
         onRefresh={refetch}
       />
       <Spacing scale={0.8} />
-      <CardGrid
-        color="lavender"
-        isLoading={isPending}
-        rooms={rooms}
-        onClickCard={handleClickRoomCard}
-      />
+
+      {rooms.length === 0 && (
+        <Flex direction="column" justify="center" align="center">
+          <Spacing scale={1} />
+          <Text size="xs">{isError ? "오류가 발생했어요." : "생성된 게임이 없어요."}</Text>
+        </Flex>
+      )}
+      <CardGrid color="lavender" rooms={rooms} onClickCard={handleClickRoomCard} />
     </>
   );
 };

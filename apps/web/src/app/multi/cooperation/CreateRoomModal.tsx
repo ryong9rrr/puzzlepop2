@@ -9,6 +9,7 @@ import { Box, Flex, Spacing } from "@puzzlepop2/react-components-layout";
 import { useSafeRouter } from "@router/useSafeRouter";
 import { TextField } from "@shared-components/TextField";
 import { RoomSizeField } from "@shared-components/RoomSizeField";
+import { ModalLayout } from "@shared-components/ModalLayout";
 
 import { useCreateRoom } from "@puzzlepop-client/useCreateRoom";
 
@@ -73,26 +74,28 @@ export const CreateRoomModal = (props: Props) => {
 
       <Spacing scale={0.5} />
 
-      <Box style={{ width: "40vw", padding: "0 0.5rem" }}>
-        <form onSubmit={onSummit}>
-          <Flex direction="column" gapScale={1}>
-            <TextField
-              title="방 이름"
-              value={roomTitle}
-              onChange={e => setRoomTitle(e.target.value)}
-            />
-            <RoomSizeField value={roomSize} setValue={setRoomSize} />
-            <TextField
-              title="닉네임"
-              value={nickname}
-              onChange={e => setNickname(e.target.value)}
-            />
-            <Button type="submit" isDisabled={!roomTitle || !nickname || isLoading}>
-              방 만들기
-            </Button>
-          </Flex>
-        </form>
-      </Box>
+      <ModalLayout>
+        <Box style={{ padding: "0 0.5rem" }}>
+          <form onSubmit={onSummit}>
+            <Flex direction="column" gapScale={1}>
+              <TextField
+                title="방 이름"
+                value={roomTitle}
+                onChange={e => setRoomTitle(e.target.value)}
+              />
+              <RoomSizeField value={roomSize} setValue={setRoomSize} />
+              <TextField
+                title="닉네임"
+                value={nickname}
+                onChange={e => setNickname(e.target.value)}
+              />
+              <Button type="submit" isDisabled={!roomTitle || !nickname || isLoading}>
+                방 만들기
+              </Button>
+            </Flex>
+          </form>
+        </Box>
+      </ModalLayout>
 
       <Spacing scale={0.5} />
     </>
