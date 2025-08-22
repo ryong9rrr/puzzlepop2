@@ -1,5 +1,8 @@
 import build from "@puzzlepop2/esbuild-config";
-import pkg from "./package.json" assert { type: "json" };
+
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const pkg = require("./package.json");
 
 build({
   pkg,
