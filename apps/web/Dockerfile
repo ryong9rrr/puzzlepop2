@@ -1,6 +1,6 @@
-#node:20-alpine 이미지를 사용하여 가벼운 Alpine Linux 기반의 Node.js 환경을 설정.
+#node:22-alpine 이미지를 사용하여 가벼운 Alpine Linux 기반의 Node.js 환경을 설정.
 #이후 단계에서 이 이미지를 공통 베이스로 사용하기 위해 base라는 이름을 붙임.
-FROM node:20-alpine AS base
+FROM node:22-alpine AS base
 
 # base를 기반으로 하는 새로운 빌드 스테이지(builder)를 생성.
 # apk update → Alpine 패키지 관리자를 업데이트.
