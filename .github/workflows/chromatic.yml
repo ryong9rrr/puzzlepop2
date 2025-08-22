@@ -1,30 +1,37 @@
-# Workflow name
-name: "Chromatic Deployment"
+name: Chromatic Publish
 
-# Event for the workflow
-on: push
+# main 브랜치에 푸시될 때, apps/storybook 디렉토리의 변경 사항이 있을 때 Chromatic 배포
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/storybook/**"
+      - ".github/workflows/chromatic.yml"
 
-# List of jobs
 jobs:
   chromatic:
-    name: "Run Chromatic"
+    name: Run Chromatic
     runs-on: ubuntu-latest
-    # Job steps
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: "Install dependencies"
-        run: yarn
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "yarn"
 
-        #👇 Adds Chromatic as a step in the workflow
+      # 루트에서 의존성 설치 (모노레포 전체)
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
       - name: Publish Chromatic
         uses: chromaui/action@latest
-        # Options required for Chromatic's GitHub Action
         with:
           workingDir: apps/storybook
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/ko/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
