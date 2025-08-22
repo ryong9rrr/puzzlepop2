@@ -40,3 +40,6 @@ yarn-error.log*
 **/node_modules/
 **/dist/*
 dist
+
+# apps/storybook 빌드 파일
+apps/storybook/storybook-static

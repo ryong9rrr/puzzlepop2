@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { ToastProvider, useToast } from "@puzzlepop2/react-hooks-toast";
 import { Button } from "@puzzlepop2/react-components-button";
+import { vars } from "@puzzlepop2/themes";
 
 const meta = {
   title: "Hooks/Toast",
@@ -26,7 +27,7 @@ const DefaultStory = () => {
         });
       }}
     >
-      Click me
+      기본 토스트
     </Button>
   );
 };
@@ -43,12 +44,13 @@ const CustomStory = () => {
           },
           duration: 1000,
           style: {
-            border: "3px solid blue",
+            backgroundColor: vars.colors.grey[50],
+            border: `2px solid ${vars.colors.grey[300]}`,
           },
         });
       }}
     >
-      Click me
+      커스텀 토스트
     </Button>
   );
 };
