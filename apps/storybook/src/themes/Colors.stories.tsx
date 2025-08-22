@@ -21,6 +21,7 @@ const RenderStory = () => {
                 style={{
                   width: "100px",
                   height: "100px",
+                  // @ts-ignore
                   backgroundColor: vars.colors[color][level],
                 }}
               >
