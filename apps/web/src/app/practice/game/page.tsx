@@ -4,12 +4,13 @@ import { Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { ModalServerProvider } from "@shared-components/server-providers/ModalServerProvider";
 import { ToastServerProvider } from "@shared-components/server-providers/ToastServerProvider";
 import { ImageBackground } from "@shared-components/ImageBackground";
+import { PageHeader } from "@shared-components/PageHeader";
+import { CardGridLayout } from "@shared-components/CardGridLayout";
 
 import * as CDN from "@remotes-cdn/images";
 
 import { CardGrid } from "./CardGrid";
 import { useSelectPuzzleStore } from "./useSelectPuzzleStore";
-import MODULE_CSS from "./page.module.css";
 
 export default function Page() {
   const { selectedPuzzle } = useSelectPuzzleStore();
@@ -19,8 +20,8 @@ export default function Page() {
       <ImageBackground
         src={selectedPuzzle ? selectedPuzzle.originImgSrc : CDN.BACKGROUND_PRACTICE}
       />
-
-      <div className={MODULE_CSS["grid-layout"]}>
+      <PageHeader />
+      <CardGridLayout>
         <ToastServerProvider>
           <ModalServerProvider>
             <Text size="lg" className="font-gameTitle">
@@ -30,7 +31,7 @@ export default function Page() {
             <CardGrid />
           </ModalServerProvider>
         </ToastServerProvider>
-      </div>
+      </CardGridLayout>
     </main>
   );
 }
