@@ -4,6 +4,12 @@ import { Box, Flex } from "@puzzlepop2/react-components-layout";
 
 const colorLevels: ColorLevel[] = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
 
+const getColors = (): (keyof typeof vars.colors)[] => {
+  return Object.keys(vars.colors).filter(
+    color => color !== "white" && color !== "black",
+  ) as (keyof typeof vars.colors)[];
+};
+
 const RenderStory = () => {
   return (
     <div
@@ -11,24 +17,21 @@ const RenderStory = () => {
         fontSize: "12px",
       }}
     >
-      {Object.keys(vars.colors).map(color => (
-        <Flex>
-          {color !== "black" &&
-            color !== "white" &&
-            colorLevels.map(level => (
-              <Box
-                key={level}
-                style={{
-                  width: "100px",
-                  height: "100px",
-                  // @ts-ignore
-                  backgroundColor: vars.colors[color][level],
-                }}
-              >
-                {color}
-                {level}
-              </Box>
-            ))}
+      {getColors().map(color => (
+        <Flex key={color}>
+          {colorLevels.map(level => (
+            <Box
+              key={level}
+              style={{
+                width: "100px",
+                height: "100px",
+                backgroundColor: vars.colors[color][level],
+              }}
+            >
+              {color}
+              {level}
+            </Box>
+          ))}
         </Flex>
       ))}
     </div>
