@@ -11,22 +11,25 @@ import * as CDN from "@remotes-cdn/images";
 import MODULE_CSS from "./PageHeader.module.css";
 
 export const PageHeader = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
   const linkItemTextRef1 = useRef<HTMLAnchorElement>(null);
   const linkItemTextRef2 = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!linkItemTextRef1.current || !linkItemTextRef2.current) {
+      if (!containerRef.current || !linkItemTextRef1.current || !linkItemTextRef2.current) {
         return;
       }
 
-      if (window.scrollY > 0) {
-        linkItemTextRef1.current.classList.add(MODULE_CSS["link-item-text-border"]);
-        linkItemTextRef2.current.classList.add(MODULE_CSS["link-item-text-border"]);
-      } else {
+      if (window.scrollY === 0) {
+        containerRef.current.classList.remove(MODULE_CSS["container-border-bottom"]);
         linkItemTextRef1.current.classList.remove(MODULE_CSS["link-item-text-border"]);
         linkItemTextRef2.current.classList.remove(MODULE_CSS["link-item-text-border"]);
+        return;
       }
+      containerRef.current.classList.add(MODULE_CSS["container-border-bottom"]);
+      linkItemTextRef1.current.classList.add(MODULE_CSS["link-item-text-border"]);
+      linkItemTextRef2.current.classList.add(MODULE_CSS["link-item-text-border"]);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -39,6 +42,7 @@ export const PageHeader = () => {
   return (
     <>
       <Flex
+        ref={containerRef}
         justify="center"
         align="center"
         className={MODULE_CSS.container}

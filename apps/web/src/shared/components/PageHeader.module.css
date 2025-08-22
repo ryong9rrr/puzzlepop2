@@ -11,6 +11,10 @@
   background: rgba(255, 255, 255, 0.4);
 }
 
+.container-border-bottom {
+  border-bottom: 1px solid var(--grey-300);
+}
+
 .logo {
   transition: transform 0.2s ease-in-out;
   cursor: pointer;
@@ -42,8 +46,8 @@
 }
 
 .link-item-text-border {
-  border-color: var(--orange-100);
-  background-color: var(--orange-50);
+  border: 1px solid var(--grey-500);
+  background-color: var(--grey-100);
 
   &:hover {
     border-color: var(--yellow-600);

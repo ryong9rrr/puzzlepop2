@@ -1,9 +1,10 @@
 import Image from "next/image";
 
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
-import { vars } from "@puzzlepop2/themes";
+import { Z_INDEX, vars } from "@puzzlepop2/themes";
 import { AlertServerProvider } from "@shared-components/server-providers/AlertServerProvider";
 import { ImageBackground } from "@shared-components/ImageBackground";
+import { PageFooter } from "@shared-components/PageFooter";
 
 import * as CDN from "@remotes-cdn/images";
 
@@ -62,6 +63,17 @@ export default function Page() {
           </AlertServerProvider>
         </Flex>
       </Flex>
+      <div
+        style={{
+          position: "fixed",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          zIndex: Z_INDEX.DIMMED_Z_INDEX - 1,
+        }}
+      >
+        <PageFooter />
+      </div>
     </main>
   );
 }
