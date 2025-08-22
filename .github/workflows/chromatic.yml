@@ -1,6 +1,5 @@
 name: Chromatic Publish
 
-# main 브랜치에 푸시될 때, apps/storybook 디렉토리의 변경 사항이 있을 때 Chromatic 배포
 on:
   push:
     branches: [main]
@@ -10,9 +9,7 @@ on:
 
 jobs:
   chromatic:
-    name: Run Chromatic
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,13 +22,15 @@ jobs:
           node-version: "22"
           cache: "yarn"
 
-      # 루트에서 의존성 설치 (모노레포 전체)
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Turbo Build
+        run: yarn build:storybook
+
       - name: Publish Chromatic
-        uses: chromaui/action@latest
+        uses: chromaui/action@v1
         with:
-          workingDir: apps/storybook
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          storybookBuildDir: apps/storybook/storybook-static

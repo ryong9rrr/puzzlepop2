@@ -7,7 +7,7 @@
     "clean": "rm -rf node_modules && rm -rf .turbo && rm -rf dist",
     "dev": "",
     "dev:vite": "vite",
-    "build": "",
+    "build": "yarn build-storybook",
     "build:vite": "tsc -b && vite build",
     "lint": "eslint ./src",
     "preview": "vite preview",

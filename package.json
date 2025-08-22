@@ -15,6 +15,7 @@
     "graph": "turbo run build --graph",
     "clean": "turbo run clean && rm -rf .turbo && rm -rf node_modules && rm -rf yarn.lock",
     "build": "turbo run build",
+    "build:storybook": "turbo run build --filter=storybook",
     "dev": "turbo run dev",
     "dev:web": "turbo run dev --filter=web"
   },
