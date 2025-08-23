@@ -1,7 +1,7 @@
 # PuzzlePop2 Monorepo
 
-[🧩 퍼즐팝 메인 서비스](https://puzzlepop.site)
-[🎨 스토리북](https://www.chromatic.com/library?appId=68a89c409f8f3128db57d129)
+- [🧩 퍼즐팝 메인 서비스](https://puzzlepop.site)
+- [🎨 스토리북](https://www.chromatic.com/library?appId=68a89c409f8f3128db57d129)
 
 ### Environment
 
