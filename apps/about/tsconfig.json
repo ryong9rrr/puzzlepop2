@@ -1,0 +1,25 @@
+{
+  "extends": "@puzzlepop2/ts-config/base.json",
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "allowSyntheticDefaultImports": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@public/*": ["/public/*"],
+      "@themes/*": ["./src/themes/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

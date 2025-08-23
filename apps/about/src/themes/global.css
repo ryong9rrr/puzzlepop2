@@ -1,0 +1,15 @@
+@import "animate.css";
+@import "./reset.css";
+@import "./animations.css";
+@import "@puzzlepop2/themes/themes.css";
+@import "@puzzlepop2/react-components-layout/style.css";
+@import "@puzzlepop2/react-components-button/style.css";
+@import "@puzzlepop2/react-components-input/style.css";
+@import "@puzzlepop2/react-hooks-modal/style.css";
+@import "@puzzlepop2/react-hooks-alert/style.css";
+@import "@puzzlepop2/react-hooks-toast/style.css";
+@import "@puzzlepop2/react-components-card/style.css";
+
+body {
+  font-family: "Pretendard-Regular", sans-serif;
+}

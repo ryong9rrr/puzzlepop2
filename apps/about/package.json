@@ -1,0 +1,47 @@
+{
+  "name": "about",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "clean": "rm -rf .next && rm -rf node_modules && rm -rf .turbo",
+    "dev": "next dev --port 3001",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx"
+  },
+  "dependencies": {
+    "@lottiefiles/dotlottie-react": "^0.14.4",
+    "@puzzlepop2/react-components-button": "*",
+    "@puzzlepop2/react-components-input": "*",
+    "@puzzlepop2/react-components-layout": "*",
+    "@puzzlepop2/react-components-card": "*",
+    "@puzzlepop2/react-hooks-alert": "*",
+    "@puzzlepop2/react-hooks-base": "*",
+    "@puzzlepop2/react-hooks-modal": "*",
+    "@puzzlepop2/react-hooks-toast": "*",
+    "@puzzlepop2/themes": "*",
+    "@puzzlepop2/ts-config": "*",
+    "animate.css": "^4.1.1",
+    "clsx": "^2.1.1",
+    "lottie-web": "^5.12.2",
+    "motion": "^12.4.2",
+    "next": "15.1.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "4.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.7",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@typescript-eslint/eslint-plugin": "^8.37.0",
+    "@typescript-eslint/parser": "^8.37.0",
+    "eslint": "^8.48.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-json-format": "^2.0.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "typescript": "5.0.4"
+  }
+}

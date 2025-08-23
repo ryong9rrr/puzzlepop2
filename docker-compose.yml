@@ -11,3 +11,12 @@ services:
     restart: always
     ports:
       - 3000:3000
+
+  about:
+    container_name: about
+    build:
+      context: .
+      dockerfile: ./apps/about/Dockerfile
+    restart: always
+    ports:
+      - 3001:3001

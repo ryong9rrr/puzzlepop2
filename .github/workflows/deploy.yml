@@ -24,6 +24,11 @@ jobs:
           docker build -t ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web -f apps/web/Dockerfile .
           docker push ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web
 
+      - name: about Docker 이미지 빌드 & 푸시
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:about -f apps/about/Dockerfile .
+          docker push ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:about
+
   deploy:
     runs-on: ubuntu-22.04-arm
     needs: build_and_push
@@ -40,6 +45,7 @@ jobs:
             cd /root/puzzlepop2
             docker-compose down
             docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:web || true
+            docker rmi ${{ secrets.DOCKER_USERNAME }}/puzzlepop2:about || true
             docker-compose pull
             docker-compose up -d
             docker image prune -f
