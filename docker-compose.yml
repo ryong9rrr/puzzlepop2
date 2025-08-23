@@ -9,6 +9,8 @@ services:
       context: .
       dockerfile: ./apps/web/Dockerfile
     restart: always
+    environment:
+      - PORT=3000
     ports:
       - 3000:3000
 
@@ -18,5 +20,7 @@ services:
       context: .
       dockerfile: ./apps/about/Dockerfile
     restart: always
+    environment:
+      - PORT=3001
     ports:
       - 3001:3001
