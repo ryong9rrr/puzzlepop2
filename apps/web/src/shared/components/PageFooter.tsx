@@ -24,7 +24,7 @@ export const PageFooter = () => {
           Github
         </Link>{" "}
         |{" "}
-        <Link href="#" target="_blank">
+        <Link href="https://about.puzzlepop.site/about-us" target="_blank">
           About Us
         </Link>
       </span>

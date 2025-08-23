@@ -1,14 +1,16 @@
 import Image from "next/image";
+import Link from "next/link";
 
+import { Button } from "@puzzlepop2/react-components-button";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Z_INDEX, vars } from "@puzzlepop2/themes";
-import { AlertServerProvider } from "@shared-components/server-providers/AlertServerProvider";
 import { ImageBackground } from "@shared-components/ImageBackground";
 import { PageFooter } from "@shared-components/PageFooter";
 
-import * as CDN from "@remotes-cdn/images";
+import { SafeLink } from "@router/SafeLink";
 
-import { Menu } from "./Menu";
+import * as CDN from "@remotes-cdn/images";
+import MODULE_CSS from "./page.module.css";
 
 export default function Page() {
   return (
@@ -58,9 +60,29 @@ export default function Page() {
               </Text>
             </Flex>
           </div>
-          <AlertServerProvider>
-            <Menu />
-          </AlertServerProvider>
+          <Flex direction="column" className="font-gameOutline" gapScale={0.4}>
+            <SafeLink href="/practice/game" className={MODULE_CSS["hover-grow"]}>
+              <Button key="연습모드" variant="shadow" size="lg">
+                연습모드
+              </Button>
+            </SafeLink>
+
+            <SafeLink href="/multi/cooperation" className={MODULE_CSS["hover-grow"]}>
+              <Button key="멀티게임" variant="shadow" size="lg">
+                멀티게임
+              </Button>
+            </SafeLink>
+
+            <Link
+              href="https://about.puzzlepop.site/patch-note"
+              target="_blank"
+              className={MODULE_CSS["hover-grow"]}
+            >
+              <Button key="패치노트" variant="shadow" size="lg">
+                패치노트
+              </Button>
+            </Link>
+          </Flex>
         </Flex>
       </Flex>
       <div
