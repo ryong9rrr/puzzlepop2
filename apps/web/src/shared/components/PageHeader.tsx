@@ -21,15 +21,14 @@ export const PageHeader = () => {
         return;
       }
 
-      if (window.scrollY === 0) {
-        containerRef.current.classList.remove(MODULE_CSS["container-border-bottom"]);
-        linkItemTextRef1.current.classList.remove(MODULE_CSS["link-item-text-border"]);
-        linkItemTextRef2.current.classList.remove(MODULE_CSS["link-item-text-border"]);
+      const isTop = window.scrollY === 0;
+
+      if (isTop) {
+        containerRef.current.classList.remove(MODULE_CSS["container-sticking"]);
         return;
       }
-      containerRef.current.classList.add(MODULE_CSS["container-border-bottom"]);
-      linkItemTextRef1.current.classList.add(MODULE_CSS["link-item-text-border"]);
-      linkItemTextRef2.current.classList.add(MODULE_CSS["link-item-text-border"]);
+
+      containerRef.current.classList.add(MODULE_CSS["container-sticking"]);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -63,18 +62,14 @@ export const PageHeader = () => {
               <Logo />
             </SafeLink>
 
-            <Flex gap={8} className="font-gameTitle">
-              <SafeLink
-                href="/practice/game"
-                ref={linkItemTextRef1}
-                className={MODULE_CSS["link-item-text"]}
-              >
+            <Flex className="font-gameTitle">
+              <SafeLink href="/practice/game" ref={linkItemTextRef1} className={MODULE_CSS["link"]}>
                 연습모드
               </SafeLink>
               <SafeLink
                 href="/multi/cooperation"
                 ref={linkItemTextRef2}
-                className={MODULE_CSS["link-item-text"]}
+                className={MODULE_CSS["link"]}
               >
                 멀티게임
               </SafeLink>
@@ -93,8 +88,8 @@ const Logo = ({ onClick }: { onClick?: () => void }) => {
       <Image
         src={cdns.symbols.logo}
         alt="logo"
-        width={50}
-        height={50}
+        width={45}
+        height={45}
         priority
         style={{
           objectFit: "contain",

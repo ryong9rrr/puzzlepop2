@@ -3,54 +3,39 @@
   top: 0;
   left: 0;
   right: 0;
-
   padding: 0 16px;
-
   height: 60px;
+
   backdrop-filter: blur(7px);
   background: rgba(255, 255, 255, 0.4);
 }
 
-.container-border-bottom {
-  border-bottom: 1px solid var(--grey-300);
+.container-sticking {
+  border-bottom: 1px solid var(--grey-400);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .logo {
-  transition: transform 0.2s ease-in-out;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 
   &:hover {
     transform: scale(1.1);
   }
 }
 
-.link-item-text {
+.link {
   font-size: 28px;
   padding: 10px 16px;
-
   border-radius: 4px;
-
   border: 1px solid transparent;
-
-  color: var(--grey-700);
   cursor: pointer;
+  font-weight: 800;
 
-  transition:
-    background-color 0.1s ease-in,
-    color 0.1s ease-in;
-
+  color: var(--grey-600);
+  transition: color 0.1s ease-in;
   &:hover {
-    background-color: var(--yellow-500);
-    color: white;
-  }
-}
-
-.link-item-text-border {
-  border: 1px solid var(--grey-500);
-  background-color: var(--grey-100);
-
-  &:hover {
-    border-color: var(--yellow-600);
+    color: var(--grey-900);
   }
 }
 
