@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { cdns } from "@puzzlepop2/cdn";
 import { Button } from "@puzzlepop2/react-components-button";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Z_INDEX, vars } from "@puzzlepop2/themes";
@@ -9,18 +10,17 @@ import { PageFooter } from "@shared-components/PageFooter";
 
 import { SafeLink } from "@router/SafeLink";
 
-import * as CDN from "@remotes-cdn/images";
 import MODULE_CSS from "./page.module.css";
 
 export default function Page() {
   return (
     <main style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-      <ImageBackground src={CDN.MOVING_PUZZLE} />
+      <ImageBackground src={cdns.backgrounds["bg-moving-puzzle-gif"]} />
       <Flex justify="center" align="center" style={{ width: "100%", height: "100vh" }}>
         <Flex justify="center" align="center" direction="column" gapScale={1}>
           <div className="bounceInBack" style={{ width: "6rem" }}>
             <Image
-              src={CDN.LOGO}
+              src={cdns.symbols["logo"]}
               alt="logo"
               width={1}
               height={1}

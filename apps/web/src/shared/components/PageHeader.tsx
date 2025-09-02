@@ -2,12 +2,12 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
-import { Flex } from "@puzzlepop2/react-components-layout";
+import { cdns } from "@puzzlepop2/cdn";
 import { Z_INDEX } from "@puzzlepop2/themes";
+import { Flex } from "@puzzlepop2/react-components-layout";
 
 import { SafeLink } from "@router/SafeLink";
 
-import * as CDN from "@remotes-cdn/images";
 import MODULE_CSS from "./PageHeader.module.css";
 
 export const PageHeader = () => {
@@ -91,7 +91,7 @@ const Logo = ({ onClick }: { onClick?: () => void }) => {
   return (
     <Flex className={MODULE_CSS.logo} justify="center" align="center" onClick={onClick}>
       <Image
-        src={CDN.LOGO}
+        src={cdns.symbols.logo}
         alt="logo"
         width={50}
         height={50}

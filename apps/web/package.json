@@ -21,6 +21,7 @@
     "@puzzlepop2/react-hooks-toast": "*",
     "@puzzlepop2/themes": "*",
     "@puzzlepop2/ts-config": "*",
+    "@puzzlepop2/cdn": "*",
     "@stomp/stompjs": "^7.1.1",
     "animate.css": "^4.1.1",
     "clsx": "^2.1.1",

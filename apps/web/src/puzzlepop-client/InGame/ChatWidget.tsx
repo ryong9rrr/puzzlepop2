@@ -4,10 +4,9 @@ import { RiArrowDropDownFill as ArrowDown } from "react-icons/ri";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import { cdns } from "@puzzlepop2/cdn";
 import { vars, Z_INDEX } from "@puzzlepop2/themes";
 import { Flex, Text } from "@puzzlepop2/react-components-layout";
-
-import * as CDN from "@remotes-cdn/images";
 
 import { useChatStore } from "../stores/useChatStore";
 import { ChatInput } from "../ChatInput";
@@ -96,7 +95,7 @@ const ChatIcon = ({
       )}
       <Image
         className={isShowAlarm ? "animate__animated animate__swing animate__repeat-3" : ""}
-        src={CDN.GROUP_CHAT}
+        src={cdns.games["group-chat-gif"]}
         alt="chatIcon"
         width={60}
         height={60}

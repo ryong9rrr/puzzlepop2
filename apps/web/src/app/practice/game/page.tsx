@@ -1,5 +1,6 @@
 "use client";
 
+import { cdns } from "@puzzlepop2/cdn";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { ModalServerProvider } from "@shared-components/server-providers/ModalServerProvider";
 import { ToastServerProvider } from "@shared-components/server-providers/ToastServerProvider";
@@ -7,8 +8,6 @@ import { ImageBackground } from "@shared-components/ImageBackground";
 import { CardGridLayout } from "@shared-components/CardGridLayout";
 import { PageHeader } from "@shared-components/PageHeader";
 import { PageFooter } from "@shared-components/PageFooter";
-
-import * as CDN from "@remotes-cdn/images";
 
 import { CardGrid } from "./CardGrid";
 import { useSelectPuzzleStore } from "./useSelectPuzzleStore";
@@ -20,7 +19,7 @@ export default function Page() {
     <Flex direction="column" style={{ minHeight: "100vh" }}>
       <main style={{ position: "relative", flex: 1 }}>
         <ImageBackground
-          src={selectedPuzzle ? selectedPuzzle.originImgSrc : CDN.BACKGROUND_PRACTICE}
+          src={selectedPuzzle ? selectedPuzzle.originImgSrc : cdns.backgrounds["bg-singlegame-gif"]}
         />
         <PageHeader />
         <CardGridLayout>

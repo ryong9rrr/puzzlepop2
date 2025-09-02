@@ -4,12 +4,12 @@ import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+import { cdns } from "@puzzlepop2/cdn";
 import { Button } from "@puzzlepop2/react-components-button";
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 import { Z_INDEX, vars } from "@puzzlepop2/themes";
 
 import { useSafeRouter } from "@router/useSafeRouter";
-import * as CDN from "@remotes-cdn/images";
 
 export const FinishOverlay = () => {
   const router = useSafeRouter();
@@ -67,7 +67,7 @@ export const FinishOverlay = () => {
         }}
       >
         <Image
-          src={CDN.WIN}
+          src={cdns.games["you-win-gif"]}
           alt=""
           width={1}
           height={1}

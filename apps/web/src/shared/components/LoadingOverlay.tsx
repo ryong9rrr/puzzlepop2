@@ -2,10 +2,9 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { cdns } from "@puzzlepop2/cdn";
 import { vars, Z_INDEX } from "@puzzlepop2/themes";
 import { Flex } from "@puzzlepop2/react-components-layout";
-
-import * as CDN from "@remotes-cdn/images";
 
 interface Props {
   isLoadingComplete: boolean;
@@ -48,7 +47,7 @@ export const LoadingOverlay = ({ isLoadingComplete }: Props) => {
       }}
     >
       <Image
-        src={CDN.LOADING_PUZZLE}
+        src={cdns.games["loading-puzzle-gif"]}
         alt=""
         priority
         unoptimized

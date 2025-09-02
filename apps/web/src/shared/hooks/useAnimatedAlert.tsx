@@ -2,19 +2,19 @@
 
 import Image from "next/image";
 import { useCallback } from "react";
+import { cdns } from "@puzzlepop2/cdn";
 import { Flex } from "@puzzlepop2/react-components-layout";
 import { useAlert } from "@puzzlepop2/react-hooks-alert";
-import * as CDN from "@remotes-cdn/images";
 
 type AlertType = "developing" | "error";
 
 const AlertMapper: Record<AlertType, { src: string; description: string }> = {
   developing: {
-    src: CDN.DEVELOPING,
+    src: cdns.symbols.developing,
     description: "개발 중인 기능이에요",
   },
   error: {
-    src: CDN.WARNING,
+    src: cdns.symbols.warning,
     description: "오류가 발생했어요. 다시 시도해주세요.",
   },
 };

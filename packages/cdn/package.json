@@ -1,0 +1,26 @@
+{
+  "name": "@puzzlepop2/cdn",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf dist && rm -rf node_modules && rm -rf .turbo",
+    "build": "yarn build:js && yarn build:type",
+    "build:watch": "node build.js --watch",
+    "build:js": "node build.js",
+    "build:type": "tsc --emitDeclarationOnly"
+  },
+  "dependencies": {
+    "@puzzlepop2/esbuild-config": "*",
+    "@puzzlepop2/ts-config": "*",
+    "typescript": "5.0.4"
+  }
+}

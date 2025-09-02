@@ -1,10 +1,9 @@
 "use client";
 
+import { cdns } from "@puzzlepop2/cdn";
 import { AlertProvider } from "@puzzlepop2/react-hooks-alert";
 import { LoadingOverlay } from "@shared-components/LoadingOverlay";
 import { ImageBackground } from "@shared-components/ImageBackground";
-
-import * as CDN from "@remotes-cdn/images";
 
 import { WaitingPage } from "./Waiting/WaitingPage";
 import { InGamePage } from "./InGame/InGamePage";
@@ -27,7 +26,7 @@ export const GamePageRouter = (props: Props) => {
 
       {pageStatus === "waiting" && (
         <main style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-          <ImageBackground src={CDN.BACKGROUND_BLUE_MOON} />
+          <ImageBackground src={cdns.backgrounds["bg-moon-blue-gif"]} />
           <AlertProvider>
             <WaitingPage roomId={roomId} />
           </AlertProvider>
@@ -36,7 +35,7 @@ export const GamePageRouter = (props: Props) => {
 
       {pageStatus === "inGame" && (
         <main style={{ position: "relative", height: "100vh", overflow: "hidden" }}>
-          <ImageBackground src={CDN.BACKGROUND_BLUE_TRAIN} />
+          <ImageBackground src={cdns.backgrounds["bg-team-blue-gif"]} />
           <InGamePage roomId={roomId} gameType={gameType} />
         </main>
       )}

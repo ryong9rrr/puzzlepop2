@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import { Suspense, useState } from "react";
+import { cdns } from "@puzzlepop2/cdn";
 import { SkeletonCircle } from "@puzzlepop2/react-components-layout";
-
-import userAvatarDefaultSvg from "@public/svgs/user-avatar-default.svg";
 
 interface Props {
   size: number | string;
@@ -22,7 +21,7 @@ export const Avatar = (props: Props) => {
         <Image
           priority
           alt=""
-          src={userAvatarDefaultSvg}
+          src={cdns.symbols["user-avatar-default-svg"]}
           width={600}
           height={600}
           style={{
@@ -36,7 +35,7 @@ export const Avatar = (props: Props) => {
         <Image
           priority
           alt=""
-          src={src || userAvatarDefaultSvg}
+          src={src || cdns.symbols["user-avatar-default-svg"]}
           width={600}
           height={600}
           style={{
