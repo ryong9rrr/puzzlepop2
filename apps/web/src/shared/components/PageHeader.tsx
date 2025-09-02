@@ -12,12 +12,10 @@ import MODULE_CSS from "./PageHeader.module.css";
 
 export const PageHeader = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const linkItemTextRef1 = useRef<HTMLAnchorElement>(null);
-  const linkItemTextRef2 = useRef<HTMLAnchorElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (!containerRef.current || !linkItemTextRef1.current || !linkItemTextRef2.current) {
+      if (!containerRef.current) {
         return;
       }
 
@@ -63,14 +61,10 @@ export const PageHeader = () => {
             </SafeLink>
 
             <Flex className="font-gameTitle">
-              <SafeLink href="/practice/game" ref={linkItemTextRef1} className={MODULE_CSS["link"]}>
+              <SafeLink href="/practice/game" className={MODULE_CSS["link"]}>
                 연습모드
               </SafeLink>
-              <SafeLink
-                href="/multi/cooperation"
-                ref={linkItemTextRef2}
-                className={MODULE_CSS["link"]}
-              >
+              <SafeLink href="/multi/cooperation" className={MODULE_CSS["link"]}>
                 멀티게임
               </SafeLink>
             </Flex>
