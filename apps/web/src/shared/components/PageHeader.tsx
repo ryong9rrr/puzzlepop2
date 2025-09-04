@@ -4,11 +4,13 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { cdns } from "@puzzlepop2/cdn";
 import { Z_INDEX } from "@puzzlepop2/themes";
-import { Flex } from "@puzzlepop2/react-components-layout";
+import { Flex, Spacing } from "@puzzlepop2/react-components-layout";
 
 import { SafeLink } from "@router/SafeLink";
 
 import MODULE_CSS from "./PageHeader.module.css";
+
+const HEADER_HEIGHT = 60;
 
 export const PageHeader = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -22,11 +24,11 @@ export const PageHeader = () => {
       const isTop = window.scrollY === 0;
 
       if (isTop) {
-        containerRef.current.classList.remove(MODULE_CSS["container-sticking"]);
+        containerRef.current.classList.remove(MODULE_CSS["container-scrolling"]);
         return;
       }
 
-      containerRef.current.classList.add(MODULE_CSS["container-sticking"]);
+      containerRef.current.classList.add(MODULE_CSS["container-scrolling"]);
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -38,12 +40,14 @@ export const PageHeader = () => {
 
   return (
     <>
+      <Spacing size={HEADER_HEIGHT} />
       <Flex
         ref={containerRef}
         justify="center"
         align="center"
         className={MODULE_CSS.container}
         style={{
+          height: HEADER_HEIGHT,
           zIndex: Z_INDEX.DIMMED_Z_INDEX - 1,
         }}
       >

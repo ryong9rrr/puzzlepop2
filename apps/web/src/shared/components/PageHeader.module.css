@@ -1,16 +1,15 @@
 .container {
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
   padding: 0 16px;
-  height: 60px;
 
   backdrop-filter: blur(7px);
   background: rgba(255, 255, 255, 0.4);
 }
 
-.container-sticking {
+.container-scrolling {
   border-bottom: 1px solid var(--grey-400);
   background: rgba(255, 255, 255, 0.9);
 }
