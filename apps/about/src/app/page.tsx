@@ -3,6 +3,8 @@ import { PropsWithChildren } from "react";
 
 import { Flex, Spacing, Text } from "@puzzlepop2/react-components-layout";
 
+import { releases } from "@puzzlepop2/cdn";
+
 import { PageLayout } from "./PageLayout";
 import { Main } from "./Main";
 import { FadeInViewport } from "./FadeInViewport";
@@ -20,7 +22,7 @@ export default function Page() {
                 온라인으로 함께 퍼즐을 맞춰보세요.
               </Text>
               <Spacing scale={1} />
-              <SectionImage src="/release-0.2.0/cooperation.gif" />
+              <SectionImage src={releases.release_0_2_0["cooperation"]} />
             </Section>
           </FadeInViewport>
 
@@ -30,7 +32,7 @@ export default function Page() {
                 콤보로 더 빠르게 맞춰보세요.
               </Text>
               <Spacing scale={1} />
-              <SectionImage src="/release-0.2.0/combo.gif" />
+              <SectionImage src={releases.release_0_2_0["combo"]} />
             </Section>
           </FadeInViewport>
 
@@ -40,7 +42,7 @@ export default function Page() {
                 최대 8명까지 지원해요.
               </Text>
               <Spacing scale={1} />
-              <SectionImage src="/release-0.2.0/create-room.gif" />
+              <SectionImage src={releases.release_0_2_0["create-room"]} />
             </Section>
           </FadeInViewport>
 
@@ -50,9 +52,9 @@ export default function Page() {
                 채팅으로 소통해요.
               </Text>
               <Spacing scale={1} />
-              <SectionImage src="/release-0.2.0/chat-waiting.gif" />
+              <SectionImage src={releases.release_0_2_0["chat-waiting"]} />
               <Spacing scale={1} />
-              <SectionImage src="/release-0.2.0/chat-ingame.gif" />
+              <SectionImage src={releases.release_0_2_0["chat-ingame"]} />
             </Section>
           </FadeInViewport>
 
@@ -62,7 +64,7 @@ export default function Page() {
                 URL로 초대해요.
               </Text>
               <Spacing scale={1} />
-              <SectionImage src="/release-0.2.0/chat-waiting.gif" />
+              <SectionImage src={releases.release_0_2_0["enter-room-url"]} />
             </Section>
           </FadeInViewport>
         </Flex>

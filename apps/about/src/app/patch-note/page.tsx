@@ -14,7 +14,7 @@ export default function Page() {
         <Text bold>패치노트</Text>
         <Spacing scale={1} />
         <Flex as="ul" direction="column">
-          <List href="/patch-note/release-0.2.0" date="2023-02-20">
+          <List href="/patch-note/release-0.2.0" date="2025-08-08">
             클라이언트 0.2.0 업데이트 안내
           </List>
         </Flex>
