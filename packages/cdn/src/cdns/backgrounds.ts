@@ -12,4 +12,5 @@ export const backgrounds = {
   ["bg-team-red-thumbnail"]: `${END_POINT}/bg-team-red-thumbnail.webp`,
   ["bg-team-blue-gif"]: `${END_POINT}/bg-team-blue.webp`,
   ["bg-team-blue-thumbnail"]: `${END_POINT}/bg-team-blue-thumbnail.webp`,
+  ["about-nav-background"]: `${END_POINT}/about-nav-background.webp`,
 };
