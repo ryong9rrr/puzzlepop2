@@ -19,6 +19,7 @@
     "@puzzlepop2/react-hooks-base": "*",
     "@puzzlepop2/react-hooks-modal": "*",
     "@puzzlepop2/react-hooks-toast": "*",
+    "@puzzlepop2/cdn": "*",
     "@puzzlepop2/themes": "*",
     "@puzzlepop2/ts-config": "*",
     "animate.css": "^4.1.1",

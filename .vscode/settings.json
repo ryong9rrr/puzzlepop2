@@ -1,4 +1,4 @@
 {
   "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": ["puzzlepop", "svgs", "stompjs"]
+  "cSpell.words": ["puzzlepop", "svgs", "stompjs", "SSAFY", "ingame"]
 }

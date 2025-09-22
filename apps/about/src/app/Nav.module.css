@@ -1,0 +1,56 @@
+.nav {
+  box-sizing: border-box;
+  padding: 0 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  z-index: 29;
+
+  color: var(--white);
+}
+
+.text-hover-underline {
+  padding-bottom: 3px;
+  background-size: 0 3px;
+  transition: background-size 0.2s;
+
+  &:hover {
+    background-size: 100% 3px;
+    background-image: linear-gradient(white, white);
+    background-repeat: no-repeat;
+    background-position: left 0 bottom 0;
+  }
+}
+
+.image-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10rem;
+  background-color: rgba(0, 0, 0, 0.4); /* 검은색 반투명 오버레이 */
+}
+
+.nav-scrolling {
+  position: fixed;
+  top: 0;
+  z-index: 29;
+  backdrop-filter: blur(10px);
+  background-color: rgba(233, 219, 187, 0.4);
+  color: var(--black);
+}
+
+.responsive-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 1024px) {
+  .responsive-logo {
+    display: none;
+  }
+}
