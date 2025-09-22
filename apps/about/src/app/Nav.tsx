@@ -53,11 +53,13 @@ export const Nav = () => {
             <Logo />
             <Spacing direction="horizontal" scale={2} />
             <Link href="/about-us">
-              <Text className={`${MODULE_CSS["text-hover-underline"]} font-gameTitle`}>소개</Text>
+              <Text size="lg" className={`${MODULE_CSS["text-hover-underline"]} font-gameTitle`}>
+                소개
+              </Text>
             </Link>
             <Spacing direction="horizontal" scale={1} />
             <Link href="/patch-note">
-              <Text className={`${MODULE_CSS["text-hover-underline"]} font-gameTitle`}>
+              <Text size="lg" className={`${MODULE_CSS["text-hover-underline"]} font-gameTitle`}>
                 패치노트
               </Text>
             </Link>

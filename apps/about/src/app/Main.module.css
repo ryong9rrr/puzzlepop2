@@ -1,0 +1,15 @@
+.main {
+  margin: 0;
+  padding: 1rem;
+}
+
+.responsive-main {
+  max-width: 100vw;
+}
+
+@media screen and (min-width: 1025px) {
+  .responsive-main {
+    max-width: 1024px;
+    margin: 0 auto;
+  }
+}
