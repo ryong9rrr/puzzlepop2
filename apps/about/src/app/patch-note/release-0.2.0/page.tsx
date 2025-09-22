@@ -17,14 +17,14 @@ export default function Page() {
             <SectionImage src="/release-0.2.0/create-room.gif" />
             <Descriptions>
               <Description>
-                1. '방 만들기' 버튼을 누르면 '방 생성 모달'이 뜨며 방을 생성할 수 있어요. (비회원도
-                생성 가능)
+                1. &apos;방 만들기&apos; 버튼을 누르면 &apos;방 생성 모달&apos;이 뜨며 방을 생성할
+                수 있어요. (비회원도 생성 가능)
               </Description>
               <Description>
                 2. 방 제목, 최대 인원 제한, 입장 닉네임을 설정하고 방을 생성해요. (유저편의성을 위해
                 자동으로 방 제목과 입장 닉네임이 채워져요)
               </Description>
-              <Description>3. ESC 버튼으로 '방 생성 모달'을 닫을 수 있어요.</Description>
+              <Description>3. ESC 버튼으로 &apos;방 생성 모달&apos;을 닫을 수 있어요.</Description>
             </Descriptions>
           </Section>
 
@@ -47,14 +47,14 @@ export default function Page() {
               <Description>1. 입장한 유저들과 채팅을 할 수 있어요.</Description>
               <Description>2. 유저의 입장과 퇴장이 시스템 메시지로 보여져요.</Description>
               <Description>
-                3. '방장'이 게임시작을 누르면 5초 카운트 뒤 인게임 뷰로 이동해요.
+                3. &apos;방장&apos;이 게임시작을 누르면 5초 카운트 뒤 인게임 뷰로 이동해요.
               </Description>
             </Descriptions>
           </Section>
 
           <Section>
             <SubTitle>
-              4. 함께 퍼즐을 맞출 수 있어요. 퍼즐을 빠르게 맞추면 '콤보'가 발동해요.
+              4. 함께 퍼즐을 맞출 수 있어요. 퍼즐을 빠르게 맞추면 &apos;콤보&apos;가 발동해요.
             </SubTitle>
             <SectionImage src="/release-0.2.0/ingame.gif" />
             <Descriptions>
@@ -83,7 +83,8 @@ export default function Page() {
             <SectionImage src="/release-0.2.0/result.gif" />
             <Descriptions>
               <Description>
-                1. 게임이 종료되면 애니메이션, 폭죽이 터지며 '게임 종료'를 알리는 모달이 보여져요.
+                1. 게임이 종료되면 애니메이션, 폭죽이 터지며 &apos;게임 종료&apos;를 알리는 모달이
+                보여져요.
               </Description>
               <Description>2. 모달을 통해 홈 화면으로 리다이렉트되요.</Description>
             </Descriptions>
