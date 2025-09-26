@@ -9,13 +9,7 @@ export const onMouseDown = (event: paper.MouseEvent, piece: CanvasPiece) => {
     initData: { me, roomId },
     redPieces,
     bluePieces,
-    isLock,
   } = canvasStaticStore.getState();
-
-  if (isLock(me.team, piece.index)) {
-    console.log("mouseDown : 다른 유저가 잡고 있는 퍼즐이에요");
-    return;
-  }
 
   const pieces = me.team === "RED" ? redPieces : bluePieces;
 
