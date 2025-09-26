@@ -11,7 +11,13 @@ export const onMouseDrag = (event: paper.MouseEvent, piece: CanvasPiece) => {
     initData: { pieceSize, roomId, me },
     redPieces,
     bluePieces,
+    isLock,
   } = canvasStaticStore.getState();
+
+  if (isLock(me.team, piece.index)) {
+    console.log("mouseDrag : 다른 유저가 잡고 있는 퍼즐이에요");
+    return;
+  }
 
   const pieces = me.team === "RED" ? redPieces : bluePieces;
 
