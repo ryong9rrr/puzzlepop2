@@ -125,6 +125,10 @@ export const useConnection = (props: Props) => {
 
         setPageStatus("inGame");
 
+        if (!isTimeTickData(_gameData)) {
+          console.log(_gameData);
+        }
+
         if (isGameFinishState(_gameData)) {
           setTimeout(() => {
             setIsFinished(true);
@@ -141,16 +145,13 @@ export const useConnection = (props: Props) => {
           lockGroupedPieces(_gameData, me);
         }
 
-        if (isBlockedEvent(_gameData)) {
-          blockGroupedPieces(_gameData, me);
-        }
-
         if (isUnLockedEvent(_gameData)) {
           unLockGroupedPieces(_gameData, me);
         }
 
         if (isMoveEvent(_gameData)) {
           moveGroupedPieces(_gameData, me);
+          lockMovingGroupedPieces(_gameData, me);
           return;
         }
 
@@ -283,60 +284,64 @@ const moveGroupedPieces = (gameData: Record<string, unknown>, me: Me) => {
 
 const lockGroupedPieces = (gameData: Record<string, unknown>, me: Me) => {
   const { targets, senderId, team } = gameData as LockedEventData;
-  const { redPieces, bluePieces } = canvasStaticStore.getState();
+  const { lock } = canvasStaticStore.getState();
 
-  if (isMe(me, senderId) || !isMyTeam(me, team)) {
+  if (!isMyTeam(me, team)) {
     return;
   }
 
-  const pieces = team === "RED" ? redPieces : bluePieces;
   const targetGroupedPieces = JSON.parse(targets) as {
     x: number;
     y: number;
     index: number;
   }[];
 
-  targetGroupedPieces.forEach(({ x, y, index }) => {
-    // TODO
-  });
+  const pieceIndexList = targetGroupedPieces.map(t => t.index);
+  lock(team, pieceIndexList, senderId);
 };
 
-const blockGroupedPieces = (gameData: Record<string, unknown>, me: Me) => {
-  const { targets, senderId, team } = gameData as BlockedEventData;
-  const { redPieces, bluePieces } = canvasStaticStore.getState();
+const lockMovingGroupedPieces = (gameData: Record<string, unknown>, me: Me) => {
+  // 중간에 들어와서 상태가 초기화된 유저를 대응하는 기능
+  const { targets, senderId, team } = gameData as LockedEventData;
+  const { isLock, lock } = canvasStaticStore.getState();
 
-  if (isMe(me, senderId) || !isMyTeam(me, team)) {
+  if (!isMyTeam(me, team)) {
     return;
   }
 
-  const pieces = team === "RED" ? redPieces : bluePieces;
   const targetGroupedPieces = JSON.parse(targets) as {
     x: number;
     y: number;
     index: number;
   }[];
 
-  targetGroupedPieces.forEach(({ x, y, index }) => {
-    // TODO
-  });
+  const pieceIndexList = targetGroupedPieces.map(t => t.index);
+
+  // 하나라도 잠금상태이면(새로 들어온 유저가 아니면) 그냥 리턴
+  for (const pieceIndex of pieceIndexList) {
+    if (isLock(team, pieceIndex)) {
+      return;
+    }
+  }
+
+  // 새로들어온 유저이므로 잠금처리
+  lock(team, pieceIndexList, senderId);
 };
 
 const unLockGroupedPieces = (gameData: Record<string, unknown>, me: Me) => {
-  const { targets, senderId, team } = gameData as BlockedEventData;
-  const { redPieces, bluePieces } = canvasStaticStore.getState();
+  const { targets, team } = gameData as LockedEventData;
+  const { unLock } = canvasStaticStore.getState();
 
-  if (isMe(me, senderId) || !isMyTeam(me, team)) {
+  if (!isMyTeam(me, team)) {
     return;
   }
 
-  const pieces = team === "RED" ? redPieces : bluePieces;
   const targetGroupedPieces = JSON.parse(targets) as {
     x: number;
     y: number;
     index: number;
   }[];
 
-  targetGroupedPieces.forEach(({ x, y, index }) => {
-    // TODO
-  });
+  const pieceIndexList = targetGroupedPieces.map(t => t.index);
+  unLock(team, pieceIndexList);
 };

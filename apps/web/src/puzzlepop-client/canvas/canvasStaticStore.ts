@@ -1,6 +1,8 @@
+import Paper from "paper";
 import { createStore } from "zustand/vanilla";
 
-import { Me, Piece, Shape } from "../types/base";
+import { Me, Piece, Shape, TeamColor } from "../types/base";
+import * as Styles from "./renders/styles";
 
 export type CanvasPiece = {
   groupId: number | null;
@@ -52,6 +54,12 @@ interface CanvasStaticStore {
   blueBundles: Piece[][];
   setBlueBundles: (blueBundles: Piece[][]) => void;
 
+  redPieceLockMap: Record<number, string>; // redPieceLockMap[피드인덱스] : 락을 건 유저닉네임
+  bluePieceLockMap: Record<number, string>; // bluePieceLockMap[피드인덱스] : 락을 건 유저닉네임
+  isLock: (team: TeamColor, pieceIndex: number) => boolean;
+  lock: (team: TeamColor, pieceIndexList: number[], userId: string) => void;
+  unLock: (team: TeamColor, pieceIndexList: number[]) => void;
+
   reset: () => void;
 }
 
@@ -90,12 +98,54 @@ export const canvasStaticStore = createStore<CanvasStaticStore>((set, get) => ({
   blueBundles: [],
   setBlueBundles: blueBundles => set({ blueBundles }),
 
+  redPieceLockMap: {},
+  bluePieceLockMap: {},
+  isLock: (team, pieceIndex) => {
+    const {
+      initData: { me },
+      redPieceLockMap,
+      bluePieceLockMap,
+    } = get();
+    const lockMap = team === "RED" ? redPieceLockMap : bluePieceLockMap;
+    const lockingUser = lockMap[pieceIndex];
+    if (lockingUser === undefined) {
+      return false;
+    }
+    return lockingUser === me.id ? false : true;
+  },
+  lock: (team, pieceIndexList, userId) => {
+    const { redPieces, bluePieces, redPieceLockMap, bluePieceLockMap } = get();
+    const pieces = team === "RED" ? redPieces : bluePieces;
+    const lockMap = team === "RED" ? redPieceLockMap : bluePieceLockMap;
+    const pieceIndexSet = new Set(pieceIndexList);
+    pieces.forEach(piece => {
+      if (pieceIndexSet.has(piece.index)) {
+        lockMap[piece.index] = userId;
+        piece.paperGroup.strokeColor = new Paper.Color("red");
+      }
+    });
+  },
+  unLock: (team, pieceIndexList) => {
+    const { redPieces, bluePieces, redPieceLockMap, bluePieceLockMap } = get();
+    const pieces = team === "RED" ? redPieces : bluePieces;
+    const lockMap = team === "RED" ? redPieceLockMap : bluePieceLockMap;
+    const pieceIndexSet = new Set(pieceIndexList);
+    pieces.forEach(piece => {
+      if (pieceIndexSet.has(piece.index)) {
+        delete lockMap[piece.index];
+        piece.paperGroup.strokeColor = new Paper.Color(Styles.BORDER_STROKE_COLOR);
+      }
+    });
+  },
+
   reset: () => {
     set({
       isInitialized: false,
       initData: getDefaultInitData(),
       redPieces: [],
       bluePieces: [],
+      redPieceLockMap: {},
+      bluePieceLockMap: {},
     });
   },
 }));
