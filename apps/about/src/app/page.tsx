@@ -19,7 +19,7 @@ export default function Page() {
           <FadeInViewport>
             <Section>
               <Text bold size="lg">
-                온라인으로 함께 퍼즐을 맞춰보세요.
+                온라인으로 함께 퍼즐을 맞춰보세요
               </Text>
               <Spacing scale={1} />
               <SectionImage src={releases.release_0_2_0["cooperation"]} />
@@ -29,7 +29,7 @@ export default function Page() {
           <FadeInViewport>
             <Section>
               <Text bold size="lg">
-                콤보로 더 빠르게 맞춰보세요.
+                콤보로 더 빠르게 맞춰보세요
               </Text>
               <Spacing scale={1} />
               <SectionImage src={releases.release_0_2_0["combo"]} />
@@ -39,7 +39,7 @@ export default function Page() {
           <FadeInViewport>
             <Section>
               <Text bold size="lg">
-                최대 8명까지 지원해요.
+                최대 8명까지 지원해요
               </Text>
               <Spacing scale={1} />
               <SectionImage src={releases.release_0_2_0["create-room"]} />
@@ -49,7 +49,7 @@ export default function Page() {
           <FadeInViewport>
             <Section>
               <Text bold size="lg">
-                채팅으로 소통해요.
+                채팅으로 소통해요
               </Text>
               <Spacing scale={1} />
               <SectionImage src={releases.release_0_2_0["chat-waiting"]} />
@@ -61,7 +61,7 @@ export default function Page() {
           <FadeInViewport>
             <Section>
               <Text bold size="lg">
-                URL로 초대해요.
+                URL로 초대해요
               </Text>
               <Spacing scale={1} />
               <SectionImage src={releases.release_0_2_0["enter-room-url"]} />
