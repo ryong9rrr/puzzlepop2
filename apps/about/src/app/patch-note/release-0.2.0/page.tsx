@@ -10,7 +10,7 @@ export default function Page() {
   return (
     <PageLayout>
       <Main>
-        <Text bold>클라이언트 0.2.0 업데이트 안내</Text>
+        <Text bold>[공지] 클라이언트 0.2.0 업데이트 안내</Text>
         <Spacing scale={1} />
 
         <Flex direction="column" gapScale={3}>
