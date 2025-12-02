@@ -6,6 +6,7 @@ import { cdns } from "@puzzlepop2/cdn";
 import { Z_INDEX } from "@puzzlepop2/themes";
 import { Flex, Spacing } from "@puzzlepop2/react-components-layout";
 
+import { moneygraphyPixelFont } from "@themes/fonts/Moneygraphy";
 import { SafeLink } from "@router/SafeLink";
 
 import MODULE_CSS from "./PageHeader.module.css";
@@ -64,7 +65,7 @@ export const PageHeader = () => {
               <Logo />
             </SafeLink>
 
-            <Flex className="font-gameTitle">
+            <Flex className={moneygraphyPixelFont.className}>
               <SafeLink href="/practice/game" className={MODULE_CSS["link"]}>
                 연습모드
               </SafeLink>
